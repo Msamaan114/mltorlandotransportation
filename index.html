@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MLT Orlando Transportation | Airport & Theme Park Transfers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="MLT Orlando Transportation offers private transfers to and from MCO, SFB, Disney World, Universal Studios and Cape Canaveral."
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: #f9fafb;
+      padding: 1rem 5vw;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: #38bdf8;
+      color: #0b1120;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 5vw 4rem;
+    }
+
+    /* Hero section */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+      padding: 3rem 0 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-highlight {
+      display: inline-block;
+      background: #0f172a;
+      color: #f9fafb;
+      padding: 0.25rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .hero-stat {
+      min-width: 120px;
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.2rem;
+    }
+
+    .hero-stat span {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .hero-card {
+      background: #0b1120;
+      color: #e5e7eb;
+      border-radius: 1.5rem;
+      padding: 1.75rem;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.6);
+    }
+
+    .hero-card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-card-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin: 0.35rem 0;
+    }
+
+    .hero-card-label {
+      color: #9ca3af;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(59, 130, 246, 0.2);
+      color: #bfdbfe;
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 0 1rem;
+    }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.section-intro {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+      border: 1px solid #e5e7eb;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: #4b5563;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+      color: #6b7280;
+    }
+
+    /* Contact */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+      align-items: flex-start;
+    }
+
+    form {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+      border: 1px solid #e5e7eb;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid #d1d5db;
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .contact-details {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .contact-details p {
+      margin-bottom: 0.7rem;
+    }
+
+    .contact-label {
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 2rem 5vw 2.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    footer a {
+      color: inherit;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .hero,
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none; /* simple mobile behavior */
+      }
+
+      header {
+        position: static;
+      }
+
+      main {
+        padding-top: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo">MLT Orlando Transportation</div>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#fleet">Fleet</a>
+        <a href="#areas">Service Areas</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn-primary">Book Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="hero-highlight">Orlando airport & theme park transfers</div>
+        <h1>Private Transportation from MCO &amp; SFB to Disney, Universal &amp; Beyond</h1>
+        <p>
+          MLT Orlando Transportation provides reliable, comfortable rides in and around Orlando.
+          Most of our trips start at Orlando International (MCO) and Sanford (SFB), heading to
+          Disney World, Universal Orlando Resort, Cape Canaveral and more.
+        </p>
+        <a href="#contact" class="btn-primary">Request Your Ride</a>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>Orlando</strong>
+            <span>Local experts</span>
+          </div>
+          <div class="hero-stat">
+            <strong>MCO &amp; SFB</strong>
+            <span>Airport specialists</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Theme parks</strong>
+            <span>Disney &amp; Universal trips</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h2>Sample Trip Overview</h2>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Pickup</span>
+          <span>MCO or SFB Airport</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Destination</span>
+          <span>Disney, Universal or Hotel</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Service</span>
+          <span>Private, door-to-door</span>
+        </div>
+        <div class="hero-card-row">
+          <span class="hero-card-label">Status</span>
+          <span class="pill">Pre-booked &amp; on time</span>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <h2>Our Transportation Services</h2>
+      <p class="section-intro">
+        We focus on stress-free, private transportation for families, groups and individuals traveling
+        in and around Orlando.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="badge">Airport</div>
+          <h3>MCO &amp; SFB Airport Transfers</h3>
+          <p>
+            Meet-and-greet pickup from Orlando International Airport (MCO) and Orlando Sanford (SFB),
+            with direct, private rides to your hotel, resort or rental home.
+          </p>
+        </div>
+        <div class="card">
+          <div class="badge">Theme Parks</div>
+          <h3>Disney &amp; Universal Transportation</h3>
+          <p>
+            Round-trip and one-way transfers to Walt Disney World, Universal Studios, Islands of Adventure
+            and nearby resorts — perfect for families and groups.
+          </p>
+        </div>
+        <div class="card">
+          <div class="badge">Cruise</div>
+          <h3>Cape Canaveral / Port Canaveral Trips</h3>
+          <p>
+            Convenient transportation between Orlando, MCO and Cape Canaveral for cruise departures.
+            Start and end your cruise vacation without worrying about driving or parking.
+          </p>
+        </div>
+        <div class="card">
+          <div class="badge">Custom</div>
+          <h3>Point-to-Point &amp; Hourly Service</h3>
+          <p>
+            Custom routes around Orlando and central Florida. Tell us where you need to go
+            and we’ll build a simple, upfront quote for your ride.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLEET -->
+    <section id="fleet">
+      <h2>Our Fleet</h2>
+      <p class="section-intro">
+        Clean, comfortable vehicles suitable for airport pickups, theme park runs and longer trips
+        out to Cape Canaveral and beyond.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Sedans &amp; SUVs</h3>
+          <p>
+            Ideal for individuals and small families heading from MCO or SFB to Orlando hotels,
+            Disney World and Universal Studios.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Vans &amp; Minivans</h3>
+          <p>
+            Great for larger families and groups with luggage, strollers and cruise bags,
+            especially for trips to Cape Canaveral.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Group Options</h3>
+          <p>
+            Multiple vehicles available for bigger groups. Let us know your group size and
+            we’ll arrange a simple, coordinated pickup plan.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Child-Friendly</h3>
+          <p>
+            Upon request, we can accommodate child safety needs. Mention ages and any special
+            requirements in your booking message.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICE AREAS -->
+    <section id="areas">
+      <h2>Service Areas</h2>
+      <p class="section-intro">
+        MLT Orlando Transportation mainly serves the greater Orlando area, with most trips to and from
+        the major airports, theme parks and cruise ports.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Orlando &amp; Surrounding Areas</h3>
+          <p>
+            We operate across <strong>Orlando</strong> and nearby communities, including popular
+            hotel and resort zones around International Drive, Lake Buena Vista and Kissimmee.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Airports: MCO &amp; SFB</h3>
+          <p>
+            Frequent service from <strong>Orlando International Airport (MCO)</strong> and
+            <strong>Orlando Sanford International Airport (SFB)</strong> to local hotels,
+            vacation rentals and attractions.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Theme Parks &amp; Attractions</h3>
+          <p>
+            Direct service to <strong>Walt Disney World</strong>, <strong>Universal Orlando Resort</strong>,
+            SeaWorld and other major attractions in the Orlando area.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Cape Canaveral &amp; Coast</h3>
+          <p>
+            Trips to <strong>Cape Canaveral</strong> and nearby cruise terminals, perfect for guests
+            traveling between Orlando, MCO and Port Canaveral.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Request a Quote</h2>
+      <p class="section-intro">
+        Tell us about your trip and we’ll reply with availability and pricing. Please include
+        your flight times, number of passengers and luggage details if possible.
+      </p>
+
+      <div class="contact-wrapper">
+        <form action="mailto:mltorlando@yahoo.com" method="post" enctype="text/plain">
+          <label for="name">Name</label>
+          <input id="name" name="Name" type="text" placeholder="Your full name" required />
+
+          <label for="email">Email</label>
+          <input id="email" name="Email" type="email" placeholder="you@example.com" required />
+
+          <label for="phone">Phone</label>
+          <input id="phone" name="Phone" type="tel" placeholder="407-369-0643" required />
+
+          <label for="service">Trip type</label>
+          <select id="service" name="Service">
+            <option value="">Select an option</option>
+            <option>MCO → Hotel / Resort</option>
+            <option>Hotel / Resort → MCO</option>
+            <option>SFB → Hotel / Resort</option>
+            <option>Hotel / Resort → SFB</option>
+            <option>Orlando ↔ Disney / Universal</option>
+            <option>Orlando ↔ Cape Canaveral / Port Canaveral</option>
+            <option>Other (describe below)</option>
+          </select>
+
+          <label for="details">Trip details</label>
+          <textarea
+            id="details"
+            name="Details"
+            placeholder="Flight number, pickup date/time, number of passengers, luggage, pickup and drop-off addresses..."
+            required
+          ></textarea>
+
+          <button type="submit" class="btn-primary">Send request</button>
+        </form>
+
+        <div class="contact-details">
+          <p class="contact-label">Direct contact</p>
+          <p>Phone: <strong>407-369-0643</strong></p>
+          <p>Email: <strong>mltorlando@yahoo.com</strong></p>
+
+          <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
+          <p>Transportation: 24/7 by reservation</p>
+          <p>Messages &amp; quotes: Every day, 8:00 – 20:00 (local time)</p>
+
+          <p class="contact-label" style="margin-top:1rem;">Base location</p>
+          <p>
+            MLT Orlando Transportation<br />
+            Orlando, FL<br />
+            United States
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
+  </footer>
+
+  <script>
+    // Sets the current year in the footer automatically
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
