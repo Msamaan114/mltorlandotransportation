@@ -191,6 +191,15 @@
       margin-top: 0.5rem;
     }
 
+    .hero-photo {
+      width: 100%;
+      border-radius: 1.25rem;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.55);
+      object-fit: cover;
+      max-height: 260px;
+      margin-bottom: 1rem;
+    }
+
     .hero-card {
       background: #0b1120;
       color: #e5e7eb;
@@ -223,6 +232,21 @@
       font-size: 0.7rem;
       background: rgba(59, 130, 246, 0.2);
       color: #bfdbfe;
+    }
+
+    /* Fleet gallery */
+    .fleet-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .fleet-gallery img {
+      width: 100%;
+      border-radius: 1rem;
+      object-fit: cover;
+      max-height: 260px;
     }
 
     /* Sections */
@@ -460,23 +484,31 @@
         </div>
       </div>
 
-      <aside class="hero-card">
-        <h2>Sample Trip Overview</h2>
-        <div class="hero-card-row">
-          <span class="hero-card-label">Pickup</span>
-          <span>MCO or SFB Airport (meet at arrivals)</span>
-        </div>
-        <div class="hero-card-row">
-          <span class="hero-card-label">Destination</span>
-          <span>Disney, Universal, hotel or rental home</span>
-        </div>
-        <div class="hero-card-row">
-          <span class="hero-card-label">Service</span>
-          <span>Private, door-to-door</span>
-        </div>
-        <div class="hero-card-row">
-          <span class="hero-card-label">Status</span>
-          <span class="pill">Pre-booked &amp; on time</span>
+      <aside>
+        <img
+          src="images/suv-front.jpg"
+          alt="MLT Orlando Transportation black SUV ready for pickup"
+          class="hero-photo"
+        />
+
+        <div class="hero-card">
+          <h2>Sample Trip Overview</h2>
+          <div class="hero-card-row">
+            <span class="hero-card-label">Pickup</span>
+            <span>MCO or SFB Airport (meet at arrivals)</span>
+          </div>
+          <div class="hero-card-row">
+            <span class="hero-card-label">Destination</span>
+            <span>Disney, Universal, hotel or rental home</span>
+          </div>
+          <div class="hero-card-row">
+            <span class="hero-card-label">Service</span>
+            <span>Private, door-to-door</span>
+          </div>
+          <div class="hero-card-row">
+            <span class="hero-card-label">Status</span>
+            <span class="pill">Pre-booked &amp; on time</span>
+          </div>
         </div>
       </aside>
     </section>
@@ -532,6 +564,17 @@
         Clean, comfortable vehicles suitable for airport pickups, theme park runs and longer trips
         out to Cape Canaveral.
       </p>
+
+      <div class="fleet-gallery">
+        <img
+          src="images/suv-driver.jpg"
+          alt="Professional driver from MLT Orlando Transportation standing next to SUV"
+        />
+        <img
+          src="images/suv-jet.jpg"
+          alt="MLT Orlando Transportation SUV parked next to a private jet at the airport"
+        />
+      </div>
 
       <div class="grid">
         <div class="card">
