@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="MLT Orlando Transportation offers private transfers to and from MCO, SFB, Disney World, Universal Studios and Cape Canaveral."
+    content="MLT Orlando Transportation offers private transfers from MCO and SFB to Disney World, Universal Studios, Cape Canaveral and the Orlando area."
   />
   <style>
     * {
@@ -22,10 +22,42 @@
       line-height: 1.6;
     }
 
+    a {
+      color: inherit;
+    }
+
+    /* Top contact strip */
+    .top-bar {
+      background: #0b1120;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+      padding: 0.4rem 5vw;
+    }
+
+    .top-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .top-bar a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
     header {
       background: #111827;
       color: #f9fafb;
-      padding: 1rem 5vw;
+      padding: 0.75rem 5vw;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -43,7 +75,7 @@
     .logo {
       font-weight: 700;
       letter-spacing: 0.05em;
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-transform: uppercase;
     }
 
@@ -58,10 +90,16 @@
       color: #38bdf8;
     }
 
-    .btn-primary {
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
       display: inline-block;
-      background: #38bdf8;
-      color: #0b1120;
       padding: 0.75rem 1.5rem;
       border-radius: 999px;
       border: none;
@@ -69,9 +107,23 @@
       font-weight: 600;
       text-decoration: none;
       font-size: 0.95rem;
+      text-align: center;
+      white-space: nowrap;
     }
 
-    .btn-primary:hover {
+    .btn-primary {
+      background: #38bdf8;
+      color: #0b1120;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
       opacity: 0.9;
     }
 
@@ -97,7 +149,7 @@
 
     .hero p {
       color: #4b5563;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .hero-highlight {
@@ -133,6 +185,12 @@
       color: #6b7280;
     }
 
+    .hero-note {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+    }
+
     .hero-card {
       background: #0b1120;
       color: #e5e7eb;
@@ -151,6 +209,7 @@
       justify-content: space-between;
       font-size: 0.9rem;
       margin: 0.35rem 0;
+      gap: 0.75rem;
     }
 
     .hero-card-label {
@@ -214,6 +273,30 @@
       letter-spacing: 0.08em;
       margin-bottom: 0.4rem;
       color: #6b7280;
+    }
+
+    /* Why choose us */
+    .why-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.75rem;
+    }
+
+    .why-list li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      color: #374151;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .why-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #16a34a;
+      font-size: 0.9rem;
     }
 
     /* Contact */
@@ -300,16 +383,33 @@
       }
 
       header {
-        position: static;
+        position: sticky;
+        top: 0;
       }
 
       main {
         padding-top: 1.5rem;
       }
+
+      .top-bar-inner {
+        justify-content: center;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Top contact bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
+      <span>
+        Call: <a href="tel:14073690643">407-369-0643</a> ·
+        Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
+      </span>
+    </div>
+  </div>
+
   <header>
     <div class="nav">
       <div class="logo">MLT Orlando Transportation</div>
@@ -317,8 +417,8 @@
         <a href="#services">Services</a>
         <a href="#fleet">Fleet</a>
         <a href="#areas">Service Areas</a>
+        <a href="#why">Why Us</a>
         <a href="#contact">Contact</a>
-        <a href="#contact" class="btn-primary">Book Now</a>
       </nav>
     </div>
   </header>
@@ -327,27 +427,35 @@
     <!-- HERO -->
     <section class="hero">
       <div>
-        <div class="hero-highlight">Orlando airport & theme park transfers</div>
-        <h1>Private Transportation from MCO &amp; SFB to Disney, Universal &amp; Beyond</h1>
+        <div class="hero-highlight">Orlando airport &amp; theme park specialists</div>
+        <h1>Private Transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral</h1>
         <p>
-          MLT Orlando Transportation provides reliable, comfortable rides in and around Orlando.
-          Most of our trips start at Orlando International (MCO) and Sanford (SFB), heading to
-          Disney World, Universal Orlando Resort, Cape Canaveral and more.
+          MLT Orlando Transportation provides reliable, comfortable rides for families, groups and
+          individuals. Most of our trips start at Orlando International (MCO) and Sanford (SFB),
+          heading to Disney World, Universal Orlando Resort, Cape Canaveral and the Orlando area.
         </p>
-        <a href="#contact" class="btn-primary">Request Your Ride</a>
+
+        <div class="btn-row">
+          <a class="btn-primary" href="tel:14073690643">📞 Call Now</a>
+          <a class="btn-secondary" href="https://wa.me/14073690643" target="_blank" rel="noopener">
+            💬 WhatsApp Us
+          </a>
+        </div>
+
+        <p class="hero-note">Fastest response: call or send a WhatsApp message with your flight details.</p>
 
         <div class="hero-stats">
           <div class="hero-stat">
             <strong>Orlando</strong>
-            <span>Local experts</span>
+            <span>Local driver</span>
           </div>
           <div class="hero-stat">
             <strong>MCO &amp; SFB</strong>
-            <span>Airport specialists</span>
+            <span>Airport pickups daily</span>
           </div>
           <div class="hero-stat">
-            <strong>Theme parks</strong>
-            <span>Disney &amp; Universal trips</span>
+            <strong>Disney &amp; Universal</strong>
+            <span>Theme park transfers</span>
           </div>
         </div>
       </div>
@@ -356,11 +464,11 @@
         <h2>Sample Trip Overview</h2>
         <div class="hero-card-row">
           <span class="hero-card-label">Pickup</span>
-          <span>MCO or SFB Airport</span>
+          <span>MCO or SFB Airport (meet at arrivals)</span>
         </div>
         <div class="hero-card-row">
           <span class="hero-card-label">Destination</span>
-          <span>Disney, Universal or Hotel</span>
+          <span>Disney, Universal, hotel or rental home</span>
         </div>
         <div class="hero-card-row">
           <span class="hero-card-label">Service</span>
@@ -377,7 +485,7 @@
     <section id="services">
       <h2>Our Transportation Services</h2>
       <p class="section-intro">
-        We focus on stress-free, private transportation for families, groups and individuals traveling
+        We focus on stress-free, private transportation for visitors and locals traveling
         in and around Orlando.
       </p>
 
@@ -387,15 +495,15 @@
           <h3>MCO &amp; SFB Airport Transfers</h3>
           <p>
             Meet-and-greet pickup from Orlando International Airport (MCO) and Orlando Sanford (SFB),
-            with direct, private rides to your hotel, resort or rental home.
+            with direct rides to your hotel, resort or vacation rental.
           </p>
         </div>
         <div class="card">
           <div class="badge">Theme Parks</div>
           <h3>Disney &amp; Universal Transportation</h3>
           <p>
-            Round-trip and one-way transfers to Walt Disney World, Universal Studios, Islands of Adventure
-            and nearby resorts — perfect for families and groups.
+            Round-trip and one-way transfers to Walt Disney World, Universal Studios and Islands of Adventure —
+            perfect for families and groups with luggage and strollers.
           </p>
         </div>
         <div class="card">
@@ -403,7 +511,7 @@
           <h3>Cape Canaveral / Port Canaveral Trips</h3>
           <p>
             Convenient transportation between Orlando, MCO and Cape Canaveral for cruise departures.
-            Start and end your cruise vacation without worrying about driving or parking.
+            Start and finish your cruise vacation without stress.
           </p>
         </div>
         <div class="card">
@@ -411,7 +519,7 @@
           <h3>Point-to-Point &amp; Hourly Service</h3>
           <p>
             Custom routes around Orlando and central Florida. Tell us where you need to go
-            and we’ll build a simple, upfront quote for your ride.
+            and we’ll provide a simple, upfront quote for your ride.
           </p>
         </div>
       </div>
@@ -422,7 +530,7 @@
       <h2>Our Fleet</h2>
       <p class="section-intro">
         Clean, comfortable vehicles suitable for airport pickups, theme park runs and longer trips
-        out to Cape Canaveral and beyond.
+        out to Cape Canaveral.
       </p>
 
       <div class="grid">
@@ -437,7 +545,7 @@
           <h3>Vans &amp; Minivans</h3>
           <p>
             Great for larger families and groups with luggage, strollers and cruise bags,
-            especially for trips to Cape Canaveral.
+            especially for trips to Cape Canaveral and Port Canaveral.
           </p>
         </div>
         <div class="card">
@@ -457,6 +565,23 @@
       </div>
     </section>
 
+    <!-- WHY US -->
+    <section id="why">
+      <h2>Why Choose MLT Orlando Transportation</h2>
+      <p class="section-intro">
+        There are many ways to get around Orlando. Here’s why guests choose a private ride with us:
+      </p>
+      <div class="card">
+        <ul class="why-list">
+          <li><strong>Local Orlando driver</strong> who knows the airports, resorts and cruise routes.</li>
+          <li><strong>Private, pre-booked rides</strong> so you skip taxi lines and rideshare surge pricing.</li>
+          <li><strong>Clear communication</strong> by phone or WhatsApp before pickup.</li>
+          <li><strong>Flat-rate quotes</strong> for common routes like MCO ↔ Disney and MCO ↔ Cape Canaveral.</li>
+          <li><strong>Friendly help with luggage</strong> so families can focus on enjoying their trip.</li>
+        </ul>
+      </div>
+    </section>
+
     <!-- SERVICE AREAS -->
     <section id="areas">
       <h2>Service Areas</h2>
@@ -469,7 +594,7 @@
         <div class="card">
           <h3>Orlando &amp; Surrounding Areas</h3>
           <p>
-            We operate across <strong>Orlando</strong> and nearby communities, including popular
+            Service across <strong>Orlando</strong> and nearby communities, including popular
             hotel and resort zones around International Drive, Lake Buena Vista and Kissimmee.
           </p>
         </div>
@@ -537,13 +662,14 @@
             required
           ></textarea>
 
-          <button type="submit" class="btn-primary">Send request</button>
+          <button type="submit" class="btn-primary">Send request by email</button>
         </form>
 
         <div class="contact-details">
           <p class="contact-label">Direct contact</p>
-          <p>Phone: <strong>407-369-0643</strong></p>
-          <p>Email: <strong>mltorlando@yahoo.com</strong></p>
+          <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
+          <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
+          <p>WhatsApp: <a href="https://wa.me/14073690643" target="_blank" rel="noopener"><strong>Message on WhatsApp</strong></a></p>
 
           <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
           <p>Transportation: 24/7 by reservation</p>
