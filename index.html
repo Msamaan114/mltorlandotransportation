@@ -384,6 +384,7 @@
       font-weight: 600;
     }
 
+    /* Footer and social icons */
     footer {
       padding: 2rem 5vw 2.5rem;
       text-align: center;
@@ -393,6 +394,26 @@
 
     footer a {
       color: inherit;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-links img {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: block;
     }
 
     /* Responsive */
@@ -730,6 +751,19 @@
   </main>
 
   <footer>
+    <div class="social-links">
+      <!-- TODO: replace # with your real Facebook & Instagram page URLs -->
+      <a href="https://facebook.com/" target="_blank" rel="noopener">
+        <img src="facebook-icon.jpeg" alt="Facebook" />
+      </a>
+      <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+        <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
+      </a>
+      <a href="https://instagram.com/" target="_blank" rel="noopener">
+        <img src="instagram-icon.jpeg" alt="Instagram" />
+      </a>
+    </div>
+
     © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
   </footer>
 
