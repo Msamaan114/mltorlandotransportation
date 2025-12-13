@@ -54,6 +54,32 @@
       text-decoration: underline;
     }
 
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .social-top {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .social-top a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-top img {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: block;
+    }
+
     header {
       background: #111827;
       color: #f9fafb;
@@ -440,6 +466,10 @@
         justify-content: center;
         text-align: center;
       }
+
+      .top-bar-right {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -448,10 +478,26 @@
   <div class="top-bar">
     <div class="top-bar-inner">
       <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
-      <span>
-        Call: <a href="tel:14073690643">407-369-0643</a> ·
-        Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
-      </span>
+
+      <div class="top-bar-right">
+        <span>
+          Call: <a href="tel:14073690643">407-369-0643</a> ·
+          Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
+        </span>
+
+        <div class="social-top">
+          <!-- TODO: replace Facebook/Instagram links with your real pages -->
+          <a href="https://facebook.com/" target="_blank" rel="noopener">
+            <img src="facebook-icon.jpeg" alt="Facebook" />
+          </a>
+          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+            <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
+          </a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener">
+            <img src="instagram-icon.jpeg" alt="Instagram" />
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -752,7 +798,7 @@
 
   <footer>
     <div class="social-links">
-      <!-- TODO: replace # with your real Facebook & Instagram page URLs -->
+      <!-- TODO: replace Facebook/Instagram links with your real pages -->
       <a href="https://facebook.com/" target="_blank" rel="noopener">
         <img src="facebook-icon.jpeg" alt="Facebook" />
       </a>
