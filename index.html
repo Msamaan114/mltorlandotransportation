@@ -410,6 +410,37 @@
       font-weight: 600;
     }
 
+    /* Rates table */
+    .rates-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .rates-table th,
+    .rates-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    .rates-table th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+
+    .rates-note {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .book-btn {
+      margin-top: 1rem;
+      display: inline-block;
+    }
+
     /* Footer and social icons */
     footer {
       padding: 2rem 5vw 2.5rem;
@@ -508,6 +539,7 @@
         <a href="#services">Services</a>
         <a href="#fleet">Fleet</a>
         <a href="#areas">Service Areas</a>
+        <a href="#rates">Rates</a>
         <a href="#why">Why Us</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -528,12 +560,15 @@
 
         <div class="btn-row">
           <a class="btn-primary" href="tel:14073690643">📞 Call Now</a>
-          <a class="btn-secondary" href="https://wa.me/14073690643" target="_blank" rel="noopener">
-            💬 WhatsApp Us
+          <!-- Replace YOUR_SQUARE_LINK_HERE with your actual Square payment link -->
+          <a class="btn-secondary" href="https://square.link/u/Jw4nyWVv?src=sheet" target="_blank" rel="noopener">
+            💳 Book Now &amp; Pay with Card
           </a>
         </div>
 
-        <p class="hero-note">Fastest response: call or send a WhatsApp message with your flight details.</p>
+        <p class="hero-note">
+          Prefer to chat first? Call, email or message us on WhatsApp with your flight details and destinations.
+        </p>
 
         <div class="hero-stats">
           <div class="hero-stat">
@@ -733,6 +768,80 @@
       </div>
     </section>
 
+    <!-- RATES & BOOKING -->
+    <section id="rates">
+      <h2>Rates &amp; Booking</h2>
+      <p class="section-intro">
+        Standard one-way private transfer rates. Prices can vary for holidays and late-night pickups.
+        Contact us if you don’t see your route listed.
+      </p>
+
+      <div class="card">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>To</th>
+              <th>One-way rate (per vehicle)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MCO</td>
+              <td>Disney / Universal area</td>
+              <td>$120</td>
+            </tr>
+            <tr>
+              <td>MCO</td>
+              <td>International Drive / Orlando hotel area</td>
+              <td>$110</td>
+            </tr>
+            <tr>
+              <td>MCO</td>
+              <td>Kissimmee / Lake Buena Vista</td>
+              <td>$130</td>
+            </tr>
+            <tr>
+              <td>MCO</td>
+              <td>Cape Canaveral / Port Canaveral</td>
+              <td>$210</td>
+            </tr>
+            <tr>
+              <td>SFB</td>
+              <td>Disney / Universal area</td>
+              <td>$150</td>
+            </tr>
+            <tr>
+              <td>SFB</td>
+              <td>International Drive / Orlando hotel area</td>
+              <td>$140</td>
+            </tr>
+            <tr>
+              <td>SFB</td>
+              <td>Cape Canaveral / Port Canaveral</td>
+              <td>$230</td>
+            </tr>
+            <tr>
+              <td>Orlando area</td>
+              <td>Hourly service (within city)</td>
+              <td>$90 / hour (3-hour minimum)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="rates-note">
+          • Prices are per vehicle, not per person. <br />
+          • Tolls and taxes included. Gratuity is not included and is appreciated. <br />
+          • Final quote may change based on exact pickup location, time and special requests.
+        </p>
+
+        <!-- Replace YOUR_SQUARE_LINK_HERE with your actual Square payment link -->
+        <a class="btn-primary book-btn" href="https://square.link/u/YOUR_SQUARE_LINK_HERE" target="_blank" rel="noopener">
+          Book Now &amp; Pay with Card
+        </a>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section id="contact">
       <h2>Request a Quote</h2>
@@ -761,6 +870,7 @@
             <option>Hotel / Resort → SFB</option>
             <option>Orlando ↔ Disney / Universal</option>
             <option>Orlando ↔ Cape Canaveral / Port Canaveral</option>
+            <option>Hourly service</option>
             <option>Other (describe below)</option>
           </select>
 
