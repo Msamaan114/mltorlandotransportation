@@ -883,54 +883,118 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- BOOKING DETAILS & CONTACT -->
     <section id="contact">
-      <h2>Request a Quote</h2>
+      <h2>Booking Details &amp; Contact</h2>
       <p class="section-intro">
-        Tell us about your trip and we’ll reply with availability and pricing. Please include
-        your flight times, number of passengers and luggage details if possible.
+        Please share your trip details below so we can confirm your booking and match it with your
+        Square payment. Use the same name and email address here and when you pay with your card.
       </p>
 
       <div class="contact-wrapper">
+        <!-- When the guest submits, their email program opens a message to you with all the answers -->
         <form action="mailto:mltorlando@yahoo.com" method="post" enctype="text/plain">
-          <label for="name">Name</label>
-          <input id="name" name="Name" type="text" placeholder="Your full name" required />
+          <label for="name">Passenger name</label>
+          <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
 
-          <label for="email">Email</label>
+          <label for="email">Email (same as payment)</label>
           <input id="email" name="Email" type="email" placeholder="you@example.com" required />
 
-          <label for="phone">Phone</label>
-          <input id="phone" name="Phone" type="tel" placeholder="407-369-0643" required />
+          <label for="phone">Mobile / WhatsApp number</label>
+          <input id="phone" name="Phone" type="tel" placeholder="+1 407-369-0643" required />
 
-          <label for="service">Trip type</label>
-          <select id="service" name="Service">
+          <label for="pickup-date">Pickup date</label>
+          <input id="pickup-date" name="Pickup date" type="date" required />
+
+          <label for="pickup-time">Pickup time (local)</label>
+          <input id="pickup-time" name="Pickup time" type="time" required />
+
+          <label for="pickup-location">Pickup location</label>
+          <select id="pickup-location" name="Pickup location" required>
             <option value="">Select an option</option>
-            <option>MCO → Hotel / Resort</option>
-            <option>Hotel / Resort → MCO</option>
-            <option>SFB → Hotel / Resort</option>
-            <option>Hotel / Resort → SFB</option>
-            <option>Orlando ↔ Disney / Universal</option>
-            <option>Orlando ↔ Cape Canaveral / Port Canaveral</option>
-            <option>Hourly service</option>
-            <option>Other (describe below)</option>
+            <option>MCO - Orlando International Airport</option>
+            <option>SFB - Orlando Sanford International Airport</option>
+            <option>Private airport / FBO</option>
+            <option>Hotel / Resort</option>
+            <option>Residence / Rental home</option>
+            <option>Other (see notes)</option>
           </select>
 
-          <label for="details">Trip details</label>
-          <textarea
-            id="details"
-            name="Details"
-            placeholder="Flight number, pickup date/time, number of passengers, luggage, pickup and drop-off addresses..."
+          <label for="flight">Airline &amp; flight number (if flying)</label>
+          <input
+            id="flight"
+            name="Airline & flight number"
+            type="text"
+            placeholder="Example: Delta 1234"
+          />
+
+          <label for="destination">Destination address / hotel</label>
+          <input
+            id="destination"
+            name="Destination"
+            type="text"
+            placeholder="Hotel name or full address"
             required
+          />
+
+          <label for="passengers">Number of passengers</label>
+          <input
+            id="passengers"
+            name="Passengers"
+            type="number"
+            min="1"
+            max="10"
+            placeholder="2 adults, 2 children"
+            required
+          />
+
+          <label for="luggage">Luggage details</label>
+          <input
+            id="luggage"
+            name="Luggage"
+            type="text"
+            placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
+          />
+
+          <label for="return-trip">Return trip?</label>
+          <select id="return-trip" name="Return trip">
+            <option>No, one-way only</option>
+            <option>Yes, round trip (please add return details in notes)</option>
+          </select>
+
+          <label for="payment-name">Name used on Square payment</label>
+          <input
+            id="payment-name"
+            name="Payment name"
+            type="text"
+            placeholder="Name on card / Square receipt"
+          />
+
+          <label for="notes">Additional notes</label>
+          <textarea
+            id="notes"
+            name="Notes"
+            placeholder="Return flight info, child seats, special requests, gate meeting instructions..."
           ></textarea>
 
-          <button type="submit" class="btn-primary">Send request by email</button>
+          <button type="submit" class="btn-primary">Send booking details by email</button>
+
+          <p class="hero-note" style="margin-top:0.75rem;">
+            After submitting this form, please complete payment using the
+            <strong>Book Now &amp; Pay with Card</strong> button at the top of the page or in the Rates section.
+          </p>
         </form>
 
         <div class="contact-details">
           <p class="contact-label">Direct contact</p>
           <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
           <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
-          <p>WhatsApp: <a href="https://wa.me/14073690643" target="_blank" rel="noopener"><strong>Message on WhatsApp</strong></a></p>
+          <p>
+            WhatsApp:
+            <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+              <strong>Message on WhatsApp</strong>
+            </a>
+          </p>
 
           <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
           <p>Transportation: 24/7 by reservation</p>
@@ -941,6 +1005,11 @@
             MLT Orlando Transportation<br />
             Orlando, FL<br />
             United States
+          </p>
+
+          <p class="hero-note" style="margin-top:1rem;">
+            To help us match your trip with your payment, please use the same
+            <strong>name and email</strong> when paying through Square.
           </p>
         </div>
       </div>
