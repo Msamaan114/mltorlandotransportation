@@ -181,9 +181,9 @@
       margin-bottom: 0.75rem;
     }
 
-    .hero-tagline {
+    .tagline {
       font-size: 1rem;
-      font-weight: 600;
+      font-weight: 500;
       color: #111827;
       margin-bottom: 1rem;
     }
@@ -457,7 +457,7 @@
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid #e5e7eb;
       text-align: left;
-      vertical-align: top;
+      vertical-align: middle;
     }
 
     .rates-table th {
@@ -471,45 +471,29 @@
       color: #6b7280;
     }
 
-    .book-btn {
-      margin-top: 1rem;
+    .rate-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .rate-btn {
       display: inline-block;
-    }
-
-    .rate-price {
-      font-weight: 600;
-      display: block;
-    }
-
-    .rate-capacity {
-      font-size: 0.8rem;
-      color: #6b7280;
-      display: block;
-      margin-top: 0.1rem;
-    }
-
-    .btn-price {
-      margin-top: 0.25rem;
-      display: inline-block;
-      padding: 0.35rem 0.9rem;
+      padding: 0.35rem 0.75rem;
       border-radius: 999px;
       border: none;
-      background: #38bdf8;
-      color: #0b1120;
-      font-size: 0.78rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 500;
       text-decoration: none;
-      font-weight: 600;
+      background: #0f172a;
+      color: #f9fafb;
       white-space: nowrap;
     }
 
-    .btn-price:hover {
-      opacity: 0.9;
-    }
-
-    .rates-subheading {
-      margin-top: 1.75rem;
-      font-size: 1.05rem;
-      font-weight: 600;
+    .book-btn {
+      margin-top: 1rem;
+      display: inline-block;
     }
 
     /* Footer and social icons */
@@ -628,7 +612,7 @@
       <div>
         <div class="hero-highlight">Orlando airport &amp; theme park specialists</div>
         <h1>Private Transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral</h1>
-        <p class="hero-tagline">From Family Moments to Business Success, We'll Get You There!</p>
+        <p class="tagline">From Family Moments to Business Success, We&#39;ll Get You There!</p>
         <p>
           MLT Orlando Transportation provides reliable, comfortable rides for families, groups and
           individuals. Most of our trips start at Orlando International (MCO) and Sanford (SFB),
@@ -878,291 +862,148 @@
     <section id="rates">
       <h2>Rates &amp; Booking</h2>
       <p class="section-intro">
-        Standard private transfer rates by vehicle type. Prices can vary for holidays and late-night pickups.
-        Contact us if you don’t see your route listed or need a custom quote.
+        Standard one-way private transfer rates. Prices can vary for holidays and late-night pickups.
+        Contact us if you don’t see your route listed.
       </p>
 
       <div class="card">
-        <p class="hero-note" style="margin-bottom:1rem;">
-          Each price includes <strong>private vehicle, driver, tolls and taxes</strong>. Gratuity is not included
-          and is appreciated. Use the blue <strong>Pay</strong> buttons once you have your Square payment links.
-        </p>
-
-        <!-- MCO ↔ Disney / Universal -->
-        <h3 class="rates-subheading">MCO ↔ Disney / Universal area</h3>
         <table class="rates-table">
           <thead>
             <tr>
+              <th>Route</th>
               <th>Vehicle</th>
               <th>Capacity</th>
               <th>One-way</th>
               <th>Round trip</th>
+              <th>Book</th>
             </tr>
           </thead>
           <tbody>
+            <!-- Sedan rows -->
             <tr>
+              <td>MCO ↔ Disney / Universal area</td>
               <td>Sedan</td>
+              <td>Up to 3 passengers · 2 large · 1 carry-on</td>
+              <td>$110</td>
+              <td>$210</td>
               <td>
-                <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
-              </td>
-              <td>
-                <span class="rate-price">$120</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_SEDAN_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$220</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_SEDAN_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan round trip</a>
+                </div>
               </td>
             </tr>
             <tr>
-              <td>SUV</td>
-              <td>
-                <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
-              </td>
-              <td>
-                <span class="rate-price">$130</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$240</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>8-passenger van</td>
-              <td>
-                <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
-              </td>
-              <td>
-                <span class="rate-price">$150</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_VAN8_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$280</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_VAN8_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>14-passenger van</td>
-              <td>
-                <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
-              </td>
-              <td>
-                <span class="rate-price">$180</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_VAN14_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$330</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_DISNEY_VAN14_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- MCO ↔ Cape Canaveral / Port Canaveral -->
-        <h3 class="rates-subheading">MCO ↔ Cape Canaveral / Port Canaveral</h3>
-        <table class="rates-table">
-          <thead>
-            <tr>
-              <th>Vehicle</th>
-              <th>Capacity</th>
-              <th>One-way</th>
-              <th>Round trip</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+              <td>MCO ↔ International Drive / Orlando hotels</td>
               <td>Sedan</td>
-              <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
+              <td>Up to 3 passengers · 2 large · 1 carry-on</td>
+              <td>$100</td>
+              <td>$190</td>
               <td>
-                <span class="rate-price">$210</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_SEDAN_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$400</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_SEDAN_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan round trip</a>
+                </div>
               </td>
             </tr>
-            <tr>
-              <td>SUV</td>
-              <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-              <td>
-                <span class="rate-price">$230</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_SUV_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$440</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_SUV_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>8-passenger van</td>
-              <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-              <td>
-                <span class="rate-price">$260</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_VAN8_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$500</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_VAN8_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td>14-passenger van</td>
-              <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-              <td>
-                <span class="rate-price">$290</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_VAN14_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$560</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_MCO_PORT_VAN14_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
 
-        <!-- SFB ↔ Disney / Universal -->
-        <h3 class="rates-subheading">SFB ↔ Disney / Universal area</h3>
-        <table class="rates-table">
-          <thead>
+            <!-- SUV rows -->
             <tr>
-              <th>Vehicle</th>
-              <th>Capacity</th>
-              <th>One-way</th>
-              <th>Round trip</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Sedan</td>
-              <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-              <td>
-                <span class="rate-price">$150</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_SEDAN_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$280</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_SEDAN_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-            <tr>
+              <td>MCO ↔ Disney / Universal area</td>
               <td>SUV</td>
-              <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
+              <td>Up to 5 passengers · 5 large · 3 carry-on</td>
+              <td>$120</td>
+              <td>$230</td>
               <td>
-                <span class="rate-price">$165</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_SUV_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$310</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_SUV_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV round trip</a>
+                </div>
               </td>
             </tr>
             <tr>
-              <td>8-passenger van</td>
-              <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
+              <td>MCO ↔ Cape Canaveral / Port Canaveral</td>
+              <td>SUV</td>
+              <td>Up to 5 passengers · 5 large · 3 carry-on</td>
+              <td>$210</td>
+              <td>$400</td>
               <td>
-                <span class="rate-price">$185</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_VAN8_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$350</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_VAN8_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV round trip</a>
+                </div>
               </td>
             </tr>
-            <tr>
-              <td>14-passenger van</td>
-              <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-              <td>
-                <span class="rate-price">$210</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_VAN14_ONEWAY" target="_blank" rel="noopener">
-                  Pay one-way
-                </a>
-              </td>
-              <td>
-                <span class="rate-price">$390</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_SFB_DISNEY_VAN14_ROUND" target="_blank" rel="noopener">
-                  Pay round trip
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
 
-        <!-- Hourly service -->
-        <h3 class="rates-subheading">Hourly service (within Orlando)</h3>
-        <table class="rates-table">
-          <thead>
+            <!-- 8-passenger van rows -->
             <tr>
-              <th>Vehicle</th>
-              <th>Capacity</th>
-              <th>Hourly rate</th>
-              <th>Minimum hours</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>SUV</td>
-              <td><span class="rate-capacity">Up to 5 passengers</span></td>
+              <td>MCO ↔ Disney / Universal area</td>
+              <td>8-passenger van</td>
+              <td>Up to 8 passengers · 10 large · 5 carry-on</td>
+              <td>$150</td>
+              <td>$280</td>
               <td>
-                <span class="rate-price">$90 / hour</span>
-                <a class="btn-price" href="YOUR_SQUARE_LINK_HOURLY_SUV" target="_blank" rel="noopener">
-                  Pay deposit
-                </a>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van round trip</a>
+                </div>
               </td>
-              <td>3 hours</td>
+            </tr>
+            <tr>
+              <td>MCO ↔ Cape Canaveral / Port Canaveral</td>
+              <td>8-passenger van</td>
+              <td>Up to 8 passengers · 10 large · 5 carry-on</td>
+              <td>$240</td>
+              <td>$460</td>
+              <td>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van round trip</a>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 14-passenger van rows -->
+            <tr>
+              <td>MCO ↔ Disney / Universal area</td>
+              <td>14-passenger van</td>
+              <td>Up to 14 passengers · 14 large · 7 carry-on</td>
+              <td>$190</td>
+              <td>$360</td>
+              <td>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass round trip</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>MCO ↔ Cape Canaveral / Port Canaveral</td>
+              <td>14-passenger van</td>
+              <td>Up to 14 passengers · 14 large · 7 carry-on</td>
+              <td>$280</td>
+              <td>$540</td>
+              <td>
+                <div class="rate-buttons">
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass one-way</a>
+                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass round trip</a>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
 
         <p class="rates-note">
-          • Prices above are examples – please adjust each amount to your exact pricing.<br />
-          • Replace every <code>YOUR_SQUARE_LINK_...</code> with the specific Square payment link for that option.<br />
-          • Final quote may change based on exact pickup location, time and special requests.
+          • Prices are per vehicle, not per person. <br />
+          • Tolls and taxes included. Gratuity is not included and is appreciated. <br />
+          • Final quote may change based on exact pickup location, time, traffic and special requests.
+        </p>
+
+        <a class="btn-primary book-btn" href="https://square.link/u/Jw4nyWVv?src=sheet" target="_blank" rel="noopener">
+          General Booking &amp; Payment Link
+        </a>
+        <p class="hero-note" style="margin-top:0.5rem;">
+          You can also use the individual buttons in the table above once each route has its own payment link.
         </p>
       </div>
     </section>
@@ -1231,13 +1072,15 @@
       </p>
 
       <div class="contact-wrapper">
-        <!-- When the guest submits, their email program opens a message to you with all the answers -->
-        <form action="mailto:mltorlando@yahoo.com" method="post" enctype="text/plain">
+        <!-- Formspree booking form -->
+        <form action="https://formspree.io/f/xovgzajo" method="POST">
+          <input type="hidden" name="_subject" value="New MLT Orlando booking request" />
+
           <label for="name">Passenger name</label>
           <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
 
           <label for="email">Email (same as payment)</label>
-          <input id="email" name="Email" type="email" placeholder="you@example.com" required />
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
 
           <label for="phone">Mobile / WhatsApp number</label>
           <input id="phone" name="Phone" type="tel" placeholder="+1 407-369-0643" required />
@@ -1343,11 +1186,11 @@
             placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
           ></textarea>
 
-          <button type="submit" class="btn-primary">Send booking details by email</button>
+          <button type="submit" class="btn-primary">Send booking details</button>
 
           <p class="hero-note" style="margin-top:0.75rem;">
             After submitting this form, please complete payment using the
-            <strong>Book Now &amp; Pay with Card</strong> button at the top of the page or in the Rates section.
+            <strong>Book Now &amp; Pay with Card</strong> button in the Rates section.
           </p>
         </form>
 
