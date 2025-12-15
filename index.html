@@ -15,10 +15,7 @@
   <meta property="og:url" content="https://www.mltorlandotransportation.com/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  
-    name="description"
-    content="MLT Orlando Transportation offers private transfers from MCO and SFB to Disney World, Universal Studios, Cape Canaveral and the Orlando area."
-  />
+
   <style>
     * {
       box-sizing: border-box;
@@ -271,22 +268,7 @@
       color: #bfdbfe;
     }
 
-    /* Fleet gallery */
-    .fleet-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin: 1rem 0 0.5rem;
-    }
-
-    .fleet-gallery img {
-      width: 100%;
-      border-radius: 1rem;
-      object-fit: cover;
-      max-height: 260px;
-    }
-
-    /* Sections */
+    /* Generic section styles */
     section {
       padding: 3rem 0 1rem;
     }
@@ -334,6 +316,40 @@
       letter-spacing: 0.08em;
       margin-bottom: 0.4rem;
       color: #6b7280;
+    }
+
+    /* Feature image sections (owner & private airport) */
+    .feature-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .feature-section.reverse {
+      direction: rtl;
+    }
+
+    .feature-section.reverse > * {
+      direction: ltr;
+    }
+
+    .feature-photo {
+      width: 100%;
+      border-radius: 1.25rem;
+      object-fit: cover;
+      max-height: 380px;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.35);
+    }
+
+    .feature-text {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .feature-text p {
+      margin-bottom: 0.75rem;
     }
 
     /* Why choose us */
@@ -487,7 +503,9 @@
     /* Responsive */
     @media (max-width: 800px) {
       .hero,
-      .contact-wrapper {
+      .contact-wrapper,
+      .feature-section,
+      .feature-section.reverse {
         grid-template-columns: 1fr;
       }
 
@@ -528,14 +546,14 @@
         </span>
 
         <div class="social-top">
-          <!-- TODO: replace Facebook/Instagram links with your real pages -->
+          <!-- Facebook placeholder for now -->
           <a href="https://facebook.com/" target="_blank" rel="noopener">
             <img src="facebook-icon.jpeg" alt="Facebook" />
           </a>
           <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
             <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
           </a>
-          <a href="https://instagram.com/" target="_blank" rel="noopener">
+          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
             <img src="instagram-icon.jpeg" alt="Instagram" />
           </a>
         </div>
@@ -548,7 +566,8 @@
       <div class="logo">MLT Orlando Transportation</div>
       <nav>
         <a href="#services">Services</a>
-        <a href="#fleet">Fleet</a>
+        <a href="#owner">Owner</a>
+        <a href="#private-airport">Private Airport</a>
         <a href="#areas">Service Areas</a>
         <a href="#rates">Rates</a>
         <a href="#why">Why Us</a>
@@ -571,7 +590,6 @@
 
         <div class="btn-row">
           <a class="btn-primary" href="tel:14073690643">📞 Call Now</a>
-          <!-- Replace YOUR_SQUARE_LINK_HERE with your actual Square payment link -->
           <a class="btn-secondary" href="https://square.link/u/Jw4nyWVv?src=sheet" target="_blank" rel="noopener">
             💳 Book Now &amp; Pay with Card
           </a>
@@ -670,71 +688,67 @@
       </div>
     </section>
 
-    <!-- FLEET -->
-    <section id="fleet">
-      <h2>Our Fleet</h2>
+    <!-- MEET THE OWNER -->
+    <section id="owner">
+      <h2>Meet the Owner</h2>
       <p class="section-intro">
-        Clean, comfortable vehicles suitable for airport pickups, theme park runs and longer trips
-        out to Cape Canaveral.
+        MLT Orlando Transportation is locally owned and operated. You’ll often be greeted by the owner himself,
+        ensuring a professional and personal experience from the very first ride.
       </p>
 
-      <div class="fleet-gallery">
+      <div class="feature-section">
         <img
-          src="suv-driver.jpeg"
-          alt="Professional driver from MLT Orlando Transportation standing next to SUV"
+          src="owner-mlt.jpeg"
+          alt="Owner of MLT Orlando Transportation standing beside black SUV"
+          class="feature-photo"
         />
-        <img
-          src="suv-jet.jpeg"
-          alt="MLT Orlando Transportation SUV parked next to a private jet at the airport"
-        />
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <h3>Sedans &amp; SUVs</h3>
+        <div class="feature-text">
           <p>
-            Ideal for individuals and small families heading from MCO or SFB to Orlando hotels,
-            Disney World and Universal Studios.
+            With years of experience serving Orlando visitors and business travelers, the owner of MLT Orlando
+            Transportation understands what guests need after a long flight: a friendly face, a clean vehicle,
+            and a smooth ride to their destination.
           </p>
-        </div>
-        <div class="card">
-          <h3>Vans &amp; Minivans</h3>
           <p>
-            Great for larger families and groups with luggage, strollers and cruise bags,
-            especially for trips to Cape Canaveral and Port Canaveral.
+            From airport transfers to theme park trips and cruise departures, we treat each reservation with care.
+            Flight delays and changes happen — we monitor your arrival and work with you to keep your pickup
+            simple and stress-free.
           </p>
-        </div>
-        <div class="card">
-          <h3>Group Options</h3>
           <p>
-            Multiple vehicles available for bigger groups. Let us know your group size and
-            we’ll arrange a simple, coordinated pickup plan.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Child-Friendly</h3>
-          <p>
-            Upon request, we can accommodate child safety needs. Mention ages and any special
-            requirements in your booking message.
+            Whether you’re a family visiting the parks or a frequent business traveler, you can expect on-time
+            service, clear communication and a professional appearance every time.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- WHY US -->
-    <section id="why">
-      <h2>Why Choose MLT Orlando Transportation</h2>
+    <!-- PRIVATE AIRPORT TRANSFERS -->
+    <section id="private-airport">
+      <h2>Private Airport &amp; FBO Transfers</h2>
       <p class="section-intro">
-        There are many ways to get around Orlando. Here’s why guests choose a private ride with us:
+        Flying private into Orlando? We provide discreet, reliable transportation to and from private terminals
+        and FBOs around MCO and the greater Orlando area.
       </p>
-      <div class="card">
-        <ul class="why-list">
-          <li><strong>Local Orlando driver</strong> who knows the airports, resorts and cruise routes.</li>
-          <li><strong>Private, pre-booked rides</strong> so you skip taxi lines and rideshare surge pricing.</li>
-          <li><strong>Clear communication</strong> by phone or WhatsApp before pickup.</li>
-          <li><strong>Flat-rate quotes</strong> for common routes like MCO ↔ Disney and MCO ↔ Cape Canaveral.</li>
-          <li><strong>Friendly help with luggage</strong> so families can focus on enjoying their trip.</li>
-        </ul>
+
+      <div class="feature-section reverse">
+        <img
+          src="private-airport.jpeg"
+          alt="MLT Orlando Transportation SUV next to private jet at airport"
+          class="feature-photo"
+        />
+        <div class="feature-text">
+          <p>
+            We regularly service private terminals and FBOs, coordinating closely with your crew or concierge
+            for a seamless curbside pickup. Your vehicle will be staged and ready when you deplane.
+          </p>
+          <p>
+            Transfers are available between private airports, luxury hotels, vacation homes, Disney and Universal
+            resorts, and Port Canaveral for cruise departures.
+          </p>
+          <p>
+            Tell us your tail number, arrival time and destination, and we’ll handle the rest — discreet,
+            professional, door-to-door service.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -776,6 +790,23 @@
             traveling between Orlando, MCO and Port Canaveral.
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- WHY US -->
+    <section id="why">
+      <h2>Why Choose MLT Orlando Transportation</h2>
+      <p class="section-intro">
+        There are many ways to get around Orlando. Here’s why guests choose a private ride with us:
+      </p>
+      <div class="card">
+        <ul class="why-list">
+          <li><strong>Local Orlando driver</strong> who knows the airports, resorts and cruise routes.</li>
+          <li><strong>Private, pre-booked rides</strong> so you skip taxi lines and rideshare surge pricing.</li>
+          <li><strong>Clear communication</strong> by phone or WhatsApp before pickup.</li>
+          <li><strong>Flat-rate quotes</strong> for common routes like MCO ↔ Disney and MCO ↔ Cape Canaveral.</li>
+          <li><strong>Friendly help with luggage</strong> so families can focus on enjoying their trip.</li>
+        </ul>
       </div>
     </section>
 
@@ -846,7 +877,6 @@
           • Final quote may change based on exact pickup location, time and special requests.
         </p>
 
-        <!-- Replace YOUR_SQUARE_LINK_HERE with your actual Square payment link -->
         <a class="btn-primary book-btn" href="https://square.link/u/Jw4nyWVv?src=sheet" target="_blank" rel="noopener">
           Book Now &amp; Pay with Card
         </a>
@@ -919,14 +949,14 @@
 
   <footer>
     <div class="social-links">
-      <!-- TODO: replace Facebook/Instagram links with your real pages -->
+      <!-- Facebook placeholder for now -->
       <a href="https://facebook.com/" target="_blank" rel="noopener">
         <img src="facebook-icon.jpeg" alt="Facebook" />
       </a>
       <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
         <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
       </a>
-      <a href="https://instagram.com/" target="_blank" rel="noopener">
+      <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
         <img src="instagram-icon.jpeg" alt="Instagram" />
       </a>
     </div>
