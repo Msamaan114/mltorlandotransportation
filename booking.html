@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Booking | MLT Orlando Transportation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Submit your trip details to MLT Orlando Transportation so we can confirm your private ride in Orlando."
+  />
+
+  <style>
+    /* Same base styles as index.html so it looks consistent */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .top-bar {
+      background: #0b1120;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+      padding: 0.4rem 5vw;
+    }
+
+    .top-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .top-bar a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .social-top {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .social-top img {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: block;
+    }
+
+    header {
+      background: #111827;
+      color: #f9fafb;
+      padding: 0.75rem 5vw;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 5vw 4rem;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-intro {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+      max-width: 650px;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+      align-items: flex-start;
+    }
+
+    form {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+      border: 1px solid #e5e7eb;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid #d1d5db;
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+      text-align: center;
+      white-space: nowrap;
+      background: #38bdf8;
+      color: #0b1120;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .contact-details {
+      font-size: 0.95rem;
+      color: #374151;
+    }
+
+    .contact-details p {
+      margin-bottom: 0.7rem;
+    }
+
+    .contact-label {
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 2rem 5vw 2.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .social-links img {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    @media (max-width: 800px) {
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+      }
+
+      main {
+        padding-top: 1.5rem;
+      }
+
+      .top-bar-inner {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .top-bar-right {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top contact bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
+
+      <div class="top-bar-right">
+        <span>
+          Call: <a href="tel:14073690643">407-369-0643</a> ·
+          Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
+        </span>
+
+        <div class="social-top">
+          <a href="https://facebook.com/" target="_blank" rel="noopener">
+            <img src="facebook-icon.jpeg" alt="Facebook" />
+          </a>
+          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+            <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
+          </a>
+          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
+            <img src="instagram-icon.jpeg" alt="Instagram" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <div class="logo">MLT Orlando Transportation</div>
+      <nav>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#owner">Owner</a>
+        <a href="index.html#private-airport">Private Airport</a>
+        <a href="index.html#seats">Child Seats</a>
+        <a href="index.html#areas">Service Areas</a>
+        <a href="index.html#rates">Rates</a>
+        <a href="index.html#cancellation">Cancellation</a>
+        <a href="booking.html">Contact / Booking</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Booking Details &amp; Contact</h1>
+    <p class="section-intro">
+      Please share your trip details below so we can confirm your booking and match it with your
+      Square payment. Use the same name and email address here and when you pay with your card.
+    </p>
+
+    <div class="contact-wrapper">
+      <!-- FORMSPREE FORM -->
+      <form action="https://formspree.io/f/xovgzajo" method="POST">
+        <input type="hidden" name="_subject" value="New MLT Orlando booking request" />
+
+        <label for="name">Passenger name</label>
+        <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
+
+        <label for="email">Email (same as payment)</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+
+        <label for="phone">Mobile / WhatsApp number</label>
+        <input id="phone" name="Phone" type="tel" placeholder="+1 407-369-0643" required />
+
+        <label for="pickup-date">Pickup date</label>
+        <input id="pickup-date" name="Pickup date" type="date" required />
+
+        <label for="pickup-time">Pickup time (local)</label>
+        <input id="pickup-time" name="Pickup time" type="time" required />
+
+        <label for="pickup-location">Pickup location</label>
+        <select id="pickup-location" name="Pickup location" required>
+          <option value="">Select an option</option>
+          <option>MCO - Orlando International Airport</option>
+          <option>SFB - Orlando Sanford International Airport</option>
+          <option>Private airport / FBO</option>
+          <option>Hotel / Resort</option>
+          <option>Residence / Rental home</option>
+          <option>Other (see notes)</option>
+        </select>
+
+        <label for="flight">Airline &amp; flight number (if flying)</label>
+        <input
+          id="flight"
+          name="Airline & flight number"
+          type="text"
+          placeholder="Example: Delta 1234"
+        />
+
+        <label for="destination">Destination address / hotel</label>
+        <input
+          id="destination"
+          name="Destination"
+          type="text"
+          placeholder="Hotel name or full address"
+          required
+        />
+
+        <label for="passengers">Number of passengers</label>
+        <input
+          id="passengers"
+          name="Passengers"
+          type="number"
+          min="1"
+          max="14"
+          placeholder="2 adults, 2 children"
+          required
+        />
+
+        <label for="luggage">Luggage details</label>
+        <input
+          id="luggage"
+          name="Luggage"
+          type="text"
+          placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
+        />
+
+        <label for="rear-seat">Rear-facing infant seats needed</label>
+        <select id="rear-seat" name="Rear-facing infant seats">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+
+        <label for="forward-seat">Forward-facing car seats needed</label>
+        <select id="forward-seat" name="Forward-facing car seats">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+
+        <label for="booster-seat">Booster seats needed</label>
+        <select id="booster-seat" name="Booster seats">
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+
+        <label for="return-trip">Return trip?</label>
+        <select id="return-trip" name="Return trip">
+          <option>No, one-way only</option>
+          <option>Yes, round trip (please add return details in notes)</option>
+        </select>
+
+        <label for="payment-name">Name used on Square payment</label>
+        <input
+          id="payment-name"
+          name="Payment name"
+          type="text"
+          placeholder="Name on card / Square receipt"
+        />
+
+        <label for="notes">Additional notes</label>
+        <textarea
+          id="notes"
+          name="Notes"
+          placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
+        ></textarea>
+
+        <button type="submit" class="btn-primary">Send booking details</button>
+
+        <p class="hero-note" style="margin-top:0.75rem;">
+          After submitting this form, please complete payment using the
+          <strong>Book Now &amp; Pay with Card</strong> button on the home page or in the Rates section.
+        </p>
+      </form>
+
+      <div class="contact-details">
+        <p class="contact-label">Direct contact</p>
+        <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
+        <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
+        <p>
+          WhatsApp:
+          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+            <strong>Message on WhatsApp</strong>
+          </a>
+        </p>
+
+        <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
+        <p>Transportation: 24/7 by reservation</p>
+        <p>Messages &amp; quotes: Every day, 8:00 – 20:00 (local time)</p>
+
+        <p class="contact-label" style="margin-top:1rem;">Base location</p>
+        <p>
+          MLT Orlando Transportation<br />
+          Orlando, FL<br />
+          United States
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://facebook.com/" target="_blank" rel="noopener">
+        <img src="facebook-icon.jpeg" alt="Facebook" />
+      </a>
+      <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+        <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
+      </a>
+      <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
+        <img src="instagram-icon.jpeg" alt="Instagram" />
+      </a>
+    </div>
+
+    © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
