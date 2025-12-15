@@ -6,11 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Submit your trip details to MLT Orlando Transportation so we can confirm your private ride in Orlando."
+    content="Booking and contact form for MLT Orlando Transportation. Share your trip details and we will confirm availability and pricing."
   />
 
   <style>
-    /* Same base styles as index.html so it looks consistent */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -24,8 +23,11 @@
       line-height: 1.6;
     }
 
-    a { color: inherit; }
+    a {
+      color: inherit;
+    }
 
+    /* Top contact strip */
     .top-bar {
       background: #0b1120;
       color: #e5e7eb;
@@ -64,6 +66,12 @@
       display: flex;
       align-items: center;
       gap: 0.4rem;
+    }
+
+    .social-top a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .social-top img {
@@ -109,6 +117,25 @@
       color: #38bdf8;
     }
 
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+      text-align: center;
+      white-space: nowrap;
+      background: #38bdf8;
+      color: #0b1120;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
     main {
       max-width: 1100px;
       margin: 0 auto;
@@ -116,7 +143,7 @@
     }
 
     h1 {
-      font-size: 1.9rem;
+      font-size: clamp(2rem, 3vw, 2.4rem);
       margin-bottom: 0.5rem;
     }
 
@@ -124,6 +151,12 @@
       color: #4b5563;
       margin-bottom: 1.5rem;
       max-width: 650px;
+      font-size: 0.98rem;
+    }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: #6b7280;
     }
 
     .contact-wrapper {
@@ -173,30 +206,6 @@
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
     }
 
-    .btn-primary {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.95rem;
-      text-align: center;
-      white-space: nowrap;
-      background: #38bdf8;
-      color: #0b1120;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-    }
-
-    .hero-note {
-      font-size: 0.85rem;
-      color: #6b7280;
-    }
-
     .contact-details {
       font-size: 0.95rem;
       color: #374151;
@@ -217,11 +226,21 @@
       color: #6b7280;
     }
 
+    footer a {
+      color: inherit;
+    }
+
     .social-links {
       display: flex;
       justify-content: center;
       gap: 0.75rem;
       margin-bottom: 0.75rem;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .social-links img {
@@ -298,6 +317,7 @@
         <a href="index.html#areas">Service Areas</a>
         <a href="index.html#rates">Rates</a>
         <a href="index.html#cancellation">Cancellation</a>
+        <a href="index.html#why">Why Us</a>
         <a href="booking.html">Contact / Booking</a>
       </nav>
     </div>
@@ -307,13 +327,29 @@
     <h1>Booking Details &amp; Contact</h1>
     <p class="section-intro">
       Please share your trip details below so we can confirm your booking and match it with your
-      Square payment. Use the same name and email address here and when you pay with your card.
+      Square payment. If you clicked from the Rates page, your selected trip and price will appear below.
     </p>
+
+    <!-- Selected trip from Rates page -->
+    <div id="selected-trip-box" style="
+      background:#e0f2fe;
+      border:1px solid #bae6fd;
+      border-radius:0.9rem;
+      padding:1rem 1.25rem;
+      margin-bottom:1.5rem;
+      font-size:0.95rem;
+    ">
+      <strong>Selected trip:</strong>
+      <span id="selected-trip-text">No specific trip selected yet. You can still fill out the form below.</span><br />
+      <span id="selected-trip-price" class="hero-note"></span>
+    </div>
 
     <div class="contact-wrapper">
       <!-- FORMSPREE FORM -->
       <form action="https://formspree.io/f/xovgzajo" method="POST">
         <input type="hidden" name="_subject" value="New MLT Orlando booking request" />
+        <!-- Hidden field to send selected trip with the form -->
+        <input type="hidden" id="selected-trip-input" name="Selected trip" />
 
         <label for="name">Passenger name</label>
         <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
@@ -428,8 +464,21 @@
         <button type="submit" class="btn-primary">Send booking details</button>
 
         <p class="hero-note" style="margin-top:0.75rem;">
-          After submitting this form, please complete payment using the
-          <strong>Book Now &amp; Pay with Card</strong> button on the home page or in the Rates section.
+          Step 2: After sending your booking details, please complete payment using the Square button below.
+        </p>
+
+        <!-- Square payment button (placeholder link for now) -->
+        <a
+          href="YOUR_GENERAL_SQUARE_PAYMENT_LINK_HERE"
+          target="_blank"
+          rel="noopener"
+          class="btn-primary"
+          style="margin-top:0.75rem; display:inline-block;"
+        >
+          💳 Go to secure payment (Square)
+        </a>
+        <p class="hero-note" style="margin-top:0.4rem;">
+          We can later replace this with specific links for each route and vehicle type.
         </p>
       </form>
 
@@ -475,7 +524,26 @@
   </footer>
 
   <script>
+    // Sets the current year in the footer automatically
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Read trip & price from URL and show in the blue box + hidden field
+    const params = new URLSearchParams(window.location.search);
+    const trip = params.get("trip");
+    const price = params.get("price");
+
+    const tripTextSpan = document.getElementById("selected-trip-text");
+    const priceSpan = document.getElementById("selected-trip-price");
+    const tripInput = document.getElementById("selected-trip-input");
+
+    if (trip) {
+      tripTextSpan.textContent = trip;
+      tripInput.value = trip + (price ? " | Price seen: " + price : "");
+    }
+
+    if (price) {
+      priceSpan.textContent = "Price shown on Rates page: $" + price;
+    }
   </script>
 </body>
 </html>
