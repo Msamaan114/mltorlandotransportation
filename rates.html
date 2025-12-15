@@ -2,23 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Rates & Booking | MLT Orlando Transportation</title>
+  <title>MLT Orlando Transportation | Rates & Booking</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Rates and booking options for private transfers with MLT Orlando Transportation."
+    content="View rates and booking options for MLT Orlando Transportation from MCO and SFB to Disney, Universal, Cape Canaveral and more."
   />
-  <!-- Open Graph -->
-  <meta property="og:title" content="Rates & Booking | MLT Orlando Transportation" />
-  <meta property="og:description" content="View rates and book private transportation in Orlando." />
+  <!-- Open Graph / preview tags -->
+  <meta property="og:title" content="MLT Orlando Transportation | Rates & Booking" />
+  <meta property="og:description" content="Private transportation rates from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral." />
   <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
   <meta property="og:url" content="https://www.mltorlandotransportation.com/rates.html" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
-    /* Same styles as index to keep matching look */
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -27,8 +25,8 @@
     }
 
     body {
-      background: #f3f4f6;
-      color: #111827;
+      background: #f5f5f5;
+      color: #222;
       line-height: 1.6;
     }
 
@@ -36,6 +34,7 @@
       color: inherit;
     }
 
+    /* Top contact strip */
     .top-bar {
       background: #0b1120;
       color: #e5e7eb;
@@ -96,7 +95,6 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
     }
 
     .nav {
@@ -110,10 +108,9 @@
 
     .logo {
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       font-size: 1rem;
       text-transform: uppercase;
-      color: #facc15;
     }
 
     nav a {
@@ -135,93 +132,73 @@
 
     .btn-primary,
     .btn-secondary,
-    .btn-price,
-    .btn-home {
+    .btn-price {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
+      padding: 0.6rem 1.4rem;
       border-radius: 999px;
       border: none;
       cursor: pointer;
       font-weight: 600;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       text-align: center;
       white-space: nowrap;
-      transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.08s ease;
     }
 
     .btn-primary {
-      background: linear-gradient(120deg, #06b6d4, #0ea5e9, #38bdf8);
+      background: #38bdf8;
       color: #0b1120;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
     }
 
     .btn-secondary {
       background: transparent;
       color: #111827;
-      border: 1px solid #38bdf8;
-      background-color: #e5f3fb;
-    }
-
-    .btn-home {
-      background: #facc15;
-      color: #111827;
-      box-shadow: 0 8px 18px rgba(250, 204, 21, 0.4);
-      font-size: 0.9rem;
-      padding: 0.6rem 1.3rem;
+      border: 1px solid #4b5563;
     }
 
     .btn-primary:hover,
     .btn-secondary:hover,
-    .btn-home:hover {
-      opacity: 0.94;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(148, 163, 184, 0.5);
+    .btn-price:hover {
+      opacity: 0.9;
+    }
+
+    .btn-price {
+      margin-top: 0.25rem;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem;
+      background: #38bdf8;
+      color: #0b1120;
     }
 
     section {
-      padding: 3rem 0 1rem;
+      padding: 1rem 0 1rem;
     }
 
     section h1,
     section h2 {
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
-      position: relative;
-      display: inline-block;
-      color: #0f172a;
     }
 
-    section h1::after,
-    section h2::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 60%;
-      max-width: 160px;
-      height: 3px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #06b6d4, #0ea5e9, #fbbf24);
-    }
-
-    section p.section-intro {
+    p.section-intro {
       color: #4b5563;
       margin-bottom: 1.5rem;
-      max-width: 650px;
+      max-width: 700px;
+    }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
     }
 
     .card {
       background: #ffffff;
       border-radius: 1rem;
       padding: 1.5rem;
-      box-shadow: 0 10px 24px rgba(148, 163, 184, 0.35);
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
       border: 1px solid #e5e7eb;
-    }
-
-    .hero-note {
-      font-size: 0.85rem;
-      color: #6b7280;
+      margin-bottom: 2rem;
     }
 
     .rates-table {
@@ -240,13 +217,8 @@
     }
 
     .rates-table th {
-      background: #e5f3fb;
+      background: #f3f4f6;
       font-weight: 600;
-      color: #0f172a;
-    }
-
-    .rates-table td {
-      color: #374151;
     }
 
     .rates-note {
@@ -258,7 +230,6 @@
     .rate-price {
       font-weight: 600;
       display: block;
-      color: #b45309;
     }
 
     .rate-capacity {
@@ -268,42 +239,17 @@
       margin-top: 0.1rem;
     }
 
-    .btn-price {
-      margin-top: 0.25rem;
-      display: inline-block;
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(120deg, #06b6d4, #0ea5e9);
-      color: #0b1120;
-      font-size: 0.78rem;
-      text-decoration: none;
-      font-weight: 600;
-      white-space: nowrap;
-      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
-    }
-
-    .btn-price:hover {
-      opacity: 0.94;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.5);
-    }
-
     .rates-subheading {
       margin-top: 1.75rem;
       font-size: 1.05rem;
       font-weight: 600;
-      color: #0f172a;
     }
 
     footer {
       padding: 2rem 5vw 2.5rem;
       text-align: center;
       font-size: 0.85rem;
-      color: #e5e7eb;
-      border-top: 1px solid #020617;
-      background: #020617;
-      margin-top: 2rem;
+      color: #6b7280;
     }
 
     footer a {
@@ -328,12 +274,16 @@
       height: 28px;
       border-radius: 8px;
       display: block;
-      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.7);
     }
 
     @media (max-width: 800px) {
       nav {
         display: none;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
       }
 
       main {
@@ -364,6 +314,7 @@
         </span>
 
         <div class="social-top">
+          <!-- Facebook placeholder for now -->
           <a href="https://facebook.com/" target="_blank" rel="noopener">
             <img src="facebook-icon.jpeg" alt="Facebook" />
           </a>
@@ -383,11 +334,6 @@
       <div class="logo">MLT Orlando Transportation</div>
       <nav>
         <a href="index.html">Home</a>
-        <a href="index.html#services">Services</a>
-        <a href="index.html#owner">Owner</a>
-        <a href="index.html#private-airport">Private Airport</a>
-        <a href="index.html#seats">Child Seats</a>
-        <a href="index.html#areas">Service Areas</a>
         <a href="rates.html">Rates &amp; Booking</a>
         <a href="index.html#contact">Contact</a>
       </nav>
@@ -395,25 +341,22 @@
   </header>
 
   <main>
-    <section id="rates">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
-        <div>
-          <h1>Rates &amp; Booking</h1>
-          <p class="section-intro">
-            Standard private transfer rates by vehicle type. Prices can vary for holidays and late-night pickups.
-            Contact us if you don’t see your route listed or need a custom quote.
-          </p>
-        </div>
-        <div>
-          <!-- Home button back to main page -->
-          <a class="btn-home" href="index.html">← Back to Home Page</a>
-        </div>
+    <section>
+      <h1>Rates &amp; Booking</h1>
+      <p class="section-intro">
+        First, choose the route and vehicle that fits your group. Then you can complete payment using the
+        appropriate button and fill out your trip details on the Booking form.
+      </p>
+
+      <div style="margin-bottom:1.5rem;">
+        <a href="index.html" class="btn-secondary">← Back to Home</a>
+        <a href="index.html#contact" class="btn-primary" style="margin-left:0.5rem;">Go to Booking Form</a>
       </div>
 
       <div class="card">
         <p class="hero-note" style="margin-bottom:1rem;">
           Each price includes <strong>private vehicle, driver, tolls and taxes</strong>. Gratuity is not included
-          and is appreciated. Replace the placeholder payment links below with your actual Square links.
+          and is appreciated. Use the blue <strong>Pay</strong> buttons once you have your Square payment links.
         </p>
 
         <!-- MCO ↔ Disney / Universal -->
@@ -690,19 +633,20 @@
         <p class="rates-note">
           • Prices above are examples – please adjust each amount to your exact pricing.<br />
           • Replace every <code>YOUR_SQUARE_LINK_...</code> with the specific Square payment link for that option.<br />
-          • Final quote may change based on exact pickup location, time and special requests.
+          • After payment, please ask guests to fill in the <strong>Booking Details &amp; Contact</strong> form on the Home page.
         </p>
+      </div>
 
-        <p class="hero-note" style="margin-top:1rem;">
-          To send us your trip details, please return to the
-          <a href="index.html#contact"><strong>Booking Details &amp; Contact</strong></a> section on the home page.
-        </p>
+      <div>
+        <a href="index.html#contact" class="btn-primary">Go to Booking Form</a>
+        <a href="index.html" class="btn-secondary" style="margin-left:0.5rem;">Back to Home</a>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="social-links">
+      <!-- Facebook placeholder for now -->
       <a href="https://facebook.com/" target="_blank" rel="noopener">
         <img src="facebook-icon.jpeg" alt="Facebook" />
       </a>
@@ -722,4 +666,3 @@
   </script>
 </body>
 </html>
-
