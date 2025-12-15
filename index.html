@@ -457,7 +457,6 @@
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid #e5e7eb;
       text-align: left;
-      vertical-align: middle;
     }
 
     .rates-table th {
@@ -469,26 +468,6 @@
       margin-top: 0.75rem;
       font-size: 0.85rem;
       color: #6b7280;
-    }
-
-    .rate-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-    }
-
-    .rate-btn {
-      display: inline-block;
-      padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-decoration: none;
-      background: #0f172a;
-      color: #f9fafb;
-      white-space: nowrap;
     }
 
     .book-btn {
@@ -621,6 +600,7 @@
 
         <div class="btn-row">
           <a class="btn-primary" href="tel:14073690643">📞 Call Now</a>
+          <!-- General Square link -->
           <a class="btn-secondary" href="https://square.link/u/Jw4nyWVv?src=sheet" target="_blank" rel="noopener">
             💳 Book Now &amp; Pay with Card
           </a>
@@ -858,7 +838,7 @@
       </div>
     </section>
 
-    <!-- RATES & BOOKING -->
+    <!-- RATES & BOOKING (old format) -->
     <section id="rates">
       <h2>Rates &amp; Booking</h2>
       <p class="section-intro">
@@ -870,125 +850,51 @@
         <table class="rates-table">
           <thead>
             <tr>
-              <th>Route</th>
-              <th>Vehicle</th>
-              <th>Capacity</th>
-              <th>One-way</th>
-              <th>Round trip</th>
-              <th>Book</th>
+              <th>From</th>
+              <th>To</th>
+              <th>One-way rate (per vehicle)</th>
             </tr>
           </thead>
           <tbody>
-            <!-- Sedan rows -->
             <tr>
-              <td>MCO ↔ Disney / Universal area</td>
-              <td>Sedan</td>
-              <td>Up to 3 passengers · 2 large · 1 carry-on</td>
-              <td>$110</td>
-              <td>$210</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan round trip</a>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>MCO ↔ International Drive / Orlando hotels</td>
-              <td>Sedan</td>
-              <td>Up to 3 passengers · 2 large · 1 carry-on</td>
-              <td>$100</td>
-              <td>$190</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Sedan round trip</a>
-                </div>
-              </td>
-            </tr>
-
-            <!-- SUV rows -->
-            <tr>
-              <td>MCO ↔ Disney / Universal area</td>
-              <td>SUV</td>
-              <td>Up to 5 passengers · 5 large · 3 carry-on</td>
+              <td>MCO</td>
+              <td>Disney / Universal area</td>
               <td>$120</td>
-              <td>$230</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV round trip</a>
-                </div>
-              </td>
             </tr>
             <tr>
-              <td>MCO ↔ Cape Canaveral / Port Canaveral</td>
-              <td>SUV</td>
-              <td>Up to 5 passengers · 5 large · 3 carry-on</td>
+              <td>MCO</td>
+              <td>International Drive / Orlando hotel area</td>
+              <td>$110</td>
+            </tr>
+            <tr>
+              <td>MCO</td>
+              <td>Kissimmee / Lake Buena Vista</td>
+              <td>$130</td>
+            </tr>
+            <tr>
+              <td>MCO</td>
+              <td>Cape Canaveral / Port Canaveral</td>
               <td>$210</td>
-              <td>$400</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">SUV round trip</a>
-                </div>
-              </td>
             </tr>
-
-            <!-- 8-passenger van rows -->
             <tr>
-              <td>MCO ↔ Disney / Universal area</td>
-              <td>8-passenger van</td>
-              <td>Up to 8 passengers · 10 large · 5 carry-on</td>
+              <td>SFB</td>
+              <td>Disney / Universal area</td>
               <td>$150</td>
-              <td>$280</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van round trip</a>
-                </div>
-              </td>
             </tr>
             <tr>
-              <td>MCO ↔ Cape Canaveral / Port Canaveral</td>
-              <td>8-passenger van</td>
-              <td>Up to 8 passengers · 10 large · 5 carry-on</td>
-              <td>$240</td>
-              <td>$460</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">Van round trip</a>
-                </div>
-              </td>
-            </tr>
-
-            <!-- 14-passenger van rows -->
-            <tr>
-              <td>MCO ↔ Disney / Universal area</td>
-              <td>14-passenger van</td>
-              <td>Up to 14 passengers · 14 large · 7 carry-on</td>
-              <td>$190</td>
-              <td>$360</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass round trip</a>
-                </div>
-              </td>
+              <td>SFB</td>
+              <td>International Drive / Orlando hotel area</td>
+              <td>$140</td>
             </tr>
             <tr>
-              <td>MCO ↔ Cape Canaveral / Port Canaveral</td>
-              <td>14-passenger van</td>
-              <td>Up to 14 passengers · 14 large · 7 carry-on</td>
-              <td>$280</td>
-              <td>$540</td>
-              <td>
-                <div class="rate-buttons">
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass one-way</a>
-                  <a class="rate-btn" href="#" target="_blank" rel="noopener">14-pass round trip</a>
-                </div>
-              </td>
+              <td>SFB</td>
+              <td>Cape Canaveral / Port Canaveral</td>
+              <td>$230</td>
+            </tr>
+            <tr>
+              <td>Orlando area</td>
+              <td>Hourly service (within city)</td>
+              <td>$90 / hour (3-hour minimum)</td>
             </tr>
           </tbody>
         </table>
@@ -996,15 +902,12 @@
         <p class="rates-note">
           • Prices are per vehicle, not per person. <br />
           • Tolls and taxes included. Gratuity is not included and is appreciated. <br />
-          • Final quote may change based on exact pickup location, time, traffic and special requests.
+          • Final quote may change based on exact pickup location, time and special requests.
         </p>
 
         <a class="btn-primary book-btn" href="https://square.link/u/Jw4nyWVv?src=sheet" target="_blank" rel="noopener">
-          General Booking &amp; Payment Link
+          Book Now &amp; Pay with Card
         </a>
-        <p class="hero-note" style="margin-top:0.5rem;">
-          You can also use the individual buttons in the table above once each route has its own payment link.
-        </p>
       </div>
     </section>
 
@@ -1063,7 +966,7 @@
       </div>
     </section>
 
-    <!-- BOOKING DETAILS & CONTACT -->
+    <!-- BOOKING DETAILS & CONTACT (Formspree) -->
     <section id="contact">
       <h2>Booking Details &amp; Contact</h2>
       <p class="section-intro">
