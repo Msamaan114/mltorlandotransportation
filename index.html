@@ -25,8 +25,8 @@
     }
 
     body {
-      background: #f5f5f5;
-      color: #222;
+      background: #e5e7eb; /* light gray page background */
+      color: #111827;
       line-height: 1.6;
     }
 
@@ -124,6 +124,13 @@
       color: #38bdf8;
     }
 
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 5vw 4rem;
+    }
+
+    /* Buttons */
     .btn-row {
       display: flex;
       flex-wrap: wrap;
@@ -152,7 +159,7 @@
 
     .btn-secondary {
       background: transparent;
-      color: #e5e7eb;
+      color: #111827;
       border: 1px solid #4b5563;
     }
 
@@ -161,10 +168,29 @@
       opacity: 0.9;
     }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 5vw 4rem;
+    /* THEME FOR ALL SECTIONS */
+    section {
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      border-radius: 1.5rem;
+      background: #ffffff;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.06);
+    }
+
+    section:nth-of-type(odd) {
+      /* soft blue gradient every other section */
+      background: linear-gradient(135deg, #eff6ff, #e0f2fe);
+    }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.section-intro {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
     }
 
     /* Hero section */
@@ -173,7 +199,6 @@
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
       gap: 2.5rem;
       align-items: center;
-      padding: 3rem 0 2rem;
     }
 
     .hero h1 {
@@ -223,7 +248,7 @@
 
     .hero-stat span {
       font-size: 0.85rem;
-      color: #6b7280;
+      color: #374151;
     }
 
     .hero-note {
@@ -275,22 +300,7 @@
       color: #bfdbfe;
     }
 
-    /* Generic section styles */
-    section {
-      padding: 3rem 0 1rem;
-    }
-
-    section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 0.5rem;
-    }
-
-    section p.section-intro {
-      color: #4b5563;
-      margin-bottom: 1.5rem;
-      max-width: 600px;
-    }
-
+    /* Grid + cards */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -484,10 +494,10 @@
         <a href="#private-airport">Private Airport</a>
         <a href="#seats">Child Seats</a>
         <a href="#areas">Service Areas</a>
-        <a href="rates.html">Rates &amp; Booking</a>
         <a href="#cancellation">Cancellation</a>
         <a href="#why">Why Us</a>
-        <a href="booking.html">Contact / Booking</a>
+        <a href="rates.html">Rates</a>
+        <a href="booking.html">Booking</a>
       </nav>
     </div>
   </header>
@@ -507,7 +517,9 @@
 
         <div class="btn-row">
           <a class="btn-primary" href="tel:14073690643">📞 Call Now</a>
-          <a class="btn-secondary" href="rates.html">See Rates &amp; Booking</a>
+          <a class="btn-secondary" href="rates.html">
+            View Rates &amp; Book
+          </a>
         </div>
 
         <p class="hero-note">
