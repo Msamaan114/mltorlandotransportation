@@ -318,7 +318,7 @@
       color: #6b7280;
     }
 
-    /* Feature image sections (owner & private airport) */
+    /* Feature image sections (owner, private airport, seats) */
     .feature-section {
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
@@ -352,7 +352,7 @@
       margin-bottom: 0.75rem;
     }
 
-    /* Why choose us */
+    /* Why choose us & lists */
     .why-list {
       list-style: none;
       padding-left: 0;
@@ -568,6 +568,7 @@
         <a href="#services">Services</a>
         <a href="#owner">Owner</a>
         <a href="#private-airport">Private Airport</a>
+        <a href="#seats">Child Seats</a>
         <a href="#areas">Service Areas</a>
         <a href="#rates">Rates</a>
         <a href="#why">Why Us</a>
@@ -747,6 +748,40 @@
           <p>
             Tell us your tail number, arrival time and destination, and we’ll handle the rest — discreet,
             professional, door-to-door service.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPLIMENTARY CHILD SEATS -->
+    <section id="seats">
+      <h2>Complimentary Child Car Seats</h2>
+      <p class="section-intro">
+        Traveling with little ones? We can provide rear-facing infant seats, forward-facing car seats and booster
+        seats at <strong>no extra cost</strong> when requested in advance, so your family can ride safely and comfortably.
+      </p>
+
+      <div class="feature-section">
+        <img
+          src="child-seats.jpeg"
+          alt="Child car seats and booster seats installed in MLT Orlando Transportation SUV"
+          class="feature-photo"
+        />
+
+        <div class="card feature-text">
+          <ul class="why-list">
+            <li><strong>Rear-facing infant seats</strong> for babies and smaller toddlers (on request).</li>
+            <li><strong>Forward-facing car seats</strong> for toddlers and young children.</li>
+            <li><strong>Booster seats</strong> for older children who still need a height boost for the seat belt.</li>
+            <li>
+              Seats are provided <strong>free of charge</strong>, but must be requested during booking so we can
+              prepare the correct number and type of seats for your trip.
+            </li>
+          </ul>
+
+          <p class="hero-note" style="margin-top:0.75rem;">
+            For safety, please share each child’s <strong>age and approximate weight</strong> in the booking form notes,
+            so we can match the right seat type to each passenger.
           </p>
         </div>
       </div>
@@ -956,6 +991,33 @@
             placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
           />
 
+          <label for="rear-seat">Rear-facing infant seats needed</label>
+          <select id="rear-seat" name="Rear-facing infant seats">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+
+          <label for="forward-seat">Forward-facing car seats needed</label>
+          <select id="forward-seat" name="Forward-facing car seats">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+
+          <label for="booster-seat">Booster seats needed</label>
+          <select id="booster-seat" name="Booster seats">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+
           <label for="return-trip">Return trip?</label>
           <select id="return-trip" name="Return trip">
             <option>No, one-way only</option>
@@ -974,7 +1036,7 @@
           <textarea
             id="notes"
             name="Notes"
-            placeholder="Return flight info, child seats, special requests, gate meeting instructions..."
+            placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
           ></textarea>
 
           <button type="submit" class="btn-primary">Send booking details by email</button>
