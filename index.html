@@ -383,67 +383,6 @@
       font-size: 0.9rem;
     }
 
-    /* Contact */
-    .contact-wrapper {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 2rem;
-      margin-top: 1rem;
-      align-items: flex-start;
-    }
-
-    form {
-      background: #ffffff;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
-      border: 1px solid #e5e7eb;
-    }
-
-    label {
-      display: block;
-      font-size: 0.9rem;
-      margin-bottom: 0.25rem;
-      font-weight: 500;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 0.6rem 0.7rem;
-      border-radius: 0.6rem;
-      border: 1px solid #d1d5db;
-      margin-bottom: 0.8rem;
-      font-size: 0.9rem;
-    }
-
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      outline: none;
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
-    }
-
-    .contact-details {
-      font-size: 0.95rem;
-      color: #374151;
-    }
-
-    .contact-details p {
-      margin-bottom: 0.7rem;
-    }
-
-    .contact-label {
-      font-weight: 600;
-    }
-
     /* Rates table */
     .rates-table {
       width: 100%;
@@ -547,7 +486,6 @@
     /* Responsive */
     @media (max-width: 800px) {
       .hero,
-      .contact-wrapper,
       .feature-section,
       .feature-section.reverse {
         grid-template-columns: 1fr;
@@ -590,7 +528,6 @@
         </span>
 
         <div class="social-top">
-          <!-- Facebook placeholder for now -->
           <a href="https://facebook.com/" target="_blank" rel="noopener">
             <img src="facebook-icon.jpeg" alt="Facebook" />
           </a>
@@ -617,7 +554,8 @@
         <a href="#rates">Rates</a>
         <a href="#cancellation">Cancellation</a>
         <a href="#why">Why Us</a>
-        <a href="#contact">Contact</a>
+        <!-- NOW GOES TO A SEPARATE PAGE -->
+        <a href="booking.html">Contact / Booking</a>
       </nav>
     </div>
   </header>
@@ -1221,172 +1159,10 @@
         </ul>
       </div>
     </section>
-
-    <!-- BOOKING DETAILS & CONTACT (FORMSPREE) -->
-    <section id="contact">
-      <h2>Booking Details &amp; Contact</h2>
-      <p class="section-intro">
-        Please share your trip details below so we can confirm your booking and match it with your
-        Square payment. Use the same name and email address here and when you pay with your card.
-      </p>
-
-      <div class="contact-wrapper">
-        <!-- Formspree booking form -->
-        <form action="https://formspree.io/f/xovgzajo" method="POST">
-          <input type="hidden" name="_subject" value="New MLT Orlando booking request" />
-
-          <label for="name">Passenger name</label>
-          <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
-
-          <label for="email">Email (same as payment)</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required />
-
-          <label for="phone">Mobile / WhatsApp number</label>
-          <input id="phone" name="Phone" type="tel" placeholder="+1 407-369-0643" required />
-
-          <label for="pickup-date">Pickup date</label>
-          <input id="pickup-date" name="Pickup date" type="date" required />
-
-          <label for="pickup-time">Pickup time (local)</label>
-          <input id="pickup-time" name="Pickup time" type="time" required />
-
-          <label for="pickup-location">Pickup location</label>
-          <select id="pickup-location" name="Pickup location" required>
-            <option value="">Select an option</option>
-            <option>MCO - Orlando International Airport</option>
-            <option>SFB - Orlando Sanford International Airport</option>
-            <option>Private airport / FBO</option>
-            <option>Hotel / Resort</option>
-            <option>Residence / Rental home</option>
-            <option>Other (see notes)</option>
-          </select>
-
-          <label for="flight">Airline &amp; flight number (if flying)</label>
-          <input
-            id="flight"
-            name="Airline & flight number"
-            type="text"
-            placeholder="Example: Delta 1234"
-          />
-
-          <label for="destination">Destination address / hotel</label>
-          <input
-            id="destination"
-            name="Destination"
-            type="text"
-            placeholder="Hotel name or full address"
-            required
-          />
-
-          <label for="passengers">Number of passengers</label>
-          <input
-            id="passengers"
-            name="Passengers"
-            type="number"
-            min="1"
-            max="14"
-            placeholder="2 adults, 2 children"
-            required
-          />
-
-          <label for="luggage">Luggage details</label>
-          <input
-            id="luggage"
-            name="Luggage"
-            type="text"
-            placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
-          />
-
-          <label for="rear-seat">Rear-facing infant seats needed</label>
-          <select id="rear-seat" name="Rear-facing infant seats">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
-
-          <label for="forward-seat">Forward-facing car seats needed</label>
-          <select id="forward-seat" name="Forward-facing car seats">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
-
-          <label for="booster-seat">Booster seats needed</label>
-          <select id="booster-seat" name="Booster seats">
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
-
-          <label for="return-trip">Return trip?</label>
-          <select id="return-trip" name="Return trip">
-            <option>No, one-way only</option>
-            <option>Yes, round trip (please add return details in notes)</option>
-          </select>
-
-          <label for="payment-name">Name used on Square payment</label>
-          <input
-            id="payment-name"
-            name="Payment name"
-            type="text"
-            placeholder="Name on card / Square receipt"
-          />
-
-          <label for="notes">Additional notes</label>
-          <textarea
-            id="notes"
-            name="Notes"
-            placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
-          ></textarea>
-
-          <button type="submit" class="btn-primary">Send booking details</button>
-
-          <p class="hero-note" style="margin-top:0.75rem;">
-            After submitting this form, please complete payment using the
-            <strong>Book Now &amp; Pay with Card</strong> button at the top of the page or in the Rates section.
-          </p>
-        </form>
-
-        <div class="contact-details">
-          <p class="contact-label">Direct contact</p>
-          <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
-          <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
-          <p>
-            WhatsApp:
-            <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-              <strong>Message on WhatsApp</strong>
-            </a>
-          </p>
-
-          <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
-          <p>Transportation: 24/7 by reservation</p>
-          <p>Messages &amp; quotes: Every day, 8:00 – 20:00 (local time)</p>
-
-          <p class="contact-label" style="margin-top:1rem;">Base location</p>
-          <p>
-            MLT Orlando Transportation<br />
-            Orlando, FL<br />
-            United States
-          </p>
-
-          <p class="hero-note" style="margin-top:1rem;">
-            To help us match your trip with your payment, please use the same
-            <strong>name and email</strong> when paying through Square.
-          </p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
     <div class="social-links">
-      <!-- Facebook placeholder for now -->
       <a href="https://facebook.com/" target="_blank" rel="noopener">
         <img src="facebook-icon.jpeg" alt="Facebook" />
       </a>
@@ -1402,7 +1178,6 @@
   </footer>
 
   <script>
-    // Sets the current year in the footer automatically
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
