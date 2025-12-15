@@ -25,8 +25,8 @@
     }
 
     body {
-      background: #f3f4f6;
-      color: #111827;
+      background: #f5f5f5;
+      color: #222;
       line-height: 1.6;
     }
 
@@ -95,7 +95,6 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.45);
     }
 
     .nav {
@@ -109,10 +108,9 @@
 
     .logo {
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       font-size: 1rem;
       text-transform: uppercase;
-      color: #facc15; /* gold accent */
     }
 
     nav a {
@@ -145,27 +143,22 @@
       font-size: 0.95rem;
       text-align: center;
       white-space: nowrap;
-      transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.08s ease;
     }
 
     .btn-primary {
-      background: linear-gradient(120deg, #06b6d4, #0ea5e9, #38bdf8);
+      background: #38bdf8;
       color: #0b1120;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
     }
 
     .btn-secondary {
       background: transparent;
-      color: #111827;
-      border: 1px solid #38bdf8;
-      background-color: #e5f3fb;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
     }
 
     .btn-primary:hover,
     .btn-secondary:hover {
-      opacity: 0.94;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(148, 163, 184, 0.5);
+      opacity: 0.9;
     }
 
     main {
@@ -180,26 +173,18 @@
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
       gap: 2.5rem;
       align-items: center;
-      padding: 2.5rem 2rem;
-      margin-top: 2rem;
-      border-radius: 1.5rem;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.28), transparent 55%),
-        #ffffff;
-      box-shadow: 0 18px 40px rgba(148, 163, 184, 0.35);
-      border: 1px solid #e5e7eb;
+      padding: 3rem 0 2rem;
     }
 
     .hero h1 {
       font-size: clamp(2.2rem, 4vw, 3rem);
       margin-bottom: 0.75rem;
-      color: #0f172a;
     }
 
     .hero-tagline {
       font-size: 1rem;
       font-weight: 600;
-      color: #b45309; /* warm gold/brown */
+      color: #111827;
       margin-bottom: 1rem;
     }
 
@@ -218,7 +203,6 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
       margin-bottom: 0.75rem;
-      border: 1px solid #38bdf8;
     }
 
     .hero-stats {
@@ -235,7 +219,6 @@
     .hero-stat strong {
       display: block;
       font-size: 1.2rem;
-      color: #0f172a;
     }
 
     .hero-stat span {
@@ -252,7 +235,7 @@
     .hero-photo {
       width: 100%;
       border-radius: 1.25rem;
-      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.45);
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.55);
       object-fit: cover;
       max-height: 260px;
       margin-bottom: 1rem;
@@ -263,14 +246,12 @@
       color: #e5e7eb;
       border-radius: 1.5rem;
       padding: 1.75rem;
-      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.55);
-      border: 1px solid #1f2937;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.6);
     }
 
     .hero-card h2 {
       font-size: 1.1rem;
       margin-bottom: 0.75rem;
-      color: #facc15;
     }
 
     .hero-card-row {
@@ -290,9 +271,8 @@
       padding: 0.2rem 0.7rem;
       border-radius: 999px;
       font-size: 0.7rem;
-      background: rgba(34, 197, 94, 0.2);
-      color: #bbf7d0;
-      border: 1px solid rgba(34, 197, 94, 0.7);
+      background: rgba(59, 130, 246, 0.2);
+      color: #bfdbfe;
     }
 
     /* Generic section styles */
@@ -303,21 +283,6 @@
     section h2 {
       font-size: 1.6rem;
       margin-bottom: 0.5rem;
-      position: relative;
-      display: inline-block;
-      color: #0f172a;
-    }
-
-    section h2::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 60%;
-      max-width: 140px;
-      height: 3px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #06b6d4, #0ea5e9, #fbbf24);
     }
 
     section p.section-intro {
@@ -337,14 +302,13 @@
       background: #ffffff;
       border-radius: 1rem;
       padding: 1.5rem;
-      box-shadow: 0 10px 24px rgba(148, 163, 184, 0.35);
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
       border: 1px solid #e5e7eb;
     }
 
     .card h3 {
       font-size: 1.05rem;
       margin-bottom: 0.4rem;
-      color: #0f172a;
     }
 
     .card p {
@@ -358,11 +322,7 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 0.4rem;
-      color: #0f172a;
-      background: #e0f2fe;
-      padding: 0.15rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid #bae6fd;
+      color: #6b7280;
     }
 
     /* Feature image sections (owner, private airport, seats, cancellation) */
@@ -387,8 +347,7 @@
       border-radius: 1.25rem;
       object-fit: cover;
       max-height: 380px;
-      box-shadow: 0 18px 35px rgba(148, 163, 184, 0.6);
-      border: 1px solid #e5e7eb;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.35);
     }
 
     .feature-text {
@@ -424,7 +383,7 @@
       font-size: 0.9rem;
     }
 
-    /* Contact wrapper / forms */
+    /* Contact */
     .contact-wrapper {
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -437,7 +396,7 @@
       background: #ffffff;
       border-radius: 1rem;
       padding: 1.5rem;
-      box-shadow: 0 10px 24px rgba(148, 163, 184, 0.35);
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
       border: 1px solid #e5e7eb;
     }
 
@@ -446,7 +405,6 @@
       font-size: 0.9rem;
       margin-bottom: 0.25rem;
       font-weight: 500;
-      color: #111827;
     }
 
     input,
@@ -458,18 +416,11 @@
       border: 1px solid #d1d5db;
       margin-bottom: 0.8rem;
       font-size: 0.9rem;
-      background: #ffffff;
-      color: #111827;
     }
 
     textarea {
       min-height: 100px;
       resize: vertical;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #9ca3af;
     }
 
     input:focus,
@@ -491,7 +442,6 @@
 
     .contact-label {
       font-weight: 600;
-      color: #0f172a;
     }
 
     /* Footer and social icons */
@@ -499,10 +449,7 @@
       padding: 2rem 5vw 2.5rem;
       text-align: center;
       font-size: 0.85rem;
-      color: #e5e7eb;
-      border-top: 1px solid #020617;
-      background: #020617;
-      margin-top: 2rem;
+      color: #6b7280;
     }
 
     footer a {
@@ -527,7 +474,6 @@
       height: 28px;
       border-radius: 8px;
       display: block;
-      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.7);
     }
 
     /* Responsive */
@@ -537,10 +483,6 @@
       .feature-section,
       .feature-section.reverse {
         grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 2rem 1.5rem;
       }
 
       nav {
@@ -604,7 +546,6 @@
         <a href="#private-airport">Private Airport</a>
         <a href="#seats">Child Seats</a>
         <a href="#areas">Service Areas</a>
-        <!-- now links to separate page -->
         <a href="rates.html">Rates &amp; Booking</a>
         <a href="#cancellation">Cancellation</a>
         <a href="#why">Why Us</a>
@@ -628,7 +569,7 @@
 
         <div class="btn-row">
           <a class="btn-primary" href="tel:14073690643">📞 Call Now</a>
-          <a class="btn-secondary" href="rates.html">💳 View Rates &amp; Book</a>
+          <a class="btn-secondary" href="rates.html">See Rates &amp; Booking</a>
         </div>
 
         <p class="hero-note">
@@ -927,11 +868,8 @@
       </p>
 
       <div class="contact-wrapper">
-        <!-- Formspree form -->
+        <!-- This form is handled by Formspree -->
         <form action="https://formspree.io/f/xovgzajo" method="POST">
-          <input type="hidden" name="_subject" value="New booking request from MLT Orlando website" />
-          <input type="text" name="_gotcha" style="display:none" />
-
           <label for="name">Passenger name</label>
           <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
 
@@ -1045,8 +983,8 @@
           <button type="submit" class="btn-primary">Send booking details</button>
 
           <p class="hero-note" style="margin-top:0.75rem;">
-            After submitting this form, you can also review prices and payment options on the
-            <strong>Rates &amp; Booking</strong> page.
+            After submitting this form, please complete payment using the
+            <strong>Pay</strong> buttons in the <strong>Rates &amp; Booking</strong> page.
           </p>
         </form>
 
@@ -1104,4 +1042,3 @@
   </script>
 </body>
 </html>
-
