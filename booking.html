@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Share your trip details with MLT Orlando Transportation and complete your booking."
+    content="Send your booking details to MLT Orlando Transportation and confirm your trip with secure card payment."
   />
   <!-- Open Graph / preview tags -->
-  <meta property="og:title" content="MLT Orlando Transportation | Booking Details" />
-  <meta property="og:description" content="Send your trip information to MLT Orlando Transportation to confirm your ride." />
+  <meta property="og:title" content="MLT Orlando Transportation | Booking Details & Contact" />
+  <meta property="og:description" content="Share your trip details and confirm your private transportation in Orlando." />
   <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
   <meta property="og:url" content="https://www.mltorlandotransportation.com/booking.html" />
   <meta property="og:type" content="website" />
@@ -25,8 +25,8 @@
     }
 
     body {
-      background: #f5f5f5;
-      color: #222;
+      background: #e5e7eb;
+      color: #111827;
       line-height: 1.6;
     }
 
@@ -130,8 +130,17 @@
       padding: 2rem 5vw 4rem;
     }
 
+    /* THEME FOR SECTIONS */
     section {
-      padding: 1rem 0 1rem;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      border-radius: 1.5rem;
+      background: #ffffff;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.06);
+    }
+
+    section:nth-of-type(odd) {
+      background: linear-gradient(135deg, #eff6ff, #e0f2fe);
     }
 
     section h1 {
@@ -143,36 +152,6 @@
       color: #4b5563;
       margin-bottom: 1.5rem;
       max-width: 700px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.95rem;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: #38bdf8;
-      color: #0b1120;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: #111827;
-      border: 1px solid #4b5563;
-    }
-
-    .btn-primary:hover,
-    .btn-secondary:hover {
-      opacity: 0.9;
     }
 
     .hero-note {
@@ -241,6 +220,37 @@
       font-weight: 600;
     }
 
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: #38bdf8;
+      color: #0b1120;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #111827;
+      border: 1px solid #4b5563;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      opacity: 0.9;
+    }
+
     footer {
       padding: 2rem 5vw 2.5rem;
       text-align: center;
@@ -273,6 +283,10 @@
     }
 
     @media (max-width: 800px) {
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+      }
+
       nav {
         display: none;
       }
@@ -293,10 +307,6 @@
 
       .top-bar-right {
         justify-content: center;
-      }
-
-      .contact-wrapper {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -348,13 +358,8 @@
         Square payment. Use the same name and email address here and when you pay with your card.
       </p>
 
-      <div style="margin-bottom:1.5rem;">
-        <a href="rates.html" class="btn-secondary">← Back to Rates</a>
-        <a href="index.html" class="btn-primary" style="margin-left:0.5rem;">Back to Home</a>
-      </div>
-
       <div class="contact-wrapper">
-        <!-- Form handled by Formspree -->
+        <!-- Formspree form -->
         <form action="https://formspree.io/f/xovgzajo" method="POST">
           <label for="name">Passenger name</label>
           <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
@@ -463,39 +468,18 @@
           <textarea
             id="notes"
             name="Notes"
-            placeholder="Route and vehicle chosen from the Rates page, child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
+            placeholder="Route chosen on Rates page, child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
           ></textarea>
 
           <button type="submit" class="btn-primary">Send booking details</button>
 
           <p class="hero-note" style="margin-top:0.75rem;">
-            After submitting this form, please complete payment using the Square button below or the
-            payment link we send you.
+            After submitting this form, please complete payment using the
+            <strong>Pay with Card (Square)</strong> button on this page.
           </p>
         </form>
 
         <div class="contact-details">
-          <p class="contact-label">Complete payment</p>
-          <!-- Use your real Square payment link here -->
-          <p style="margin-bottom:0.75rem;">
-            When your trip details are confirmed, please use this button to pay securely by card:
-          </p>
-          <a
-            href="https://square.link/u/Jw4nyWVv?src=sheet"
-            target="_blank"
-            rel="noopener"
-            class="btn-primary"
-          >
-            💳 Pay with Card (Square)
-          </a>
-
-          <p class="hero-note" style="margin-top:0.75rem;">
-            Be sure to use the same <strong>name and email</strong> you entered in the form so we can match your
-            payment to your trip.
-          </p>
-
-          <hr style="margin:1.5rem 0;" />
-
           <p class="contact-label">Direct contact</p>
           <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
           <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
@@ -516,6 +500,30 @@
             Orlando, FL<br />
             United States
           </p>
+
+          <p class="hero-note" style="margin-top:1rem;">
+            To help us match your trip with your payment, please use the same
+            <strong>name and email</strong> when paying through Square.
+          </p>
+
+          <div style="margin-top:1.5rem;">
+            <!-- Your main Square payment link -->
+            <a
+              href="https://square.link/u/Jw4nyWVv?src=sheet"
+              target="_blank"
+              rel="noopener"
+              class="btn-primary"
+            >
+              💳 Pay with Card (Square)
+            </a>
+          </div>
+
+          <div style="margin-top:1rem;">
+            <a href="rates.html" class="btn-secondary">← Back to Rates</a>
+            <a href="index.html" class="btn-secondary" style="margin-top:0.5rem; display:inline-block;">
+              Home page
+            </a>
+          </div>
         </div>
       </div>
     </section>
