@@ -2,95 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MLT Orlando Transportation | Rates & Booking</title>
+  <title>Rates & Booking | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="View rates and booking options for MLT Orlando Transportation from MCO and SFB to Disney, Universal, Cape Canaveral and more."
+    content="Rates for MLT Orlando Transportation including MCO, SFB, Disney and Port Canaveral routes."
   />
+  <meta property="og:title" content="Rates & Booking | MLT Orlando Transportation" />
+  <meta property="og:description" content="Check rates by vehicle type and route, then complete the booking form." />
+  <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
+  <meta property="og:url" content="https://www.mltorlandotransportation.com/rates.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <style>
-    /* theme same as others */
-    * { box-sizing:border-box; margin:0; padding:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    body { background:#e5e7eb; color:#111827; line-height:1.6; }
-    a { color:inherit; }
-    .top-bar { background:#0b1120; color:#e5e7eb; font-size:0.85rem; padding:0.4rem 5vw; }
-    .top-bar-inner { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap; }
-    .top-bar a { color:#93c5fd; text-decoration:none; font-weight:500; }
-    .top-bar a:hover { text-decoration:underline; }
-    .top-bar-right { display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; }
-    .social-top { display:flex; align-items:center; gap:0.4rem; }
-    .social-top a { display:inline-flex; align-items:center; justify-content:center; }
-    .social-top img { width:20px; height:20px; border-radius:6px; display:block; }
-    header { background:#020617; color:#f9fafb; padding:0.75rem 5vw; position:sticky; top:0; z-index:100; }
-    .nav { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-    .logo { font-weight:700; letter-spacing:0.05em; font-size:1rem; text-transform:uppercase; }
-    nav a { color:#e5e7eb; text-decoration:none; margin-left:1.1rem; font-size:0.95rem; }
-    nav a:hover { color:#93c5fd; }
-    main { max-width:1100px; margin:0 auto; padding:2rem 5vw 4rem; }
+    /* same CSS as index.html, plus rate-specific classes */
+    /* copy full CSS from index.html and add these if missing: */
 
-    section { padding:3rem 2rem; margin:2rem 0; border-radius:1.5rem; background:#ffffff; box-shadow:0 18px 35px rgba(15,23,42,0.06); }
-    section h1 { font-size:1.8rem; margin-bottom:0.5rem; }
-    p.section-intro { color:#4b5563; margin-bottom:1.5rem; max-width:700px; }
-
-    .hero-note { font-size:0.85rem; color:#6b7280; margin-top:0.5rem; }
-
-    .btn-primary,
-    .btn-secondary,
-    .btn-price {
-      display:inline-block;
-      padding:0.6rem 1.4rem;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      font-weight:600;
-      text-decoration:none;
-      font-size:0.9rem;
-      text-align:center;
-      white-space:nowrap;
+    .rates-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
     }
 
-    .btn-primary { background:#1d4ed8; color:#f9fafb; }
-    .btn-secondary { background:transparent; color:#111827; border:1px solid #4b5563; }
-    .btn-primary:hover,
-    .btn-secondary:hover,
-    .btn-price:hover { opacity:0.9; }
-
-    .btn-price {
-      margin-top:0.25rem;
-      padding:0.35rem 0.9rem;
-      font-size:0.78rem;
-      background:#1d4ed8;
-      color:#f9fafb;
-    }
-
-    .card { background:#ffffff; border-radius:1rem; padding:1.5rem; box-shadow:0 8px 16px rgba(15,23,42,0.04); border:1px solid #e5e7eb; margin-bottom:2rem; }
-
-    .rates-table { width:100%; border-collapse:collapse; font-size:0.9rem; margin-top:0.5rem; }
     .rates-table th,
-    .rates-table td { padding:0.5rem 0.75rem; border-bottom:1px solid #e5e7eb; text-align:left; vertical-align:top; }
-    .rates-table th { background:#f3f4f6; font-weight:600; }
+    .rates-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      vertical-align: top;
+    }
 
-    .rate-price { font-weight:600; display:block; }
-    .rate-capacity { font-size:0.8rem; color:#6b7280; display:block; margin-top:0.1rem; }
-    .rates-subheading { margin-top:1.75rem; font-size:1.05rem; font-weight:600; }
-    .rates-note { margin-top:0.75rem; font-size:0.85rem; color:#6b7280; }
+    .rates-table th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
 
-    footer { padding:2rem 5vw 2.5rem; text-align:center; font-size:0.85rem; color:#6b7280; }
-    footer a { color:inherit; }
-    .social-links { display:flex; justify-content:center; gap:0.75rem; margin-bottom:0.75rem; }
-    .social-links a { display:inline-flex; align-items:center; justify-content:center; }
-    .social-links img { width:28px; height:28px; border-radius:8px; display:block; }
+    .rate-price {
+      font-weight: 600;
+      display: block;
+    }
 
-    @media(max-width:800px){
-      nav{display:none;}
-      header{position:sticky; top:0;}
-      main{padding-top:1.5rem;}
-      .top-bar-inner{justify-content:center; text-align:center;}
-      .top-bar-right{justify-content:center;}
+    .rate-capacity {
+      font-size: 0.8rem;
+      color: #6b7280;
+      display: block;
+      margin-top: 0.1rem;
+    }
+
+    .btn-price {
+      margin-top: 0.25rem;
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      background: #38bdf8;
+      color: #0b1120;
+      font-size: 0.78rem;
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .btn-price:hover {
+      opacity: 0.9;
+    }
+
+    .rates-subheading {
+      margin-top: 1.75rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .rates-note {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #6b7280;
     }
   </style>
 </head>
 <body>
+  <!-- Top bar -->
   <div class="top-bar">
     <div class="top-bar-inner">
       <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
@@ -100,9 +93,15 @@
           Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
         </span>
         <div class="social-top">
-          <a href="https://facebook.com/" target="_blank" rel="noopener"><img src="facebook-icon.jpeg" alt="Facebook" /></a>
-          <a href="https://wa.me/14073690643" target="_blank" rel="noopener"><img src="whatsapp-icon.jpeg" alt="WhatsApp" /></a>
-          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener"><img src="instagram-icon.jpeg" alt="Instagram" /></a>
+          <a href="https://facebook.com/" target="_blank" rel="noopener">
+            <img src="facebook-icon.jpeg" alt="Facebook" />
+          </a>
+          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+            <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
+          </a>
+          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
+            <img src="instagram-icon.jpeg" alt="Instagram" />
+          </a>
         </div>
       </div>
     </div>
@@ -118,34 +117,26 @@
         <a href="private-airport.html">Private Airport</a>
         <a href="child-seats.html">Child Seats</a>
         <a href="service-areas.html">Service Areas</a>
+        <a href="rates.html">Rates</a>
         <a href="cancellation.html">Cancellation</a>
         <a href="why-us.html">Why Us</a>
-        <a href="rates.html">Rates</a>
         <a href="booking.html">Booking</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section>
-      <h1>Rates &amp; Booking</h1>
+    <section id="rates">
+      <a href="index.html" class="btn-secondary" style="text-decoration:none; display:inline-block; margin-bottom:1.5rem;">← Back to Home</a>
+
+      <h2>Rates &amp; Booking</h2>
       <p class="section-intro">
-        Step 1: Choose your route, vehicle and price below. <br />
-        Step 2: Click <strong>Book one-way</strong> or <strong>Book round trip</strong> to go to our Booking Details page. <br />
-        Step 3: On the Booking page, submit your trip info and then use the Square payment button to confirm your trip.
+        Step 1: Choose the route and vehicle that fits your group.  
+        Step 2: Click <strong>Book this option</strong> to go to the booking form and send your trip details.  
+        Step 3: We’ll confirm and send you a secure Square payment link.
       </p>
 
-      <div style="margin-bottom:1.5rem;">
-        <a href="index.html" class="btn-secondary">← Back to Home</a>
-        <a href="booking.html" class="btn-primary" style="margin-left:0.5rem;">Go to Booking Page</a>
-      </div>
-
       <div class="card">
-        <p class="hero-note" style="margin-bottom:1rem;">
-          Each price includes <strong>private vehicle, driver, tolls and taxes</strong>. Gratuity is not included
-          and is appreciated.
-        </p>
-
         <!-- MCO ↔ Disney / Universal -->
         <h3 class="rates-subheading">MCO ↔ Disney / Universal area</h3>
         <table class="rates-table">
@@ -163,11 +154,15 @@
               <td><span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span></td>
               <td>
                 <span class="rate-price">$120</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$220</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -175,11 +170,15 @@
               <td><span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span></td>
               <td>
                 <span class="rate-price">$130</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$240</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -187,11 +186,15 @@
               <td><span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span></td>
               <td>
                 <span class="rate-price">$150</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$280</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -199,11 +202,15 @@
               <td><span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span></td>
               <td>
                 <span class="rate-price">$180</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$330</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html" target="_self">
+                  Book round trip
+                </a>
               </td>
             </tr>
           </tbody>
@@ -226,11 +233,15 @@
               <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
               <td>
                 <span class="rate-price">$210</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$400</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -238,11 +249,15 @@
               <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
               <td>
                 <span class="rate-price">$230</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$440</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -250,11 +265,15 @@
               <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
               <td>
                 <span class="rate-price">$260</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$500</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -262,11 +281,15 @@
               <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
               <td>
                 <span class="rate-price">$290</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$560</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
           </tbody>
@@ -289,11 +312,15 @@
               <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
               <td>
                 <span class="rate-price">$150</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$280</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -301,11 +328,15 @@
               <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
               <td>
                 <span class="rate-price">$165</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$310</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -313,11 +344,15 @@
               <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
               <td>
                 <span class="rate-price">$185</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$350</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
             <tr>
@@ -325,11 +360,15 @@
               <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
               <td>
                 <span class="rate-price">$210</span>
-                <a class="btn-price" href="booking.html">Book one-way</a>
+                <a class="btn-price" href="booking.html">
+                  Book this one-way
+                </a>
               </td>
               <td>
                 <span class="rate-price">$390</span>
-                <a class="btn-price" href="booking.html">Book round trip</a>
+                <a class="btn-price" href="booking.html">
+                  Book round trip
+                </a>
               </td>
             </tr>
           </tbody>
@@ -352,7 +391,9 @@
               <td><span class="rate-capacity">Up to 5 passengers</span></td>
               <td>
                 <span class="rate-price">$90 / hour</span>
-                <a class="btn-price" href="booking.html">Book hourly</a>
+                <a class="btn-price" href="booking.html">
+                  Book hourly service
+                </a>
               </td>
               <td>3 hours</td>
             </tr>
@@ -360,27 +401,31 @@
         </table>
 
         <p class="rates-note">
-          • Prices above are examples – adjust to your exact pricing.<br />
-          • On the <strong>Booking</strong> page, guests enter their trip details and then pay via your Square button.
+          • Prices above are examples – adjust each amount to your exact pricing if needed.<br />
+          • In the booking form, guests can mention which route and price they selected.<br />
+          • After you review, you can send them the correct Square payment link for that option.
         </p>
-      </div>
-
-      <div>
-        <a href="booking.html" class="btn-primary">Go to Booking Page</a>
-        <a href="index.html" class="btn-secondary" style="margin-left:0.5rem;">Back to Home</a>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="social-links">
-      <a href="https://facebook.com/" target="_blank" rel="noopener"><img src="facebook-icon.jpeg" alt="Facebook" /></a>
-      <a href="https://wa.me/14073690643" target="_blank" rel="noopener"><img src="whatsapp-icon.jpeg" alt="WhatsApp" /></a>
-      <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener"><img src="instagram-icon.jpeg" alt="Instagram" /></a>
+      <a href="https://facebook.com/" target="_blank" rel="noopener">
+        <img src="facebook-icon.jpeg" alt="Facebook" />
+      </a>
+      <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+        <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
+      </a>
+      <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
+        <img src="instagram-icon.jpeg" alt="Instagram" />
+      </a>
     </div>
     © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
   </footer>
 
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
