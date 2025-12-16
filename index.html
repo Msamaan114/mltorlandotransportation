@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>MLT Orlando Transportation | Airport & Theme Park Transfers</title>
+  <title>MLT Orlando Transportation | Private Airport & Theme Park Transfers</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
@@ -25,7 +25,7 @@
     }
 
     body {
-      background: #e5e7eb; /* light gray */
+      background: #f5f5f5;
       color: #111827;
       line-height: 1.6;
     }
@@ -53,7 +53,7 @@
     }
 
     .top-bar a {
-      color: #93c5fd;
+      color: #38bdf8;
       text-decoration: none;
       font-weight: 500;
     }
@@ -89,7 +89,7 @@
     }
 
     header {
-      background: #020617;
+      background: #111827;
       color: #f9fafb;
       padding: 0.75rem 5vw;
       position: sticky;
@@ -116,30 +116,14 @@
     nav a {
       color: #e5e7eb;
       text-decoration: none;
-      margin-left: 1.1rem;
+      margin-left: 1.2rem;
       font-size: 0.95rem;
     }
 
     nav a:hover {
-      color: #93c5fd;
+      color: #38bdf8;
     }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 5vw 4rem;
-    }
-
-    /* Sections theme */
-    section {
-      padding: 3rem 2rem;
-      margin: 2rem 0;
-      border-radius: 1.5rem;
-      background: #ffffff;
-      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.06);
-    }
-
-    /* Buttons */
     .btn-row {
       display: flex;
       flex-wrap: wrap;
@@ -162,13 +146,13 @@
     }
 
     .btn-primary {
-      background: #1d4ed8;
-      color: #f9fafb;
+      background: #38bdf8;
+      color: #0b1120;
     }
 
     .btn-secondary {
       background: transparent;
-      color: #111827;
+      color: #e5e7eb;
       border: 1px solid #4b5563;
     }
 
@@ -177,12 +161,19 @@
       opacity: 0.9;
     }
 
-    /* Hero */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 5vw 4rem;
+    }
+
+    /* Hero section */
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
       gap: 2.5rem;
       align-items: center;
+      padding: 3rem 0 2rem;
     }
 
     .hero h1 {
@@ -193,7 +184,7 @@
     .hero-tagline {
       font-size: 1rem;
       font-weight: 600;
-      color: #1e3a8a;
+      color: #1f2933;
       margin-bottom: 1rem;
     }
 
@@ -204,7 +195,7 @@
 
     .hero-highlight {
       display: inline-block;
-      background: #1e3a8a;
+      background: #0f172a;
       color: #f9fafb;
       padding: 0.25rem 0.8rem;
       border-radius: 999px;
@@ -232,7 +223,7 @@
 
     .hero-stat span {
       font-size: 0.85rem;
-      color: #374151;
+      color: #6b7280;
     }
 
     .hero-note {
@@ -251,7 +242,7 @@
     }
 
     .hero-card {
-      background: #020617;
+      background: #0b1120;
       color: #e5e7eb;
       border-radius: 1.5rem;
       padding: 1.75rem;
@@ -280,11 +271,82 @@
       padding: 0.2rem 0.7rem;
       border-radius: 999px;
       font-size: 0.7rem;
-      background: rgba(37, 99, 235, 0.25);
+      background: rgba(56, 189, 248, 0.15);
       color: #bfdbfe;
     }
 
-    /* Footer */
+    /* Generic section styles */
+    section {
+      padding: 3rem 0 1rem;
+    }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.section-intro {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
+      border: 1px solid #e5e7eb;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: #4b5563;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+      color: #6b7280;
+    }
+
+    .link-row {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .link-pill {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: #e5f3ff;
+      border: 1px solid #bfdbfe;
+      font-size: 0.9rem;
+      text-decoration: none;
+      color: #1d4ed8;
+    }
+
+    .link-pill:hover {
+      background: #dbeafe;
+    }
+
+    /* Footer and social icons */
     footer {
       padding: 2rem 5vw 2.5rem;
       text-align: center;
@@ -316,18 +378,22 @@
       display: block;
     }
 
+    /* Responsive: show nav on mobile, stacked layout */
     @media (max-width: 800px) {
-      .hero {
-        grid-template-columns: 1fr;
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       nav {
-        display: none;
+        margin-top: 0.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
       }
 
-      header {
-        position: sticky;
-        top: 0;
+      .hero {
+        grid-template-columns: 1fr;
       }
 
       main {
@@ -382,16 +448,16 @@
         <a href="private-airport.html">Private Airport</a>
         <a href="child-seats.html">Child Seats</a>
         <a href="service-areas.html">Service Areas</a>
+        <a href="rates.html">Rates</a>
         <a href="cancellation.html">Cancellation</a>
         <a href="why-us.html">Why Us</a>
-        <a href="rates.html">Rates</a>
         <a href="booking.html">Booking</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- HERO ONLY ON HOME -->
+    <!-- HERO -->
     <section class="hero">
       <div>
         <div class="hero-highlight">Orlando airport &amp; theme park specialists</div>
@@ -438,7 +504,7 @@
         />
 
         <div class="hero-card">
-          <h2>Sample Trip Overview</h2>
+          <h2>Typical Trip</h2>
           <div class="hero-card-row">
             <span class="hero-card-label">Pickup</span>
             <span>MCO or SFB Airport (meet at arrivals)</span>
@@ -457,6 +523,52 @@
           </div>
         </div>
       </aside>
+    </section>
+
+    <!-- Quick links to sections/pages -->
+    <section>
+      <h2>Plan Your Ride</h2>
+      <p class="section-intro">
+        Start by checking services and rates, then complete the booking form and pay securely with your card.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="badge">Step 1</div>
+          <h3>Explore Our Services</h3>
+          <p>Airport transfers, theme park rides, cruise transfers and hourly service around Orlando.</p>
+          <div class="link-row">
+            <a class="link-pill" href="services.html">View services →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="badge">Step 2</div>
+          <h3>See Rates by Route</h3>
+          <p>Check one-way and round-trip pricing by vehicle type for MCO, SFB, Disney and Port Canaveral.</p>
+          <div class="link-row">
+            <a class="link-pill" href="rates.html">View rates &amp; booking →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="badge">Step 3</div>
+          <h3>Send Booking Details</h3>
+          <p>Fill out the booking form with your flight, hotel and passenger information.</p>
+          <div class="link-row">
+            <a class="link-pill" href="booking.html">Booking form →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="badge">Families</div>
+          <h3>Complimentary Child Seats</h3>
+          <p>Rear-facing, forward-facing and booster seats are available at no extra cost when requested.</p>
+          <div class="link-row">
+            <a class="link-pill" href="child-seats.html">Child seat options →</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
