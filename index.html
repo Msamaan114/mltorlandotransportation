@@ -25,7 +25,7 @@
     }
 
     body {
-      background: #e5e7eb; /* light gray page background */
+      background: #e5e7eb; /* light gray */
       color: #111827;
       line-height: 1.6;
     }
@@ -53,7 +53,7 @@
     }
 
     .top-bar a {
-      color: #93c5fd; /* softer blue for links */
+      color: #93c5fd;
       text-decoration: none;
       font-weight: 500;
     }
@@ -89,7 +89,7 @@
     }
 
     header {
-      background: #020617; /* very dark navy */
+      background: #020617;
       color: #f9fafb;
       padding: 0.75rem 5vw;
       position: sticky;
@@ -116,7 +116,7 @@
     nav a {
       color: #e5e7eb;
       text-decoration: none;
-      margin-left: 1.5rem;
+      margin-left: 1.1rem;
       font-size: 0.95rem;
     }
 
@@ -128,6 +128,15 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 2rem 5vw 4rem;
+    }
+
+    /* Sections theme */
+    section {
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      border-radius: 1.5rem;
+      background: #ffffff;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.06);
     }
 
     /* Buttons */
@@ -153,7 +162,7 @@
     }
 
     .btn-primary {
-      background: #1d4ed8; /* navy blue accent */
+      background: #1d4ed8;
       color: #f9fafb;
     }
 
@@ -168,27 +177,7 @@
       opacity: 0.9;
     }
 
-    /* THEME FOR ALL SECTIONS */
-    section {
-      padding: 3rem 2rem;
-      margin: 2rem 0;
-      border-radius: 1.5rem;
-      background: #ffffff;
-      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.06);
-    }
-
-    section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 0.5rem;
-    }
-
-    section p.section-intro {
-      color: #4b5563;
-      margin-bottom: 1.5rem;
-      max-width: 600px;
-    }
-
-    /* Hero section */
+    /* Hero */
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -204,7 +193,7 @@
     .hero-tagline {
       font-size: 1rem;
       font-weight: 600;
-      color: #1e3a8a; /* navy tone */
+      color: #1e3a8a;
       margin-bottom: 1rem;
     }
 
@@ -215,7 +204,7 @@
 
     .hero-highlight {
       display: inline-block;
-      background: #1e3a8a; /* navy pill */
+      background: #1e3a8a;
       color: #f9fafb;
       padding: 0.25rem 0.8rem;
       border-radius: 999px;
@@ -291,104 +280,11 @@
       padding: 0.2rem 0.7rem;
       border-radius: 999px;
       font-size: 0.7rem;
-      background: rgba(37, 99, 235, 0.25); /* navy-ish blue */
+      background: rgba(37, 99, 235, 0.25);
       color: #bfdbfe;
     }
 
-    /* Grid + cards */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
-      border: 1px solid #e5e7eb;
-    }
-
-    .card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .card p {
-      font-size: 0.92rem;
-      color: #4b5563;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.4rem;
-      color: #6b7280;
-    }
-
-    /* Feature image sections (owner, private airport, seats, cancellation) */
-    .feature-section {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      gap: 2rem;
-      align-items: center;
-      margin-top: 1rem;
-    }
-
-    .feature-section.reverse {
-      direction: rtl;
-    }
-
-    .feature-section.reverse > * {
-      direction: ltr;
-    }
-
-    .feature-photo {
-      width: 100%;
-      border-radius: 1.25rem;
-      object-fit: cover;
-      max-height: 380px;
-      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.35);
-    }
-
-    .feature-text {
-      font-size: 0.95rem;
-      color: #374151;
-    }
-
-    .feature-text p {
-      margin-bottom: 0.75rem;
-    }
-
-    /* Why choose us & lists */
-    .why-list {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 0.75rem;
-    }
-
-    .why-list li {
-      margin-bottom: 0.5rem;
-      font-size: 0.95rem;
-      color: #374151;
-      padding-left: 1.1rem;
-      position: relative;
-    }
-
-    .why-list li::before {
-      content: "✔";
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: #16a34a;
-      font-size: 0.9rem;
-    }
-
-    /* Footer and social icons */
+    /* Footer */
     footer {
       padding: 2rem 5vw 2.5rem;
       text-align: center;
@@ -420,16 +316,13 @@
       display: block;
     }
 
-    /* Responsive */
     @media (max-width: 800px) {
-      .hero,
-      .feature-section,
-      .feature-section.reverse {
+      .hero {
         grid-template-columns: 1fr;
       }
 
       nav {
-        display: none; /* simple mobile behavior */
+        display: none;
       }
 
       header {
@@ -465,7 +358,6 @@
         </span>
 
         <div class="social-top">
-          <!-- Facebook placeholder for now -->
           <a href="https://facebook.com/" target="_blank" rel="noopener">
             <img src="facebook-icon.jpeg" alt="Facebook" />
           </a>
@@ -484,13 +376,14 @@
     <div class="nav">
       <div class="logo">MLT Orlando Transportation</div>
       <nav>
-        <a href="#services">Services</a>
-        <a href="#owner">Owner</a>
-        <a href="#private-airport">Private Airport</a>
-        <a href="#seats">Child Seats</a>
-        <a href="#areas">Service Areas</a>
-        <a href="#cancellation">Cancellation</a>
-        <a href="#why">Why Us</a>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="owner.html">Owner</a>
+        <a href="private-airport.html">Private Airport</a>
+        <a href="child-seats.html">Child Seats</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="cancellation.html">Cancellation</a>
+        <a href="why-us.html">Why Us</a>
         <a href="rates.html">Rates</a>
         <a href="booking.html">Booking</a>
       </nav>
@@ -498,7 +391,7 @@
   </header>
 
   <main>
-    <!-- HERO -->
+    <!-- HERO ONLY ON HOME -->
     <section class="hero">
       <div>
         <div class="hero-highlight">Orlando airport &amp; theme park specialists</div>
@@ -565,249 +458,10 @@
         </div>
       </aside>
     </section>
-
-    <!-- SERVICES -->
-    <section id="services">
-      <h2>Our Transportation Services</h2>
-      <p class="section-intro">
-        We focus on stress-free, private transportation for visitors and locals traveling
-        in and around Orlando.
-      </p>
-
-      <div class="grid">
-        <div class="card">
-          <div class="badge">Airport</div>
-          <h3>MCO &amp; SFB Airport Transfers</h3>
-          <p>
-            Meet-and-greet pickup from Orlando International Airport (MCO) and Orlando Sanford (SFB),
-            with direct rides to your hotel, resort or vacation rental.
-          </p>
-        </div>
-        <div class="card">
-          <div class="badge">Theme Parks</div>
-          <h3>Disney &amp; Universal Transportation</h3>
-          <p>
-            Round-trip and one-way transfers to Walt Disney World, Universal Studios and Islands of Adventure —
-            perfect for families and groups with luggage and strollers.
-          </p>
-        </div>
-        <div class="card">
-          <div class="badge">Cruise</div>
-          <h3>Cape Canaveral / Port Canaveral Trips</h3>
-          <p>
-            Convenient transportation between Orlando, MCO and Cape Canaveral for cruise departures.
-            Start and finish your cruise vacation without stress.
-          </p>
-        </div>
-        <div class="card">
-          <div class="badge">Custom</div>
-          <h3>Point-to-Point &amp; Hourly Service</h3>
-          <p>
-            Custom routes around Orlando and central Florida. Tell us where you need to go
-            and we’ll provide a simple, upfront quote for your ride.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- MEET THE OWNER -->
-    <section id="owner">
-      <h2>Meet the Owner</h2>
-      <p class="section-intro">
-        MLT Orlando Transportation is locally owned and operated. You’ll often be greeted by the owner himself,
-        ensuring a professional and personal experience from the very first ride.
-      </p>
-
-      <div class="feature-section">
-        <img
-          src="owner-mlt.jpeg"
-          alt="Owner of MLT Orlando Transportation standing beside black SUV"
-          class="feature-photo"
-        />
-        <div class="feature-text">
-          <p>
-            With years of experience serving Orlando visitors and business travelers, the owner of MLT Orlando
-            Transportation understands what guests need after a long flight: a friendly face, a clean vehicle,
-            and a smooth ride to their destination.
-          </p>
-          <p>
-            From airport transfers to theme park trips and cruise departures, we treat each reservation with care.
-            Flight delays and changes happen — we monitor your arrival and work with you to keep your pickup
-            simple and stress-free.
-          </p>
-          <p>
-            Whether you’re a family visiting the parks or a frequent business traveler, you can expect on-time
-            service, clear communication and a professional appearance every time.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRIVATE AIRPORT TRANSFERS -->
-    <section id="private-airport">
-      <h2>Private Airport &amp; FBO Transfers</h2>
-      <p class="section-intro">
-        Flying private into Orlando? We provide discreet, reliable transportation to and from private terminals
-        and FBOs around MCO and the greater Orlando area.
-      </p>
-
-      <div class="feature-section reverse">
-        <img
-          src="private-airport.jpeg"
-          alt="MLT Orlando Transportation SUV next to private jet at airport"
-          class="feature-photo"
-        />
-        <div class="feature-text">
-          <p>
-            We regularly service private terminals and FBOs, coordinating closely with your crew or concierge
-            for a seamless curbside pickup. Your vehicle will be staged and ready when you deplane.
-          </p>
-          <p>
-            Transfers are available between private airports, luxury hotels, vacation homes, Disney and Universal
-            resorts, and Port Canaveral for cruise departures.
-          </p>
-          <p>
-            Tell us your tail number, arrival time and destination, and we’ll handle the rest — discreet,
-            professional, door-to-door service.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPLIMENTARY CHILD SEATS -->
-    <section id="seats">
-      <h2>Complimentary Child Car Seats</h2>
-      <p class="section-intro">
-        Traveling with little ones? We can provide rear-facing infant seats, forward-facing car seats and booster
-        seats at <strong>no extra cost</strong> when requested in advance, so your family can ride safely and comfortably.
-      </p>
-
-      <div class="feature-section">
-        <img
-          src="child-seats.jpeg"
-          alt="Child car seats and booster seats installed in MLT Orlando Transportation SUV"
-          class="feature-photo"
-        />
-
-        <div class="card feature-text">
-          <ul class="why-list">
-            <li><strong>Rear-facing infant seats</strong> for babies and smaller toddlers (on request).</li>
-            <li><strong>Forward-facing car seats</strong> for toddlers and young children.</li>
-            <li><strong>Booster seats</strong> for older children who still need a height boost for the seat belt.</li>
-            <li>
-              Seats are provided <strong>free of charge</strong>, but must be requested during booking so we can
-              prepare the correct number and type of seats for your trip.
-            </li>
-          </ul>
-
-          <p class="hero-note" style="margin-top:0.75rem;">
-            For safety, please share each child’s <strong>age and approximate weight</strong> in the booking form notes,
-            so we can match the right seat type to each passenger.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICE AREAS -->
-    <section id="areas">
-      <h2>Service Areas</h2>
-      <p class="section-intro">
-        MLT Orlando Transportation mainly serves the greater Orlando area, with most trips to and from
-        the major airports, theme parks and cruise ports.
-      </p>
-
-      <div class="grid">
-        <div class="card">
-          <h3>Orlando &amp; Surrounding Areas</h3>
-          <p>
-            Service across <strong>Orlando</strong> and nearby communities, including popular
-            hotel and resort zones around International Drive, Lake Buena Vista and Kissimmee.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Airports: MCO &amp; SFB</h3>
-          <p>
-            Frequent service from <strong>Orlando International Airport (MCO)</strong> and
-            <strong>Orlando Sanford International Airport (SFB)</strong> to local hotels,
-            vacation rentals and attractions.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Theme Parks &amp; Attractions</h3>
-          <p>
-            Direct service to <strong>Walt Disney World</strong>, <strong>Universal Orlando Resort</strong>,
-            SeaWorld and other major attractions in the Orlando area.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Cape Canaveral &amp; Coast</h3>
-          <p>
-            Trips to <strong>Cape Canaveral</strong> and nearby cruise terminals, perfect for guests
-            traveling between Orlando, MCO and Port Canaveral.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CANCELLATION POLICY -->
-    <section id="cancellation">
-      <h2>Cancellation Policy</h2>
-      <p class="section-intro">
-        We understand that travel plans can change. Our flexible cancellation policy is designed to be fair to you
-        and to our drivers.
-      </p>
-
-      <div class="feature-section reverse">
-        <img
-          src="cancellation-policy.jpeg"
-          alt="Illustration of a person cancelling a trip on a mobile phone"
-          class="feature-photo"
-        />
-
-        <div class="card feature-text">
-          <h3>Flexible Cancellations</h3>
-          <ul class="why-list">
-            <li>Cancel up to <strong>24 hours before</strong> your trip for a full refund.</li>
-            <li><strong>No fees</strong> for changes made 24+ hours in advance.</li>
-            <li><strong>No fees</strong> for changing flights due to flight delays or cancellation.</li>
-          </ul>
-
-          <h3 style="margin-top:1rem;">Late Cancellations</h3>
-          <ul class="why-list">
-            <li>Cancellations within <strong>2–24 hours</strong> incur a <strong>50% charge</strong>.</li>
-            <li>This helps cover the driver’s time and schedule.</li>
-          </ul>
-
-          <h3 style="margin-top:1rem;">No-Shows &amp; Less Than 2 Hours</h3>
-          <ul class="why-list">
-            <li><strong>No refund</strong> for cancellations less than 2 hours before pickup.</li>
-            <li><strong>Full charge</strong> for no-shows at pickup.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY US -->
-    <section id="why">
-      <h2>Why Choose MLT Orlando Transportation</h2>
-      <p class="section-intro">
-        There are many ways to get around Orlando. Here’s why guests choose a private ride with us:
-      </p>
-      <div class="card">
-        <ul class="why-list">
-          <li><strong>Local Orlando driver</strong> who knows the airports, resorts and cruise routes.</li>
-          <li><strong>Private, pre-booked rides</strong> so you skip taxi lines and rideshare surge pricing.</li>
-          <li><strong>Clear communication</strong> by phone or WhatsApp before pickup.</li>
-          <li><strong>Flat-rate quotes</strong> for common routes like MCO ↔ Disney and MCO ↔ Cape Canaveral.</li>
-          <li><strong>Friendly help with luggage</strong> so families can focus on enjoying their trip.</li>
-        </ul>
-      </div>
-    </section>
   </main>
 
   <footer>
     <div class="social-links">
-      <!-- Facebook placeholder for now -->
       <a href="https://facebook.com/" target="_blank" rel="noopener">
         <img src="facebook-icon.jpeg" alt="Facebook" />
       </a>
@@ -823,7 +477,6 @@
   </footer>
 
   <script>
-    // Sets the current year in the footer automatically
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
