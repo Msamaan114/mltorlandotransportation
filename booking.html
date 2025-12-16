@@ -2,33 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Booking Details & Contact | MLT Orlando Transportation</title>
+  <title>Booking | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Send your booking details to MLT Orlando Transportation so we can confirm your trip and send payment info."
+    content="Send your booking details to MLT Orlando Transportation for private rides from MCO and SFB to Disney, Universal, Cape Canaveral and more."
   />
-  <meta property="og:title" content="Booking Details & Contact | MLT Orlando Transportation" />
-  <meta property="og:description" content="Use this form to share your trip details with MLT Orlando Transportation." />
+  <meta property="og:title" content="Booking | MLT Orlando Transportation" />
+  <meta property="og:description" content="Booking form for MLT Orlando Transportation in Orlando, FL." />
   <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
   <meta property="og:url" content="https://www.mltorlandotransportation.com/booking.html" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <style>
-    /* same CSS as index.html, including .contact-wrapper etc. */
-  </style>
+  <!-- Shared styles for all pages -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Top bar -->
+  <!-- Top contact bar -->
   <div class="top-bar">
     <div class="top-bar-inner">
       <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
+
       <div class="top-bar-right">
         <span>
           Call: <a href="tel:14073690643">407-369-0643</a> ·
           Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
         </span>
+
         <div class="social-top">
           <a href="https://facebook.com/" target="_blank" rel="noopener">
             <img src="facebook-icon.jpeg" alt="Facebook" />
@@ -44,6 +45,7 @@
     </div>
   </div>
 
+  <!-- Header / nav -->
   <header>
     <div class="nav">
       <div class="logo">MLT Orlando Transportation</div>
@@ -63,18 +65,35 @@
   </header>
 
   <main>
-    <section id="contact">
-      <a href="rates.html" class="btn-secondary" style="text-decoration:none; display:inline-block; margin-bottom:1.5rem;">← Back to Rates</a>
+    <section id="booking">
+      <a href="rates.html" class="btn-secondary" style="text-decoration:none; display:inline-block; margin-bottom:1.5rem;">
+        ← Back to Rates &amp; Booking
+      </a>
 
       <h2>Booking Details &amp; Contact</h2>
       <p class="section-intro">
-        Please share your trip details below so we can confirm your booking and match it with your payment.
-        Use the same name and email address here and when you pay with your card.
+        Step 1: Choose your route and price on the <strong>Rates</strong> page.<br />
+        Step 2: Fill out this booking form so we can match your trip with your payment.<br />
+        Step 3: After submitting, use the Square payment link we send or the button below to pay with your card.
       </p>
 
       <div class="contact-wrapper">
-        <!-- FORMSPREE FORM -->
+        <!-- Formspree booking form -->
         <form action="https://formspree.io/f/xovgzajo" method="POST">
+          <!-- Optional: set a subject and redirect page -->
+          <input type="hidden" name="_subject" value="New MLT Orlando Transportation Booking" />
+          <!-- After Formspree submits, send the guest to a thank-you page (create thanks.html later) -->
+          <input type="hidden" name="_redirect" value="https://www.mltorlandotransportation.com/thanks.html" />
+
+          <label for="selected-trip">Selected route &amp; price from Rates page</label>
+          <input
+            id="selected-trip"
+            name="Selected route & price"
+            type="text"
+            placeholder="Example: MCO → Disney, SUV, Round Trip, $240"
+            required
+          />
+
           <label for="name">Passenger name</label>
           <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
 
@@ -116,14 +135,6 @@
             type="text"
             placeholder="Hotel name or full address"
             required
-          />
-
-          <label for="route">Which rate did you pick from the Rates page?</label>
-          <input
-            id="route"
-            name="Selected route & price"
-            type="text"
-            placeholder="Example: MCO → Disney, SUV, round trip"
           />
 
           <label for="passengers">Number of passengers</label>
@@ -178,6 +189,14 @@
             <option>Yes, round trip (please add return details in notes)</option>
           </select>
 
+          <label for="payment-name">Name used on Square payment</label>
+          <input
+            id="payment-name"
+            name="Payment name"
+            type="text"
+            placeholder="Name on card / Square receipt"
+          />
+
           <label for="notes">Additional notes</label>
           <textarea
             id="notes"
@@ -185,19 +204,16 @@
             placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
           ></textarea>
 
-          <!-- Optional Formspree field to set email subject -->
-          <input type="hidden" name="_subject" value="New booking request from MLT Orlando website" />
-
-          <button type="submit" class="btn-primary">Submit booking request</button>
+          <button type="submit" class="btn-primary">Submit booking details</button>
 
           <p class="hero-note" style="margin-top:0.75rem;">
-            After we receive your details, we’ll confirm availability and send you a
-            <strong>Square payment link</strong> for the correct amount.
+            After submitting this form, you’ll see a confirmation from us by email. You can then
+            complete payment using the Square link we provide or the payment button on the Rates page.
           </p>
         </form>
 
         <div class="contact-details">
-          <p class="contact-label">Direct contact</p>
+          <p class="contact-label">Need help before booking?</p>
           <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
           <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
           <p>
@@ -219,9 +235,14 @@
           </p>
 
           <p class="hero-note" style="margin-top:1rem;">
-            To help us match your trip with your payment, please use the same
-            <strong>name and email</strong> for the booking form and when paying through Square.
+            Please use the same <strong>name and email</strong> on this form and on your Square payment so we
+            can match everything quickly.
           </p>
+
+          <div class="link-row" style="margin-top:1.25rem;">
+            <a class="link-pill" href="rates.html">← Back to rates</a>
+            <a class="link-pill" href="index.html">🏠 Back to home</a>
+          </div>
         </div>
       </div>
     </section>
@@ -239,6 +260,7 @@
         <img src="instagram-icon.jpeg" alt="Instagram" />
       </a>
     </div>
+
     © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
   </footer>
 
