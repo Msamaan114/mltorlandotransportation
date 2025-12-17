@@ -81,10 +81,10 @@
 
       <h2>Booking Details &amp; Contact</h2>
       <p class="section-intro">
-        Step 1: Choose your route, vehicle and trip type so we can match your booking to the correct price and
-        Square payment link. <br />
-        Step 2: Fill out your trip details and submit the form. <br />
-        Step 3: Use the Square payment button for your selected option (or the link we send in our confirmation).
+        For trips <strong>within 8 hours</strong>, this form sends us a <strong>request</strong> and we must confirm
+        availability before you pay. <br />
+        For trips <strong>more than 8 hours away</strong>, you can submit this form and then proceed to pay with Square
+        for the selected option.
       </p>
 
       <div class="contact-wrapper">
@@ -131,6 +131,11 @@
               <option value="HOURLY">Hourly (3-hour minimum)</option>
             </select>
 
+            <p id="timing-banner" class="hero-note" style="margin-top:0.75rem;">
+              Once you select your pickup date and time below, we’ll tell you whether this is a short-notice request
+              or a standard booking.
+            </p>
+
             <div class="card" style="margin-top:1rem; background:#f9fafb;">
               <p id="price-text" class="hero-note" style="margin-bottom:0.75rem;">
                 Please select a route, vehicle and trip type to see the price and Square payment link.
@@ -154,11 +159,11 @@
             action="https://formspree.io/f/xovgzajo"
             method="POST"
           >
-            <!-- Hidden field to send selected route / vehicle / price info -->
+            <!-- Hidden field to send selected route / vehicle / price / timing info -->
             <input
               type="hidden"
               id="selected-option"
-              name="Selected route / vehicle / price"
+              name="Selected route / vehicle / price / timing"
               value=""
             />
 
@@ -272,8 +277,10 @@
             <button type="submit" class="btn-primary">Submit booking request</button>
 
             <p class="hero-note" style="margin-top:0.75rem;">
-              After you submit this form, we’ll review your details and confirm your trip by email or WhatsApp.
-              Please use the same <strong>name and email</strong> here and when you pay via Square.
+              If your trip is <strong>within 8 hours</strong>, this will be treated as a
+              <strong>short-notice request</strong> and we will confirm availability before you pay. <br />
+              If your trip is <strong>more than 8 hours away</strong>, you can submit this form and then complete
+              payment using the Square button for your selected option.
             </p>
           </form>
         </div>
@@ -331,7 +338,6 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // --- Pricing and Square links mapping ---
-    // MCO ↔ Disney / Universal / I-Drive / SeaWorld — SEDAN links now real
     const OPTIONS = {
       MCO_DISNEY: {
         SEDAN: {
@@ -403,29 +409,79 @@
     const routeSelect = document.getElementById("route");
     const vehicleSelect = document.getElementById("vehicle");
     const tripTypeSelect = document.getElementById("trip-type");
+    const pickupDateInput = document.getElementById("pickup-date");
+    const pickupTimeInput = document.getElementById("pickup-time");
     const priceText = document.getElementById("price-text");
+    const timingBanner = document.getElementById("timing-banner");
     const squareBtn = document.getElementById("square-pay-btn");
     const selectedOptionInput = document.getElementById("selected-option");
     const bookingForm = document.getElementById("booking-form");
+
+    function getPickupDateTime() {
+      const dateValue = pickupDateInput.value;
+      const timeValue = pickupTimeInput.value;
+      if (!dateValue || !timeValue) return null;
+
+      const dt = new Date(dateValue + "T" + timeValue);
+      if (isNaN(dt.getTime())) return null;
+      return dt;
+    }
 
     function updatePriceAndLink() {
       const route = routeSelect.value;
       const vehicle = vehicleSelect.value;
       const tripType = tripTypeSelect.value;
+      const pickupDateTime = getPickupDateTime();
 
-      // Custom route: no fixed price/link, we just note that in the text
+      let timingLabel = "Pickup time not selected yet";
+      let canPayNow = false;
+      let timingNote = "";
+
+      if (pickupDateTime) {
+        const now = new Date();
+        const diffMs = pickupDateTime - now;
+        const diffHours = diffMs / (1000 * 60 * 60);
+
+        if (diffHours < 8) {
+          timingLabel = "Short notice (< 8 hours)";
+          timingNote =
+            " This trip is within the next 8 hours. Please submit this form as a request only and wait for our confirmation before making any payment.";
+          canPayNow = false;
+        } else {
+          timingLabel = "Standard (≥ 8 hours)";
+          timingNote =
+            " This trip is more than 8 hours away. After submitting this form, you can complete payment using the Square button for your selected option.";
+          canPayNow = true;
+        }
+
+        timingBanner.textContent =
+          "Pickup time check: " + timingLabel + ". " +
+          (diffHours > 0
+            ? "Approx. " + diffHours.toFixed(1) + " hours from now."
+            : "Pickup time appears to be in the past or very soon. We will review it.");
+      } else {
+        timingBanner.textContent =
+          "Once you select your pickup date and time, we’ll tell you if this is a short-notice request (< 8 hours) or a standard booking (≥ 8 hours).";
+      }
+
+      // Custom route: no fixed price/link, just explain
       if (route === "CUSTOM") {
         priceText.textContent =
-          "Custom route selected. We will review your details and send you the exact price and a Square payment link in your confirmation message.";
+          "Custom route selected." +
+          (timingNote
+            ? timingNote + " We will review your details and send you the exact price and a Square payment link."
+            : " We will review your details and send you the exact price and a Square payment link.");
         squareBtn.style.display = "none";
         squareBtn.href = "#";
-        selectedOptionInput.value = "Custom route – price and Square link to be confirmed by MLT.";
+        selectedOptionInput.value =
+          "Custom route – price and Square link to be confirmed by MLT. Timing: " + timingLabel;
         return;
       }
 
       if (!route || !vehicle || !tripType) {
         priceText.textContent =
-          "Please select a route, vehicle and trip type to see the price and Square payment link.";
+          "Please select a route, vehicle and trip type to see the price and Square payment link." +
+          (timingNote || "");
         squareBtn.style.display = "none";
         squareBtn.href = "#";
         selectedOptionInput.value = "";
@@ -435,11 +491,13 @@
       const routeData = OPTIONS[route];
       if (!routeData || !routeData[vehicle] || !routeData[vehicle][tripType]) {
         priceText.textContent =
-          "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm the price and send a Square link.";
+          "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm the price and send a Square link." +
+          (timingNote || "");
         squareBtn.style.display = "none";
         squareBtn.href = "#";
         selectedOptionInput.value =
-          "No fixed price: route=" + route + ", vehicle=" + vehicle + ", tripType=" + tripType;
+          "No fixed price: route=" + route + ", vehicle=" + vehicle +
+          ", tripType=" + tripType + ". Timing: " + timingLabel;
         return;
       }
 
@@ -454,15 +512,19 @@
       if (route === "HOURLY") {
         priceText.textContent =
           `Selected: Hourly SUV service within Orlando – ${tripLabel} at $${option.price} per hour (3-hour minimum).` +
-          " After submitting your booking details, please use the Square payment button or the link we send to complete payment.";
+          timingNote;
       } else {
         priceText.textContent =
-          `Selected: ${tripLabel} ${vehicle} for ${route} – $${option.price}. ` +
-          "After submitting your booking details, please use the Square payment button or the link we send to complete payment.";
+          `Selected: ${tripLabel} ${vehicle} for ${route} – $${option.price}.` +
+          timingNote;
       }
 
-      // Show Square button only if you’ve set a real link (not a placeholder)
-      if (option.link && !option.link.startsWith("YOUR_SQUARE_LINK_")) {
+      // Show Square button only if allowed by time window AND link is real (not placeholder)
+      if (
+        canPayNow &&
+        option.link &&
+        !option.link.startsWith("YOUR_SQUARE_LINK_")
+      ) {
         squareBtn.style.display = "inline-block";
         squareBtn.href = option.link;
       } else {
@@ -472,12 +534,14 @@
 
       selectedOptionInput.value =
         `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Price: $${option.price}, ` +
-        `Square link: ${option.link}`;
+        `Square link: ${option.link}, Timing: ${timingLabel}`;
     }
 
     routeSelect.addEventListener("change", updatePriceAndLink);
     vehicleSelect.addEventListener("change", updatePriceAndLink);
     tripTypeSelect.addEventListener("change", updatePriceAndLink);
+    pickupDateInput.addEventListener("change", updatePriceAndLink);
+    pickupTimeInput.addEventListener("change", updatePriceAndLink);
 
     // Before submitting to Formspree, make sure the hidden field is up to date
     bookingForm.addEventListener("submit", function () {
