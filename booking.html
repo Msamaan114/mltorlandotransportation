@@ -52,7 +52,7 @@
   <header>
     <div class="nav">
       <!-- Logo as a button to Home (no underline, same font via .logo) -->
-      <a href="index.html" class="logo">MLT Orlando Transportation</a>
+      <a href="index.html" class="logo" style="text-decoration:none;">MLT Orlando Transportation</a>
       <nav>
         <a href="index.html">Home</a>
         <a href="services.html">Services</a>
@@ -331,13 +331,18 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     // --- Pricing and Square links mapping ---
-    // TODO: replace each YOUR_SQUARE_LINK_... with your real Square payment URL
-
+    // MCO ↔ Disney / Universal / I-Drive / SeaWorld — SEDAN links now real
     const OPTIONS = {
       MCO_DISNEY: {
         SEDAN: {
-          ONEWAY: { price: 120, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SEDAN_ONEWAY" },
-          ROUND: { price: 220, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SEDAN_ROUND" },
+          ONEWAY: {
+            price: 120,
+            link: "https://square.link/u/ImApGXW4?src=sheet"
+          },
+          ROUND: {
+            price: 220,
+            link: "https://square.link/u/QHivT4tx?src=sheet"
+          },
         },
         SUV: {
           ONEWAY: { price: 130, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ONEWAY" },
@@ -390,7 +395,7 @@
       },
       HOURLY: {
         SUV: {
-          HOURLY: { price: 90, link: "YOUR_SQUARE_LINK_HOURLY_SUV" }, // 3-hour minimum
+          HOURLY: { price: 90, link: "YOUR_SQUARE_LINK_HOURLY_SUV" } // 3-hour minimum
         },
       },
     };
@@ -456,7 +461,7 @@
           "After submitting your booking details, please use the Square payment button or the link we send to complete payment.";
       }
 
-      // Show Square button only if you’ve set a real link (replace placeholder later)
+      // Show Square button only if you’ve set a real link (not a placeholder)
       if (option.link && !option.link.startsWith("YOUR_SQUARE_LINK_")) {
         squareBtn.style.display = "inline-block";
         squareBtn.href = option.link;
