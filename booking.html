@@ -2,57 +2,343 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Booking Details &amp; Contact | MLT Orlando Transportation</title>
+  <title>Booking | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Share your trip details with MLT Orlando Transportation so we can confirm your booking and send the correct Square payment link for your route."
+    content="Share your trip details with MLT Orlando Transportation to confirm your private transfer and receive a secure payment link."
   />
-  <meta property="og:title" content="Booking Details &amp; Contact | MLT Orlando Transportation" />
-  <meta
-    property="og:description"
-    content="Book private transportation in Orlando, Windermere, Lake Buena Vista, Golden Oak, Winter Park, I-Drive, SeaWorld and Port Canaveral."
-  />
-  <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
-  <meta property="og:url" content="https://www.mltorlandotransportation.com/booking.html" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Shared styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #f3f4f6;
+      color: #020617;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Header / nav */
+    header {
+      background: #020617;
+      color: #f9fafb;
+      padding: 0.75rem 5vw;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 1rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      color: #e5e7eb;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 5vw 4rem;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 4vw, 2.4rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-intro {
+      color: #4b5563;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    /* Trip summary + layout */
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 1.75rem;
+      margin-top: 1rem;
+      align-items: flex-start;
+    }
+
+    .summary-card,
+    form,
+    .info-card {
+      background: #ffffff;
+      border-radius: 1.25rem;
+      padding: 1.4rem 1.2rem;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    .summary-card {
+      margin-bottom: 1rem;
+    }
+
+    .summary-heading {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-line {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.2rem;
+    }
+
+    .summary-pill {
+      display: inline-block;
+      margin-top: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: #0b1120;
+      color: #e5e7eb;
+    }
+
+    .price-pill {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: #38bdf8;
+      color: #020617;
+    }
+
+    /* Form styles */
+    form {
+      margin-top: 0.5rem;
+    }
+
+    form h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .lead-time-note {
+      font-size: 0.88rem;
+      color: #4b5563;
+      margin-bottom: 0.65rem;
+    }
+
+    .lead-time-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .lead-time-options label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+
+    .field-group {
+      margin-bottom: 0.8rem;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid #d1d5db;
+      font-size: 0.9rem;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .helper-text {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 0.2rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: #38bdf8;
+      color: #020617;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .footnote {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 0.6rem;
+    }
+
+    /* Right column info (payment section) */
+    .info-card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .mode-tag {
+      display: inline-block;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #0b1120;
+      color: #e5e7eb;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-text {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.6rem;
+    }
+
+    .payment-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 999px;
+      background: #020617;
+      color: #f9fafb;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .payment-button:hover {
+      opacity: 0.92;
+    }
+
+    .muted {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-top: 0.4rem;
+    }
+
+    .bottom-links {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn-outline {
+      border-radius: 999px;
+      padding: 0.55rem 1.2rem;
+      border: 1px solid #0f172a;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #0f172a;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: #0f172a;
+      color: #f9fafb;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 5vw 2.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .social-links img {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Top contact bar -->
-  <div class="top-bar">
-    <div class="top-bar-inner">
-      <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
-
-      <div class="top-bar-right">
-        <span>
-          Call: <a href="tel:14073690643">407-369-0643</a> ·
-          Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
-        </span>
-
-        <div class="social-top">
-          <a href="https://facebook.com/" target="_blank" rel="noopener">
-            <img src="facebook-icon.jpeg" alt="Facebook" />
-          </a>
-          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-            <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
-          </a>
-          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
-            <img src="instagram-icon.jpeg" alt="Instagram" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header / nav -->
   <header>
     <div class="nav">
-      <!-- Logo as a button to Home (no underline, same font via .logo) -->
-      <a href="index.html" class="logo" style="text-decoration:none;">MLT Orlando Transportation</a>
+      <a href="index.html" class="logo">MLT ORLANDO TRANSPORTATION</a>
       <nav>
         <a href="index.html">Home</a>
         <a href="services.html">Services</a>
@@ -69,135 +355,125 @@
   </header>
 
   <main>
-    <section id="contact">
-      <!-- Visible back button -->
-      <a
-        href="rates.html"
-        class="btn-primary"
-        style="text-decoration:none; display:inline-block; margin-bottom:1.5rem;"
-      >
-        ← Back to Rates &amp; Booking
-      </a>
+    <h1>Booking Details &amp; Contact</h1>
+    <p class="page-intro">
+      Please share your trip details below so we can confirm your booking and match it with your payment.
+      If you came from the Rates page, you’ll see your selected route, vehicle and price in the summary.
+    </p>
 
-      <h2>Booking Details &amp; Contact</h2>
-      <p class="section-intro">
-        For trips <strong>within 8 hours</strong>, this form sends us a <strong>request</strong> and we must confirm
-        availability before you pay. <br />
-        For trips <strong>more than 8 hours away</strong>, you can submit this form and then proceed to pay with Square
-        for the selected option.
-      </p>
+    <div class="layout">
+      <div>
+        <!-- Trip summary -->
+        <div class="summary-card" id="summary-card">
+          <div class="summary-heading">Trip summary</div>
+          <p class="summary-line" id="summary-route">Route: (select below)</p>
+          <p class="summary-line" id="summary-vehicle">Vehicle: —</p>
+          <p class="summary-line" id="summary-trip">Trip type: —</p>
+          <span class="price-pill" id="summary-price">Price: will be confirmed</span>
+          <div class="summary-pill" id="summary-origin">Source: Direct booking</div>
+        </div>
 
-      <div class="contact-wrapper">
-        <!-- LEFT: route & booking form -->
-        <div>
-          <!-- ROUTE / VEHICLE / TRIP TYPE SELECTION -->
-          <div class="card" style="margin-bottom:1.5rem;">
-            <h3>Select Your Route &amp; Vehicle</h3>
+        <!-- Booking form -->
+        <form
+          id="booking-form"
+          action="https://formspree.io/f/xovgzajo"
+          method="POST"
+        >
+          <h2>Passenger &amp; trip details</h2>
 
-            <label for="route">Route / Area</label>
-            <select id="route">
-              <option value="">Select a route</option>
-              <option value="MCO_DISNEY">
-                MCO ↔ Disney / Universal / I-Drive / SeaWorld area
-              </option>
-              <option value="MCO_PORT">
-                MCO ↔ Cape Canaveral / Port Canaveral
-              </option>
-              <option value="SFB_DISNEY">
-                SFB ↔ Disney / Universal / I-Drive / SeaWorld area
-              </option>
-              <option value="HOURLY">
-                Hourly service within Orlando (SUV)
-              </option>
-              <option value="CUSTOM">
-                Other / custom route (we will confirm price by email)
-              </option>
-            </select>
-
-            <label for="vehicle">Vehicle type</label>
-            <select id="vehicle">
-              <option value="">Select a vehicle</option>
-              <option value="SEDAN">Sedan (up to 3 passengers)</option>
-              <option value="SUV">SUV (up to 5 passengers)</option>
-              <option value="VAN8">8-passenger van</option>
-              <option value="VAN14">14-passenger van</option>
-            </select>
-
-            <label for="trip-type">Trip type</label>
-            <select id="trip-type">
-              <option value="">Select trip type</option>
-              <option value="ONEWAY">One-way</option>
-              <option value="ROUND">Round trip</option>
-              <option value="HOURLY">Hourly (3-hour minimum)</option>
-            </select>
-
-            <p id="timing-banner" class="hero-note" style="margin-top:0.75rem;">
-              Once you select your pickup date and time below, we’ll tell you whether this is a short-notice request
-              or a standard booking.
-            </p>
-
-            <div class="card" style="margin-top:1rem; background:#f9fafb;">
-              <p id="price-text" class="hero-note" style="margin-bottom:0.75rem;">
-                Please select a route, vehicle and trip type to see the price and Square payment link.
-              </p>
-              <a
-                id="square-pay-btn"
-                class="btn-secondary"
-                href="#"
-                target="_blank"
-                rel="noopener"
-                style="display:none; margin-top:0.25rem;"
-              >
-                Pay securely with Square
-              </a>
-            </div>
+          <!-- lead time -->
+          <p class="lead-time-note">
+            How soon is your pickup? This helps us know if your request can be auto-confirmed or if it needs manual approval.
+          </p>
+          <div class="lead-time-options">
+            <label>
+              <input type="radio" name="Lead time" value="More than 8 hours" id="lead-over8" checked />
+              <span>Pickup is <strong>more than 8 hours</strong> from now</span>
+            </label>
+            <label>
+              <input type="radio" name="Lead time" value="Within 8 hours (short notice)" id="lead-under8" />
+              <span>Pickup is <strong>within the next 8 hours</strong> (short-notice request)</span>
+            </label>
           </div>
 
-          <!-- BOOKING FORM (FORMSPREE) -->
-          <form
-            id="booking-form"
-            action="https://formspree.io/f/xovgzajo"
-            method="POST"
-          >
-            <!-- Hidden field to send selected route / vehicle / price / timing info -->
-            <input
-              type="hidden"
-              id="selected-option"
-              name="Selected route / vehicle / price / timing"
-              value=""
-            />
+          <!-- Hidden fields from rates page -->
+          <input type="hidden" name="Route key" id="hidden-route-key" />
+          <input type="hidden" name="Vehicle from rates page" id="hidden-vehicle" />
+          <input type="hidden" name="Trip type" id="hidden-trip" />
+          <input type="hidden" name="Quoted price" id="hidden-price" />
 
+          <div class="field-group">
             <label for="name">Passenger name</label>
             <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
+          </div>
 
+          <div class="field-group">
             <label for="email">Email (same as payment)</label>
             <input id="email" name="Email" type="email" placeholder="you@example.com" required />
+          </div>
 
+          <div class="field-group">
             <label for="phone">Mobile / WhatsApp number</label>
             <input id="phone" name="Phone" type="tel" placeholder="+1 407-369-0643" required />
+          </div>
 
+          <div class="field-group">
+            <label for="route-select">Route</label>
+            <select id="route-select" name="Route" required>
+              <option value="">Select your route</option>
+              <option value="MCO ↔ Disney / Universal / I-Drive / SeaWorld area">
+                MCO ↔ Disney / Universal / I-Drive / SeaWorld area
+              </option>
+              <option value="MCO ↔ Lake Buena Vista / Bay Lake / Golden Oak">
+                MCO ↔ Lake Buena Vista / Bay Lake / Golden Oak
+              </option>
+              <option value="MCO ↔ International Drive / Convention Center">
+                MCO ↔ International Drive / Convention Center
+              </option>
+              <option value="MCO ↔ Windermere / Winter Park / Private address">
+                MCO ↔ Windermere / Winter Park / Private address
+              </option>
+              <option value="SFB ↔ Disney / Universal / I-Drive / SeaWorld area">
+                SFB ↔ Disney / Universal / I-Drive / SeaWorld area
+              </option>
+              <option value="SFB ↔ Lake Buena Vista / Bay Lake / Golden Oak">
+                SFB ↔ Lake Buena Vista / Bay Lake / Golden Oak
+              </option>
+              <option value="SFB ↔ International Drive / Convention Center">
+                SFB ↔ International Drive / Convention Center
+              </option>
+              <option value="MCO / Orlando ↔ Port Canaveral">
+                MCO / Orlando ↔ Port Canaveral
+              </option>
+              <option value="Hourly charter (within Orlando)">
+                Hourly charter (within Orlando)
+              </option>
+            </select>
+          </div>
+
+          <div class="field-group">
             <label for="pickup-date">Pickup date</label>
             <input id="pickup-date" name="Pickup date" type="date" required />
+          </div>
 
+          <div class="field-group">
             <label for="pickup-time">Pickup time (local)</label>
             <input id="pickup-time" name="Pickup time" type="time" required />
+          </div>
 
+          <div class="field-group">
             <label for="pickup-location">Pickup location</label>
-            <select id="pickup-location" name="Pickup location" required>
-              <option value="">Select an option</option>
-              <option>MCO - Orlando International Airport</option>
-              <option>SFB - Orlando Sanford International Airport</option>
-              <option>Disney / Lake Buena Vista / Bay Lake</option>
-              <option>Universal / I-Drive / Convention Center area</option>
-              <option>SeaWorld area</option>
-              <option>Windermere</option>
-              <option>Golden Oak</option>
-              <option>Winter Park</option>
-              <option>Private airport / FBO</option>
-              <option>Residence / Rental home</option>
-              <option>Other (see notes)</option>
-            </select>
+            <input
+              id="pickup-location"
+              name="Pickup location"
+              type="text"
+              placeholder="Airport, hotel, resort or full address"
+              required
+            />
+            <p class="helper-text">Example: MCO Terminal C, Disney resort name, hotel or street address.</p>
+          </div>
 
+          <div class="field-group">
             <label for="flight">Airline &amp; flight number (if flying)</label>
             <input
               id="flight"
@@ -205,7 +481,9 @@
               type="text"
               placeholder="Example: Delta 1234"
             />
+          </div>
 
+          <div class="field-group">
             <label for="destination">Destination address / hotel</label>
             <input
               id="destination"
@@ -214,7 +492,9 @@
               placeholder="Hotel name or full address"
               required
             />
+          </div>
 
+          <div class="field-group">
             <label for="passengers">Number of passengers</label>
             <input
               id="passengers"
@@ -225,7 +505,9 @@
               placeholder="2 adults, 2 children"
               required
             />
+          </div>
 
+          <div class="field-group">
             <label for="luggage">Luggage details</label>
             <input
               id="luggage"
@@ -233,89 +515,100 @@
               type="text"
               placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
             />
+          </div>
 
+          <div class="field-group">
             <label for="rear-seat">Rear-facing infant seats needed</label>
             <select id="rear-seat" name="Rear-facing infant seats">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
+              <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
             </select>
+          </div>
 
+          <div class="field-group">
             <label for="forward-seat">Forward-facing car seats needed</label>
             <select id="forward-seat" name="Forward-facing car seats">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
+              <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
             </select>
+          </div>
 
+          <div class="field-group">
             <label for="booster-seat">Booster seats needed</label>
             <select id="booster-seat" name="Booster seats">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
+              <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
             </select>
+          </div>
 
+          <div class="field-group">
             <label for="return-trip">Return trip?</label>
             <select id="return-trip" name="Return trip">
               <option>No, one-way only</option>
               <option>Yes, round trip (please add return details in notes)</option>
             </select>
+          </div>
 
+          <div class="field-group">
+            <label for="payment-name">Name used on Square payment (if known)</label>
+            <input
+              id="payment-name"
+              name="Payment name"
+              type="text"
+              placeholder="Name on card / Square receipt"
+            />
+          </div>
+
+          <div class="field-group">
             <label for="notes">Additional notes</label>
             <textarea
               id="notes"
               name="Notes"
               placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
             ></textarea>
+          </div>
 
-            <button type="submit" class="btn-primary">Submit booking request</button>
-
-            <p class="hero-note" style="margin-top:0.75rem;">
-              If your trip is <strong>within 8 hours</strong>, this will be treated as a
-              <strong>short-notice request</strong> and we will confirm availability before you pay. <br />
-              If your trip is <strong>more than 8 hours away</strong>, you can submit this form and then complete
-              payment using the Square button for your selected option.
-            </p>
-          </form>
-        </div>
-
-        <!-- RIGHT: contact info / help -->
-        <div class="contact-details">
-          <p class="contact-label">Need help before booking?</p>
-          <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
-          <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
-          <p>
-            WhatsApp:
-            <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-              <strong>Message on WhatsApp</strong>
-            </a>
+          <button type="submit" class="btn-primary">Send booking details</button>
+          <p class="footnote">
+            After you submit this form, we’ll match your details to the correct rate. If your pickup is more than
+            8 hours away and a payment link is available, you’ll see the button on the right to pay by card.
           </p>
-
-          <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
-          <p>Transportation: 24/7 by reservation</p>
-          <p>Messages &amp; quotes: Every day, 8:00 – 20:00 (local time)</p>
-
-          <p class="contact-label" style="margin-top:1rem;">Base location</p>
-          <p>
-            MLT Orlando Transportation<br />
-            Orlando, FL<br />
-            United States
-          </p>
-
-          <p class="hero-note" style="margin-top:1rem;">
-            If your exact route isn’t listed in the dropdown, choose
-            <strong>Other / custom route</strong> and describe your trip in the notes section. We’ll confirm the
-            price and send the correct Square payment link.
-          </p>
-        </div>
+        </form>
       </div>
-    </section>
+
+      <!-- Payment / mode info -->
+      <aside class="info-card">
+        <span class="mode-tag" id="mode-tag">Standard booking (more than 8 hours)</span>
+        <h2 id="info-title">What happens next</h2>
+        <p class="info-text" id="info-text">
+          Once you submit the form we’ll review your details, confirm availability and match
+          your booking with the price from the Rates page.
+        </p>
+
+        <div id="payment-area">
+          <p class="info-text" id="payment-text">
+            For pickups more than 8 hours away, you can complete your reservation by paying securely with your
+            card using the button below.
+          </p>
+          <a
+            id="payment-button"
+            class="payment-button"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            style="display:none;"
+          >
+            Proceed to secure card payment
+          </a>
+          <p class="muted" id="payment-note">
+            If a specific payment link is not available for this route yet, we’ll email or message you a Square
+            payment link after confirming your details.
+          </p>
+        </div>
+
+        <div class="bottom-links">
+          <a class="btn-outline" href="rates.html">← Back to Rates &amp; Booking</a>
+          <a class="btn-outline" href="index.html">Back to Home</a>
+        </div>
+      </aside>
+    </div>
   </main>
 
   <footer>
@@ -330,223 +623,132 @@
         <img src="instagram-icon.jpeg" alt="Instagram" />
       </a>
     </div>
-
     © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
   </footer>
 
   <script>
+    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // --- Pricing and Square links mapping ---
-    const OPTIONS = {
-      MCO_DISNEY: {
-        SEDAN: {
-          ONEWAY: {
-            price: 120,
-            link: "https://square.link/u/ImApGXW4?src=sheet"
-          },
-          ROUND: {
-            price: 220,
-            link: "https://square.link/u/QHivT4tx?src=sheet"
-          },
-        },
-        SUV: {
-          ONEWAY: { price: 130, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ONEWAY" },
-          ROUND: { price: 240, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ROUND" },
-        },
-        VAN8: {
-          ONEWAY: { price: 150, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN8_ONEWAY" },
-          ROUND: { price: 280, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN8_ROUND" },
-        },
-        VAN14: {
-          ONEWAY: { price: 180, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN14_ONEWAY" },
-          ROUND: { price: 330, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN14_ROUND" },
-        },
-      },
-      MCO_PORT: {
-        SEDAN: {
-          ONEWAY: { price: 210, link: "YOUR_SQUARE_LINK_MCO_PORT_SEDAN_ONEWAY" },
-          ROUND: { price: 400, link: "YOUR_SQUARE_LINK_MCO_PORT_SEDAN_ROUND" },
-        },
-        SUV: {
-          ONEWAY: { price: 230, link: "YOUR_SQUARE_LINK_MCO_PORT_SUV_ONEWAY" },
-          ROUND: { price: 440, link: "YOUR_SQUARE_LINK_MCO_PORT_SUV_ROUND" },
-        },
-        VAN8: {
-          ONEWAY: { price: 260, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN8_ONEWAY" },
-          ROUND: { price: 500, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN8_ROUND" },
-        },
-        VAN14: {
-          ONEWAY: { price: 290, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN14_ONEWAY" },
-          ROUND: { price: 560, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN14_ROUND" },
-        },
-      },
-      SFB_DISNEY: {
-        SEDAN: {
-          ONEWAY: { price: 150, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SEDAN_ONEWAY" },
-          ROUND: { price: 280, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SEDAN_ROUND" },
-        },
-        SUV: {
-          ONEWAY: { price: 165, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SUV_ONEWAY" },
-          ROUND: { price: 310, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SUV_ROUND" },
-        },
-        VAN8: {
-          ONEWAY: { price: 185, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN8_ONEWAY" },
-          ROUND: { price: 350, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN8_ROUND" },
-        },
-        VAN14: {
-          ONEWAY: { price: 210, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN14_ONEWAY" },
-          ROUND: { price: 390, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN14_ROUND" },
-        },
-      },
-      HOURLY: {
-        SUV: {
-          HOURLY: { price: 90, link: "YOUR_SQUARE_LINK_HOURLY_SUV" } // 3-hour minimum
-        },
-      },
+    // Map route keys from rates.html to nice labels & dropdown values
+    const routeLabels = {
+      "MCO-Disney-area": "MCO ↔ Disney / Universal / I-Drive / SeaWorld area",
+      "MCO-Lake-GoldenOak": "MCO ↔ Lake Buena Vista / Bay Lake / Golden Oak",
+      "MCO-Idrive-Convention": "MCO ↔ International Drive / Convention Center",
+      "MCO-Windermere-WinterPark-Private": "MCO ↔ Windermere / Winter Park / Private address",
+      "SFB-Disney-area": "SFB ↔ Disney / Universal / I-Drive / SeaWorld area",
+      "SFB-Lake-GoldenOak": "SFB ↔ Lake Buena Vista / Bay Lake / Golden Oak",
+      "SFB-Idrive-Convention": "SFB ↔ International Drive / Convention Center",
+      "MCO-Port": "MCO / Orlando ↔ Port Canaveral",
+      "Hourly-Orlando": "Hourly charter (within Orlando)"
     };
 
-    const routeSelect = document.getElementById("route");
-    const vehicleSelect = document.getElementById("vehicle");
-    const tripTypeSelect = document.getElementById("trip-type");
-    const pickupDateInput = document.getElementById("pickup-date");
-    const pickupTimeInput = document.getElementById("pickup-time");
-    const priceText = document.getElementById("price-text");
-    const timingBanner = document.getElementById("timing-banner");
-    const squareBtn = document.getElementById("square-pay-btn");
-    const selectedOptionInput = document.getElementById("selected-option");
-    const bookingForm = document.getElementById("booking-form");
+    // Known payment links (you can add more later)
+    const paymentLinks = {
+      "MCO-Disney-area|Sedan|oneway|120": "https://square.link/u/ImApGXW4?src=sheet",
+      "MCO-Disney-area|Sedan|round|220": "https://square.link/u/QHivT4tx?src=sheet"
+      // Add more like:
+      // "ROUTEKEY|VehicleName|oneway|PRICE": "SQUARE_LINK_HERE"
+    };
 
-    function getPickupDateTime() {
-      const dateValue = pickupDateInput.value;
-      const timeValue = pickupTimeInput.value;
-      if (!dateValue || !timeValue) return null;
+    function initFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const routeKey = params.get("route") || "";
+      const vehicle = params.get("vehicle") || "";
+      const trip = params.get("trip") || "";
+      const price = params.get("price") || "";
 
-      const dt = new Date(dateValue + "T" + timeValue);
-      if (isNaN(dt.getTime())) return null;
-      return dt;
+      const prettyRoute = routeLabels[routeKey] || "";
+      const summaryRoute = document.getElementById("summary-route");
+      const summaryVehicle = document.getElementById("summary-vehicle");
+      const summaryTrip = document.getElementById("summary-trip");
+      const summaryPrice = document.getElementById("summary-price");
+      const summaryOrigin = document.getElementById("summary-origin");
+
+      // Fill summary
+      if (prettyRoute) {
+        summaryRoute.textContent = "Route: " + prettyRoute;
+        document.getElementById("route-select").value = prettyRoute;
+        summaryOrigin.textContent = "Source: Selected on Rates page";
+      }
+
+      if (vehicle) {
+        summaryVehicle.textContent = "Vehicle: " + vehicle;
+      }
+      if (trip) {
+        const label = trip === "round" ? "Round trip" :
+                      trip === "oneway" ? "One-way" :
+                      trip === "hourly" ? "Hourly charter" : trip;
+        summaryTrip.textContent = "Trip type: " + label;
+      }
+      if (price) {
+        summaryPrice.textContent = "Price: $" + price + (trip === "hourly" ? " / hour" : "");
+      }
+
+      // Hidden fields for email
+      document.getElementById("hidden-route-key").value = routeKey;
+      document.getElementById("hidden-vehicle").value = vehicle;
+      document.getElementById("hidden-trip").value = trip;
+      document.getElementById("hidden-price").value = price ? "$" + price : "";
+
+      // Set up payment link if exists
+      const paymentKey = routeKey + "|" + vehicle + "|" + trip + "|" + price;
+      const payBtn = document.getElementById("payment-button");
+      const payText = document.getElementById("payment-text");
+      const payNote = document.getElementById("payment-note");
+
+      if (paymentLinks[paymentKey]) {
+        payBtn.href = paymentLinks[paymentKey];
+        payBtn.style.display = "inline-flex";
+        payText.textContent =
+          "After submitting your booking details, you can complete your reservation by paying securely with your card:";
+        payNote.textContent =
+          "If you prefer, you can also wait for our confirmation message before paying.";
+      } else {
+        payBtn.style.display = "none";
+        payText.textContent =
+          "We’ll review your request and then send you a Square payment link for this specific route and vehicle.";
+        payNote.textContent =
+          "If you already paid using a different link, please be sure the name and email match your payment receipt.";
+      }
     }
 
-    function updatePriceAndLink() {
-      const route = routeSelect.value;
-      const vehicle = vehicleSelect.value;
-      const tripType = tripTypeSelect.value;
-      const pickupDateTime = getPickupDateTime();
+    function setupLeadTimeToggle() {
+      const over8 = document.getElementById("lead-over8");
+      const under8 = document.getElementById("lead-under8");
+      const modeTag = document.getElementById("mode-tag");
+      const infoTitle = document.getElementById("info-title");
+      const infoText = document.getElementById("info-text");
+      const paymentArea = document.getElementById("payment-area");
+      const paymentBtn = document.getElementById("payment-button");
 
-      let timingLabel = "Pickup time not selected yet";
-      let canPayNow = false;
-      let timingNote = "";
-
-      if (pickupDateTime) {
-        const now = new Date();
-        const diffMs = pickupDateTime - now;
-        const diffHours = diffMs / (1000 * 60 * 60);
-
-        if (diffHours < 8) {
-          timingLabel = "Short notice (< 8 hours)";
-          timingNote =
-            " This trip is within the next 8 hours. Please submit this form as a request only and wait for our confirmation before making any payment.";
-          canPayNow = false;
+      function updateMode() {
+        if (under8.checked) {
+          modeTag.textContent = "Short-notice request (within 8 hours)";
+          infoTitle.textContent = "We’ll confirm and then send payment link";
+          infoText.textContent =
+            "Because your pickup is within the next 8 hours, this form acts as a request only. " +
+            "We’ll confirm availability as quickly as possible by phone, text or WhatsApp.";
+          paymentArea.style.opacity = "0.6";
+          paymentArea.style.pointerEvents = "none";
         } else {
-          timingLabel = "Standard (≥ 8 hours)";
-          timingNote =
-            " This trip is more than 8 hours away. After submitting this form, you can complete payment using the Square button for your selected option.";
-          canPayNow = true;
+          modeTag.textContent = "Standard booking (more than 8 hours)";
+          infoTitle.textContent = "What happens next";
+          infoText.textContent =
+            "Once you submit the form we’ll confirm your booking details. If a payment link is available, " +
+            "you can complete your reservation by paying securely with your card.";
+          paymentArea.style.opacity = "1";
+          paymentArea.style.pointerEvents = "auto";
         }
-
-        timingBanner.textContent =
-          "Pickup time check: " + timingLabel + ". " +
-          (diffHours > 0
-            ? "Approx. " + diffHours.toFixed(1) + " hours from now."
-            : "Pickup time appears to be in the past or very soon. We will review it.");
-      } else {
-        timingBanner.textContent =
-          "Once you select your pickup date and time, we’ll tell you if this is a short-notice request (< 8 hours) or a standard booking (≥ 8 hours).";
       }
 
-      // Custom route: no fixed price/link, just explain
-      if (route === "CUSTOM") {
-        priceText.textContent =
-          "Custom route selected." +
-          (timingNote
-            ? timingNote + " We will review your details and send you the exact price and a Square payment link."
-            : " We will review your details and send you the exact price and a Square payment link.");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-        selectedOptionInput.value =
-          "Custom route – price and Square link to be confirmed by MLT. Timing: " + timingLabel;
-        return;
-      }
-
-      if (!route || !vehicle || !tripType) {
-        priceText.textContent =
-          "Please select a route, vehicle and trip type to see the price and Square payment link." +
-          (timingNote || "");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-        selectedOptionInput.value = "";
-        return;
-      }
-
-      const routeData = OPTIONS[route];
-      if (!routeData || !routeData[vehicle] || !routeData[vehicle][tripType]) {
-        priceText.textContent =
-          "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm the price and send a Square link." +
-          (timingNote || "");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-        selectedOptionInput.value =
-          "No fixed price: route=" + route + ", vehicle=" + vehicle +
-          ", tripType=" + tripType + ". Timing: " + timingLabel;
-        return;
-      }
-
-      const option = routeData[vehicle][tripType];
-
-      // Build a friendly description
-      let tripLabel = "";
-      if (tripType === "ONEWAY") tripLabel = "One-way";
-      else if (tripType === "ROUND") tripLabel = "Round trip";
-      else if (tripType === "HOURLY") tripLabel = "Hourly (3-hour minimum)";
-
-      if (route === "HOURLY") {
-        priceText.textContent =
-          `Selected: Hourly SUV service within Orlando – ${tripLabel} at $${option.price} per hour (3-hour minimum).` +
-          timingNote;
-      } else {
-        priceText.textContent =
-          `Selected: ${tripLabel} ${vehicle} for ${route} – $${option.price}.` +
-          timingNote;
-      }
-
-      // Show Square button only if allowed by time window AND link is real (not placeholder)
-      if (
-        canPayNow &&
-        option.link &&
-        !option.link.startsWith("YOUR_SQUARE_LINK_")
-      ) {
-        squareBtn.style.display = "inline-block";
-        squareBtn.href = option.link;
-      } else {
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-      }
-
-      selectedOptionInput.value =
-        `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Price: $${option.price}, ` +
-        `Square link: ${option.link}, Timing: ${timingLabel}`;
+      over8.addEventListener("change", updateMode);
+      under8.addEventListener("change", updateMode);
+      updateMode();
     }
 
-    routeSelect.addEventListener("change", updatePriceAndLink);
-    vehicleSelect.addEventListener("change", updatePriceAndLink);
-    tripTypeSelect.addEventListener("change", updatePriceAndLink);
-    pickupDateInput.addEventListener("change", updatePriceAndLink);
-    pickupTimeInput.addEventListener("change", updatePriceAndLink);
-
-    // Before submitting to Formspree, make sure the hidden field is up to date
-    bookingForm.addEventListener("submit", function () {
-      updatePriceAndLink();
-    });
+    initFromQuery();
+    setupLeadTimeToggle();
   </script>
 </body>
 </html>
