@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Booking Details &amp; Contact | MLT Orlando Transportation</title>
+  <title>Rates &amp; Booking | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Share your trip details with MLT Orlando Transportation so we can confirm your booking and send the correct Square payment link for your route."
+    content="Flat-rate private transportation from MCO and SFB to Disney, Universal, I-Drive, SeaWorld, Cape Canaveral and Orlando areas, plus hourly charter service."
   />
-  <meta property="og:title" content="Booking Details &amp; Contact | MLT Orlando Transportation" />
+  <meta property="og:title" content="Rates &amp; Booking | MLT Orlando Transportation" />
   <meta
     property="og:description"
-    content="Book private transportation in Orlando, Windermere, Lake Buena Vista, Golden Oak, Winter Park, I-Drive, SeaWorld and Port Canaveral."
+    content="View sample rates for airport transfers, theme parks, cruise ports and hourly charter service in Orlando."
   />
   <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
-  <meta property="og:url" content="https://www.mltorlandotransportation.com/booking.html" />
+  <meta property="og:url" content="https://www.mltorlandotransportation.com/rates.html" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -51,7 +51,7 @@
   <!-- Header / nav -->
   <header>
     <div class="nav">
-      <!-- Logo as a button to Home (no underline, same font via .logo) -->
+      <!-- Logo as a button to Home (NO underline) -->
       <a href="index.html" class="logo" style="text-decoration:none;">MLT Orlando Transportation</a>
       <nav>
         <a href="index.html">Home</a>
@@ -69,251 +69,343 @@
   </header>
 
   <main>
-    <section id="contact">
-      <!-- Visible back button -->
+    <!-- INTRO + BACK BUTTON -->
+    <section id="rates-intro">
       <a
-        href="rates.html"
+        href="index.html"
         class="btn-primary"
         style="text-decoration:none; display:inline-block; margin-bottom:1.5rem;"
       >
-        ← Back to Rates &amp; Booking
+        ← Back to Home
       </a>
 
-      <h2>Booking Details &amp; Contact</h2>
+      <h2>Rates &amp; Booking</h2>
       <p class="section-intro">
-        For trips <strong>within 8 hours</strong>, this form sends us a <strong>request</strong> and we must confirm
-        availability before you pay. <br />
-        For trips <strong>more than 8 hours away</strong>, you can submit this form and then proceed to pay with Square
-        for the selected option.
+        Below are sample private transfer and charter rates by route and vehicle type. Prices include
+        <strong>vehicle, driver, tolls and taxes</strong>. Gratuity is not included and is appreciated.
+        For custom routes and special requests, please contact us or use the booking form.
       </p>
 
-      <div class="contact-wrapper">
-        <!-- LEFT: route & booking form -->
-        <div>
-          <!-- ROUTE / VEHICLE / TRIP TYPE SELECTION -->
-          <div class="card" style="margin-bottom:1.5rem;">
-            <h3>Select Your Route &amp; Vehicle</h3>
+      <p class="hero-note">
+        To book: choose the route and vehicle that matches your trip, click a
+        <strong>Book</strong> button to go to the <strong>Booking Details &amp; Contact</strong> page,
+        then complete your Square payment after we confirm the details.
+      </p>
+    </section>
 
-            <label for="route">Route / Area</label>
-            <select id="route">
-              <option value="">Select a route</option>
-              <option value="MCO_DISNEY">
-                MCO ↔ Disney / Universal / I-Drive / SeaWorld area
-              </option>
-              <option value="MCO_PORT">
-                MCO ↔ Cape Canaveral / Port Canaveral
-              </option>
-              <option value="SFB_DISNEY">
-                SFB ↔ Disney / Universal / I-Drive / SeaWorld area
-              </option>
-              <option value="HOURLY">
-                Hourly service within Orlando (SUV)
-              </option>
-              <option value="CUSTOM">
-                Other / custom route (we will confirm price by email)
-              </option>
-            </select>
+    <!-- SECTION 1: MCO ↔ Disney / Universal / I-Drive / SeaWorld -->
+    <section id="rates-mco-disney">
+      <h3>MCO ↔ Disney / Universal / I-Drive / SeaWorld Area</h3>
+      <p class="section-intro">
+        Typical pricing for Orlando International Airport (MCO) to and from Disney, Universal Orlando,
+        International Drive, SeaWorld, Lake Buena Vista, Bay Lake, convention center hotels, Windermere,
+        Golden Oak, Winter Park and nearby private addresses.
+      </p>
 
-            <label for="vehicle">Vehicle type</label>
-            <select id="vehicle">
-              <option value="">Select a vehicle</option>
-              <option value="SEDAN">Sedan (up to 3 passengers)</option>
-              <option value="SUV">SUV (up to 5 passengers)</option>
-              <option value="VAN8">8-passenger van</option>
-              <option value="VAN14">14-passenger van</option>
-            </select>
+      <div class="card">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Capacity</th>
+              <th>One-way</th>
+              <th>Round trip</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sedan</td>
+              <td>
+                <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
+              </td>
+              <td>
+                <span class="rate-price">$120</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$220</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>SUV</td>
+              <td>
+                <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
+              </td>
+              <td>
+                <span class="rate-price">$130</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$240</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>8-passenger van</td>
+              <td>
+                <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
+              </td>
+              <td>
+                <span class="rate-price">$150</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$280</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>14-passenger van</td>
+              <td>
+                <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
+              </td>
+              <td>
+                <span class="rate-price">$180</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$330</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-            <label for="trip-type">Trip type</label>
-            <select id="trip-type">
-              <option value="">Select trip type</option>
-              <option value="ONEWAY">One-way</option>
-              <option value="ROUND">Round trip</option>
-              <option value="HOURLY">Hourly (3-hour minimum)</option>
-            </select>
+        <p class="rates-note">
+          These sample prices cover most hotel and resort areas around Disney, Universal, I-Drive, SeaWorld,
+          Lake Buena Vista, Bay Lake, Windermere, Golden Oak, Winter Park and the convention center.
+          Exact pricing may vary slightly by address and pickup time.
+        </p>
+      </div>
+    </section>
 
-            <p id="timing-banner" class="hero-note" style="margin-top:0.75rem;">
-              Once you select your pickup date and time below, we’ll tell you whether this is a short-notice request
-              or a standard booking.
-            </p>
+    <!-- SECTION 2: MCO ↔ Cape Canaveral / Port Canaveral -->
+    <section id="rates-mco-port">
+      <h3>MCO ↔ Cape Canaveral / Port Canaveral</h3>
+      <p class="section-intro">
+        Private transfers between Orlando International Airport (MCO), Orlando hotels and
+        Cape Canaveral / Port Canaveral for cruise departures and returns.
+      </p>
 
-            <div class="card" style="margin-top:1rem; background:#f9fafb;">
-              <p id="price-text" class="hero-note" style="margin-bottom:0.75rem;">
-                Please select a route, vehicle and trip type to see the price and Square payment link.
-              </p>
-              <a
-                id="square-pay-btn"
-                class="btn-secondary"
-                href="#"
-                target="_blank"
-                rel="noopener"
-                style="display:none; margin-top:0.25rem;"
-              >
-                Pay securely with Square
-              </a>
-            </div>
-          </div>
+      <div class="card">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Capacity</th>
+              <th>One-way</th>
+              <th>Round trip</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sedan</td>
+              <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
+              <td>
+                <span class="rate-price">$210</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$400</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>SUV</td>
+              <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
+              <td>
+                <span class="rate-price">$230</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$440</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>8-passenger van</td>
+              <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
+              <td>
+                <span class="rate-price">$260</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$500</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>14-passenger van</td>
+              <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
+              <td>
+                <span class="rate-price">$290</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$560</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <!-- BOOKING FORM (FORMSPREE) -->
-          <form
-            id="booking-form"
-            action="https://formspree.io/f/xovgzajo"
-            method="POST"
-          >
-            <!-- Hidden field to send selected route / vehicle / price / timing info -->
-            <input
-              type="hidden"
-              id="selected-option"
-              name="Selected route / vehicle / price / timing"
-              value=""
-            />
+        <p class="rates-note">
+          For cruise days, traffic and timing can affect travel time. Please share your cruise line and
+          sailing time in the booking form so we can schedule your pickup correctly.
+        </p>
+      </div>
+    </section>
 
-            <label for="name">Passenger name</label>
-            <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
+    <!-- SECTION 3: SFB ↔ Disney / Universal / I-Drive / SeaWorld -->
+    <section id="rates-sfb-disney">
+      <h3>SFB ↔ Disney / Universal / I-Drive / SeaWorld Area</h3>
+      <p class="section-intro">
+        Private transportation between Orlando Sanford International Airport (SFB) and the Disney, Universal,
+        I-Drive, SeaWorld, Lake Buena Vista, Bay Lake, convention center, Windermere, Golden Oak,
+        Winter Park and nearby private addresses.
+      </p>
 
-            <label for="email">Email (same as payment)</label>
-            <input id="email" name="Email" type="email" placeholder="you@example.com" required />
+      <div class="card">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Capacity</th>
+              <th>One-way</th>
+              <th>Round trip</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sedan</td>
+              <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
+              <td>
+                <span class="rate-price">$150</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$280</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>SUV</td>
+              <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
+              <td>
+                <span class="rate-price">$165</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$310</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>8-passenger van</td>
+              <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
+              <td>
+                <span class="rate-price">$185</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$350</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+            <tr>
+              <td>14-passenger van</td>
+              <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
+              <td>
+                <span class="rate-price">$210</span><br />
+                <a class="btn-price" href="booking.html">Book one-way</a>
+              </td>
+              <td>
+                <span class="rate-price">$390</span><br />
+                <a class="btn-price" href="booking.html">Book round trip</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-            <label for="phone">Mobile / WhatsApp number</label>
-            <input id="phone" name="Phone" type="tel" placeholder="+1 407-369-0643" required />
+        <p class="rates-note">
+          If your destination is outside the main resort zones, select the closest area and describe your
+          exact address in the booking form. We will confirm the final rate before you pay.
+        </p>
+      </div>
+    </section>
 
-            <label for="pickup-date">Pickup date</label>
-            <input id="pickup-date" name="Pickup date" type="date" required />
+    <!-- SECTION 4: HOURLY CHARTER SERVICE -->
+    <section id="rates-hourly">
+      <h3>Hourly Charter Service (within Orlando)</h3>
+      <p class="section-intro">
+        Ideal for multi-stop trips, dinners, business meetings, or custom itineraries around Orlando,
+        Windermere, Lake Buena Vista, Golden Oak, Winter Park, I-Drive, SeaWorld and nearby areas.
+        All hourly charters include a professional driver and private vehicle.
+      </p>
 
-            <label for="pickup-time">Pickup time (local)</label>
-            <input id="pickup-time" name="Pickup time" type="time" required />
+      <div class="card">
+        <table class="rates-table">
+          <thead>
+            <tr>
+              <th>Vehicle</th>
+              <th>Capacity</th>
+              <th>Hourly rate</th>
+              <th>Minimum hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sedan</td>
+              <td><span class="rate-capacity">Up to 3 passengers</span></td>
+              <td><span class="rate-price">$75 / hour</span></td>
+              <td>3 hours</td>
+            </tr>
+            <tr>
+              <td>SUV</td>
+              <td><span class="rate-capacity">Up to 5 passengers</span></td>
+              <td><span class="rate-price">$85 / hour</span></td>
+              <td>3 hours</td>
+            </tr>
+            <tr>
+              <td>8-passenger van</td>
+              <td><span class="rate-capacity">Up to 8 passengers</span></td>
+              <td><span class="rate-price">$105 / hour</span></td>
+              <td>3 hours</td>
+            </tr>
+            <tr>
+              <td>14-passenger van</td>
+              <td><span class="rate-capacity">Up to 14 passengers</span></td>
+              <td><span class="rate-price">$125 / hour</span></td>
+              <td>3 hours</td>
+            </tr>
+          </tbody>
+        </table>
 
-            <label for="pickup-location">Pickup location</label>
-            <select id="pickup-location" name="Pickup location" required>
-              <option value="">Select an option</option>
-              <option>MCO - Orlando International Airport</option>
-              <option>SFB - Orlando Sanford International Airport</option>
-              <option>Disney / Lake Buena Vista / Bay Lake</option>
-              <option>Universal / I-Drive / Convention Center area</option>
-              <option>SeaWorld area</option>
-              <option>Windermere</option>
-              <option>Golden Oak</option>
-              <option>Winter Park</option>
-              <option>Private airport / FBO</option>
-              <option>Residence / Rental home</option>
-              <option>Other (see notes)</option>
-            </select>
+        <p class="rates-note">
+          Hourly service is billed from the scheduled pickup time. For events and special itineraries,
+          please describe your plans in the booking form and we’ll confirm the total estimated hours and rate.
+        </p>
 
-            <label for="flight">Airline &amp; flight number (if flying)</label>
-            <input
-              id="flight"
-              name="Airline & flight number"
-              type="text"
-              placeholder="Example: Delta 1234"
-            />
+        <a class="btn-primary book-btn" href="booking.html" style="text-decoration:none;">
+          Request hourly charter
+        </a>
+      </div>
+    </section>
 
-            <label for="destination">Destination address / hotel</label>
-            <input
-              id="destination"
-              name="Destination"
-              type="text"
-              placeholder="Hotel name or full address"
-              required
-            />
+    <!-- FOOTNOTE -->
+    <section id="rates-notes">
+      <div class="card">
+        <p class="rates-note">
+          • Prices are per vehicle, not per person. <br />
+          • Tolls and taxes are included. Gratuity is not included and is appreciated. <br />
+          • Final quote may change based on exact pickup location, time of day, traffic, and special requests. <br />
+          • For routes not listed here, choose the closest option and tell us more in the booking form, or contact us directly.
+        </p>
 
-            <label for="passengers">Number of passengers</label>
-            <input
-              id="passengers"
-              name="Passengers"
-              type="number"
-              min="1"
-              max="14"
-              placeholder="2 adults, 2 children"
-              required
-            />
-
-            <label for="luggage">Luggage details</label>
-            <input
-              id="luggage"
-              name="Luggage"
-              type="text"
-              placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
-            />
-
-            <label for="rear-seat">Rear-facing infant seats needed</label>
-            <select id="rear-seat" name="Rear-facing infant seats">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-
-            <label for="forward-seat">Forward-facing car seats needed</label>
-            <select id="forward-seat" name="Forward-facing car seats">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-
-            <label for="booster-seat">Booster seats needed</label>
-            <select id="booster-seat" name="Booster seats">
-              <option>0</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-
-            <label for="return-trip">Return trip?</label>
-            <select id="return-trip" name="Return trip">
-              <option>No, one-way only</option>
-              <option>Yes, round trip (please add return details in notes)</option>
-            </select>
-
-            <label for="notes">Additional notes</label>
-            <textarea
-              id="notes"
-              name="Notes"
-              placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
-            ></textarea>
-
-            <button type="submit" class="btn-primary">Submit booking request</button>
-
-            <p class="hero-note" style="margin-top:0.75rem;">
-              If your trip is <strong>within 8 hours</strong>, this will be treated as a
-              <strong>short-notice request</strong> and we will confirm availability before you pay. <br />
-              If your trip is <strong>more than 8 hours away</strong>, you can submit this form and then complete
-              payment using the Square button for your selected option.
-            </p>
-          </form>
-        </div>
-
-        <!-- RIGHT: contact info / help -->
-        <div class="contact-details">
-          <p class="contact-label">Need help before booking?</p>
-          <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
-          <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
-          <p>
-            WhatsApp:
-            <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-              <strong>Message on WhatsApp</strong>
-            </a>
-          </p>
-
-          <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
-          <p>Transportation: 24/7 by reservation</p>
-          <p>Messages &amp; quotes: Every day, 8:00 – 20:00 (local time)</p>
-
-          <p class="contact-label" style="margin-top:1rem;">Base location</p>
-          <p>
-            MLT Orlando Transportation<br />
-            Orlando, FL<br />
-            United States
-          </p>
-
-          <p class="hero-note" style="margin-top:1rem;">
-            If your exact route isn’t listed in the dropdown, choose
-            <strong>Other / custom route</strong> and describe your trip in the notes section. We’ll confirm the
-            price and send the correct Square payment link.
-          </p>
-        </div>
+        <a class="btn-secondary book-btn" href="booking.html" style="text-decoration:none;">
+          Go to Booking Details &amp; Contact
+        </a>
       </div>
     </section>
   </main>
@@ -336,217 +428,6 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // --- Pricing and Square links mapping ---
-    const OPTIONS = {
-      MCO_DISNEY: {
-        SEDAN: {
-          ONEWAY: {
-            price: 120,
-            link: "https://square.link/u/ImApGXW4?src=sheet"
-          },
-          ROUND: {
-            price: 220,
-            link: "https://square.link/u/QHivT4tx?src=sheet"
-          },
-        },
-        SUV: {
-          ONEWAY: { price: 130, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ONEWAY" },
-          ROUND: { price: 240, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ROUND" },
-        },
-        VAN8: {
-          ONEWAY: { price: 150, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN8_ONEWAY" },
-          ROUND: { price: 280, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN8_ROUND" },
-        },
-        VAN14: {
-          ONEWAY: { price: 180, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN14_ONEWAY" },
-          ROUND: { price: 330, link: "YOUR_SQUARE_LINK_MCO_DISNEY_VAN14_ROUND" },
-        },
-      },
-      MCO_PORT: {
-        SEDAN: {
-          ONEWAY: { price: 210, link: "YOUR_SQUARE_LINK_MCO_PORT_SEDAN_ONEWAY" },
-          ROUND: { price: 400, link: "YOUR_SQUARE_LINK_MCO_PORT_SEDAN_ROUND" },
-        },
-        SUV: {
-          ONEWAY: { price: 230, link: "YOUR_SQUARE_LINK_MCO_PORT_SUV_ONEWAY" },
-          ROUND: { price: 440, link: "YOUR_SQUARE_LINK_MCO_PORT_SUV_ROUND" },
-        },
-        VAN8: {
-          ONEWAY: { price: 260, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN8_ONEWAY" },
-          ROUND: { price: 500, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN8_ROUND" },
-        },
-        VAN14: {
-          ONEWAY: { price: 290, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN14_ONEWAY" },
-          ROUND: { price: 560, link: "YOUR_SQUARE_LINK_MCO_PORT_VAN14_ROUND" },
-        },
-      },
-      SFB_DISNEY: {
-        SEDAN: {
-          ONEWAY: { price: 150, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SEDAN_ONEWAY" },
-          ROUND: { price: 280, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SEDAN_ROUND" },
-        },
-        SUV: {
-          ONEWAY: { price: 165, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SUV_ONEWAY" },
-          ROUND: { price: 310, link: "YOUR_SQUARE_LINK_SFB_DISNEY_SUV_ROUND" },
-        },
-        VAN8: {
-          ONEWAY: { price: 185, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN8_ONEWAY" },
-          ROUND: { price: 350, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN8_ROUND" },
-        },
-        VAN14: {
-          ONEWAY: { price: 210, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN14_ONEWAY" },
-          ROUND: { price: 390, link: "YOUR_SQUARE_LINK_SFB_DISNEY_VAN14_ROUND" },
-        },
-      },
-      HOURLY: {
-        SUV: {
-          HOURLY: { price: 90, link: "YOUR_SQUARE_LINK_HOURLY_SUV" } // 3-hour minimum
-        },
-      },
-    };
-
-    const routeSelect = document.getElementById("route");
-    const vehicleSelect = document.getElementById("vehicle");
-    const tripTypeSelect = document.getElementById("trip-type");
-    const pickupDateInput = document.getElementById("pickup-date");
-    const pickupTimeInput = document.getElementById("pickup-time");
-    const priceText = document.getElementById("price-text");
-    const timingBanner = document.getElementById("timing-banner");
-    const squareBtn = document.getElementById("square-pay-btn");
-    const selectedOptionInput = document.getElementById("selected-option");
-    const bookingForm = document.getElementById("booking-form");
-
-    function getPickupDateTime() {
-      const dateValue = pickupDateInput.value;
-      const timeValue = pickupTimeInput.value;
-      if (!dateValue || !timeValue) return null;
-
-      const dt = new Date(dateValue + "T" + timeValue);
-      if (isNaN(dt.getTime())) return null;
-      return dt;
-    }
-
-    function updatePriceAndLink() {
-      const route = routeSelect.value;
-      const vehicle = vehicleSelect.value;
-      const tripType = tripTypeSelect.value;
-      const pickupDateTime = getPickupDateTime();
-
-      let timingLabel = "Pickup time not selected yet";
-      let canPayNow = false;
-      let timingNote = "";
-
-      if (pickupDateTime) {
-        const now = new Date();
-        const diffMs = pickupDateTime - now;
-        const diffHours = diffMs / (1000 * 60 * 60);
-
-        if (diffHours < 8) {
-          timingLabel = "Short notice (< 8 hours)";
-          timingNote =
-            " This trip is within the next 8 hours. Please submit this form as a request only and wait for our confirmation before making any payment.";
-          canPayNow = false;
-        } else {
-          timingLabel = "Standard (≥ 8 hours)";
-          timingNote =
-            " This trip is more than 8 hours away. After submitting this form, you can complete payment using the Square button for your selected option.";
-          canPayNow = true;
-        }
-
-        timingBanner.textContent =
-          "Pickup time check: " + timingLabel + ". " +
-          (diffHours > 0
-            ? "Approx. " + diffHours.toFixed(1) + " hours from now."
-            : "Pickup time appears to be in the past or very soon. We will review it.");
-      } else {
-        timingBanner.textContent =
-          "Once you select your pickup date and time, we’ll tell you if this is a short-notice request (< 8 hours) or a standard booking (≥ 8 hours).";
-      }
-
-      // Custom route: no fixed price/link, just explain
-      if (route === "CUSTOM") {
-        priceText.textContent =
-          "Custom route selected." +
-          (timingNote
-            ? timingNote + " We will review your details and send you the exact price and a Square payment link."
-            : " We will review your details and send you the exact price and a Square payment link.");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-        selectedOptionInput.value =
-          "Custom route – price and Square link to be confirmed by MLT. Timing: " + timingLabel;
-        return;
-      }
-
-      if (!route || !vehicle || !tripType) {
-        priceText.textContent =
-          "Please select a route, vehicle and trip type to see the price and Square payment link." +
-          (timingNote || "");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-        selectedOptionInput.value = "";
-        return;
-      }
-
-      const routeData = OPTIONS[route];
-      if (!routeData || !routeData[vehicle] || !routeData[vehicle][tripType]) {
-        priceText.textContent =
-          "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm the price and send a Square link." +
-          (timingNote || "");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-        selectedOptionInput.value =
-          "No fixed price: route=" + route + ", vehicle=" + vehicle +
-          ", tripType=" + tripType + ". Timing: " + timingLabel;
-        return;
-      }
-
-      const option = routeData[vehicle][tripType];
-
-      // Build a friendly description
-      let tripLabel = "";
-      if (tripType === "ONEWAY") tripLabel = "One-way";
-      else if (tripType === "ROUND") tripLabel = "Round trip";
-      else if (tripType === "HOURLY") tripLabel = "Hourly (3-hour minimum)";
-
-      if (route === "HOURLY") {
-        priceText.textContent =
-          `Selected: Hourly SUV service within Orlando – ${tripLabel} at $${option.price} per hour (3-hour minimum).` +
-          timingNote;
-      } else {
-        priceText.textContent =
-          `Selected: ${tripLabel} ${vehicle} for ${route} – $${option.price}.` +
-          timingNote;
-      }
-
-      // Show Square button only if allowed by time window AND link is real (not placeholder)
-      if (
-        canPayNow &&
-        option.link &&
-        !option.link.startsWith("YOUR_SQUARE_LINK_")
-      ) {
-        squareBtn.style.display = "inline-block";
-        squareBtn.href = option.link;
-      } else {
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
-      }
-
-      selectedOptionInput.value =
-        `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Price: $${option.price}, ` +
-        `Square link: ${option.link}, Timing: ${timingLabel}`;
-    }
-
-    routeSelect.addEventListener("change", updatePriceAndLink);
-    vehicleSelect.addEventListener("change", updatePriceAndLink);
-    tripTypeSelect.addEventListener("change", updatePriceAndLink);
-    pickupDateInput.addEventListener("change", updatePriceAndLink);
-    pickupTimeInput.addEventListener("change", updatePriceAndLink);
-
-    // Before submitting to Formspree, make sure the hidden field is up to date
-    bookingForm.addEventListener("submit", function () {
-      updatePriceAndLink();
-    });
   </script>
 </body>
 </html>
