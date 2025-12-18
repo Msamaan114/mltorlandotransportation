@@ -6,204 +6,312 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Flat-rate private transportation from MCO and SFB to Disney, Universal, I-Drive, SeaWorld, Windermere, Golden Oak, Winter Park, Cape Canaveral and more."
+    content="Private transfer rates for MLT Orlando Transportation serving Orlando airports, Disney, Universal, Port Canaveral and surrounding areas."
   />
-  <meta property="og:title" content="Rates &amp; Booking | MLT Orlando Transportation" />
-  <meta
-    property="og:description"
-    content="View sample rates for airport transfers, theme parks, cruise ports and hourly charter service in Orlando."
-  />
-  <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
-  <meta property="og:url" content="https://www.mltorlandotransportation.com/rates.html" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Shared site styles (colors, layout, buttons, etc.) -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Extra styling just for the Rates page -->
   <style>
-    .rates-toc {
-      margin-top: 1.5rem;
-      padding: 1rem 1.25rem;
-      background: rgba(15, 23, 42, 0.03);
-      border-radius: 0.75rem;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-    }
-
-    .rates-toc h3 {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .rates-toc ul {
-      list-style: none;
-      padding: 0;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 0.75rem;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    .rates-toc a {
-      font-size: 0.88rem;
+    body {
+      background: #f3f4f6;
+      color: #020617;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
       text-decoration: none;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.15);
-      background: #ffffff;
     }
 
-    .rates-toc a:hover {
-      background: rgba(56, 189, 248, 0.08);
-      border-color: rgba(56, 189, 248, 0.6);
+    /* Header / nav */
+    header {
+      background: #020617;
+      color: #f9fafb;
+      padding: 0.75rem 5vw;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
 
-    .route-section {
-      margin-top: 2.25rem;
-    }
-
-    .route-title {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .vehicle-list {
-      margin-top: 0.75rem;
-    }
-
-    .vehicle-card {
-      background: #ffffff;
-      border-radius: 0.9rem;
-      border: 1px solid #e5e7eb;
-      padding: 0.9rem 1rem;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-      margin-bottom: 0.75rem;
-    }
-
-    .vehicle-main {
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    .vehicle-info {
-      flex: 1 1 auto;
-    }
-
-    .vehicle-name {
-      font-weight: 600;
-      font-size: 0.98rem;
-      margin-bottom: 0.1rem;
-    }
-
-    .vehicle-capacity {
-      font-size: 0.85rem;
-      color: #6b7280;
-    }
-
-    .vehicle-price {
-      flex: 0 0 auto;
-      text-align: right;
-      min-width: 80px;
-    }
-
-    .price-currency {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      color: #6b7280;
-      letter-spacing: 0.06em;
-    }
-
-    .price-value {
+    .logo {
       font-weight: 700;
-      font-size: 1.15rem;
-      line-height: 1.1;
+      letter-spacing: 0.08em;
+      font-size: 1rem;
     }
 
-    .price-sub {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
-
-    .vehicle-actions {
-      margin-top: 0.55rem;
+    nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 1rem;
+      font-size: 0.95rem;
     }
 
-    .btn-chip {
-      border-radius: 999px;
+    nav a {
+      color: #e5e7eb;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 5vw 4rem;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 4vw, 2.4rem);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-intro {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Jump links */
+    .route-index {
+      background: #0b1120;
+      color: #e5e7eb;
+      border-radius: 1rem;
+      padding: 1.25rem 1.25rem 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .route-index h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .route-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .route-chip {
+      background: #020617;
+      color: #e5e7eb;
       padding: 0.35rem 0.9rem;
+      border-radius: 999px;
       font-size: 0.8rem;
-      border: none;
-      background: #38bdf8;
-      color: #0b1120;
-      text-decoration: none;
-      font-weight: 600;
+      border: 1px solid #1f2937;
       white-space: nowrap;
     }
 
-    .btn-chip.secondary {
+    .route-chip:hover {
+      background: #38bdf8;
+      color: #020617;
+      border-color: #38bdf8;
+    }
+
+    /* Route sections */
+    .route-section {
+      margin-top: 2.5rem;
+    }
+
+    .route-title {
+      font-size: 1.35rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .route-subtitle {
+      color: #4b5563;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-wrapper {
+      background: #ffffff;
+      border-radius: 1.25rem;
+      padding: 1.4rem 1.2rem;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+      margin-bottom: 1.5rem;
+    }
+
+    .vehicle-card {
+      padding: 0.9rem 0.2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .vehicle-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .vehicle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.25rem;
+    }
+
+    .vehicle-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .vehicle-capacity {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .vehicle-capacity span {
+      margin-right: 0.35rem;
+    }
+
+    .vehicle-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.35rem;
+    }
+
+    .btn-book-primary,
+    .btn-book-secondary {
+      display: inline-block;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-book-primary {
+      background: #38bdf8;
+      color: #020617;
+    }
+
+    .btn-book-secondary {
+      background: #020617;
+      color: #f9fafb;
+    }
+
+    .btn-book-primary:hover,
+    .btn-book-secondary:hover {
+      opacity: 0.9;
+    }
+
+    .route-note {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-top: 0.75rem;
+    }
+
+    /* Hourly section */
+    .hourly-note {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 0.75rem;
+    }
+
+    .hourly-list {
+      font-size: 0.9rem;
+      color: #111827;
+      margin-left: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hourly-list li {
+      margin-bottom: 0.2rem;
+    }
+
+    /* Buttons row at bottom */
+    .bottom-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .btn-outline {
+      border-radius: 999px;
+      padding: 0.55rem 1.2rem;
+      border: 1px solid #0f172a;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #0f172a;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
       background: #0f172a;
       color: #f9fafb;
     }
 
-    .btn-chip:hover {
-      opacity: 0.9;
-    }
-
-    .rates-note {
-      margin-top: 0.75rem;
+    /* Footer */
+    footer {
+      padding: 2rem 5vw 2.5rem;
+      text-align: center;
       font-size: 0.85rem;
       color: #6b7280;
     }
 
-    @media (max-width: 640px) {
-      .vehicle-main {
-        align-items: flex-start;
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .social-links img {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 720px) {
+      main {
+        padding-top: 1.5rem;
       }
-      .vehicle-price {
-        text-align: right;
+
+      .card-wrapper {
+        padding: 1.1rem 1rem;
+      }
+
+      .vehicle-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-book-primary,
+      .btn-book-secondary {
+        width: 100%;
+        justify-content: center;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Top contact bar -->
-  <div class="top-bar">
-    <div class="top-bar-inner">
-      <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
-
-      <div class="top-bar-right">
-        <span>
-          Call: <a href="tel:14073690643">407-369-0643</a> ·
-          Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
-        </span>
-
-        <div class="social-top">
-          <a href="https://facebook.com/" target="_blank" rel="noopener">
-            <img src="facebook-icon.jpeg" alt="Facebook" />
-          </a>
-          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-            <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
-          </a>
-          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
-            <img src="instagram-icon.jpeg" alt="Instagram" />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Header / nav -->
   <header>
     <div class="nav">
-      <!-- Logo as button to Home (no underline) -->
-      <a href="index.html" class="logo" style="text-decoration:none;">MLT Orlando Transportation</a>
+      <a href="index.html" class="logo">MLT ORLANDO TRANSPORTATION</a>
       <nav>
         <a href="index.html">Home</a>
         <a href="services.html">Services</a>
@@ -220,768 +328,960 @@
   </header>
 
   <main>
-    <!-- INTRO + BACK BUTTON -->
-    <section id="rates-intro">
-      <a
-        href="index.html"
-        class="btn-primary"
-        style="text-decoration:none; display:inline-block; margin-bottom:1.5rem;"
-      >
-        ← Back to Home
-      </a>
+    <h1>Rates &amp; Booking</h1>
+    <p class="page-intro">
+      Choose your route and vehicle type below. All prices are per private vehicle (not per person) and
+      include tolls and taxes. Gratuity is not included and is appreciated.
+    </p>
 
-      <h2>Rates &amp; Booking</h2>
-      <p class="section-intro">
-        Below are sample <strong>flat-rate private transfers</strong> by route and vehicle. Prices include
-        <strong>vehicle, driver, tolls and taxes</strong>. Gratuity is not included and is appreciated.
-        For custom routes or private addresses, you can request a quote in the booking form.
-      </p>
-
-      <p class="hero-note">
-        1) Find your route ➝ 2) Choose your vehicle ➝ 3) Tap a <strong>Book</strong> button to go to the
-        <strong>Booking Details &amp; Contact</strong> page.
-      </p>
-
-      <!-- Anchor links -->
-      <div class="rates-toc">
-        <h3>Jump to a route</h3>
-        <ul>
-          <li><a href="#rates-mco-disney">MCO ↔ Disney / LBV / Bay Lake / Golden Oak</a></li>
-          <li><a href="#rates-mco-universal">MCO ↔ Universal / I-Drive / Convention Center</a></li>
-          <li><a href="#rates-mco-seaworld">MCO ↔ SeaWorld area</a></li>
-          <li><a href="#rates-mco-port">MCO ↔ Cape Canaveral / Port Canaveral</a></li>
-          <li><a href="#rates-sfb-disney">SFB ↔ Disney / LBV / Bay Lake / Golden Oak</a></li>
-          <li><a href="#rates-sfb-universal">SFB ↔ Universal / I-Drive / Convention Center</a></li>
-          <li><a href="#rates-sfb-seaworld">SFB ↔ SeaWorld area</a></li>
-          <li><a href="#rates-hourly">Hourly charter service</a></li>
-        </ul>
+    <!-- Jump links -->
+    <section class="route-index">
+      <h2>Jump to a route</h2>
+      <div class="route-chip-row">
+        <a class="route-chip" href="#mco-disney">MCO ↔ Disney / Universal / I-Drive / SeaWorld</a>
+        <a class="route-chip" href="#mco-lake">MCO ↔ Lake Buena Vista / Bay Lake / Golden Oak</a>
+        <a class="route-chip" href="#mco-idrive">MCO ↔ I-Drive / Convention Center</a>
+        <a class="route-chip" href="#mco-windermere">MCO ↔ Windermere / Winter Park / Private</a>
+        <a class="route-chip" href="#sfb-disney">SFB ↔ Disney / Universal / I-Drive / SeaWorld</a>
+        <a class="route-chip" href="#sfb-lake">SFB ↔ Lake Buena Vista / Bay Lake / Golden Oak</a>
+        <a class="route-chip" href="#sfb-idrive">SFB ↔ I-Drive / Convention Center</a>
+        <a class="route-chip" href="#port">Port Canaveral</a>
+        <a class="route-chip" href="#hourly">Hourly charter</a>
       </div>
     </section>
 
-    <!-- ========= MCO SECTIONS ========= -->
-
-    <!-- MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak -->
-    <section id="rates-mco-disney" class="route-section">
-      <h3 class="route-title">MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</h3>
-      <p class="section-intro">
-        Private transfers between Orlando International Airport (MCO) and Disney-area resorts including
-        <strong>Walt Disney World</strong>, Lake Buena Vista, Bay Lake and Golden Oak.
+    <!-- MCO -> Disney / Universal / I-Drive / SeaWorld -->
+    <section id="mco-disney" class="route-section">
+      <h2 class="route-title">MCO ↔ Disney / Universal / I-Drive / SeaWorld area</h2>
+      <p class="route-subtitle">
+        Private transfers between Orlando International Airport (MCO) and Disney-area resorts,
+        Universal Orlando, International Drive, SeaWorld and nearby hotels.
       </p>
 
-      <div class="vehicle-list">
+      <div class="card-wrapper">
+        <!-- Sedan -->
         <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$120</div>
-              <div class="price-sub">one-way</div>
-            </div>
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
           </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
           <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $120</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $220</a>
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Disney-area&vehicle=Sedan&trip=oneway&price=120"
+            >
+              Book one-way – $120
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Disney-area&vehicle=Sedan&trip=round&price=220"
+            >
+              Book round trip – $220
+            </a>
           </div>
         </div>
 
+        <!-- SUV -->
         <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$130</div>
-              <div class="price-sub">one-way</div>
-            </div>
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
           </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
           <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $130</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $240</a>
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Disney-area&vehicle=SUV&trip=oneway&price=130"
+            >
+              Book one-way – $130
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Disney-area&vehicle=SUV&trip=round&price=240"
+            >
+              Book round trip – $240
+            </a>
           </div>
         </div>
 
+        <!-- 8-passenger van -->
         <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$150</div>
-              <div class="price-sub">one-way</div>
-            </div>
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
           </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
           <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $150</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Disney-area&vehicle=Van8&trip=oneway&price=150"
+            >
+              Book one-way – $150
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Disney-area&vehicle=Van8&trip=round&price=280"
+            >
+              Book round trip – $280
+            </a>
           </div>
         </div>
 
+        <!-- 14-passenger van -->
         <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$180</div>
-              <div class="price-sub">one-way</div>
-            </div>
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
           </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
           <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $180</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $330</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        In the booking form route dropdown, choose
-        <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your exact Disney-area hotel.
-      </p>
-    </section>
-
-    <!-- MCO ↔ Universal / I-Drive / Convention Center -->
-    <section id="rates-mco-universal" class="route-section">
-      <h3 class="route-title">MCO ↔ Universal / International Drive / Convention Center</h3>
-      <p class="section-intro">
-        Private transfers between Orlando International Airport (MCO) and
-        <strong>Universal Orlando Resort</strong>, International Drive, and the convention center area.
-      </p>
-
-      <div class="vehicle-list">
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$120</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $120</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $220</a>
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Disney-area&vehicle=Van14&trip=oneway&price=180"
+            >
+              Book one-way – $180
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Disney-area&vehicle=Van14&trip=round&price=330"
+            >
+              Book round trip – $330
+            </a>
           </div>
         </div>
 
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$130</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $130</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $240</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$150</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $150</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$180</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $180</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $330</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        Use the booking route
-        <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your Universal / I-Drive hotel.
-      </p>
-    </section>
-
-    <!-- MCO ↔ SeaWorld Area -->
-    <section id="rates-mco-seaworld" class="route-section">
-      <h3 class="route-title">MCO ↔ SeaWorld Area</h3>
-      <p class="section-intro">
-        Private transfers between Orlando International Airport (MCO) and <strong>SeaWorld Orlando</strong>
-        and nearby resorts.
-      </p>
-
-      <div class="vehicle-list">
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$120</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $120</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $220</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$130</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $130</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $240</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$150</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $150</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$180</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $180</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $330</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        Choose the booking route
-        <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your SeaWorld hotel.
-      </p>
-    </section>
-
-    <!-- MCO ↔ Cape Canaveral / Port Canaveral -->
-    <section id="rates-mco-port" class="route-section">
-      <h3 class="route-title">MCO ↔ Cape Canaveral / Port Canaveral</h3>
-      <p class="section-intro">
-        Transfers between Orlando International Airport (MCO) or Orlando hotels and
-        <strong>Cape Canaveral / Port Canaveral</strong> for cruise departures and returns.
-      </p>
-
-      <div class="vehicle-list">
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$210</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $210</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $400</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$230</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $230</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $440</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$260</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $260</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $500</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$290</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $290</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $560</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        On the booking page, choose
-        <strong>"MCO ↔ Cape Canaveral / Port Canaveral"</strong> and include your cruise line and sailing time.
-      </p>
-    </section>
-
-    <!-- ========= SFB SECTIONS ========= -->
-
-    <!-- SFB ↔ Disney / LBV / Bay Lake / Golden Oak -->
-    <section id="rates-sfb-disney" class="route-section">
-      <h3 class="route-title">SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</h3>
-      <p class="section-intro">
-        Transfers between Orlando Sanford International Airport (SFB) and Disney-area resorts.
-      </p>
-
-      <div class="vehicle-list">
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$150</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $150</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$165</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $165</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $310</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$185</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $185</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $350</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$210</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $210</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $390</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        On the booking page, choose
-        <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and list your exact Disney-area hotel.
-      </p>
-    </section>
-
-    <!-- SFB ↔ Universal / I-Drive / Convention Center -->
-    <section id="rates-sfb-universal" class="route-section">
-      <h3 class="route-title">SFB ↔ Universal / I-Drive / Convention Center</h3>
-      <p class="section-intro">
-        Transfers between Orlando Sanford International Airport (SFB) and Universal Orlando, International Drive and
-        the Orange County Convention Center.
-      </p>
-
-      <div class="vehicle-list">
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$150</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $150</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$165</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $165</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $310</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$185</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $185</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $350</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$210</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $210</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $390</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        Use the booking route
-        <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your hotel.
-      </p>
-    </section>
-
-    <!-- SFB ↔ SeaWorld Area -->
-    <section id="rates-sfb-seaworld" class="route-section">
-      <h3 class="route-title">SFB ↔ SeaWorld Area</h3>
-      <p class="section-intro">
-        Private transfers between Orlando Sanford International Airport (SFB) and SeaWorld Orlando area resorts.
-      </p>
-
-      <div class="vehicle-list">
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$150</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $150</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$165</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $165</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $310</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$185</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $185</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $350</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$210</div>
-              <div class="price-sub">one-way</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <a class="btn-chip" href="booking.html">Book one-way – $210</a>
-            <a class="btn-chip secondary" href="booking.html">Book round trip – $390</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        Use the booking route
-        <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and put your SeaWorld hotel or address.
-      </p>
-    </section>
-
-    <!-- ========= HOURLY CHARTER ========= -->
-
-    <section id="rates-hourly" class="route-section">
-      <h3 class="route-title">Hourly Charter Service (within Orlando)</h3>
-      <p class="section-intro">
-        Ideal for multi-stop trips, dinners, business meetings, or custom itineraries around Orlando,
-        Windermere, Lake Buena Vista, Golden Oak, Winter Park, I-Drive, SeaWorld and nearby areas.
-      </p>
-
-      <div class="vehicle-list">
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">Sedan</div>
-              <div class="vehicle-capacity">👤 Up to 3 passengers</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$75</div>
-              <div class="price-sub">per hour</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
-            <a class="btn-chip secondary" href="booking.html">Request sedan charter</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">SUV</div>
-              <div class="vehicle-capacity">👤 Up to 5 passengers</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$85</div>
-              <div class="price-sub">per hour</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
-            <a class="btn-chip secondary" href="booking.html">Request SUV charter</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">8-passenger van</div>
-              <div class="vehicle-capacity">👤 Up to 8 passengers</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$105</div>
-              <div class="price-sub">per hour</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
-            <a class="btn-chip secondary" href="booking.html">Request 8-passenger van</a>
-          </div>
-        </div>
-
-        <div class="vehicle-card">
-          <div class="vehicle-main">
-            <div class="vehicle-info">
-              <div class="vehicle-name">14-passenger van</div>
-              <div class="vehicle-capacity">👤 Up to 14 passengers</div>
-            </div>
-            <div class="vehicle-price">
-              <div class="price-currency">usd</div>
-              <div class="price-value">$125</div>
-              <div class="price-sub">per hour</div>
-            </div>
-          </div>
-          <div class="vehicle-actions">
-            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
-            <a class="btn-chip secondary" href="booking.html">Request 14-passenger van</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="rates-note">
-        On the booking page, choose the route
-        <strong>"Hourly service within Orlando (SUV)"</strong> and describe your itinerary. Mention sedan or van
-        in the notes if you prefer a different vehicle type, and we will confirm by email or WhatsApp.
-      </p>
-
-      <a class="btn-primary" href="booking.html" style="text-decoration:none; margin-top:1rem; display:inline-block;">
-        Go to Booking Details &amp; Contact
-      </a>
-    </section>
-
-    <!-- ========= FOOTNOTE ========= -->
-
-    <section id="rates-notes" class="route-section">
-      <div class="card">
-        <p class="rates-note">
-          • Prices are per vehicle, not per person.<br />
-          • Tolls and taxes are included. Gratuity is not included and is appreciated.<br />
-          • Final quote may change based on exact pickup location (including private addresses),
-            time of day, traffic and special requests.<br />
-          • For Windermere, Winter Park, and private addresses not clearly listed above, choose the closest
-            route section and explain your exact address in the booking form.
+        <p class="route-note">
+          Use the route option <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> in the booking
+          form and list your exact hotel or address in the destination field.
         </p>
+      </div>
+    </section>
+
+    <!-- MCO -> Lake Buena Vista / Bay Lake / Golden Oak -->
+    <section id="mco-lake" class="route-section">
+      <h2 class="route-title">MCO ↔ Lake Buena Vista / Bay Lake / Golden Oak</h2>
+      <p class="route-subtitle">
+        Dedicated service between Orlando International Airport (MCO) and luxury resort communities such as
+        Lake Buena Vista, Bay Lake and Golden Oak.
+      </p>
+
+      <div class="card-wrapper">
+        <!-- Sedan -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=Sedan&trip=oneway&price=120"
+            >
+              Book one-way – $120
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=Sedan&trip=round&price=220"
+            >
+              Book round trip – $220
+            </a>
+          </div>
+        </div>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=SUV&trip=oneway&price=130"
+            >
+              Book one-way – $130
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=SUV&trip=round&price=240"
+            >
+              Book round trip – $240
+            </a>
+          </div>
+        </div>
+
+        <!-- 8-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=Van8&trip=oneway&price=150"
+            >
+              Book one-way – $150
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=Van8&trip=round&price=280"
+            >
+              Book round trip – $280
+            </a>
+          </div>
+        </div>
+
+        <!-- 14-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=Van14&trip=oneway&price=180"
+            >
+              Book one-way – $180
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Lake-GoldenOak&vehicle=Van14&trip=round&price=330"
+            >
+              Book round trip – $330
+            </a>
+          </div>
+        </div>
+
+        <p class="route-note">
+          In the booking form, choose <strong>"MCO ↔ Lake Buena Vista / Bay Lake / Golden Oak"</strong> as your route.
+        </p>
+      </div>
+    </section>
+
+    <!-- MCO -> I-Drive / Convention Center -->
+    <section id="mco-idrive" class="route-section">
+      <h2 class="route-title">MCO ↔ International Drive / Convention Center</h2>
+      <p class="route-subtitle">
+        Transfers between Orlando International Airport (MCO) and International Drive hotels, the Convention Center,
+        SeaWorld and nearby properties.
+      </p>
+
+      <div class="card-wrapper">
+        <!-- Sedan -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=Sedan&trip=oneway&price=110"
+            >
+              Book one-way – $110
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=Sedan&trip=round&price=210"
+            >
+              Book round trip – $210
+            </a>
+          </div>
+        </div>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=SUV&trip=oneway&price=120"
+            >
+              Book one-way – $120
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=SUV&trip=round&price=230"
+            >
+              Book round trip – $230
+            </a>
+          </div>
+        </div>
+
+        <!-- 8-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=Van8&trip=oneway&price=140"
+            >
+              Book one-way – $140
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=Van8&trip=round&price=260"
+            >
+              Book round trip – $260
+            </a>
+          </div>
+        </div>
+
+        <!-- 14-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=Van14&trip=oneway&price=170"
+            >
+              Book one-way – $170
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Idrive-Convention&vehicle=Van14&trip=round&price=310"
+            >
+              Book round trip – $310
+            </a>
+          </div>
+        </div>
+
+        <p class="route-note">
+          In the booking form route dropdown, choose <strong>"MCO ↔ I-Drive / Convention Center"</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- MCO -> Windermere / Winter Park / Private -->
+    <section id="mco-windermere" class="route-section">
+      <h2 class="route-title">MCO ↔ Windermere / Winter Park / Private address</h2>
+      <p class="route-subtitle">
+        Private transfers between Orlando International Airport (MCO) and residential neighborhoods such as
+        Windermere, Winter Park and other private addresses.
+      </p>
+
+      <div class="card-wrapper">
+        <!-- Sedan -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=Sedan&trip=oneway&price=130"
+            >
+              Book one-way – $130
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=Sedan&trip=round&price=240"
+            >
+              Book round trip – $240
+            </a>
+          </div>
+        </div>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=SUV&trip=oneway&price=140"
+            >
+              Book one-way – $140
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=SUV&trip=round&price=260"
+            >
+              Book round trip – $260
+            </a>
+          </div>
+        </div>
+
+        <!-- 8-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=Van8&trip=oneway&price=160"
+            >
+              Book one-way – $160
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=Van8&trip=round&price=300"
+            >
+              Book round trip – $300
+            </a>
+          </div>
+        </div>
+
+        <!-- 14-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=Van14&trip=oneway&price=190"
+            >
+              Book one-way – $190
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Windermere-WinterPark-Private&vehicle=Van14&trip=round&price=340"
+            >
+              Book round trip – $340
+            </a>
+          </div>
+        </div>
+
+        <p class="route-note">
+          In the booking form, choose <strong>"MCO ↔ Windermere / Winter Park / Private address"</strong> and add
+          your exact street address.
+        </p>
+      </div>
+    </section>
+
+    <!-- SFB routes (Disney area grouped) -->
+    <section id="sfb-disney" class="route-section">
+      <h2 class="route-title">SFB ↔ Disney / Universal / I-Drive / SeaWorld area</h2>
+      <p class="route-subtitle">
+        Private transfers between Orlando Sanford International Airport (SFB) and Disney-area resorts,
+        Universal Orlando, International Drive and SeaWorld.
+      </p>
+
+      <div class="card-wrapper">
+        <!-- Sedan -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Disney-area&vehicle=Sedan&trip=oneway&price=150"
+            >
+              Book one-way – $150
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Disney-area&vehicle=Sedan&trip=round&price=280"
+            >
+              Book round trip – $280
+            </a>
+          </div>
+        </div>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Disney-area&vehicle=SUV&trip=oneway&price=165"
+            >
+              Book one-way – $165
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Disney-area&vehicle=SUV&trip=round&price=310"
+            >
+              Book round trip – $310
+            </a>
+          </div>
+        </div>
+
+        <!-- 8-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Disney-area&vehicle=Van8&trip=oneway&price=185"
+            >
+              Book one-way – $185
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Disney-area&vehicle=Van8&trip=round&price=350"
+            >
+              Book round trip – $350
+            </a>
+          </div>
+        </div>
+
+        <!-- 14-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Disney-area&vehicle=Van14&trip=oneway&price=210"
+            >
+              Book one-way – $210
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Disney-area&vehicle=Van14&trip=round&price=390"
+            >
+              Book round trip – $390
+            </a>
+          </div>
+        </div>
+
+        <p class="route-note">
+          In the booking form, choose <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- SFB -> Lake Buena Vista / Bay Lake / Golden Oak -->
+    <section id="sfb-lake" class="route-section">
+      <h2 class="route-title">SFB ↔ Lake Buena Vista / Bay Lake / Golden Oak</h2>
+      <p class="route-subtitle">
+        Transfers between SFB and the luxury Disney-area communities of Lake Buena Vista, Bay Lake and Golden Oak.
+      </p>
+
+      <div class="card-wrapper">
+        <!-- Sedan -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=Sedan&trip=oneway&price=155"
+            >
+              Book one-way – $155
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=Sedan&trip=round&price=290"
+            >
+              Book round trip – $290
+            </a>
+          </div>
+        </div>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=SUV&trip=oneway&price=170"
+            >
+              Book one-way – $170
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=SUV&trip=round&price=320"
+            >
+              Book round trip – $320
+            </a>
+          </div>
+        </div>
+
+        <!-- 8-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=Van8&trip=oneway&price=190"
+            >
+              Book one-way – $190
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=Van8&trip=round&price=360"
+            >
+              Book round trip – $360
+            </a>
+          </div>
+        </div>
+
+        <!-- 14-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=Van14&trip=oneway&price=215"
+            >
+              Book one-way – $215
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Lake-GoldenOak&vehicle=Van14&trip=round&price=400"
+            >
+              Book round trip – $400
+            </a>
+          </div>
+        </div>
+
+        <p class="route-note">
+          In the booking form, choose <strong>"SFB ↔ Lake Buena Vista / Bay Lake / Golden Oak"</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- SFB -> I-Drive / Convention Center -->
+    <section id="sfb-idrive" class="route-section">
+      <h2 class="route-title">SFB ↔ International Drive / Convention Center</h2>
+      <p class="route-subtitle">
+        Service between Orlando Sanford International Airport (SFB) and International Drive hotels,
+        the Orange County Convention Center and nearby resorts.
+      </p>
+
+      <div class="card-wrapper">
+        <!-- Sedan -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=Sedan&trip=oneway&price=150"
+            >
+              Book one-way – $150
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=Sedan&trip=round&price=280"
+            >
+              Book round trip – $280
+            </a>
+          </div>
+        </div>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=SUV&trip=oneway&price=165"
+            >
+              Book one-way – $165
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=SUV&trip=round&price=310"
+            >
+              Book round trip – $310
+            </a>
+          </div>
+        </div>
+
+        <!-- 8-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=Van8&trip=oneway&price=185"
+            >
+              Book one-way – $185
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=Van8&trip=round&price=350"
+            >
+              Book round trip – $350
+            </a>
+          </div>
+        </div>
+
+        <!-- 14-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=Van14&trip=oneway&price=210"
+            >
+              Book one-way – $210
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=SFB-Idrive-Convention&vehicle=Van14&trip=round&price=390"
+            >
+              Book round trip – $390
+            </a>
+          </div>
+        </div>
+
+        <p class="route-note">
+          In the booking form, choose <strong>"SFB ↔ I-Drive / Convention Center"</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Port Canaveral -->
+    <section id="port" class="route-section">
+      <h2 class="route-title">MCO / Orlando ↔ Port Canaveral</h2>
+      <p class="route-subtitle">
+        Cruise transfers between Orlando, Orlando International Airport (MCO) and Port Canaveral / Cape Canaveral.
+      </p>
+
+      <div class="card-wrapper">
+        <!-- Sedan -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Port&vehicle=Sedan&trip=oneway&price=210"
+            >
+              Book one-way – $210
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Port&vehicle=Sedan&trip=round&price=400"
+            >
+              Book round trip – $400
+            </a>
+          </div>
+        </div>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 5 passengers</span> · <span>🧳 5 large</span> · <span>3 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Port&vehicle=SUV&trip=oneway&price=230"
+            >
+              Book one-way – $230
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Port&vehicle=SUV&trip=round&price=440"
+            >
+              Book round trip – $440
+            </a>
+          </div>
+        </div>
+
+        <!-- 8-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 8 passengers</span> · <span>🧳 10 large</span> · <span>5 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Port&vehicle=Van8&trip=oneway&price=260"
+            >
+              Book one-way – $260
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Port&vehicle=Van8&trip=round&price=500"
+            >
+              Book round trip – $500
+            </a>
+          </div>
+        </div>
+
+        <!-- 14-passenger van -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 14 passengers</span> · <span>🧳 14 large</span> · <span>7 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=MCO-Port&vehicle=Van14&trip=oneway&price=290"
+            >
+              Book one-way – $290
+            </a>
+            <a
+              class="btn-book-secondary"
+              href="booking.html?route=MCO-Port&vehicle=Van14&trip=round&price=560"
+            >
+              Book round trip – $560
+            </a>
+          </div>
+        </div>
+
+        <p class="route-note">
+          In the booking form, choose <strong>"MCO / Orlando ↔ Port Canaveral"</strong> and include your cruise line
+          and ship name in the notes.
+        </p>
+      </div>
+    </section>
+
+    <!-- Hourly charter -->
+    <section id="hourly" class="route-section">
+      <h2 class="route-title">Hourly Charter (within Orlando)</h2>
+      <p class="route-subtitle">
+        Ideal for business, special events or flexible itineraries around Orlando, Windermere, Winter Park and
+        surrounding areas.
+      </p>
+
+      <div class="card-wrapper">
+        <p class="hourly-note">
+          Hourly charters have a 3-hour minimum within the Orlando area. For long-distance or multi-day charters,
+          please request a custom quote.
+        </p>
+
+        <!-- SUV -->
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">SUV</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 Up to 5 passengers</span>
+          </p>
+          <div class="vehicle-actions">
+            <a
+              class="btn-book-primary"
+              href="booking.html?route=Hourly-Orlando&vehicle=SUV&trip=hourly&price=85"
+            >
+              Book hourly – $85 / hr
+            </a>
+          </div>
+        </div>
+
+        <!-- You can add sedan / vans here later if you’d like -->
+
+        <p class="route-note">
+          In the booking form, choose <strong>"Hourly charter (within Orlando)"</strong> as your route and share
+          your planned schedule in the notes.
+        </p>
+      </div>
+
+      <div class="bottom-links">
+        <a class="btn-outline" href="index.html">← Back to Home</a>
+        <a class="btn-outline" href="booking.html">Go to Booking Form →</a>
       </div>
     </section>
   </main>
@@ -998,7 +1298,6 @@
         <img src="instagram-icon.jpeg" alt="Instagram" />
       </a>
     </div>
-
     © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
   </footer>
 
