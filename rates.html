@@ -59,29 +59,101 @@
       border-color: rgba(56, 189, 248, 0.6);
     }
 
-    .table-responsive {
-      width: 100%;
-      overflow-x: auto;
+    .route-section {
+      margin-top: 2.25rem;
     }
 
-    .rates-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    .rates-table th,
-    .rates-table td {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid #e5e7eb;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .rates-table th {
-      background: #f3f4f6;
+    .route-title {
+      font-size: 1.15rem;
       font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .vehicle-list {
+      margin-top: 0.75rem;
+    }
+
+    .vehicle-card {
+      background: #ffffff;
+      border-radius: 0.9rem;
+      border: 1px solid #e5e7eb;
+      padding: 0.9rem 1rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      margin-bottom: 0.75rem;
+    }
+
+    .vehicle-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .vehicle-info {
+      flex: 1 1 auto;
+    }
+
+    .vehicle-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .vehicle-capacity {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .vehicle-price {
+      flex: 0 0 auto;
+      text-align: right;
+      min-width: 80px;
+    }
+
+    .price-currency {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #6b7280;
+      letter-spacing: 0.06em;
+    }
+
+    .price-value {
+      font-weight: 700;
+      font-size: 1.15rem;
+      line-height: 1.1;
+    }
+
+    .price-sub {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .vehicle-actions {
+      margin-top: 0.55rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .btn-chip {
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      border: none;
+      background: #38bdf8;
+      color: #0b1120;
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .btn-chip.secondary {
+      background: #0f172a;
+      color: #f9fafb;
+    }
+
+    .btn-chip:hover {
+      opacity: 0.9;
     }
 
     .rates-note {
@@ -90,76 +162,12 @@
       color: #6b7280;
     }
 
-    .book-btn {
-      margin-top: 1rem;
-      display: inline-block;
-    }
-
-    .rate-price {
-      font-weight: 600;
-      display: block;
-    }
-
-    .rate-capacity {
-      font-size: 0.8rem;
-      color: #6b7280;
-      display: block;
-      margin-top: 0.1rem;
-    }
-
-    .btn-price {
-      margin-top: 0.25rem;
-      display: inline-block;
-      padding: 0.35rem 0.9rem;
-      border-radius: 999px;
-      border: none;
-      background: #38bdf8;
-      color: #0b1120;
-      font-size: 0.78rem;
-      text-decoration: none;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .btn-price:hover {
-      opacity: 0.9;
-    }
-
-    .rates-subheading {
-      margin-top: 1.75rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-    }
-
-    /* Mobile-friendly stacked table layout */
     @media (max-width: 640px) {
-      .rates-table thead {
-        display: none;
+      .vehicle-main {
+        align-items: flex-start;
       }
-
-      .rates-table,
-      .rates-table tbody,
-      .rates-table tr,
-      .rates-table td {
-        display: block;
-        width: 100%;
-      }
-
-      .rates-table tr {
-        margin-bottom: 1.25rem;
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 0.75rem;
-      }
-
-      .rates-table td {
-        padding: 0.25rem 0;
-      }
-
-      .rates-table td[data-label]::before {
-        content: attr(data-label);
-        font-weight: 600;
-        display: block;
-        margin-bottom: 0.05rem;
+      .vehicle-price {
+        text-align: right;
       }
     }
   </style>
@@ -224,14 +232,14 @@
 
       <h2>Rates &amp; Booking</h2>
       <p class="section-intro">
-        Each section below shows typical <strong>private transfer rates</strong> by route and vehicle.
-        Prices include <strong>vehicle, driver, tolls and taxes</strong>. Gratuity is not included and is appreciated.
-        For custom routes and special requests, please contact us or use the booking form.
+        Below are sample <strong>flat-rate private transfers</strong> by route and vehicle. Prices include
+        <strong>vehicle, driver, tolls and taxes</strong>. Gratuity is not included and is appreciated.
+        For custom routes or private addresses, you can request a quote in the booking form.
       </p>
 
       <p class="hero-note">
-        To book: find the section that matches your trip, choose your vehicle, then click a
-        <strong>Book</strong> button to go to the <strong>Booking Details &amp; Contact</strong> page.
+        1) Find your route ➝ 2) Choose your vehicle ➝ 3) Tap a <strong>Book</strong> button to go to the
+        <strong>Booking Details &amp; Contact</strong> page.
       </p>
 
       <!-- Anchor links -->
@@ -253,667 +261,727 @@
     <!-- ========= MCO SECTIONS ========= -->
 
     <!-- MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak -->
-    <section id="rates-mco-disney">
-      <h3>MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</h3>
+    <section id="rates-mco-disney" class="route-section">
+      <h3 class="route-title">MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</h3>
       <p class="section-intro">
-        Private transfers between Orlando International Airport (MCO) and Disney-area resorts, including
+        Private transfers between Orlando International Airport (MCO) and Disney-area resorts including
         <strong>Walt Disney World</strong>, Lake Buena Vista, Bay Lake and Golden Oak.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>One-way</th>
-                <th>Round trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$120</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$220</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$130</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$240</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$150</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$280</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$180</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$330</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$120</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $220</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          In the booking form route dropdown, choose
-          <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> for these trips and
-          specify your exact Disney-area hotel in the destination field.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$130</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $240</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$150</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$180</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $330</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        In the booking form route dropdown, choose
+        <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your exact Disney-area hotel.
+      </p>
     </section>
 
     <!-- MCO ↔ Universal / I-Drive / Convention Center -->
-    <section id="rates-mco-universal">
-      <h3>MCO ↔ Universal / International Drive / Convention Center</h3>
+    <section id="rates-mco-universal" class="route-section">
+      <h3 class="route-title">MCO ↔ Universal / International Drive / Convention Center</h3>
       <p class="section-intro">
         Private transfers between Orlando International Airport (MCO) and
-        <strong>Universal Orlando Resort</strong>, International Drive, and the Orange County Convention Center area.
+        <strong>Universal Orlando Resort</strong>, International Drive, and the convention center area.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>One-way</th>
-                <th>Round trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$120</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$220</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$130</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$240</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$150</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$280</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$180</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$330</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$120</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $220</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          In the booking form, use the route option
-          <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify
-          your Universal, I-Drive or convention center hotel in the destination field.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$130</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $240</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$150</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$180</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $330</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        Use the booking route
+        <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your Universal / I-Drive hotel.
+      </p>
     </section>
 
     <!-- MCO ↔ SeaWorld Area -->
-    <section id="rates-mco-seaworld">
-      <h3>MCO ↔ SeaWorld Area</h3>
+    <section id="rates-mco-seaworld" class="route-section">
+      <h3 class="route-title">MCO ↔ SeaWorld Area</h3>
       <p class="section-intro">
-        Private transfers between Orlando International Airport (MCO) and
-        <strong>SeaWorld Orlando</strong> and surrounding resort areas.
+        Private transfers between Orlando International Airport (MCO) and <strong>SeaWorld Orlando</strong>
+        and nearby resorts.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>One-way</th>
-                <th>Round trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$120</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$220</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$130</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$240</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$150</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$280</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity">
-                  <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
-                </td>
-                <td data-label="One-way">
-                  <span class="rate-price">$180</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$330</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$120</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $220</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          For SeaWorld trips, use the route option
-          <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> on the booking page
-          and specify your SeaWorld hotel or address.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$130</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $240</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$150</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$180</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $330</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        Choose the booking route
+        <strong>"MCO ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your SeaWorld hotel.
+      </p>
     </section>
 
     <!-- MCO ↔ Cape Canaveral / Port Canaveral -->
-    <section id="rates-mco-port">
-      <h3>MCO ↔ Cape Canaveral / Port Canaveral</h3>
+    <section id="rates-mco-port" class="route-section">
+      <h3 class="route-title">MCO ↔ Cape Canaveral / Port Canaveral</h3>
       <p class="section-intro">
-        Private transfers between Orlando International Airport (MCO), Orlando hotels and
-        Cape Canaveral / Port Canaveral for cruise departures and returns.
+        Transfers between Orlando International Airport (MCO) or Orlando hotels and
+        <strong>Cape Canaveral / Port Canaveral</strong> for cruise departures and returns.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>One-way</th>
-                <th>Round trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$210</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$400</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$230</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$440</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$260</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$500</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$290</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$560</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$210</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $400</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          On the booking page, choose the route
-          <strong>"MCO ↔ Cape Canaveral / Port Canaveral"</strong> and include your cruise line and
-          sailing time in the notes.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$230</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $440</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$260</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $500</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$290</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $560</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        On the booking page, choose
+        <strong>"MCO ↔ Cape Canaveral / Port Canaveral"</strong> and include your cruise line and sailing time.
+      </p>
     </section>
 
     <!-- ========= SFB SECTIONS ========= -->
 
     <!-- SFB ↔ Disney / LBV / Bay Lake / Golden Oak -->
-    <section id="rates-sfb-disney">
-      <h3>SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</h3>
+    <section id="rates-sfb-disney" class="route-section">
+      <h3 class="route-title">SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</h3>
       <p class="section-intro">
-        Private transportation between Orlando Sanford International Airport (SFB) and
-        Disney-area resorts including Lake Buena Vista, Bay Lake and Golden Oak.
+        Transfers between Orlando Sanford International Airport (SFB) and Disney-area resorts.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>One-way</th>
-                <th>Round trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$150</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$280</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$165</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$310</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$185</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$350</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$210</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$390</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$150</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          On the booking page, choose
-          <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong>
-          and specify your exact Disney-area destination address.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$165</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $310</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$185</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $350</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$210</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $390</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        On the booking page, choose
+        <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and list your exact Disney-area hotel.
+      </p>
     </section>
 
     <!-- SFB ↔ Universal / I-Drive / Convention Center -->
-    <section id="rates-sfb-universal">
-      <h3>SFB ↔ Universal / International Drive / Convention Center</h3>
+    <section id="rates-sfb-universal" class="route-section">
+      <h3 class="route-title">SFB ↔ Universal / I-Drive / Convention Center</h3>
       <p class="section-intro">
-        Private transportation between Orlando Sanford International Airport (SFB) and Universal Orlando,
-        I-Drive and the convention center area.
+        Transfers between Orlando Sanford International Airport (SFB) and Universal Orlando, International Drive and
+        the Orange County Convention Center.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>One-way</th>
-                <th>Round trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$150</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$280</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$165</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$310</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$185</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$350</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$210</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$390</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$150</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          Use the route option
-          <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> on the booking page
-          and specify your Universal, I-Drive or convention center hotel.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$165</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $310</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$185</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $350</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$210</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $390</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        Use the booking route
+        <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and specify your hotel.
+      </p>
     </section>
 
     <!-- SFB ↔ SeaWorld Area -->
-    <section id="rates-sfb-seaworld">
-      <h3>SFB ↔ SeaWorld Area</h3>
+    <section id="rates-sfb-seaworld" class="route-section">
+      <h3 class="route-title">SFB ↔ SeaWorld Area</h3>
       <p class="section-intro">
-        Private transportation between Orlando Sanford International Airport (SFB) and SeaWorld Orlando area resorts.
+        Private transfers between Orlando Sanford International Airport (SFB) and SeaWorld Orlando area resorts.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>One-way</th>
-                <th>Round trip</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$150</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$280</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$165</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$310</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$185</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$350</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
-                  <span class="rate-price">$210</span>
-                  <a class="btn-price" href="booking.html">Book one-way</a>
-                </td>
-                <td data-label="Round trip">
-                  <span class="rate-price">$390</span>
-                  <a class="btn-price" href="booking.html">Book round trip</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 3 · 🧳 2 large · 1 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$150</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $280</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          Also use the route option
-          <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> when booking,
-          and put your SeaWorld hotel or address in the destination field.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 5 · 🧳 5 large · 3 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$165</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $310</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 8 · 🧳 10 large · 5 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$185</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $350</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 14 · 🧳 14 large · 7 carry-on</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$210</div>
+              <div class="price-sub">one-way</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <a class="btn-chip" href="booking.html">Book one-way</a>
+            <a class="btn-chip secondary" href="booking.html">Book round trip – $390</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        Use the booking route
+        <strong>"SFB ↔ Disney / Universal / I-Drive / SeaWorld area"</strong> and put your SeaWorld hotel or address.
+      </p>
     </section>
 
     <!-- ========= HOURLY CHARTER ========= -->
 
-    <section id="rates-hourly">
-      <h3>Hourly Charter Service (within Orlando)</h3>
+    <section id="rates-hourly" class="route-section">
+      <h3 class="route-title">Hourly Charter Service (within Orlando)</h3>
       <p class="section-intro">
         Ideal for multi-stop trips, dinners, business meetings, or custom itineraries around Orlando,
         Windermere, Lake Buena Vista, Golden Oak, Winter Park, I-Drive, SeaWorld and nearby areas.
       </p>
 
-      <div class="card">
-        <div class="table-responsive">
-          <table class="rates-table">
-            <thead>
-              <tr>
-                <th>Vehicle</th>
-                <th>Capacity</th>
-                <th>Hourly rate</th>
-                <th>Minimum hours</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 3 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$75 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 5 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$85 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 8 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$105 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
-              </tr>
-              <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 14 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$125 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="vehicle-list">
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">Sedan</div>
+              <div class="vehicle-capacity">👤 Up to 3 passengers</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$75</div>
+              <div class="price-sub">per hour</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
+            <a class="btn-chip secondary" href="booking.html">Request sedan charter</a>
+          </div>
         </div>
 
-        <p class="rates-note">
-          On the booking page, choose the route
-          <strong>"Hourly service within Orlando (SUV)"</strong> and describe your itinerary in the notes.
-          If you need a sedan or van instead, mention that in your message and we will confirm availability and price.
-        </p>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">SUV</div>
+              <div class="vehicle-capacity">👤 Up to 5 passengers</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$85</div>
+              <div class="price-sub">per hour</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
+            <a class="btn-chip secondary" href="booking.html">Request SUV charter</a>
+          </div>
+        </div>
 
-        <a class="btn-primary book-btn" href="booking.html" style="text-decoration:none;">
-          Request hourly charter
-        </a>
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">8-passenger van</div>
+              <div class="vehicle-capacity">👤 Up to 8 passengers</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$105</div>
+              <div class="price-sub">per hour</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
+            <a class="btn-chip secondary" href="booking.html">Request 8-passenger van</a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-main">
+            <div class="vehicle-info">
+              <div class="vehicle-name">14-passenger van</div>
+              <div class="vehicle-capacity">👤 Up to 14 passengers</div>
+            </div>
+            <div class="vehicle-price">
+              <div class="price-currency">usd</div>
+              <div class="price-value">$125</div>
+              <div class="price-sub">per hour</div>
+            </div>
+          </div>
+          <div class="vehicle-actions">
+            <span style="font-size:0.78rem; color:#6b7280;">3-hour minimum</span>
+            <a class="btn-chip secondary" href="booking.html">Request 14-passenger van</a>
+          </div>
+        </div>
       </div>
+
+      <p class="rates-note">
+        On the booking page, choose the route
+        <strong>"Hourly service within Orlando (SUV)"</strong> and describe your itinerary. Mention sedan or van
+        in the notes if you prefer a different vehicle type, and we will confirm by email or WhatsApp.
+      </p>
+
+      <a class="btn-primary" href="booking.html" style="text-decoration:none; margin-top:1rem; display:inline-block;">
+        Go to Booking Details &amp; Contact
+      </a>
     </section>
 
     <!-- ========= FOOTNOTE ========= -->
 
-    <section id="rates-notes">
+    <section id="rates-notes" class="route-section">
       <div class="card">
         <p class="rates-note">
-          • Prices are per vehicle, not per person. <br />
-          • Tolls and taxes are included. Gratuity is not included and is appreciated. <br />
+          • Prices are per vehicle, not per person.<br />
+          • Tolls and taxes are included. Gratuity is not included and is appreciated.<br />
           • Final quote may change based on exact pickup location (including private addresses),
-            time of day, traffic, and special requests. <br />
-          • For Windermere, Winter Park, and other private addresses not clearly listed above,
-            choose the closest section and explain your exact address in the booking form.
+            time of day, traffic and special requests.<br />
+          • For Windermere, Winter Park, and private addresses not clearly listed above, choose the closest
+            route section and explain your exact address in the booking form.
         </p>
-
-        <a class="btn-secondary book-btn" href="booking.html" style="text-decoration:none;">
-          Go to Booking Details &amp; Contact
-        </a>
       </div>
     </section>
   </main>
