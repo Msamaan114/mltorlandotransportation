@@ -20,6 +20,45 @@
 
   <!-- Shared styles -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Small extra styling just for the anchor links (table of contents) -->
+  <style>
+    .rates-toc {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(15, 23, 42, 0.03);
+      border-radius: 0.75rem;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .rates-toc h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .rates-toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .rates-toc a {
+      font-size: 0.88rem;
+      text-decoration: none;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.15);
+      background: #ffffff;
+    }
+
+    .rates-toc a:hover {
+      background: rgba(56, 189, 248, 0.08);
+      border-color: rgba(56, 189, 248, 0.6);
+    }
+  </style>
 </head>
 <body>
   <!-- Top contact bar -->
@@ -90,6 +129,21 @@
         To book: find the section that matches your trip, choose your vehicle, then click a
         <strong>Book</strong> button to go to the <strong>Booking Details &amp; Contact</strong> page.
       </p>
+
+      <!-- Anchor links / table of contents -->
+      <div class="rates-toc">
+        <h3>Jump to a route</h3>
+        <ul>
+          <li><a href="#rates-mco-disney">MCO ↔ Disney / LBV / Bay Lake / Golden Oak</a></li>
+          <li><a href="#rates-mco-universal">MCO ↔ Universal / I-Drive / Convention Center</a></li>
+          <li><a href="#rates-mco-seaworld">MCO ↔ SeaWorld area</a></li>
+          <li><a href="#rates-mco-port">MCO ↔ Cape Canaveral / Port Canaveral</a></li>
+          <li><a href="#rates-sfb-disney">SFB ↔ Disney / LBV / Bay Lake / Golden Oak</a></li>
+          <li><a href="#rates-sfb-universal">SFB ↔ Universal / I-Drive / Convention Center</a></li>
+          <li><a href="#rates-sfb-seaworld">SFB ↔ SeaWorld area</a></li>
+          <li><a href="#rates-hourly">Hourly charter service</a></li>
+        </ul>
+      </div>
     </section>
 
     <!-- ========= MCO SECTIONS ========= -->
