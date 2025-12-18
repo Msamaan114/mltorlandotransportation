@@ -18,10 +18,10 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Shared styles -->
+  <!-- Shared styles (colors, layout, buttons, tables, etc.) -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Extra styling just for the Rates page (anchor links + mobile tables) -->
+  <!-- Extra styling just for the Rates page (anchor links + table scroll) -->
   <style>
     .rates-toc {
       margin-top: 1.5rem;
@@ -61,55 +61,12 @@
 
     .table-responsive {
       width: 100%;
-      overflow-x: auto;
+      overflow-x: auto; /* classic sideways scroll on small screens */
     }
 
-    /* Mobile-friendly tables */
-    @media (max-width: 700px) {
-      .rates-table thead {
-        display: none;
-      }
-
-      .rates-table,
-      .rates-table tbody,
-      .rates-table tr,
-      .rates-table td {
-        display: block;
-        width: 100%;
-      }
-
-      .rates-table tr {
-        margin-bottom: 1rem;
-        border-radius: 0.9rem;
-        background: #ffffff;
-        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
-        padding: 0.75rem 1rem;
-      }
-
-      .rates-table td {
-        border: none;
-        padding: 0.2rem 0;
-      }
-
-      .rates-table td::before {
-        content: attr(data-label);
-        display: block;
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: #6b7280;
-        margin-bottom: 0.05rem;
-      }
-
-      .rates-table td:first-child {
-        font-weight: 600;
-        font-size: 1rem;
-        margin-bottom: 0.2rem;
-      }
-
-      .btn-price {
-        margin-top: 0.35rem;
-      }
+    /* Make sure tables don't squish too narrow on mobile */
+    .rates-table {
+      min-width: 640px;
     }
   </style>
 </head>
@@ -222,57 +179,57 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity">
+                <td>Sedan</td>
+                <td>
                   <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$120</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$220</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity">
+                <td>SUV</td>
+                <td>
                   <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$130</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$240</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity">
+                <td>8-passenger van</td>
+                <td>
                   <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$150</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$280</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity">
+                <td>14-passenger van</td>
+                <td>
                   <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$180</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$330</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
@@ -310,57 +267,57 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity">
+                <td>Sedan</td>
+                <td>
                   <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$120</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$220</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity">
+                <td>SUV</td>
+                <td>
                   <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$130</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$240</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity">
+                <td>8-passenger van</td>
+                <td>
                   <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$150</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$280</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity">
+                <td>14-passenger van</td>
+                <td>
                   <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$180</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$330</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
@@ -398,57 +355,57 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity">
+                <td>Sedan</td>
+                <td>
                   <span class="rate-capacity">Up to 3 passengers · 2 large · 1 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$120</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$220</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity">
+                <td>SUV</td>
+                <td>
                   <span class="rate-capacity">Up to 5 passengers · 5 large · 3 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$130</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$240</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity">
+                <td>8-passenger van</td>
+                <td>
                   <span class="rate-capacity">Up to 8 passengers · 10 large · 5 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$150</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$280</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity">
+                <td>14-passenger van</td>
+                <td>
                   <span class="rate-capacity">Up to 14 passengers · 14 large · 7 carry-on</span>
                 </td>
-                <td data-label="One-way">
+                <td>
                   <span class="rate-price">$180</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$330</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
@@ -486,49 +443,49 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
+                <td>Sedan</td>
+                <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
+                <td>
                   <span class="rate-price">$210</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$400</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
+                <td>SUV</td>
+                <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
+                <td>
                   <span class="rate-price">$230</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$440</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
+                <td>8-passenger van</td>
+                <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
+                <td>
                   <span class="rate-price">$260</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$500</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
+                <td>14-passenger van</td>
+                <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
+                <td>
                   <span class="rate-price">$290</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$560</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
@@ -568,49 +525,49 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
+                <td>Sedan</td>
+                <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
+                <td>
                   <span class="rate-price">$150</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$280</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
+                <td>SUV</td>
+                <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
+                <td>
                   <span class="rate-price">$165</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$310</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
+                <td>8-passenger van</td>
+                <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
+                <td>
                   <span class="rate-price">$185</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$350</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
+                <td>14-passenger van</td>
+                <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
+                <td>
                   <span class="rate-price">$210</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$390</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
@@ -648,49 +605,49 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
+                <td>Sedan</td>
+                <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
+                <td>
                   <span class="rate-price">$150</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$280</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
+                <td>SUV</td>
+                <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
+                <td>
                   <span class="rate-price">$165</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$310</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
+                <td>8-passenger van</td>
+                <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
+                <td>
                   <span class="rate-price">$185</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$350</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
+                <td>14-passenger van</td>
+                <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
+                <td>
                   <span class="rate-price">$210</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$390</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
@@ -727,49 +684,49 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
-                <td data-label="One-way">
+                <td>Sedan</td>
+                <td><span class="rate-capacity">3 passengers · 2 large · 1 carry-on</span></td>
+                <td>
                   <span class="rate-price">$150</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$280</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
-                <td data-label="One-way">
+                <td>SUV</td>
+                <td><span class="rate-capacity">5 passengers · 5 large · 3 carry-on</span></td>
+                <td>
                   <span class="rate-price">$165</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$310</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
-                <td data-label="One-way">
+                <td>8-passenger van</td>
+                <td><span class="rate-capacity">8 passengers · 10 large · 5 carry-on</span></td>
+                <td>
                   <span class="rate-price">$185</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$350</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
-                <td data-label="One-way">
+                <td>14-passenger van</td>
+                <td><span class="rate-capacity">14 passengers · 14 large · 7 carry-on</span></td>
+                <td>
                   <span class="rate-price">$210</span><br />
                   <a class="btn-price" href="booking.html">Book one-way</a>
                 </td>
-                <td data-label="Round trip">
+                <td>
                   <span class="rate-price">$390</span><br />
                   <a class="btn-price" href="booking.html">Book round trip</a>
                 </td>
@@ -808,28 +765,28 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Vehicle">Sedan</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 3 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$75 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
+                <td>Sedan</td>
+                <td><span class="rate-capacity">Up to 3 passengers</span></td>
+                <td><span class="rate-price">$75 / hour</span></td>
+                <td>3 hours</td>
               </tr>
               <tr>
-                <td data-label="Vehicle">SUV</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 5 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$85 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
+                <td>SUV</td>
+                <td><span class="rate-capacity">Up to 5 passengers</span></td>
+                <td><span class="rate-price">$85 / hour</span></td>
+                <td>3 hours</td>
               </tr>
               <tr>
-                <td data-label="Vehicle">8-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 8 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$105 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
+                <td>8-passenger van</td>
+                <td><span class="rate-capacity">Up to 8 passengers</span></td>
+                <td><span class="rate-price">$105 / hour</span></td>
+                <td>3 hours</td>
               </tr>
               <tr>
-                <td data-label="Vehicle">14-passenger van</td>
-                <td data-label="Capacity"><span class="rate-capacity">Up to 14 passengers</span></td>
-                <td data-label="Hourly rate"><span class="rate-price">$125 / hour</span></td>
-                <td data-label="Minimum hours">3 hours</td>
+                <td>14-passenger van</td>
+                <td><span class="rate-capacity">Up to 14 passengers</span></td>
+                <td><span class="rate-price">$125 / hour</span></td>
+                <td>3 hours</td>
               </tr>
             </tbody>
           </table>
