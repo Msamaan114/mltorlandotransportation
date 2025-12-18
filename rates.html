@@ -285,7 +285,7 @@
       display: block;
     }
 
-    /* Mobile tweaks */
+    /* Mobile tweaks (UPDATED) */
     @media (max-width: 720px) {
       main {
         padding-top: 1.5rem;
@@ -295,15 +295,48 @@
         padding: 1.1rem 1rem;
       }
 
+      /* Put heading + prices in the same frame */
+      .vehicle-card {
+        display: grid;
+        grid-template-columns: minmax(90px, 1fr) 2fr;
+        grid-template-areas:
+          "name actions"
+          "capacity capacity";
+        align-items: center;
+        gap: 0.5rem 0.75rem;
+      }
+
+      .vehicle-header {
+        grid-area: name;
+        margin-bottom: 0;
+      }
+
+      .vehicle-capacity {
+        grid-area: capacity;
+        margin-bottom: 0;
+      }
+
+      /* Put both prices next to each other (phone) */
       .vehicle-actions {
-        flex-direction: column;
-        align-items: stretch;
+        grid-area: actions;
+        margin-top: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        gap: 0.5rem;
       }
 
       .btn-book-primary,
       .btn-book-secondary {
-        width: 100%;
+        flex: 1 1 0;
+        width: auto;
+        padding: 0.5rem 0.55rem;
+        font-size: 0.78rem;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        text-align: center;
       }
     }
   </style>
@@ -1270,8 +1303,6 @@
             </a>
           </div>
         </div>
-
-        <!-- You can add sedan / vans here later if you’d like -->
 
         <p class="route-note">
           In the booking form, choose <strong>"Hourly charter (within Orlando)"</strong> as your route and share
