@@ -147,6 +147,11 @@
       margin-bottom: 1rem;
     }
 
+    /* desktop-only headings inside card */
+    .desktop-headings {
+      display: none;
+    }
+
     .vehicle-card {
       padding: 0.9rem 0.2rem;
       border-bottom: 1px solid #e5e7eb;
@@ -292,6 +297,25 @@
         font-size: 0.8rem;
       }
     }
+
+    /* Desktop headings inside card */
+    @media (min-width: 900px) {
+      .desktop-headings {
+        display: grid;
+        grid-template-columns: 1.1fr 1.4fr 1.5fr;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #6b7280;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.35rem;
+        margin-bottom: 0.35rem;
+      }
+
+      .vehicle-card {
+        padding: 1rem 0.2rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -344,6 +368,12 @@
           Private transfers between Orlando International Airport (MCO) and Disney-area resorts,
           Universal Orlando, International Drive, SeaWorld and nearby hotels.
         </p>
+
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
 
         <div class="vehicle-card">
           <div class="vehicle-header">
@@ -437,6 +467,12 @@
           Lake Buena Vista, Bay Lake and Golden Oak.
         </p>
 
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
+
         <div class="vehicle-card">
           <div class="vehicle-header">
             <div class="vehicle-name">Sedan</div>
@@ -528,6 +564,12 @@
           SeaWorld and nearby properties.
         </p>
 
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
+
         <div class="vehicle-card">
           <div class="vehicle-header">
             <div class="vehicle-name">Sedan</div>
@@ -618,6 +660,12 @@
           Private transfers between Orlando International Airport (MCO) and residential neighborhoods such as
           Windermere, Winter Park and other private addresses.
         </p>
+
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
 
         <div class="vehicle-card">
           <div class="vehicle-header">
@@ -711,6 +759,12 @@
           Universal Orlando, International Drive and SeaWorld.
         </p>
 
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
+
         <div class="vehicle-card">
           <div class="vehicle-header">
             <div class="vehicle-name">Sedan</div>
@@ -800,6 +854,12 @@
         <p class="route-subtitle">
           Transfers between SFB and the luxury Disney-area communities of Lake Buena Vista, Bay Lake and Golden Oak.
         </p>
+
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
 
         <div class="vehicle-card">
           <div class="vehicle-header">
@@ -892,6 +952,12 @@
           the Orange County Convention Center and nearby resorts.
         </p>
 
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
+
         <div class="vehicle-card">
           <div class="vehicle-header">
             <div class="vehicle-name">Sedan</div>
@@ -981,6 +1047,12 @@
         <p class="route-subtitle">
           Cruise transfers between Orlando, Orlando International Airport (MCO) and Port Canaveral / Cape Canaveral.
         </p>
+
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>One-way / Round trip</span>
+        </div>
 
         <div class="vehicle-card">
           <div class="vehicle-header">
@@ -1079,6 +1151,27 @@
           please request a custom quote.
         </p>
 
+        <div class="desktop-headings">
+          <span>Vehicle</span>
+          <span>Capacity</span>
+          <span>Hourly rate</span>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">Sedan</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 Up to 3 passengers</span> · <span>🧳 2 large</span> · <span>1 carry-on</span>
+          </p>
+          <div class="vehicle-actions">
+            <a class="btn-book-primary"
+               href="booking.html?route=Hourly-Orlando&vehicle=Sedan&trip=hourly&price=80">
+              Book hourly – $80 / hr
+            </a>
+          </div>
+        </div>
+
         <div class="vehicle-card">
           <div class="vehicle-header">
             <div class="vehicle-name">SUV</div>
@@ -1090,6 +1183,36 @@
             <a class="btn-book-primary"
                href="booking.html?route=Hourly-Orlando&vehicle=SUV&trip=hourly&price=85">
               Book hourly – $85 / hr
+            </a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">8-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 Up to 8 passengers</span>
+          </p>
+          <div class="vehicle-actions">
+            <a class="btn-book-primary"
+               href="booking.html?route=Hourly-Orlando&vehicle=Van8&trip=hourly&price=95">
+              Book hourly – $95 / hr
+            </a>
+          </div>
+        </div>
+
+        <div class="vehicle-card">
+          <div class="vehicle-header">
+            <div class="vehicle-name">14-passenger van</div>
+          </div>
+          <p class="vehicle-capacity">
+            <span>👤 Up to 14 passengers</span>
+          </p>
+          <div class="vehicle-actions">
+            <a class="btn-book-primary"
+               href="booking.html?route=Hourly-Orlando&vehicle=Van14&trip=hourly&price=110">
+              Book hourly – $110 / hr
             </a>
           </div>
         </div>
