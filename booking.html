@@ -90,69 +90,6 @@
       <div class="contact-wrapper">
         <!-- LEFT: route & booking form -->
         <div>
-          <!-- ROUTE / VEHICLE / TRIP TYPE SELECTION -->
-          <div class="card" style="margin-bottom:1.5rem;">
-            <h3>Select Your Route &amp; Vehicle</h3>
-
-            <label for="route">Route / Area</label>
-            <select id="route">
-              <option value="">Select a route</option>
-              <option value="MCO_DISNEY">
-                MCO ↔ Disney / Universal / I-Drive / SeaWorld area
-              </option>
-              <option value="MCO_PORT">
-                MCO ↔ Cape Canaveral / Port Canaveral
-              </option>
-              <option value="SFB_DISNEY">
-                SFB ↔ Disney / Universal / I-Drive / SeaWorld area
-              </option>
-              <option value="HOURLY">
-                Hourly service within Orlando (SUV)
-              </option>
-              <option value="CUSTOM">
-                Other / custom route (we will confirm price by email)
-              </option>
-            </select>
-
-            <label for="vehicle">Vehicle type</label>
-            <select id="vehicle">
-              <option value="">Select a vehicle</option>
-              <option value="SEDAN">Sedan (up to 3 passengers)</option>
-              <option value="SUV">SUV (up to 5 passengers)</option>
-              <option value="VAN8">8-passenger van</option>
-              <option value="VAN14">14-passenger van</option>
-            </select>
-
-            <label for="trip-type">Trip type</label>
-            <select id="trip-type">
-              <option value="">Select trip type</option>
-              <option value="ONEWAY">One-way</option>
-              <option value="ROUND">Round trip</option>
-              <option value="HOURLY">Hourly (3-hour minimum)</option>
-            </select>
-
-            <p id="timing-banner" class="hero-note" style="margin-top:0.75rem;">
-              Once you select your pickup date and time below, we’ll tell you whether this is a short-notice request
-              or a standard booking.
-            </p>
-
-            <div class="card" style="margin-top:1rem; background:#f9fafb;">
-              <p id="price-text" class="hero-note" style="margin-bottom:0.75rem;">
-                Please select a route, vehicle and trip type to see the price and Square payment link.
-              </p>
-              <a
-                id="square-pay-btn"
-                class="btn-secondary"
-                href="#"
-                target="_blank"
-                rel="noopener"
-                style="display:none; margin-top:0.25rem;"
-              >
-                Pay securely with Square
-              </a>
-            </div>
-          </div>
-
           <!-- BOOKING FORM (FORMSPREE) -->
           <form
             id="booking-form"
@@ -181,6 +118,68 @@
 
             <label for="pickup-time">Pickup time (local)</label>
             <input id="pickup-time" name="Pickup time" type="time" required />
+
+            <p id="timing-banner" class="hero-note" style="margin-top:0.75rem;">
+              Once you select your pickup date and time, we’ll tell you if this is a short-notice request (&lt; 8 hours) or a standard booking (≥ 8 hours).
+            </p>
+
+            <!-- ROUTE / VEHICLE / TRIP TYPE SELECTION (now AFTER time) -->
+            <div id="route-vehicle-card" class="card" style="margin:1.25rem 0; display:none;">
+              <h3>Select Your Route &amp; Vehicle</h3>
+
+              <label for="route">Route / Area</label>
+              <select id="route">
+                <option value="">Select a route</option>
+                <option value="MCO_DISNEY">
+                  MCO ↔ Disney / Universal / I-Drive / SeaWorld area
+                </option>
+                <option value="MCO_PORT">
+                  MCO ↔ Cape Canaveral / Port Canaveral
+                </option>
+                <option value="SFB_DISNEY">
+                  SFB ↔ Disney / Universal / I-Drive / SeaWorld area
+                </option>
+                <option value="HOURLY">
+                  Hourly service within Orlando (SUV)
+                </option>
+                <option value="CUSTOM">
+                  Other / custom route (we will confirm price by email)
+                </option>
+              </select>
+
+              <label for="vehicle">Vehicle type</label>
+              <select id="vehicle">
+                <option value="">Select a vehicle</option>
+                <option value="SEDAN">Sedan (up to 3 passengers)</option>
+                <option value="SUV">SUV (up to 5 passengers)</option>
+                <option value="VAN8">8-passenger van</option>
+                <option value="VAN14">14-passenger van</option>
+              </select>
+
+              <label for="trip-type">Trip type</label>
+              <select id="trip-type">
+                <option value="">Select trip type</option>
+                <option value="ONEWAY">One-way</option>
+                <option value="ROUND">Round trip</option>
+                <option value="HOURLY">Hourly (3-hour minimum)</option>
+              </select>
+
+              <div class="card" style="margin-top:1rem; background:#f9fafb;">
+                <p id="price-text" class="hero-note" style="margin-bottom:0.75rem;">
+                  Select your route, vehicle and trip type to see the price and Square payment link.
+                </p>
+                <a
+                  id="square-pay-btn"
+                  class="btn-secondary"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                  style="display:none; margin-top:0.25rem;"
+                >
+                  Pay securely with Square
+                </a>
+              </div>
+            </div>
 
             <label for="pickup-location">Pickup location</label>
             <select id="pickup-location" name="Pickup location" required>
@@ -416,6 +415,7 @@
     const squareBtn = document.getElementById("square-pay-btn");
     const selectedOptionInput = document.getElementById("selected-option");
     const bookingForm = document.getElementById("booking-form");
+    const routeVehicleCard = document.getElementById("route-vehicle-card");
 
     function getPickupDateTime() {
       const dateValue = pickupDateInput.value;
@@ -432,6 +432,11 @@
       const vehicle = vehicleSelect.value;
       const tripType = tripTypeSelect.value;
       const pickupDateTime = getPickupDateTime();
+
+      // Show route/vehicle section only after date + time are selected
+      if (routeVehicleCard) {
+        routeVehicleCard.style.display = pickupDateTime ? "block" : "none";
+      }
 
       let timingLabel = "Pickup time not selected yet";
       let canPayNow = false;
@@ -547,6 +552,9 @@
     bookingForm.addEventListener("submit", function () {
       updatePriceAndLink();
     });
+
+    // Initialize UI state on load
+    updatePriceAndLink();
   </script>
 </body>
 </html>
