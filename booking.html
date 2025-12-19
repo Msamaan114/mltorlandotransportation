@@ -93,6 +93,7 @@
             action="https://formspree.io/f/xovgzajo"
             method="POST"
           >
+            <!-- Hidden field to send selected route / vehicle / price / timing info -->
             <input
               type="hidden"
               id="selected-option"
@@ -151,19 +152,9 @@
               </select>
 
               <div class="card" style="margin-top:1rem; background:#f9fafb;">
-                <p id="price-text" class="hero-note" style="margin-bottom:0.75rem;">
-                  Select your route, vehicle and trip type to see the price and Square payment link.
+                <p id="price-text" class="hero-note" style="margin-bottom:0;">
+                  Select your route, vehicle and trip type to see the price and payment instructions.
                 </p>
-                <a
-                  id="square-pay-btn"
-                  class="btn-secondary"
-                  href="#"
-                  target="_blank"
-                  rel="noopener"
-                  style="display:none; margin-top:0.25rem;"
-                >
-                  Pay securely with Square
-                </a>
               </div>
             </div>
 
@@ -186,7 +177,7 @@
             <label for="flight">Airline &amp; flight number (if flying)</label>
             <input
               id="flight"
-              name="Airline & flight number"
+              name="Airline &amp; flight number"
               type="text"
               placeholder="Example: Delta 1234"
             />
@@ -219,7 +210,7 @@
               placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
             />
 
-            <!-- NEW CHILD SEATS REPEATER -->
+            <!-- CHILD SEATS REPEATER -->
             <label>Child seats (add what you need)</label>
 
             <div id="seat-rows">
@@ -255,26 +246,62 @@
               Example: add “Rear-facing infant seat = 1”, then press + to add “Booster seat = 2”.
             </p>
 
-            <label for="return-trip">Return trip?</label>
-            <select id="return-trip" name="Return trip">
-              <option>No, one-way only</option>
-              <option>Yes, round trip (please add return details in notes)</option>
-            </select>
+            <!-- RETURN TRIP (checkbox + extra boxes) -->
+            <div class="card" style="margin-top:1.25rem;">
+              <label style="display:flex; gap:0.6rem; align-items:center; margin:0;">
+                <input type="checkbox" id="has-return" name="Return trip requested" value="Yes" />
+                <span><strong>Add a return trip</strong> (round trip details)</span>
+              </label>
+
+              <div id="return-details" style="display:none; margin-top:1rem;">
+                <label for="return-from">Return pickup (from where?)</label>
+                <input
+                  id="return-from"
+                  name="Return pickup location"
+                  type="text"
+                  placeholder="e.g. Disney resort / hotel name / address"
+                />
+
+                <label for="return-to">Return destination (to where?)</label>
+                <input
+                  id="return-to"
+                  name="Return destination"
+                  type="text"
+                  placeholder="e.g. MCO / SFB / Port Canaveral / address"
+                />
+
+                <label for="return-date">Return date</label>
+                <input id="return-date" name="Return date" type="date" />
+
+                <label for="return-time">Return pickup time (local)</label>
+                <input id="return-time" name="Return pickup time" type="time" />
+
+                <label for="return-notes">Return trip comments</label>
+                <textarea
+                  id="return-notes"
+                  name="Return trip comments"
+                  placeholder="Anything we should know for the return (airline/flight, meeting point, special requests...)"
+                ></textarea>
+              </div>
+            </div>
 
             <label for="notes">Additional notes</label>
             <textarea
               id="notes"
               name="Notes"
-              placeholder="Child ages and approximate weights, return flight info, special requests, gate meeting instructions..."
+              placeholder="Child ages and approximate weights, flight info, special requests, gate meeting instructions..."
             ></textarea>
 
-            <button type="submit" class="btn-primary">Submit booking request</button>
+            <!-- ONE BUTTON ONLY -->
+            <button id="submit-btn" type="submit" class="btn-primary">Submit booking request</button>
+
+            <div id="form-status" class="hero-note" style="margin-top:0.75rem; display:none;"></div>
 
             <p class="hero-note" style="margin-top:0.75rem;">
               If your trip is <strong>within 8 hours</strong>, this will be treated as a
               <strong>short-notice request</strong> and we will confirm availability before you pay. <br />
-              If your trip is <strong>more than 8 hours away</strong>, you can submit this form and then complete
-              payment using the Square button for your selected option.
+              If your trip is <strong>more than 8 hours away</strong>, after you submit, you can complete payment
+              (if a Square link is available for your selected option).
             </p>
           </form>
         </div>
@@ -401,10 +428,35 @@
     const pickupTimeInput = document.getElementById("pickup-time");
     const priceText = document.getElementById("price-text");
     const timingBanner = document.getElementById("timing-banner");
-    const squareBtn = document.getElementById("square-pay-btn");
     const selectedOptionInput = document.getElementById("selected-option");
     const bookingForm = document.getElementById("booking-form");
     const routeVehicleCard = document.getElementById("route-vehicle-card");
+    const submitBtn = document.getElementById("submit-btn");
+    const formStatus = document.getElementById("form-status");
+
+    // Return trip toggle
+    const hasReturn = document.getElementById("has-return");
+    const returnDetails = document.getElementById("return-details");
+    const returnFrom = document.getElementById("return-from");
+    const returnTo = document.getElementById("return-to");
+    const returnDate = document.getElementById("return-date");
+    const returnTime = document.getElementById("return-time");
+
+    function syncReturnTripUI() {
+      const on = !!hasReturn?.checked;
+      if (returnDetails) returnDetails.style.display = on ? "block" : "none";
+
+      // Make key return fields required only if checked
+      if (returnFrom) returnFrom.required = on;
+      if (returnTo) returnTo.required = on;
+      if (returnDate) returnDate.required = on;
+      if (returnTime) returnTime.required = on;
+    }
+
+    if (hasReturn) {
+      hasReturn.addEventListener("change", syncReturnTripUI);
+      syncReturnTripUI();
+    }
 
     // --- Child seats repeater ---
     const seatRows = document.getElementById("seat-rows");
@@ -482,7 +534,6 @@
     }
 
     if (addSeatRowBtn && seatRows) {
-      // wire changes on the first row too
       seatRows.querySelectorAll(".seat-type, .seat-qty").forEach((el) => {
         el.addEventListener("change", updateSeatsSummary);
       });
@@ -493,7 +544,6 @@
         updateSeatsSummary();
       });
 
-      // init
       toggleSeatRemoveButtons();
       updateSeatsSummary();
     }
@@ -508,6 +558,10 @@
       return dt;
     }
 
+    // Keep current pay state here
+    let currentSquareLink = null;
+    let currentCanPayNow = false;
+
     function updatePriceAndLink() {
       const route = routeSelect.value;
       const vehicle = vehicleSelect.value;
@@ -520,8 +574,8 @@
       }
 
       let timingLabel = "Pickup time not selected yet";
-      let canPayNow = false;
       let timingNote = "";
+      let canPayNow = false;
 
       if (pickupDateTime) {
         const now = new Date();
@@ -536,7 +590,7 @@
         } else {
           timingLabel = "Standard (≥ 8 hours)";
           timingNote =
-            " This trip is more than 8 hours away. After submitting this form, you can complete payment using the Square button for your selected option.";
+            " This trip is more than 8 hours away. After submitting, you can complete payment (if a Square link is available for your option).";
           canPayNow = true;
         }
 
@@ -550,27 +604,37 @@
           "Once you select your pickup date and time, we’ll tell you if this is a short-notice request (< 8 hours) or a standard booking (≥ 8 hours).";
       }
 
-      // Custom route: no fixed price/link, just explain
+      // Default pay state
+      currentSquareLink = null;
+      currentCanPayNow = false;
+
+      // Custom route: no fixed price/link
       if (route === "CUSTOM") {
         priceText.textContent =
           "Custom route selected." +
           (timingNote
             ? timingNote + " We will review your details and send you the exact price and a Square payment link."
             : " We will review your details and send you the exact price and a Square payment link.");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
+
         selectedOptionInput.value =
           "Custom route – price and Square link to be confirmed by MLT. Timing: " + timingLabel;
+
+        // Button label
+        if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
+          ? "Submit booking request (request only)"
+          : "Submit booking request";
         return;
       }
 
       if (!route || !vehicle || !tripType) {
         priceText.textContent =
-          "Please select a route, vehicle and trip type to see the price and Square payment link." +
+          "Please select a route, vehicle and trip type to see the price and payment instructions." +
           (timingNote || "");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
         selectedOptionInput.value = "";
+
+        if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
+          ? "Submit booking request (request only)"
+          : "Submit booking request";
         return;
       }
 
@@ -579,16 +643,20 @@
         priceText.textContent =
           "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm the price and send a Square link." +
           (timingNote || "");
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
+
         selectedOptionInput.value =
           "No fixed price: route=" + route + ", vehicle=" + vehicle +
           ", tripType=" + tripType + ". Timing: " + timingLabel;
+
+        if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
+          ? "Submit booking request (request only)"
+          : "Submit booking request";
         return;
       }
 
       const option = routeData[vehicle][tripType];
 
+      // Friendly labels
       let tripLabel = "";
       if (tripType === "ONEWAY") tripLabel = "One-way";
       else if (tripType === "ROUND") tripLabel = "Round trip";
@@ -604,12 +672,19 @@
           timingNote;
       }
 
-      if (canPayNow && option.link && !option.link.startsWith("YOUR_SQUARE_LINK_")) {
-        squareBtn.style.display = "inline-block";
-        squareBtn.href = option.link;
-      } else {
-        squareBtn.style.display = "none";
-        squareBtn.href = "#";
+      // Only allow redirect if time window allows AND link is not a placeholder
+      const hasRealLink = option.link && !option.link.startsWith("YOUR_SQUARE_LINK_");
+      currentCanPayNow = !!(canPayNow && hasRealLink);
+      currentSquareLink = currentCanPayNow ? option.link : null;
+
+      if (submitBtn) {
+        if (currentCanPayNow && currentSquareLink) {
+          submitBtn.textContent = "Submit booking request & Pay with Square";
+        } else if (pickupDateTime && !canPayNow) {
+          submitBtn.textContent = "Submit booking request (request only)";
+        } else {
+          submitBtn.textContent = "Submit booking request";
+        }
       }
 
       selectedOptionInput.value =
@@ -623,9 +698,81 @@
     pickupDateInput.addEventListener("change", updatePriceAndLink);
     pickupTimeInput.addEventListener("change", updatePriceAndLink);
 
-    bookingForm.addEventListener("submit", function () {
+    // AJAX submit to Formspree, then (if allowed) redirect to Square
+    bookingForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
       updateSeatsSummary();
       updatePriceAndLink();
+      syncReturnTripUI(); // ensures required rules apply
+
+      if (formStatus) {
+        formStatus.style.display = "none";
+        formStatus.textContent = "";
+      }
+
+      // Disable button while sending
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+      }
+
+      try {
+        const formData = new FormData(bookingForm);
+
+        const res = await fetch(bookingForm.action, {
+          method: "POST",
+          body: formData,
+          headers: { "Accept": "application/json" }
+        });
+
+        if (!res.ok) {
+          let msg = "Sorry—there was a problem sending your request. Please try again, or call/text us.";
+          try {
+            const data = await res.json();
+            if (data && data.errors && data.errors.length) {
+              msg = data.errors.map(e => e.message).join(" ");
+            }
+          } catch (_) {}
+
+          if (formStatus) {
+            formStatus.style.display = "block";
+            formStatus.textContent = msg;
+          }
+        } else {
+          // Success
+          if (currentCanPayNow && currentSquareLink) {
+            // Redirect to Square for payment
+            window.location.href = currentSquareLink;
+            return;
+          }
+
+          if (formStatus) {
+            formStatus.style.display = "block";
+            formStatus.textContent =
+              "Request sent! We’ll confirm availability and follow up by email/text.";
+          }
+
+          // Optional: reset form after successful request-only send
+          bookingForm.reset();
+          syncReturnTripUI();
+          toggleSeatRemoveButtons();
+          updateSeatsSummary();
+          updatePriceAndLink();
+        }
+      } catch (err) {
+        if (formStatus) {
+          formStatus.style.display = "block";
+          formStatus.textContent =
+            "Network error—please check your connection and try again, or call/text us.";
+        }
+      } finally {
+        // Re-enable button (unless we redirected)
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          updatePriceAndLink(); // restores correct button text
+        }
+      }
     });
 
     // Initialize UI state on load
