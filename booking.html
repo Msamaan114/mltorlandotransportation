@@ -18,7 +18,6 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Shared styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -100,6 +99,9 @@
               name="Selected route / vehicle / price / timing"
               value=""
             />
+
+            <!-- Optional: for Formspree readability -->
+            <input type="hidden" id="child-seats-summary" name="Child seats summary" value="" />
 
             <label for="name">Passenger name</label>
             <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
@@ -240,49 +242,45 @@
               + Add another seat type
             </button>
 
-            <input type="hidden" id="child-seats-summary" name="Child seats summary" value="" />
-
             <p class="hero-note" style="margin-top:0.6rem;">
               Example: add “Rear-facing infant seat = 1”, then press + to add “Booster seat = 2”.
             </p>
 
-            <!-- RETURN TRIP (checkbox + extra boxes) -->
-            <div class="card" style="margin-top:1.25rem;">
-              <label style="display:flex; gap:0.6rem; align-items:center; margin:0;">
-                <input type="checkbox" id="has-return" name="Return trip requested" value="Yes" />
-                <span><strong>Add a return trip</strong> (round trip details)</span>
-              </label>
+            <!-- RETURN DETAILS (shown ONLY when Trip type = Round trip) -->
+            <div id="return-details-card" class="card" style="margin-top:1.25rem; display:none;">
+              <h3 style="margin-top:0;">Return trip details</h3>
+              <p class="hero-note" style="margin-top:-0.25rem;">
+                Fill this out only if you selected <strong>Round trip</strong>.
+              </p>
 
-              <div id="return-details" style="display:none; margin-top:1rem;">
-                <label for="return-from">Return pickup (from where?)</label>
-                <input
-                  id="return-from"
-                  name="Return pickup location"
-                  type="text"
-                  placeholder="e.g. Disney resort / hotel name / address"
-                />
+              <label for="return-from">Return pickup (from where?)</label>
+              <input
+                id="return-from"
+                name="Return pickup location"
+                type="text"
+                placeholder="e.g. Disney resort / hotel name / address"
+              />
 
-                <label for="return-to">Return destination (to where?)</label>
-                <input
-                  id="return-to"
-                  name="Return destination"
-                  type="text"
-                  placeholder="e.g. MCO / SFB / Port Canaveral / address"
-                />
+              <label for="return-to">Return destination (to where?)</label>
+              <input
+                id="return-to"
+                name="Return destination"
+                type="text"
+                placeholder="e.g. MCO / SFB / Port Canaveral / address"
+              />
 
-                <label for="return-date">Return date</label>
-                <input id="return-date" name="Return date" type="date" />
+              <label for="return-date">Return date</label>
+              <input id="return-date" name="Return date" type="date" />
 
-                <label for="return-time">Return pickup time (local)</label>
-                <input id="return-time" name="Return pickup time" type="time" />
+              <label for="return-time">Return pickup time (local)</label>
+              <input id="return-time" name="Return pickup time" type="time" />
 
-                <label for="return-notes">Return trip comments</label>
-                <textarea
-                  id="return-notes"
-                  name="Return trip comments"
-                  placeholder="Anything we should know for the return (airline/flight, meeting point, special requests...)"
-                ></textarea>
-              </div>
+              <label for="return-notes">Return trip comments</label>
+              <textarea
+                id="return-notes"
+                name="Return trip comments"
+                placeholder="Anything we should know for the return (airline/flight, meeting point, special requests...)"
+              ></textarea>
             </div>
 
             <label for="notes">Additional notes</label>
@@ -416,7 +414,7 @@
       },
       HOURLY: {
         SUV: {
-          HOURLY: { price: 90, link: "YOUR_SQUARE_LINK_HOURLY_SUV" } // 3-hour minimum
+          HOURLY: { price: 90, link: "YOUR_SQUARE_LINK_HOURLY_SUV" }
         },
       },
     };
@@ -434,28 +432,32 @@
     const submitBtn = document.getElementById("submit-btn");
     const formStatus = document.getElementById("form-status");
 
-    // Return trip toggle
-    const hasReturn = document.getElementById("has-return");
-    const returnDetails = document.getElementById("return-details");
+    // Return trip fields (shown only for ROUND)
+    const returnCard = document.getElementById("return-details-card");
     const returnFrom = document.getElementById("return-from");
     const returnTo = document.getElementById("return-to");
     const returnDate = document.getElementById("return-date");
     const returnTime = document.getElementById("return-time");
 
     function syncReturnTripUI() {
-      const on = !!hasReturn?.checked;
-      if (returnDetails) returnDetails.style.display = on ? "block" : "none";
+      const isRound = (tripTypeSelect?.value === "ROUND");
+      if (returnCard) returnCard.style.display = isRound ? "block" : "none";
 
-      // Make key return fields required only if checked
-      if (returnFrom) returnFrom.required = on;
-      if (returnTo) returnTo.required = on;
-      if (returnDate) returnDate.required = on;
-      if (returnTime) returnTime.required = on;
-    }
+      // Required only if round trip selected
+      if (returnFrom) returnFrom.required = isRound;
+      if (returnTo) returnTo.required = isRound;
+      if (returnDate) returnDate.required = isRound;
+      if (returnTime) returnTime.required = isRound;
 
-    if (hasReturn) {
-      hasReturn.addEventListener("change", syncReturnTripUI);
-      syncReturnTripUI();
+      // Optional: clear values when not round trip (keeps form clean)
+      if (!isRound) {
+        if (returnFrom) returnFrom.value = "";
+        if (returnTo) returnTo.value = "";
+        if (returnDate) returnDate.value = "";
+        if (returnTime) returnTime.value = "";
+        const rn = document.getElementById("return-notes");
+        if (rn) rn.value = "";
+      }
     }
 
     // --- Child seats repeater ---
@@ -568,6 +570,9 @@
       const tripType = tripTypeSelect.value;
       const pickupDateTime = getPickupDateTime();
 
+      // Return details depend on trip type
+      syncReturnTripUI();
+
       // Show route/vehicle section only after date + time are selected
       if (routeVehicleCard) {
         routeVehicleCard.style.display = pickupDateTime ? "block" : "none";
@@ -619,7 +624,6 @@
         selectedOptionInput.value =
           "Custom route – price and Square link to be confirmed by MLT. Timing: " + timingLabel;
 
-        // Button label
         if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
           ? "Submit booking request (request only)"
           : "Submit booking request";
@@ -656,7 +660,6 @@
 
       const option = routeData[vehicle][tripType];
 
-      // Friendly labels
       let tripLabel = "";
       if (tripType === "ONEWAY") tripLabel = "One-way";
       else if (tripType === "ROUND") tripLabel = "Round trip";
@@ -672,7 +675,6 @@
           timingNote;
       }
 
-      // Only allow redirect if time window allows AND link is not a placeholder
       const hasRealLink = option.link && !option.link.startsWith("YOUR_SQUARE_LINK_");
       currentCanPayNow = !!(canPayNow && hasRealLink);
       currentSquareLink = currentCanPayNow ? option.link : null;
@@ -703,15 +705,13 @@
       e.preventDefault();
 
       updateSeatsSummary();
-      updatePriceAndLink();
-      syncReturnTripUI(); // ensures required rules apply
+      updatePriceAndLink(); // also syncs return UI & required rules
 
       if (formStatus) {
         formStatus.style.display = "none";
         formStatus.textContent = "";
       }
 
-      // Disable button while sending
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = "Sending...";
@@ -740,9 +740,7 @@
             formStatus.textContent = msg;
           }
         } else {
-          // Success
           if (currentCanPayNow && currentSquareLink) {
-            // Redirect to Square for payment
             window.location.href = currentSquareLink;
             return;
           }
@@ -753,9 +751,7 @@
               "Request sent! We’ll confirm availability and follow up by email/text.";
           }
 
-          // Optional: reset form after successful request-only send
           bookingForm.reset();
-          syncReturnTripUI();
           toggleSeatRemoveButtons();
           updateSeatsSummary();
           updatePriceAndLink();
@@ -767,10 +763,9 @@
             "Network error—please check your connection and try again, or call/text us.";
         }
       } finally {
-        // Re-enable button (unless we redirected)
         if (submitBtn) {
           submitBtn.disabled = false;
-          updatePriceAndLink(); // restores correct button text
+          updatePriceAndLink();
         }
       }
     });
