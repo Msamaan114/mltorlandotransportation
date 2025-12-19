@@ -160,21 +160,15 @@
               </div>
             </div>
 
-            <label for="pickup-location">Pickup location</label>
-            <select id="pickup-location" name="Pickup location" required>
-              <option value="">Select an option</option>
-              <option>MCO - Orlando International Airport</option>
-              <option>SFB - Orlando Sanford International Airport</option>
-              <option>Disney / Lake Buena Vista / Bay Lake</option>
-              <option>Universal / I-Drive / Convention Center area</option>
-              <option>SeaWorld area</option>
-              <option>Windermere</option>
-              <option>Golden Oak</option>
-              <option>Winter Park</option>
-              <option>Private airport / FBO</option>
-              <option>Residence / Rental home</option>
-              <option>Other (see notes)</option>
-            </select>
+            <!-- CHANGED: pickup location is now a text box -->
+            <label for="pickup-location">Pickup location (airport, hotel, or address)</label>
+            <input
+              id="pickup-location"
+              name="Pickup location"
+              type="text"
+              placeholder="Example: MCO (Orlando Intl), Hyatt Regency Orlando, 123 Main St, Orlando FL"
+              required
+            />
 
             <label for="flight">Airline &amp; flight number (if flying)</label>
             <input
@@ -258,7 +252,7 @@
                 id="return-from"
                 name="Return pickup location"
                 type="text"
-                placeholder="e.g. Disney resort / hotel name / address"
+                placeholder="e.g. Hotel / address"
               />
 
               <label for="return-to">Return destination (to where?)</label>
@@ -266,7 +260,7 @@
                 id="return-to"
                 name="Return destination"
                 type="text"
-                placeholder="e.g. MCO / SFB / Port Canaveral / address"
+                placeholder="e.g. MCO / SFB / address"
               />
 
               <label for="return-date">Return date</label>
@@ -283,11 +277,12 @@
               ></textarea>
             </div>
 
+            <!-- CHANGED: additional notes placeholder -->
             <label for="notes">Additional notes</label>
             <textarea
               id="notes"
               name="Notes"
-              placeholder="Child ages and approximate weights, flight info, special requests, gate meeting instructions..."
+              placeholder="Child ages and approximate weights, flight info, gate meeting instructions, gate code, private jet tail number, special requests..."
             ></textarea>
 
             <!-- ONE BUTTON ONLY -->
@@ -443,13 +438,11 @@
       const isRound = (tripTypeSelect?.value === "ROUND");
       if (returnCard) returnCard.style.display = isRound ? "block" : "none";
 
-      // Required only if round trip selected
       if (returnFrom) returnFrom.required = isRound;
       if (returnTo) returnTo.required = isRound;
       if (returnDate) returnDate.required = isRound;
       if (returnTime) returnTime.required = isRound;
 
-      // Optional: clear values when not round trip (keeps form clean)
       if (!isRound) {
         if (returnFrom) returnFrom.value = "";
         if (returnTo) returnTo.value = "";
