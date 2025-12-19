@@ -51,6 +51,7 @@
   <!-- Header / nav -->
   <header>
     <div class="nav">
+      <!-- Logo as a button to Home (no underline, same font via .logo) -->
       <a href="index.html" class="logo" style="text-decoration:none;">MLT Orlando Transportation</a>
       <nav>
         <a href="index.html">Home</a>
@@ -69,6 +70,7 @@
 
   <main>
     <section id="contact">
+      <!-- Visible back button -->
       <a
         href="rates.html"
         class="btn-primary"
@@ -86,13 +88,15 @@
       </p>
 
       <div class="contact-wrapper">
-        <!-- LEFT -->
+        <!-- LEFT: route & booking form -->
         <div>
+          <!-- BOOKING FORM (FORMSPREE) -->
           <form
             id="booking-form"
             action="https://formspree.io/f/xovgzajo"
             method="POST"
           >
+            <!-- Hidden field to send selected route / vehicle / price / timing info -->
             <input
               type="hidden"
               id="selected-option"
@@ -119,18 +123,28 @@
               Once you select your pickup date and time, we’ll tell you if this is a short-notice request (&lt; 8 hours) or a standard booking (≥ 8 hours).
             </p>
 
-            <!-- ROUTE / VEHICLE / TRIP TYPE SELECTION (AFTER TIME) -->
+            <!-- ROUTE / VEHICLE / TRIP TYPE SELECTION (now AFTER time) -->
             <div id="route-vehicle-card" class="card" style="margin:1.25rem 0; display:none;">
               <h3>Select Your Route &amp; Vehicle</h3>
 
               <label for="route">Route / Area</label>
               <select id="route">
                 <option value="">Select a route</option>
-                <option value="MCO_DISNEY">MCO ↔ Disney / Universal / I-Drive / SeaWorld area</option>
-                <option value="MCO_PORT">MCO ↔ Cape Canaveral / Port Canaveral</option>
-                <option value="SFB_DISNEY">SFB ↔ Disney / Universal / I-Drive / SeaWorld area</option>
-                <option value="HOURLY">Hourly service within Orlando (SUV)</option>
-                <option value="CUSTOM">Other / custom route (we will confirm price by email)</option>
+                <option value="MCO_DISNEY">
+                  MCO ↔ Disney / Universal / I-Drive / SeaWorld area
+                </option>
+                <option value="MCO_PORT">
+                  MCO ↔ Cape Canaveral / Port Canaveral
+                </option>
+                <option value="SFB_DISNEY">
+                  SFB ↔ Disney / Universal / I-Drive / SeaWorld area
+                </option>
+                <option value="HOURLY">
+                  Hourly service within Orlando (SUV)
+                </option>
+                <option value="CUSTOM">
+                  Other / custom route (we will confirm price by email)
+                </option>
               </select>
 
               <label for="vehicle">Vehicle type</label>
@@ -219,41 +233,32 @@
               placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
             />
 
-            <!-- NEW CHILD SEATS REPEATER -->
-            <label>Child seats (add what you need)</label>
+            <label for="rear-seat">Rear-facing infant seats needed</label>
+            <select id="rear-seat" name="Rear-facing infant seats">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
 
-            <div id="seat-rows">
-              <div class="seat-row" style="display:grid; grid-template-columns:1fr 90px 40px; gap:0.5rem; align-items:center;">
-                <select class="seat-type" name="Child seat type[]" aria-label="Seat type">
-                  <option value="">Select seat type</option>
-                  <option value="Rear-facing infant seat">Rear-facing infant seat</option>
-                  <option value="Forward-facing car seat">Forward-facing car seat</option>
-                  <option value="Booster seat">Booster seat</option>
-                </select>
+            <label for="forward-seat">Forward-facing car seats needed</label>
+            <select id="forward-seat" name="Forward-facing car seats">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
 
-                <select class="seat-qty" name="Child seat quantity[]" aria-label="Quantity">
-                  <option value="">#</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-
-                <button type="button" class="seat-remove btn-secondary" aria-label="Remove seat selection" style="display:none; padding:0.4rem 0.6rem;">
-                  ×
-                </button>
-              </div>
-            </div>
-
-            <button type="button" id="add-seat-row" class="btn-secondary" style="margin-top:0.6rem;">
-              + Add another seat type
-            </button>
-
-            <input type="hidden" id="child-seats-summary" name="Child seats summary" value="" />
-
-            <p class="hero-note" style="margin-top:0.6rem;">
-              Example: add “Rear-facing infant seat = 1”, then press + to add “Booster seat = 2”.
-            </p>
+            <label for="booster-seat">Booster seats needed</label>
+            <select id="booster-seat" name="Booster seats">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
 
             <label for="return-trip">Return trip?</label>
             <select id="return-trip" name="Return trip">
@@ -279,7 +284,7 @@
           </form>
         </div>
 
-        <!-- RIGHT -->
+        <!-- RIGHT: contact info / help -->
         <div class="contact-details">
           <p class="contact-label">Need help before booking?</p>
           <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
@@ -335,8 +340,14 @@
     const OPTIONS = {
       MCO_DISNEY: {
         SEDAN: {
-          ONEWAY: { price: 120, link: "https://square.link/u/ImApGXW4?src=sheet" },
-          ROUND: { price: 220, link: "https://square.link/u/QHivT4tx?src=sheet" },
+          ONEWAY: {
+            price: 120,
+            link: "https://square.link/u/ImApGXW4?src=sheet"
+          },
+          ROUND: {
+            price: 220,
+            link: "https://square.link/u/QHivT4tx?src=sheet"
+          },
         },
         SUV: {
           ONEWAY: { price: 130, link: "YOUR_SQUARE_LINK_MCO_DISNEY_SUV_ONEWAY" },
@@ -405,98 +416,6 @@
     const selectedOptionInput = document.getElementById("selected-option");
     const bookingForm = document.getElementById("booking-form");
     const routeVehicleCard = document.getElementById("route-vehicle-card");
-
-    // --- Child seats repeater ---
-    const seatRows = document.getElementById("seat-rows");
-    const addSeatRowBtn = document.getElementById("add-seat-row");
-    const childSeatsSummary = document.getElementById("child-seats-summary");
-
-    function updateSeatsSummary() {
-      if (!seatRows || !childSeatsSummary) return;
-
-      const rows = seatRows.querySelectorAll(".seat-row");
-      const parts = [];
-
-      rows.forEach((row) => {
-        const type = row.querySelector(".seat-type")?.value || "";
-        const qty = row.querySelector(".seat-qty")?.value || "";
-        if (type && qty) parts.push(`${qty} × ${type}`);
-      });
-
-      childSeatsSummary.value = parts.length ? parts.join("; ") : "None selected";
-    }
-
-    function toggleSeatRemoveButtons() {
-      if (!seatRows) return;
-      const rows = seatRows.querySelectorAll(".seat-row");
-      rows.forEach((row) => {
-        const btn = row.querySelector(".seat-remove");
-        if (btn) btn.style.display = rows.length > 1 ? "inline-block" : "none";
-      });
-    }
-
-    function makeSeatRow() {
-      const row = document.createElement("div");
-      row.className = "seat-row";
-      row.style.display = "grid";
-      row.style.gridTemplateColumns = "1fr 90px 40px";
-      row.style.gap = "0.5rem";
-      row.style.alignItems = "center";
-      row.style.marginTop = "0.5rem";
-
-      row.innerHTML = `
-        <select class="seat-type" name="Child seat type[]" aria-label="Seat type">
-          <option value="">Select seat type</option>
-          <option value="Rear-facing infant seat">Rear-facing infant seat</option>
-          <option value="Forward-facing car seat">Forward-facing car seat</option>
-          <option value="Booster seat">Booster seat</option>
-        </select>
-
-        <select class="seat-qty" name="Child seat quantity[]" aria-label="Quantity">
-          <option value="">#</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-
-        <button type="button" class="seat-remove btn-secondary" aria-label="Remove seat selection" style="padding:0.4rem 0.6rem;">
-          ×
-        </button>
-      `;
-
-      const typeEl = row.querySelector(".seat-type");
-      const qtyEl = row.querySelector(".seat-qty");
-      const removeBtn = row.querySelector(".seat-remove");
-
-      typeEl.addEventListener("change", updateSeatsSummary);
-      qtyEl.addEventListener("change", updateSeatsSummary);
-
-      removeBtn.addEventListener("click", () => {
-        row.remove();
-        toggleSeatRemoveButtons();
-        updateSeatsSummary();
-      });
-
-      return row;
-    }
-
-    if (addSeatRowBtn && seatRows) {
-      // wire changes on the first row too
-      seatRows.querySelectorAll(".seat-type, .seat-qty").forEach((el) => {
-        el.addEventListener("change", updateSeatsSummary);
-      });
-
-      addSeatRowBtn.addEventListener("click", () => {
-        seatRows.appendChild(makeSeatRow());
-        toggleSeatRemoveButtons();
-        updateSeatsSummary();
-      });
-
-      // init
-      toggleSeatRemoveButtons();
-      updateSeatsSummary();
-    }
 
     function getPickupDateTime() {
       const dateValue = pickupDateInput.value;
@@ -589,6 +508,7 @@
 
       const option = routeData[vehicle][tripType];
 
+      // Build a friendly description
       let tripLabel = "";
       if (tripType === "ONEWAY") tripLabel = "One-way";
       else if (tripType === "ROUND") tripLabel = "Round trip";
@@ -604,7 +524,12 @@
           timingNote;
       }
 
-      if (canPayNow && option.link && !option.link.startsWith("YOUR_SQUARE_LINK_")) {
+      // Show Square button only if allowed by time window AND link is real (not placeholder)
+      if (
+        canPayNow &&
+        option.link &&
+        !option.link.startsWith("YOUR_SQUARE_LINK_")
+      ) {
         squareBtn.style.display = "inline-block";
         squareBtn.href = option.link;
       } else {
@@ -623,14 +548,13 @@
     pickupDateInput.addEventListener("change", updatePriceAndLink);
     pickupTimeInput.addEventListener("change", updatePriceAndLink);
 
+    // Before submitting to Formspree, make sure the hidden field is up to date
     bookingForm.addEventListener("submit", function () {
-      updateSeatsSummary();
       updatePriceAndLink();
     });
 
     // Initialize UI state on load
     updatePriceAndLink();
-    updateSeatsSummary();
   </script>
 </body>
 </html>
