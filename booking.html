@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Share your trip details with MLT Orlando Transportation so we can confirm your booking and (if eligible) send you to Square to pay."
+    content="Share your trip details with MLT Orlando Transportation so we can confirm your booking and (if eligible) pay via Square."
   />
   <meta property="og:title" content="Booking Details &amp; Contact | MLT Orlando Transportation" />
   <meta
@@ -80,8 +80,7 @@
       <p class="section-intro">
         For trips <strong>within 8 hours</strong>, this form sends us a <strong>request</strong> and we must confirm
         availability before you pay. <br />
-        For trips <strong>more than 8 hours away</strong>, you can submit this form and then proceed to pay securely
-        through Square for the selected option.
+        For trips <strong>more than 8 hours away</strong>, you can submit this form and then pay through Square.
       </p>
 
       <div class="contact-wrapper">
@@ -92,7 +91,6 @@
             action="https://formspree.io/f/xovgzajo"
             method="POST"
           >
-            <!-- Hidden field to send selected route / vehicle / price / timing info -->
             <input
               type="hidden"
               id="selected-option"
@@ -100,7 +98,6 @@
               value=""
             />
 
-            <!-- Optional: for Formspree readability -->
             <input type="hidden" id="child-seats-summary" name="Child seats summary" value="" />
 
             <label for="name">Passenger name</label>
@@ -159,9 +156,7 @@
               <!-- Charter hours dropdown (3 to 24, by the hour) -->
               <div id="charter-hours-wrap" style="display:none; margin-top:0.75rem;">
                 <label for="charter-hours">Charter hours</label>
-                <select id="charter-hours" name="Charter hours">
-                  <!-- options injected by JS -->
-                </select>
+                <select id="charter-hours" name="Charter hours"></select>
                 <p class="hero-note" style="margin-top:0.5rem;">
                   Hourly charters have a 3-hour minimum. Select your total hours (3–24).
                 </p>
@@ -169,8 +164,20 @@
 
               <div class="card" style="margin-top:1rem; background:#f9fafb;">
                 <p id="price-text" class="hero-note" style="margin-bottom:0;">
-                  Select your route, vehicle and trip type to see the price and payment instructions.
+                  Select your route, vehicle and trip type to see the price.
                 </p>
+
+                <!-- NEW: Separate Square test button -->
+                <button
+                  type="button"
+                  id="square-pay-btn"
+                  class="btn-secondary"
+                  style="display:none; margin-top:0.75rem;"
+                >
+                  Pay with Square
+                </button>
+
+                <p id="square-status" class="hero-note" style="display:none; margin-top:0.6rem;"></p>
               </div>
             </div>
 
@@ -261,20 +268,10 @@
               </p>
 
               <label for="return-from">Return pickup (from where?)</label>
-              <input
-                id="return-from"
-                name="Return pickup location"
-                type="text"
-                placeholder="e.g. Hotel / address"
-              />
+              <input id="return-from" name="Return pickup location" type="text" placeholder="e.g. Hotel / address" />
 
               <label for="return-to">Return destination (to where?)</label>
-              <input
-                id="return-to"
-                name="Return destination"
-                type="text"
-                placeholder="e.g. MCO / SFB / address"
-              />
+              <input id="return-to" name="Return destination" type="text" placeholder="e.g. MCO / SFB / address" />
 
               <label for="return-date">Return date</label>
               <input id="return-date" name="Return date" type="date" />
@@ -297,16 +294,14 @@
               placeholder="Child ages and approximate weights, flight info, gate meeting instructions, gate code, private jet tail number, special requests..."
             ></textarea>
 
-            <!-- ONE BUTTON ONLY -->
+            <!-- Form submit stays separate -->
             <button id="submit-btn" type="submit" class="btn-primary">Submit booking request</button>
 
             <div id="form-status" class="hero-note" style="margin-top:0.75rem; display:none;"></div>
 
             <p class="hero-note" style="margin-top:0.75rem;">
               If your trip is <strong>within 8 hours</strong>, this will be treated as a
-              <strong>short-notice request</strong> and we will confirm availability before you pay. <br />
-              If your trip is <strong>more than 8 hours away</strong>, after you submit, you can complete payment
-              through Square (if your option has a fixed price).
+              <strong>short-notice request</strong> and we will confirm availability before you pay.
             </p>
           </form>
         </div>
@@ -363,17 +358,10 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /**
-     * IMPORTANT:
-     * This booking page now redirects customers to Square using your Vercel API endpoint:
-     *   POST {API_BASE}/api/create-payment-link
-     * Your backend must create a hosted Square payment link based on the selected route/vehicle/tripType/hours.
-     *
-     * If you haven't created that endpoint yet, tell me and I’ll paste the exact Vercel function too.
-     */
-    const API_BASE = "https://mlt-payments-api.vercel.app"; // <-- your Vercel API domain
+    // IMPORTANT: This is your Vercel API base domain (Hosted Checkout endpoint should live here)
+    const API_BASE = "https://mlt-payments-api.vercel.app";
 
-    // Pricing map for DISPLAY ONLY (backend should also validate pricing server-side).
+    // Prices for DISPLAY only (backend should also calculate/validate).
     const PRICES = {
       MCO_UNIVERSAL: {
         SEDAN: { ONEWAY: 110, ROUND: 210 },
@@ -432,6 +420,9 @@
     const submitBtn = document.getElementById("submit-btn");
     const formStatus = document.getElementById("form-status");
 
+    const squarePayBtn = document.getElementById("square-pay-btn");
+    const squareStatus = document.getElementById("square-status");
+
     // Hourly hours dropdown
     const charterWrap = document.getElementById("charter-hours-wrap");
     const charterHoursSelect = document.getElementById("charter-hours");
@@ -450,11 +441,63 @@
       for (let h = 3; h <= 24; h++) {
         const opt = document.createElement("option");
         opt.value = String(h);
-        opt.textContent = `${h} hour${h === 1 ? "" : "s"}`;
+        opt.textContent = `${h} hours`;
         charterHoursSelect.appendChild(opt);
       }
       charterHoursSelect.value = "3";
     })();
+
+    function getPickupDateTime() {
+      const dateValue = pickupDateInput.value;
+      const timeValue = pickupTimeInput.value;
+      if (!dateValue || !timeValue) return null;
+
+      const dt = new Date(dateValue + "T" + timeValue);
+      if (isNaN(dt.getTime())) return null;
+      return dt;
+    }
+
+    function prettyVehicle(code) {
+      if (code === "SEDAN") return "Sedan";
+      if (code === "SUV") return "SUV";
+      if (code === "VAN8") return "8-passenger van";
+      if (code === "VAN14") return "14-passenger van";
+      return code || "";
+    }
+
+    function prettyTrip(code) {
+      if (code === "ONEWAY") return "One-way";
+      if (code === "ROUND") return "Round trip";
+      if (code === "HOURLY") return "Hourly (3-hour minimum)";
+      return code || "";
+    }
+
+    function syncTripTypeOptions() {
+      const route = routeSelect.value;
+
+      const hourlyOption = tripTypeSelect.querySelector('option[value="HOURLY"]');
+      const onewayOption = tripTypeSelect.querySelector('option[value="ONEWAY"]');
+      const roundOption  = tripTypeSelect.querySelector('option[value="ROUND"]');
+
+      if (route === "HOURLY") {
+        if (hourlyOption) hourlyOption.disabled = false;
+        if (onewayOption) onewayOption.disabled = true;
+        if (roundOption)  roundOption.disabled = true;
+        if (tripTypeSelect.value !== "HOURLY") tripTypeSelect.value = "HOURLY";
+      } else {
+        if (hourlyOption) hourlyOption.disabled = true;
+        if (onewayOption) onewayOption.disabled = false;
+        if (roundOption)  roundOption.disabled = false;
+        if (tripTypeSelect.value === "HOURLY") tripTypeSelect.value = "";
+      }
+    }
+
+    function syncHourlyHoursUI() {
+      const isHourly = (routeSelect.value === "HOURLY" && tripTypeSelect.value === "HOURLY");
+      if (charterWrap) charterWrap.style.display = isHourly ? "block" : "none";
+      if (charterHoursSelect) charterHoursSelect.required = isHourly;
+      if (!isHourly && charterHoursSelect) charterHoursSelect.value = "3";
+    }
 
     function syncReturnTripUI() {
       const isRound = (tripTypeSelect?.value === "ROUND");
@@ -475,34 +518,192 @@
       }
     }
 
-    function syncTripTypeOptions() {
-      const route = routeSelect.value;
+    function getDisplayedTotal(route, vehicle, tripType) {
+      if (!route || !vehicle || !tripType) return { hasFixedPrice: false, total: null, unit: null, hours: null };
 
-      const hourlyOption = tripTypeSelect.querySelector('option[value="HOURLY"]');
-      const onewayOption = tripTypeSelect.querySelector('option[value="ONEWAY"]');
-      const roundOption  = tripTypeSelect.querySelector('option[value="ROUND"]');
+      const routeData = PRICES[route];
+      const unit = routeData?.[vehicle]?.[tripType];
+      if (typeof unit !== "number") return { hasFixedPrice: false, total: null, unit: null, hours: null };
 
-      if (route === "HOURLY") {
-        if (hourlyOption) hourlyOption.disabled = false;
-        if (onewayOption) onewayOption.disabled = true;
-        if (roundOption)  roundOption.disabled = true;
+      if (route === "HOURLY" && tripType === "HOURLY") {
+        const h = Math.max(3, Math.min(24, parseInt(charterHoursSelect?.value || "3", 10) || 3));
+        return { hasFixedPrice: true, unit, total: unit * h, hours: h };
+      }
 
-        if (tripTypeSelect.value !== "HOURLY") tripTypeSelect.value = "HOURLY";
+      return { hasFixedPrice: true, unit, total: unit, hours: null };
+    }
+
+    // Payment eligibility flags
+    let currentCanPayNow = false;     // time >= 8 hours
+    let currentHasFixedPrice = false; // we have a price
+    let currentIsCustom = false;      // custom route
+    let currentSelectionReady = false;
+
+    function setSquareStatus(msg) {
+      if (!squareStatus) return;
+      if (!msg) {
+        squareStatus.style.display = "none";
+        squareStatus.textContent = "";
       } else {
-        if (hourlyOption) hourlyOption.disabled = true;
-        if (onewayOption) onewayOption.disabled = false;
-        if (roundOption)  roundOption.disabled = false;
-
-        if (tripTypeSelect.value === "HOURLY") tripTypeSelect.value = "";
+        squareStatus.style.display = "block";
+        squareStatus.textContent = msg;
       }
     }
 
-    function syncHourlyHoursUI() {
-      const isHourly = (routeSelect.value === "HOURLY" && tripTypeSelect.value === "HOURLY");
-      if (charterWrap) charterWrap.style.display = isHourly ? "block" : "none";
-      if (charterHoursSelect) charterHoursSelect.required = isHourly;
+    function updateUI() {
+      syncTripTypeOptions();
+      syncHourlyHoursUI();
+      syncReturnTripUI();
 
-      if (!isHourly && charterHoursSelect) charterHoursSelect.value = "3";
+      const pickupDateTime = getPickupDateTime();
+
+      if (routeVehicleCard) routeVehicleCard.style.display = pickupDateTime ? "block" : "none";
+
+      // reset flags
+      currentCanPayNow = false;
+      currentHasFixedPrice = false;
+      currentIsCustom = false;
+      currentSelectionReady = false;
+
+      setSquareStatus("");
+
+      let timingLabel = "Pickup time not selected yet";
+      let timingNote = "";
+      let canPayNow = false;
+
+      if (pickupDateTime) {
+        const now = new Date();
+        const diffHours = (pickupDateTime - now) / (1000 * 60 * 60);
+
+        if (diffHours < 8) {
+          timingLabel = "Short notice (< 8 hours)";
+          timingNote = " This trip is within the next 8 hours. Please submit as a request only and wait for confirmation before paying.";
+          canPayNow = false;
+        } else {
+          timingLabel = "Standard (≥ 8 hours)";
+          timingNote = " This trip is more than 8 hours away. You can pay with Square once your option is selected.";
+          canPayNow = true;
+        }
+
+        timingBanner.textContent =
+          "Pickup time check: " + timingLabel + ". " +
+          (diffHours > 0
+            ? "Approx. " + diffHours.toFixed(1) + " hours from now."
+            : "Pickup time appears to be in the past or very soon. We will review it.");
+      } else {
+        timingBanner.textContent =
+          "Once you select your pickup date and time, we’ll tell you if this is a short-notice request (< 8 hours) or a standard booking (≥ 8 hours).";
+      }
+
+      const route = routeSelect.value;
+      const vehicle = vehicleSelect.value;
+      const tripType = tripTypeSelect.value;
+
+      currentIsCustom = (route === "CUSTOM");
+
+      if (currentIsCustom) {
+        priceText.textContent =
+          "Custom route selected." +
+          (timingNote ? timingNote + " We will confirm price by email." : " We will confirm price by email.");
+
+        selectedOptionInput.value =
+          "Custom route – price to be confirmed. Timing: " + timingLabel;
+
+        currentSelectionReady = true;
+      } else if (!route || !vehicle || !tripType) {
+        priceText.textContent =
+          "Please select a route, vehicle and trip type to see the price." + (timingNote || "");
+        selectedOptionInput.value = "";
+      } else {
+        const pricing = getDisplayedTotal(route, vehicle, tripType);
+        currentHasFixedPrice = pricing.hasFixedPrice;
+
+        if (!currentHasFixedPrice) {
+          priceText.textContent =
+            "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm price." +
+            (timingNote || "");
+
+          selectedOptionInput.value =
+            `No fixed price: route=${route}, vehicle=${vehicle}, tripType=${tripType}. Timing: ${timingLabel}`;
+        } else {
+          const vehicleLabel = prettyVehicle(vehicle);
+          const tripLabel = prettyTrip(tripType);
+
+          if (route === "HOURLY" && tripType === "HOURLY") {
+            priceText.textContent =
+              `Selected: Hourly Charter – ${vehicleLabel} at $${pricing.unit}/hr × ${pricing.hours} hours = $${pricing.total}.` +
+              timingNote;
+
+            selectedOptionInput.value =
+              `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Rate: $${pricing.unit}/hr, Hours: ${pricing.hours}, Total: $${pricing.total}, Timing: ${timingLabel}`;
+          } else {
+            priceText.textContent =
+              `Selected: ${tripLabel} ${vehicleLabel} for ${route} – $${pricing.total}.` +
+              timingNote;
+
+            selectedOptionInput.value =
+              `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Price: $${pricing.total}, Timing: ${timingLabel}`;
+          }
+        }
+
+        currentSelectionReady = true;
+      }
+
+      currentCanPayNow = !!(pickupDateTime && canPayNow);
+
+      // Show Square pay button only if eligible AND fixed-price AND not custom
+      const showPayBtn = currentCanPayNow && currentHasFixedPrice && !currentIsCustom;
+
+      if (squarePayBtn) {
+        squarePayBtn.style.display = showPayBtn ? "inline-block" : "none";
+        squarePayBtn.disabled = false;
+      }
+    }
+
+    // Prefill from Rates query params
+    function prefillFromQueryString() {
+      const params = new URLSearchParams(window.location.search);
+      if (!params || [...params.keys()].length === 0) return;
+
+      const rawRoute = params.get("route") || "";
+      const rawVehicle = params.get("vehicle") || "";
+      const rawTrip = params.get("trip") || "";
+
+      const routeMap = {
+        "MCO-Universal-Idrive-Seaworld-Convention": "MCO_UNIVERSAL",
+        "MCO-Disney-LBV-BayLake-GoldenOak": "MCO_DISNEY",
+        "MCO-Windermere-WinterPark": "MCO_WINDERMERE",
+        "MCO-Port-Canaveral": "MCO_PORT",
+        "SFB-Universal-Idrive-Seaworld-Convention": "SFB_IDRIVE",
+        "SFB-Disney-LBV-BayLake-GoldenOak": "SFB_DISNEY",
+        "Hourly-Orlando": "HOURLY",
+      };
+
+      const vehicleMap = {
+        "Sedan": "SEDAN",
+        "SUV": "SUV",
+        "Van8": "VAN8",
+        "Van14": "VAN14",
+      };
+
+      const tripMap = {
+        "oneway": "ONEWAY",
+        "round": "ROUND",
+        "hourly": "HOURLY",
+      };
+
+      const mappedRoute = routeMap[rawRoute] || "";
+      const mappedVehicle = vehicleMap[rawVehicle] || "";
+      const mappedTrip = tripMap[(rawTrip || "").toLowerCase()] || "";
+
+      if (mappedRoute) routeSelect.value = mappedRoute;
+      if (mappedVehicle) vehicleSelect.value = mappedVehicle;
+      if (mappedTrip) tripTypeSelect.value = mappedTrip;
+
+      const hoursParam = parseInt(params.get("hours") || "", 10);
+      if (!isNaN(hoursParam) && hoursParam >= 3 && hoursParam <= 24 && charterHoursSelect) {
+        charterHoursSelect.value = String(hoursParam);
+      }
     }
 
     // --- Child seats repeater ---
@@ -595,237 +796,6 @@
       updateSeatsSummary();
     }
 
-    function getPickupDateTime() {
-      const dateValue = pickupDateInput.value;
-      const timeValue = pickupTimeInput.value;
-      if (!dateValue || !timeValue) return null;
-
-      const dt = new Date(dateValue + "T" + timeValue);
-      if (isNaN(dt.getTime())) return null;
-      return dt;
-    }
-
-    function prettyVehicle(vehicleCode) {
-      if (vehicleCode === "SEDAN") return "Sedan";
-      if (vehicleCode === "SUV") return "SUV";
-      if (vehicleCode === "VAN8") return "8-passenger van";
-      if (vehicleCode === "VAN14") return "14-passenger van";
-      return vehicleCode || "";
-    }
-
-    function prettyTrip(tripType) {
-      if (tripType === "ONEWAY") return "One-way";
-      if (tripType === "ROUND") return "Round trip";
-      if (tripType === "HOURLY") return "Hourly (3-hour minimum)";
-      return tripType || "";
-    }
-
-    function getDisplayedTotal(route, vehicle, tripType) {
-      if (!route || !vehicle || !tripType) return { hasFixedPrice: false, unit: null, total: null, hours: null };
-
-      const routeData = PRICES[route];
-      if (!routeData || !routeData[vehicle] || !routeData[vehicle][tripType]) {
-        return { hasFixedPrice: false, unit: null, total: null, hours: null };
-      }
-
-      const unit = Number(routeData[vehicle][tripType]);
-      if (!isFinite(unit)) return { hasFixedPrice: false, unit: null, total: null, hours: null };
-
-      if (route === "HOURLY" && tripType === "HOURLY") {
-        const h = Math.max(3, Math.min(24, parseInt(charterHoursSelect?.value || "3", 10) || 3));
-        return { hasFixedPrice: true, unit, total: unit * h, hours: h };
-      }
-
-      return { hasFixedPrice: true, unit, total: unit, hours: null };
-    }
-
-    // Current pay state
-    let currentCanPayNow = false;
-    let currentHasFixedPrice = false;
-
-    function updatePriceAndPayUI() {
-      syncTripTypeOptions();
-      syncHourlyHoursUI();
-      syncReturnTripUI();
-
-      const route = routeSelect.value;
-      const vehicle = vehicleSelect.value;
-      const tripType = tripTypeSelect.value;
-      const pickupDateTime = getPickupDateTime();
-
-      // Show route/vehicle section only after date + time are selected
-      if (routeVehicleCard) routeVehicleCard.style.display = pickupDateTime ? "block" : "none";
-
-      let timingLabel = "Pickup time not selected yet";
-      let timingNote = "";
-      let canPayNow = false;
-
-      if (pickupDateTime) {
-        const now = new Date();
-        const diffMs = pickupDateTime - now;
-        const diffHours = diffMs / (1000 * 60 * 60);
-
-        if (diffHours < 8) {
-          timingLabel = "Short notice (< 8 hours)";
-          timingNote =
-            " This trip is within the next 8 hours. Please submit this form as a request only and wait for our confirmation before making any payment.";
-          canPayNow = false;
-        } else {
-          timingLabel = "Standard (≥ 8 hours)";
-          timingNote =
-            " This trip is more than 8 hours away. After submitting, you can complete payment through Square (if your option has a fixed price).";
-          canPayNow = true;
-        }
-
-        timingBanner.textContent =
-          "Pickup time check: " + timingLabel + ". " +
-          (diffHours > 0
-            ? "Approx. " + diffHours.toFixed(1) + " hours from now."
-            : "Pickup time appears to be in the past or very soon. We will review it.");
-      } else {
-        timingBanner.textContent =
-          "Once you select your pickup date and time, we’ll tell you if this is a short-notice request (< 8 hours) or a standard booking (≥ 8 hours).";
-      }
-
-      // Defaults
-      currentCanPayNow = false;
-      currentHasFixedPrice = false;
-
-      // Custom route
-      if (route === "CUSTOM") {
-        priceText.textContent =
-          "Custom route selected." +
-          (timingNote
-            ? timingNote + " We will review your details and send you the exact price and payment instructions."
-            : " We will review your details and send you the exact price and payment instructions.");
-
-        selectedOptionInput.value =
-          "Custom route – price and payment to be confirmed by MLT. Timing: " + timingLabel;
-
-        if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
-          ? "Submit booking request (request only)"
-          : "Submit booking request";
-        return;
-      }
-
-      // Not enough selected yet
-      if (!route || !vehicle || !tripType) {
-        priceText.textContent =
-          "Please select a route, vehicle and trip type to see the price and payment instructions." +
-          (timingNote || "");
-        selectedOptionInput.value = "";
-
-        if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
-          ? "Submit booking request (request only)"
-          : "Submit booking request";
-        return;
-      }
-
-      const pricing = getDisplayedTotal(route, vehicle, tripType);
-      currentHasFixedPrice = pricing.hasFixedPrice;
-
-      if (!currentHasFixedPrice) {
-        priceText.textContent =
-          "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm the price and send payment instructions." +
-          (timingNote || "");
-
-        selectedOptionInput.value =
-          "No fixed price: route=" + route + ", vehicle=" + vehicle +
-          ", tripType=" + tripType + ". Timing: " + timingLabel;
-
-        if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
-          ? "Submit booking request (request only)"
-          : "Submit booking request";
-        return;
-      }
-
-      // Fixed-price selection
-      const vehicleLabel = prettyVehicle(vehicle);
-      const tripLabel = prettyTrip(tripType);
-
-      if (route === "HOURLY" && tripType === "HOURLY") {
-        priceText.textContent =
-          `Selected: Hourly Charter – ${vehicleLabel} at $${pricing.unit}/hr × ${pricing.hours} hours = $${pricing.total}.` +
-          timingNote;
-
-        selectedOptionInput.value =
-          `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, ` +
-          `Rate: $${pricing.unit}/hr, Hours: ${pricing.hours}, Total: $${pricing.total}, Timing: ${timingLabel}`;
-      } else {
-        priceText.textContent =
-          `Selected: ${tripLabel} ${vehicleLabel} for ${route} – $${pricing.total}.` +
-          timingNote;
-
-        selectedOptionInput.value =
-          `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Price: $${pricing.total}, Timing: ${timingLabel}`;
-      }
-
-      currentCanPayNow = !!(canPayNow && currentHasFixedPrice);
-
-      if (submitBtn) {
-        if (currentCanPayNow) {
-          submitBtn.textContent = "Submit booking request & Pay with Square";
-        } else if (pickupDateTime && !canPayNow) {
-          submitBtn.textContent = "Submit booking request (request only)";
-        } else {
-          submitBtn.textContent = "Submit booking request";
-        }
-      }
-    }
-
-    // Prefill from Rates page query params
-    function prefillFromQueryString() {
-      const params = new URLSearchParams(window.location.search);
-      if (!params || [...params.keys()].length === 0) return;
-
-      const rawRoute = params.get("route") || "";
-      const rawVehicle = params.get("vehicle") || "";
-      const rawTrip = params.get("trip") || "";
-
-      const routeMap = {
-        "MCO-Universal-Idrive-Seaworld-Convention": "MCO_UNIVERSAL",
-        "MCO-Disney-LBV-BayLake-GoldenOak": "MCO_DISNEY",
-        "MCO-Windermere-WinterPark": "MCO_WINDERMERE",
-        "MCO-Port-Canaveral": "MCO_PORT",
-        "SFB-Universal-Idrive-Seaworld-Convention": "SFB_IDRIVE",
-        "SFB-Disney-LBV-BayLake-GoldenOak": "SFB_DISNEY",
-        "Hourly-Orlando": "HOURLY",
-      };
-
-      const vehicleMap = {
-        "Sedan": "SEDAN",
-        "SUV": "SUV",
-        "Van8": "VAN8",
-        "Van14": "VAN14",
-      };
-
-      const tripMap = {
-        "oneway": "ONEWAY",
-        "round": "ROUND",
-        "hourly": "HOURLY",
-      };
-
-      const mappedRoute = routeMap[rawRoute] || "";
-      const mappedVehicle = vehicleMap[rawVehicle] || "";
-      const mappedTrip = tripMap[(rawTrip || "").toLowerCase()] || "";
-
-      if (mappedRoute) routeSelect.value = mappedRoute;
-      if (mappedVehicle) vehicleSelect.value = mappedVehicle;
-      if (mappedTrip) tripTypeSelect.value = mappedTrip;
-
-      const hoursParam = parseInt(params.get("hours") || "", 10);
-      if (!isNaN(hoursParam) && hoursParam >= 3 && hoursParam <= 24 && charterHoursSelect) {
-        charterHoursSelect.value = String(hoursParam);
-      }
-    }
-
-    routeSelect.addEventListener("change", updatePriceAndPayUI);
-    vehicleSelect.addEventListener("change", updatePriceAndPayUI);
-    tripTypeSelect.addEventListener("change", updatePriceAndPayUI);
-    pickupDateInput.addEventListener("change", updatePriceAndPayUI);
-    pickupTimeInput.addEventListener("change", updatePriceAndPayUI);
-    if (charterHoursSelect) charterHoursSelect.addEventListener("change", updatePriceAndPayUI);
-
     async function createPaymentLinkOrThrow() {
       const route = routeSelect.value;
       const vehicle = vehicleSelect.value;
@@ -842,21 +812,56 @@
       });
 
       const data = await resp.json().catch(() => ({}));
+
       if (!resp.ok) {
-        throw new Error(data.error || "Could not create payment link. Please try again or contact us.");
+        throw new Error(data.error || `Square link error (HTTP ${resp.status})`);
       }
       if (!data.url) {
-        throw new Error("Payment link missing. Please contact us.");
+        throw new Error("Missing payment link URL from API.");
       }
       return data.url;
     }
 
-    // AJAX submit to Formspree, then (if allowed) redirect to Square-hosted checkout
+    // Separate Square button click
+    if (squarePayBtn) {
+      squarePayBtn.addEventListener("click", async () => {
+        setSquareStatus("");
+
+        if (!currentSelectionReady) {
+          setSquareStatus("Please complete your pickup time and fare selection first.");
+          return;
+        }
+        if (!currentCanPayNow) {
+          setSquareStatus("This is a short-notice trip (< 8 hours). Please wait for confirmation before paying.");
+          return;
+        }
+        if (!currentHasFixedPrice || currentIsCustom) {
+          setSquareStatus("This option does not have a fixed online price. Please submit the request and we’ll confirm.");
+          return;
+        }
+
+        squarePayBtn.disabled = true;
+        squarePayBtn.textContent = "Creating Square link...";
+
+        try {
+          const url = await createPaymentLinkOrThrow();
+          setSquareStatus("Redirecting to Square...");
+          window.location.href = url;
+        } catch (err) {
+          setSquareStatus(err?.message || "Could not create payment link. Please try again.");
+        } finally {
+          squarePayBtn.disabled = false;
+          squarePayBtn.textContent = "Pay with Square";
+        }
+      });
+    }
+
+    // Form submit: ONLY sends request (no Square redirect)
     bookingForm.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       updateSeatsSummary();
-      updatePriceAndPayUI(); // sync UI + hidden field
+      updateUI();
 
       if (formStatus) {
         formStatus.style.display = "none";
@@ -869,7 +874,6 @@
       }
 
       try {
-        // 1) Submit booking request to Formspree
         const formData = new FormData(bookingForm);
 
         const res = await fetch(bookingForm.action, {
@@ -894,30 +898,10 @@
           return;
         }
 
-        // 2) If eligible (>=8 hours AND fixed price), create Square link and redirect
-        const route = routeSelect.value;
-        const isCustom = (route === "CUSTOM");
-        if (currentCanPayNow && currentHasFixedPrice && !isCustom) {
-          const payUrl = await createPaymentLinkOrThrow();
-          window.location.href = payUrl;
-          return;
-        }
-
-        // Otherwise just show success
         if (formStatus) {
           formStatus.style.display = "block";
-          formStatus.textContent =
-            "Request sent! We’ll confirm availability and follow up by email/text.";
+          formStatus.textContent = "Request sent! We’ll confirm availability and follow up by email/text.";
         }
-
-        // Reset form (but keep your seat UI consistent)
-        bookingForm.reset();
-        toggleSeatRemoveButtons();
-        updateSeatsSummary();
-
-        if (charterHoursSelect) charterHoursSelect.value = "3";
-        prefillFromQueryString(); // if they came from rates, restore selection after reset
-        updatePriceAndPayUI();
 
       } catch (err) {
         if (formStatus) {
@@ -930,14 +914,22 @@
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          updatePriceAndPayUI();
+          submitBtn.textContent = "Submit booking request";
         }
       }
     });
 
-    // Initialize
+    // Listeners
+    routeSelect.addEventListener("change", updateUI);
+    vehicleSelect.addEventListener("change", updateUI);
+    tripTypeSelect.addEventListener("change", updateUI);
+    pickupDateInput.addEventListener("change", updateUI);
+    pickupTimeInput.addEventListener("change", updateUI);
+    if (charterHoursSelect) charterHoursSelect.addEventListener("change", updateUI);
+
+    // Init
     prefillFromQueryString();
-    updatePriceAndPayUI();
+    updateUI();
     updateSeatsSummary();
   </script>
 </body>
