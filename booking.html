@@ -299,8 +299,20 @@
               placeholder="Child ages and approximate weights, flight info, gate meeting instructions, gate code, private jet tail number, special requests..."
             ></textarea>
 
-            <!-- ONE BUTTON ONLY -->
-            <button id="submit-btn" type="submit" class="btn-primary">Submit booking request</button>
+            <!-- NEW: Separate Square test button (no form submit) -->
+            <button
+              id="test-pay-btn"
+              type="button"
+              class="btn-secondary"
+              style="margin-top:0.75rem; width:100%;"
+            >
+              Test Square payment link (no submit)
+            </button>
+
+            <!-- Submit only -->
+            <button id="submit-btn" type="submit" class="btn-primary" style="margin-top:0.75rem; width:100%;">
+              Submit booking request
+            </button>
 
             <div id="form-status" class="hero-note" style="margin-top:0.75rem; display:none;"></div>
 
@@ -501,6 +513,7 @@
     const bookingForm = document.getElementById("booking-form");
     const routeVehicleCard = document.getElementById("route-vehicle-card");
     const submitBtn = document.getElementById("submit-btn");
+    const testPayBtn = document.getElementById("test-pay-btn");
     const formStatus = document.getElementById("form-status");
 
     // Hourly hours dropdown
@@ -685,6 +698,18 @@
     let currentSquareLink = null;
     let currentCanPayNow = false;
 
+    function updateTestPayButtonUI() {
+      if (!testPayBtn) return;
+
+      const hasLink = !!currentSquareLink;
+      testPayBtn.disabled = !hasLink;
+      testPayBtn.style.opacity = hasLink ? "1" : "0.6";
+      testPayBtn.style.cursor = hasLink ? "pointer" : "not-allowed";
+      testPayBtn.textContent = hasLink
+        ? "Test Square payment link (opens in new tab)"
+        : "Test Square payment link (select an option with a real link)";
+    }
+
     function updatePriceAndLink() {
       // Route-dependent UI first
       syncTripTypeOptions();
@@ -750,6 +775,8 @@
         if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
           ? "Submit booking request (request only)"
           : "Submit booking request";
+
+        updateTestPayButtonUI();
         return;
       }
 
@@ -762,6 +789,8 @@
         if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
           ? "Submit booking request (request only)"
           : "Submit booking request";
+
+        updateTestPayButtonUI();
         return;
       }
 
@@ -778,6 +807,8 @@
         if (submitBtn) submitBtn.textContent = pickupDateTime && !canPayNow
           ? "Submit booking request (request only)"
           : "Submit booking request";
+
+        updateTestPayButtonUI();
         return;
       }
 
@@ -816,6 +847,7 @@
           `Rate: $${option.price}/hr, Hours: ${hours}, Total: $${total}, ` +
           `Square link: ${option.link}, Timing: ${timingLabel}`;
 
+        updateTestPayButtonUI();
         return;
       }
 
@@ -841,6 +873,8 @@
       selectedOptionInput.value =
         `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Price: $${option.price}, ` +
         `Square link: ${option.link}, Timing: ${timingLabel}`;
+
+      updateTestPayButtonUI();
     }
 
     // --- Prefill from Rates page query params (optional but matches your Book buttons) ---
@@ -898,6 +932,24 @@
     pickupDateInput.addEventListener("change", updatePriceAndLink);
     pickupTimeInput.addEventListener("change", updatePriceAndLink);
     if (charterHoursSelect) charterHoursSelect.addEventListener("change", updatePriceAndLink);
+
+    // NEW: Test Square payment link button (no form submit)
+    if (testPayBtn) {
+      testPayBtn.addEventListener("click", () => {
+        updatePriceAndLink(); // ensure latest selection/timing
+
+        if (currentSquareLink) {
+          window.open(currentSquareLink, "_blank", "noopener");
+          return;
+        }
+
+        alert(
+          "No Square payment link is available for this selection yet.\n\n" +
+          "Pick a route/vehicle/trip type that has a real Square link (not a YOUR_SQUARE_LINK placeholder), " +
+          "and make sure pickup time is ≥ 8 hours away."
+        );
+      });
+    }
 
     // AJAX submit to Formspree, then (if allowed) redirect to Square
     bookingForm.addEventListener("submit", async function (e) {
