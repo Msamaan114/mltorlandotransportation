@@ -1,199 +1,122 @@
-// api/create-square-link.js
-const crypto = require("crypto");
+// /api/create-square-link.js
 
-// Server-side price table (source of truth).
-// IMPORTANT: This prevents people from changing ?price= in the URL and paying less.
-const PRICES = {
-  MCO_UNIVERSAL: {
-    SEDAN: { ONEWAY: 110, ROUND: 210 },
-    SUV: { ONEWAY: 120, ROUND: 230 },
-    VAN8: { ONEWAY: 140, ROUND: 260 },
-    VAN14: { ONEWAY: 170, ROUND: 310 },
-  },
-  MCO_DISNEY: {
-    SEDAN: { ONEWAY: 120, ROUND: 220 },
-    SUV: { ONEWAY: 130, ROUND: 240 },
-    VAN8: { ONEWAY: 150, ROUND: 280 },
-    VAN14: { ONEWAY: 180, ROUND: 330 },
-  },
-  MCO_WINDERMERE: {
-    SEDAN: { ONEWAY: 130, ROUND: 240 },
-    SUV: { ONEWAY: 140, ROUND: 260 },
-    VAN8: { ONEWAY: 160, ROUND: 300 },
-    VAN14: { ONEWAY: 190, ROUND: 340 },
-  },
-  MCO_PORT: {
-    SEDAN: { ONEWAY: 210, ROUND: 400 },
-    SUV: { ONEWAY: 230, ROUND: 440 },
-    VAN8: { ONEWAY: 260, ROUND: 500 },
-    VAN14: { ONEWAY: 290, ROUND: 560 },
-  },
-  SFB_IDRIVE: {
-    SEDAN: { ONEWAY: 160, ROUND: 300 },
-    SUV: { ONEWAY: 175, ROUND: 330 },
-    VAN8: { ONEWAY: 200, ROUND: 380 },
-    VAN14: { ONEWAY: 225, ROUND: 420 },
-  },
-  SFB_DISNEY: {
-    SEDAN: { ONEWAY: 175, ROUND: 330 },
-    SUV: { ONEWAY: 190, ROUND: 360 },
-    VAN8: { ONEWAY: 220, ROUND: 420 },
-    VAN14: { ONEWAY: 245, ROUND: 470 },
-  },
-  HOURLY: {
-    // hourly is per-hour rate
-    SEDAN: { HOURLY: 70 },
-    SUV: { HOURLY: 85 },
-    VAN8: { HOURLY: 95 },
-    VAN14: { HOURLY: 120 },
-  },
-};
-
-// Optional: for nicer labels in Square checkout item name
-const ROUTE_LABEL = {
-  MCO_UNIVERSAL: "MCO ↔ Universal / I-Drive / SeaWorld / Convention Center",
-  MCO_DISNEY: "MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak",
-  MCO_WINDERMERE: "MCO ↔ Windermere / Winter Park",
-  MCO_PORT: "MCO / Orlando ↔ Port Canaveral",
-  SFB_IDRIVE: "SFB ↔ I-Drive / Convention / Universal / SeaWorld",
-  SFB_DISNEY: "SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak",
-  HOURLY: "Hourly Charter (within Orlando)",
-};
-
-const VEHICLE_LABEL = {
-  SEDAN: "Sedan",
-  SUV: "SUV",
-  VAN8: "8-passenger van",
-  VAN14: "14-passenger van",
-};
-
-const TRIP_LABEL = {
-  ONEWAY: "One-way",
-  ROUND: "Round trip",
-  HOURLY: "Hourly",
-};
-
-function getBaseUrl() {
-  const env = (process.env.SQUARE_ENV || "production").toLowerCase();
-  // Square docs: production uses connect.squareup.com, sandbox uses connect.squareupsandbox.com :contentReference[oaicite:3]{index=3}
-  return env === "sandbox"
-    ? "https://connect.squareupsandbox.com/v2"
-    : "https://connect.squareup.com/v2";
-}
-
-function bad(res, msg, code = 400) {
-  res.status(code).json({ error: msg });
-}
-
-module.exports = async (req, res) => {
-  if (req.method !== "POST") return bad(res, "Use POST", 405);
-
-  const token = process.env.SQUARE_ACCESS_TOKEN;
-  const locationId = process.env.SQUARE_LOCATION_ID;
-
-  if (!token) return bad(res, "Missing SQUARE_ACCESS_TOKEN env var", 500);
-  if (!locationId) return bad(res, "Missing SQUARE_LOCATION_ID env var", 500);
-
-  let body = req.body;
-  // Vercel sometimes gives body as a string depending on config
-  if (typeof body === "string") {
-    try { body = JSON.parse(body); } catch (_) {}
+export default async function handler(req, res) {
+  // Allow only POST (your earlier GET log entry is normal if you opened the URL in a browser)
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ error: "Method not allowed. Use POST." });
   }
 
-  const route = String(body?.route || "");
-  const vehicle = String(body?.vehicle || "");
-  const tripType = String(body?.tripType || "");
-  const hoursRaw = body?.hours;
+  try {
+    // --- ENV ---
+    const SQUARE_ENV = (process.env.SQUARE_ENV || "sandbox").toLowerCase();
+    const ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
+    const LOCATION_ID = process.env.SQUARE_LOCATION_ID;
+    const SQUARE_VERSION = process.env.SQUARE_VERSION || "2025-10-16";
 
-  if (!route || !vehicle || !tripType) {
-    return bad(res, "route, vehicle, tripType are required");
-  }
+    if (!ACCESS_TOKEN || !LOCATION_ID) {
+      console.error("Missing env vars", {
+        hasToken: !!ACCESS_TOKEN,
+        hasLocationId: !!LOCATION_ID,
+        SQUARE_ENV,
+        SQUARE_VERSION,
+      });
+      return res.status(500).json({
+        error: "Server misconfigured: missing env vars",
+        missing: {
+          SQUARE_ACCESS_TOKEN: !ACCESS_TOKEN,
+          SQUARE_LOCATION_ID: !LOCATION_ID,
+        },
+      });
+    }
 
-  // Reject custom routes (no fixed price)
-  if (route === "CUSTOM") {
-    return bad(res, "Custom routes do not have an automatic payment link");
-  }
+    const baseUrl =
+      SQUARE_ENV === "production"
+        ? "https://connect.squareup.com"
+        : "https://connect.squareupsandbox.com";
 
-  // Server-side price lookup
-  const routeData = PRICES[route];
-  const vehicleData = routeData?.[vehicle];
-  const unit = vehicleData?.[tripType];
+    // --- INPUT ---
+    const { route, vehicle, tripType, amountCents, description } = req.body || {};
 
-  if (route === "HOURLY" && tripType === "HOURLY") {
-    const rate = unit;
-    if (typeof rate !== "number") return bad(res, "Invalid hourly combination");
+    if (!amountCents || typeof amountCents !== "number") {
+      return res.status(400).json({
+        error: "amountCents is required and must be a number",
+        example: { amountCents: 12000, route: "MCO_DISNEY", vehicle: "SEDAN", tripType: "ONEWAY" },
+      });
+    }
 
-    let hours = parseInt(String(hoursRaw ?? "3"), 10);
-    if (Number.isNaN(hours)) hours = 3;
-    if (hours < 3) hours = 3;
-    if (hours > 24) hours = 24;
+    // --- Build Square CreatePaymentLink payload ---
+    const idempotencyKey =
+      (globalThis.crypto && crypto.randomUUID && crypto.randomUUID()) ||
+      `${Date.now()}-${Math.random()}`;
 
-    const total = rate * hours;
+    const payload = {
+      idempotency_key: idempotencyKey,
+      order: {
+        location_id: LOCATION_ID,
+        line_items: [
+          {
+            name: description || `MLT Ride: ${route || ""} ${vehicle || ""} ${tripType || ""}`.trim(),
+            quantity: "1",
+            base_price_money: {
+              amount: amountCents,
+              currency: "USD",
+            },
+          },
+        ],
+      },
+    };
 
-    return await createLink({
-      res,
-      token,
-      locationId,
-      amountUsd: total,
-      itemName: `MLT Orlando Transportation – ${ROUTE_LABEL[route] || route} – ${VEHICLE_LABEL[vehicle] || vehicle} – ${hours} hours`,
-      note: `Route=${route}, Vehicle=${vehicle}, Trip=${tripType}, Hours=${hours}`,
+    console.log("Creating payment link:", {
+      env: SQUARE_ENV,
+      location: LOCATION_ID,
+      amountCents,
+      route,
+      vehicle,
+      tripType,
     });
-  }
 
-  if (typeof unit !== "number") return bad(res, "Invalid route/vehicle/tripType combination");
+    const squareRes = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
+      method: "POST",
+      headers: {
+        "Square-Version": SQUARE_VERSION,
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-  return await createLink({
-    res,
-    token,
-    locationId,
-    amountUsd: unit,
-    itemName: `MLT Orlando Transportation – ${ROUTE_LABEL[route] || route} – ${VEHICLE_LABEL[vehicle] || vehicle} – ${TRIP_LABEL[tripType] || tripType}`,
-    note: `Route=${route}, Vehicle=${vehicle}, Trip=${tripType}`,
-  });
-};
+    const rawText = await squareRes.text(); // IMPORTANT: always read text first
+    console.log("Square status:", squareRes.status);
+    console.log("Square body:", rawText);
 
-async function createLink({ res, token, locationId, amountUsd, itemName, note }) {
-  const baseUrl = getBaseUrl();
-  const amountCents = Math.round(Number(amountUsd) * 100);
+    // Try parse JSON if possible
+    let parsed = null;
+    try {
+      parsed = rawText ? JSON.parse(rawText) : null;
+    } catch (_) {}
 
-  // Square CreatePaymentLink expects amount as an integer (in cents) inside price_money, plus location_id :contentReference[oaicite:4]{index=4}
-  const payload = {
-    idempotency_key: crypto.randomUUID(),
-    quick_pay: {
-      name: itemName,
-      price_money: { amount: amountCents, currency: "USD" },
-      location_id: locationId,
-    },
-    payment_note: note,
-  };
+    if (!squareRes.ok) {
+      // Return Square error details to the browser
+      return res.status(502).json({
+        error: "Square API error",
+        squareStatus: squareRes.status,
+        squareBody: parsed || rawText || null,
+      });
+    }
 
-  // Square-Version header is required; docs show current version like 2025-10-16 :contentReference[oaicite:5]{index=5}
-  const squareVersion = process.env.SQUARE_VERSION || "2025-10-16";
-
-  const r = await fetch(`${baseUrl}/online-checkout/payment-links`, {
-    method: "POST",
-    headers: {
-      "Square-Version": squareVersion,
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
-  const data = await r.json().catch(() => ({}));
-
-  if (!r.ok) {
+    const paymentLink = parsed?.payment_link;
+    return res.status(200).json({
+      ok: true,
+      url: paymentLink?.url,
+      long_url: paymentLink?.long_url,
+      id: paymentLink?.id,
+    });
+  } catch (err) {
+    console.error("Function crash:", err);
     return res.status(502).json({
-      error: "Square error creating payment link",
-      status: r.status,
-      details: data,
+      error: "Serverless function crashed",
+      message: err?.message || String(err),
     });
   }
-
-  // Square returns payment_link.url / payment_link.long_url :contentReference[oaicite:6]{index=6}
-  return res.status(200).json({
-    url: data?.payment_link?.url,
-    long_url: data?.payment_link?.long_url,
-    id: data?.payment_link?.id,
-  });
 }
