@@ -1,122 +1,94 @@
-// /api/create-square-link.js
-
 export default async function handler(req, res) {
-  // Allow only POST (your earlier GET log entry is normal if you opened the URL in a browser)
+  // --- CORS (lets your pages call this API) ---
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS, GET");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") return res.status(204).end();
+  if (req.method === "GET") return res.status(200).json({ ok: true, message: "API is working" });
+
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed. Use POST." });
+    return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
   try {
-    // --- ENV ---
-    const SQUARE_ENV = (process.env.SQUARE_ENV || "sandbox").toLowerCase();
-    const ACCESS_TOKEN = process.env.SQUARE_ACCESS_TOKEN;
-    const LOCATION_ID = process.env.SQUARE_LOCATION_ID;
-    const SQUARE_VERSION = process.env.SQUARE_VERSION || "2025-10-16";
+    const { amountCents, route, vehicle, tripType } = req.body || {};
 
-    if (!ACCESS_TOKEN || !LOCATION_ID) {
-      console.error("Missing env vars", {
-        hasToken: !!ACCESS_TOKEN,
-        hasLocationId: !!LOCATION_ID,
-        SQUARE_ENV,
-        SQUARE_VERSION,
-      });
+    if (!amountCents || Number.isNaN(Number(amountCents))) {
+      return res.status(400).json({ ok: false, error: "amountCents is required (number)" });
+    }
+
+    // --- REQUIRED ENV VARS in Vercel ---
+    const accessToken = process.env.SQUARE_ACCESS_TOKEN;
+    const locationId = process.env.SQUARE_LOCATION_ID;
+
+    if (!accessToken || !locationId) {
       return res.status(500).json({
-        error: "Server misconfigured: missing env vars",
-        missing: {
-          SQUARE_ACCESS_TOKEN: !ACCESS_TOKEN,
-          SQUARE_LOCATION_ID: !LOCATION_ID,
-        },
+        ok: false,
+        error: "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel.",
       });
     }
 
-    const baseUrl =
-      SQUARE_ENV === "production"
-        ? "https://connect.squareup.com"
-        : "https://connect.squareupsandbox.com";
+    // Sandbox base URL
+    const baseUrl = "https://connect.squareupsandbox.com";
 
-    // --- INPUT ---
-    const { route, vehicle, tripType, amountCents, description } = req.body || {};
+    // Idempotency key (simple + good enough)
+    const idem = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-    if (!amountCents || typeof amountCents !== "number") {
-      return res.status(400).json({
-        error: "amountCents is required and must be a number",
-        example: { amountCents: 12000, route: "MCO_DISNEY", vehicle: "SEDAN", tripType: "ONEWAY" },
-      });
-    }
+    const lineItemName = [
+      route ? `Route: ${route}` : null,
+      vehicle ? `Vehicle: ${vehicle}` : null,
+      tripType ? `Trip: ${tripType}` : null,
+    ].filter(Boolean).join(" | ") || "MLT Orlando Transportation";
 
-    // --- Build Square CreatePaymentLink payload ---
-    const idempotencyKey =
-      (globalThis.crypto && crypto.randomUUID && crypto.randomUUID()) ||
-      `${Date.now()}-${Math.random()}`;
-
-    const payload = {
-      idempotency_key: idempotencyKey,
+    const body = {
+      idempotency_key: idem,
       order: {
-        location_id: LOCATION_ID,
+        location_id: locationId,
         line_items: [
           {
-            name: description || `MLT Ride: ${route || ""} ${vehicle || ""} ${tripType || ""}`.trim(),
+            name: lineItemName,
             quantity: "1",
             base_price_money: {
-              amount: amountCents,
+              amount: Number(amountCents),
               currency: "USD",
             },
           },
         ],
       },
+      checkout_options: {
+        // change this to your real thank-you page if you want
+        redirect_url: "https://mltorlandotransportation.com/booking.html?paid=1",
+      },
     };
 
-    console.log("Creating payment link:", {
-      env: SQUARE_ENV,
-      location: LOCATION_ID,
-      amountCents,
-      route,
-      vehicle,
-      tripType,
-    });
-
-    const squareRes = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
+    const resp = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
       method: "POST",
       headers: {
-        "Square-Version": SQUARE_VERSION,
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
         "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "Square-Version": "2025-01-23", // ok if Square accepts; if this errors, remove this line
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(body),
     });
 
-    const rawText = await squareRes.text(); // IMPORTANT: always read text first
-    console.log("Square status:", squareRes.status);
-    console.log("Square body:", rawText);
+    const data = await resp.json();
 
-    // Try parse JSON if possible
-    let parsed = null;
-    try {
-      parsed = rawText ? JSON.parse(rawText) : null;
-    } catch (_) {}
-
-    if (!squareRes.ok) {
-      // Return Square error details to the browser
-      return res.status(502).json({
+    if (!resp.ok) {
+      return res.status(resp.status).json({
+        ok: false,
         error: "Square API error",
-        squareStatus: squareRes.status,
-        squareBody: parsed || rawText || null,
+        details: data,
       });
     }
 
-    const paymentLink = parsed?.payment_link;
-    return res.status(200).json({
-      ok: true,
-      url: paymentLink?.url,
-      long_url: paymentLink?.long_url,
-      id: paymentLink?.id,
-    });
+    const url = data?.payment_link?.url;
+    if (!url) {
+      return res.status(500).json({ ok: false, error: "No payment_link.url returned", details: data });
+    }
+
+    return res.status(200).json({ ok: true, url });
   } catch (err) {
-    console.error("Function crash:", err);
-    return res.status(502).json({
-      error: "Serverless function crashed",
-      message: err?.message || String(err),
-    });
+    return res.status(500).json({ ok: false, error: err?.message || String(err) });
   }
 }
