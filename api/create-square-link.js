@@ -1,6 +1,4 @@
-// api/create-square-link.js
-
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // --- CORS ---
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS, GET");
@@ -8,42 +6,40 @@ module.exports = async function handler(req, res) {
 
   if (req.method === "OPTIONS") return res.status(204).end();
 
-  // Helpful health check
   if (req.method === "GET") {
-    return res.status(200).json({
-      ok: true,
-      message: "API is working",
-      env: process.env.SQUARE_ENV || "production",
-    });
+    return res.status(200).json({ ok: true, message: "API is working", env: process.env.SQUARE_ENV || "production" });
   }
 
   if (req.method !== "POST") {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
+  // Some Vercel setups don’t always parse JSON automatically in plain /api functions
+  async function readJsonBody(request) {
+    if (request.body && typeof request.body === "object") return request.body;
+
+    const chunks = [];
+    for await (const chunk of request) chunks.push(chunk);
+    const raw = Buffer.concat(chunks).toString("utf8");
+    if (!raw) return {};
+    try { return JSON.parse(raw); } catch { return {}; }
+  }
+
   try {
-    // Vercel sometimes gives req.body as object, sometimes string
-    let body = req.body;
-    if (typeof body === "string") {
-      try {
-        body = JSON.parse(body);
-      } catch {
-        return res.status(400).json({ ok: false, error: "Invalid JSON body" });
-      }
+    const bodyIn = await readJsonBody(req);
+    const { amountCents, route, vehicle, tripType, hours } = bodyIn || {};
+
+    const amt = Number(amountCents);
+    if (!amt || Number.isNaN(amt) || amt < 50) {
+      return res.status(400).json({ ok: false, error: "amountCents is required (number, >= 50)" });
     }
 
-    const { amountCents, route, vehicle, tripType } = body || {};
+    // --- REQUIRED ENV VARS in Vercel ---
+    // Use EXACT NAMES below in Vercel
+    const accessToken = process.env.SQUARE_ACCESS_TOKEN || process.env.SQUARE_ACCESS_TOKEN_PROD;
+    const locationId = process.env.SQUARE_LOCATION_ID || process.env.SQUARE_LOCATION_ID_PROD;
 
-    const amount = Number(amountCents);
-    if (!Number.isFinite(amount) || amount <= 0) {
-      return res
-        .status(400)
-        .json({ ok: false, error: "amountCents is required and must be > 0 (number)" });
-    }
-
-    // --- REQUIRED ENV VARS ---
-    const accessToken = process.env.SQUARE_ACCESS_TOKEN;
-    const locationId = process.env.SQUARE_LOCATION_ID;
+    // Optional (recommended)
     const redirectUrl =
       process.env.SQUARE_REDIRECT_URL ||
       "https://www.mltorlandotransportation.com/booking.html?paid=1";
@@ -51,24 +47,22 @@ module.exports = async function handler(req, res) {
     if (!accessToken || !locationId) {
       return res.status(500).json({
         ok: false,
-        error:
-          "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel (Production).",
+        error: "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel.",
       });
     }
 
-    // Choose base URL
-    const squareEnv = (process.env.SQUARE_ENV || "production").toLowerCase();
-    const baseUrl =
-      squareEnv === "sandbox"
-        ? "https://connect.squareupsandbox.com"
-        : "https://connect.squareup.com";
+    // PRODUCTION base URL
+    const baseUrl = "https://connect.squareup.com";
 
+    // Idempotency key
     const idem = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-    const lineItemName =
-      [route ? `Route: ${route}` : null, vehicle ? `Vehicle: ${vehicle}` : null, tripType ? `Trip: ${tripType}` : null]
-        .filter(Boolean)
-        .join(" | ") || "MLT Orlando Transportation";
+    const lineItemName = [
+      route ? `Route: ${route}` : null,
+      vehicle ? `Vehicle: ${vehicle}` : null,
+      tripType ? `Trip: ${tripType}` : null,
+      (route === "HOURLY" && tripType === "HOURLY" && hours) ? `Hours: ${hours}` : null,
+    ].filter(Boolean).join(" | ") || "MLT Orlando Transportation";
 
     const payload = {
       idempotency_key: idem,
@@ -78,7 +72,10 @@ module.exports = async function handler(req, res) {
           {
             name: lineItemName,
             quantity: "1",
-            base_price_money: { amount: Math.round(amount), currency: "USD" },
+            base_price_money: {
+              amount: Math.round(amt),
+              currency: "USD",
+            },
           },
         ],
       },
@@ -92,40 +89,30 @@ module.exports = async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        // If you ever suspect version issues, you can remove this header entirely.
-        // "Square-Version": "2025-01-23",
+        // If you ever see version-related errors, remove this header.
+        "Square-Version": "2024-06-04",
       },
       body: JSON.stringify(payload),
     });
 
-    const dataText = await resp.text();
-    let data;
-    try {
-      data = JSON.parse(dataText);
-    } catch {
-      data = { raw: dataText };
-    }
+    const data = await resp.json().catch(() => ({}));
 
     if (!resp.ok) {
+      // return full Square error so you can see EXACT cause in DevTools
       return res.status(resp.status).json({
         ok: false,
         error: "Square API error",
-        status: resp.status,
-        details: data, // <--- THIS is what we need to see for the 400
+        details: data,
       });
     }
 
     const url = data?.payment_link?.url;
     if (!url) {
-      return res.status(500).json({
-        ok: false,
-        error: "No payment_link.url returned",
-        details: data,
-      });
+      return res.status(500).json({ ok: false, error: "No payment_link.url returned", details: data });
     }
 
     return res.status(200).json({ ok: true, url });
   } catch (err) {
     return res.status(500).json({ ok: false, error: err?.message || String(err) });
   }
-};
+}
