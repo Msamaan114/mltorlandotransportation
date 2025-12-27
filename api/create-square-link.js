@@ -1,10 +1,14 @@
-export default async function handler(req, res) {
+// api/create-square-link.js
+
+module.exports = async function handler(req, res) {
   // --- CORS ---
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS, GET");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(204).end();
+
+  // Helpful health check
   if (req.method === "GET") {
     return res.status(200).json({
       ok: true,
@@ -18,51 +22,53 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Vercel sometimes gives req.body as an object, sometimes as a string
-    const bodyIn = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
-    const { amountCents, route, vehicle, tripType } = bodyIn;
-
-    const amt = Number(amountCents);
-    if (!Number.isFinite(amt) || amt <= 0 || !Number.isInteger(amt)) {
-      return res.status(400).json({
-        ok: false,
-        error: "amountCents must be a positive integer (e.g. 12000 for $120.00)",
-      });
+    // Vercel sometimes gives req.body as object, sometimes string
+    let body = req.body;
+    if (typeof body === "string") {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        return res.status(400).json({ ok: false, error: "Invalid JSON body" });
+      }
     }
 
-    // --- REQUIRED ENV VARS in Vercel ---
+    const { amountCents, route, vehicle, tripType } = body || {};
+
+    const amount = Number(amountCents);
+    if (!Number.isFinite(amount) || amount <= 0) {
+      return res
+        .status(400)
+        .json({ ok: false, error: "amountCents is required and must be > 0 (number)" });
+    }
+
+    // --- REQUIRED ENV VARS ---
     const accessToken = process.env.SQUARE_ACCESS_TOKEN;
     const locationId = process.env.SQUARE_LOCATION_ID;
+    const redirectUrl =
+      process.env.SQUARE_REDIRECT_URL ||
+      "https://www.mltorlandotransportation.com/booking.html?paid=1";
 
     if (!accessToken || !locationId) {
       return res.status(500).json({
         ok: false,
-        error: "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel.",
+        error:
+          "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel (Production).",
       });
     }
 
-    // Choose environment
+    // Choose base URL
     const squareEnv = (process.env.SQUARE_ENV || "production").toLowerCase();
-    // Production vs Sandbox base URL are different :contentReference[oaicite:1]{index=1}
     const baseUrl =
       squareEnv === "sandbox"
         ? "https://connect.squareupsandbox.com"
         : "https://connect.squareup.com";
 
-    const redirectUrl =
-      process.env.SQUARE_REDIRECT_URL ||
-      "https://www.mltorlandotransportation.com/booking.html?paid=1";
-
-    // Idempotency key
     const idem = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-    const lineItemName = [
-      route ? `Route: ${route}` : null,
-      vehicle ? `Vehicle: ${vehicle}` : null,
-      tripType ? `Trip: ${tripType}` : null,
-    ]
-      .filter(Boolean)
-      .join(" | ") || "MLT Orlando Transportation";
+    const lineItemName =
+      [route ? `Route: ${route}` : null, vehicle ? `Vehicle: ${vehicle}` : null, tripType ? `Trip: ${tripType}` : null]
+        .filter(Boolean)
+        .join(" | ") || "MLT Orlando Transportation";
 
     const payload = {
       idempotency_key: idem,
@@ -72,7 +78,7 @@ export default async function handler(req, res) {
           {
             name: lineItemName,
             quantity: "1",
-            base_price_money: { amount: amt, currency: "USD" },
+            base_price_money: { amount: Math.round(amount), currency: "USD" },
           },
         ],
       },
@@ -86,23 +92,26 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        // Use a known-valid Square-Version date (your previous one can trigger 400)
-        "Square-Version": "2025-03-19", // :contentReference[oaicite:2]{index=2}
+        // If you ever suspect version issues, you can remove this header entirely.
+        // "Square-Version": "2025-01-23",
       },
       body: JSON.stringify(payload),
     });
 
-    const data = await resp.json().catch(() => ({}));
+    const dataText = await resp.text();
+    let data;
+    try {
+      data = JSON.parse(dataText);
+    } catch {
+      data = { raw: dataText };
+    }
 
     if (!resp.ok) {
-      // Return Square errors clearly so you can see them in Network -> Response
       return res.status(resp.status).json({
         ok: false,
         error: "Square API error",
-        squareEnv,
         status: resp.status,
-        squareErrors: data?.errors || null,
-        raw: data,
+        details: data, // <--- THIS is what we need to see for the 400
       });
     }
 
@@ -111,16 +120,12 @@ export default async function handler(req, res) {
       return res.status(500).json({
         ok: false,
         error: "No payment_link.url returned",
-        squareEnv,
-        raw: data,
+        details: data,
       });
     }
 
     return res.status(200).json({ ok: true, url });
   } catch (err) {
-    return res.status(500).json({
-      ok: false,
-      error: err?.message || String(err),
-    });
+    return res.status(500).json({ ok: false, error: err?.message || String(err) });
   }
-}
+};
