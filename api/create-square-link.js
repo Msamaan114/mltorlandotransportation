@@ -1,7 +1,3 @@
-// /api/create-square-link.js
-// Vercel Serverless Function (Node)
-// Works for Square PRODUCTION by default, but supports sandbox via SQUARE_ENV=sandbox
-
 export default async function handler(req, res) {
   // --- CORS (lets your pages call this API) ---
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -9,11 +5,14 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(204).end();
+
+  // Health check
   if (req.method === "GET") {
     return res.status(200).json({
       ok: true,
       message: "API is working",
-      env: (process.env.SQUARE_ENV || "production").toLowerCase(),
+      env: process.env.NODE_ENV || "unknown",
+      squareEnv: process.env.SQUARE_ENV || "production-default",
     });
   }
 
@@ -21,11 +20,27 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
+  // Robust JSON parsing (works for Vercel functions + other setups)
+  async function readJsonBody(request) {
+    if (request.body && typeof request.body === "object") return request.body;
+
+    const chunks = [];
+    for await (const chunk of request) chunks.push(chunk);
+    const raw = Buffer.concat(chunks).toString("utf8").trim();
+    if (!raw) return {};
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return {};
+    }
+  }
+
   try {
-    const { amountCents, route, vehicle, tripType } = req.body || {};
+    const bodyIn = await readJsonBody(req);
+    const { amountCents, route, vehicle, tripType } = bodyIn || {};
 
     const amountNum = Number(amountCents);
-    if (!Number.isFinite(amountNum) || amountNum <= 0) {
+    if (!amountCents || Number.isNaN(amountNum) || amountNum <= 0) {
       return res.status(400).json({
         ok: false,
         error: "amountCents is required (positive number)",
@@ -33,26 +48,27 @@ export default async function handler(req, res) {
       });
     }
 
-    // --- REQUIRED ENV VARS in Vercel ---
-    const accessToken = process.env.SQUARE_ACCESS_TOKEN;
-    const locationId = process.env.SQUARE_LOCATION_ID;
-    const squareEnv = (process.env.SQUARE_ENV || "production").toLowerCase(); // production | sandbox
+    // --- REQUIRED ENV VARS in Vercel (Production env) ---
+    const accessToken = process.env.SQUARE_ACCESS_TOKEN; // PRODUCTION token
+    const locationId = process.env.SQUARE_LOCATION_ID;   // PRODUCTION location
 
     if (!accessToken || !locationId) {
       return res.status(500).json({
         ok: false,
         error:
-          "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel (Production).",
+          "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel (Production environment).",
       });
     }
 
-    // Production vs Sandbox base URL
+    // Use production Square base URL
+    // (You can optionally set SQUARE_ENV=sandbox if you ever want to test again.)
+    const squareEnv = (process.env.SQUARE_ENV || "production").toLowerCase();
     const baseUrl =
       squareEnv === "sandbox"
         ? "https://connect.squareupsandbox.com"
         : "https://connect.squareup.com";
 
-    // Idempotency key (simple + good enough)
+    // Idempotency key
     const idem = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
     const lineItemName =
@@ -60,13 +76,7 @@ export default async function handler(req, res) {
         .filter(Boolean)
         .join(" | ") || "MLT Orlando Transportation";
 
-    // IMPORTANT:
-    // Use your real domain here if you want customers returned to booking page after payment.
-    const redirectUrl =
-      process.env.SQUARE_REDIRECT_URL ||
-      "https://www.mltorlandotransportation.com/booking.html?paid=1";
-
-    const body = {
+    const payload = {
       idempotency_key: idem,
       order: {
         location_id: locationId,
@@ -82,7 +92,8 @@ export default async function handler(req, res) {
         ],
       },
       checkout_options: {
-        redirect_url: redirectUrl,
+        // Change to your real thank-you page if you want
+        redirect_url: "https://www.mltorlandotransportation.com/booking.html?paid=1",
       },
     };
 
@@ -91,10 +102,9 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        // If Square rejects the version header, just delete this line.
-        "Square-Version": "2025-01-23",
+        // NOTE: intentionally NOT setting Square-Version here to avoid version mismatch errors
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(payload),
     });
 
     const data = await resp.json().catch(() => ({}));
@@ -103,8 +113,7 @@ export default async function handler(req, res) {
       return res.status(resp.status).json({
         ok: false,
         error: "Square API error",
-        squareEnv,
-        baseUrl,
+        status: resp.status,
         details: data,
       });
     }
@@ -114,7 +123,6 @@ export default async function handler(req, res) {
       return res.status(500).json({
         ok: false,
         error: "No payment_link.url returned",
-        squareEnv,
         details: data,
       });
     }
