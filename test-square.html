@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Square Test</title>
+  <style>
+    body { font-family: system-ui; padding: 20px; max-width: 520px; margin: auto; }
+    input, button { width: 100%; padding: 12px; margin: 10px 0; font-size: 16px; }
+    .box { padding: 12px; background: #f5f5f5; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Square Payment Link Test</h2>
+
+  <label>Amount (USD)</label>
+  <input id="amount" type="number" min="1" step="1" value="10" />
+
+  <button id="payBtn">Create Payment Link</button>
+
+  <div class="box">
+    <div id="status">Status: idle</div>
+    <div id="link"></div>
+  </div>
+
+  <script>
+    const API_URL = "https://YOUR-VERCEL-PROJECT.vercel.app/api/create-square-link";
+
+    const statusEl = document.getElementById("status");
+    const linkEl = document.getElementById("link");
+    const btn = document.getElementById("payBtn");
+
+    btn.addEventListener("click", async () => {
+      linkEl.innerHTML = "";
+      statusEl.textContent = "Status: creating link...";
+      btn.disabled = true;
+
+      try {
+        const amount = Number(document.getElementById("amount").value);
+
+        const r = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount,
+            currency: "USD",
+            name: "MLT Orlando Transportation",
+            note: "Test payment link"
+          }),
+        });
+
+        const data = await r.json();
+
+        if (!data.ok) {
+          statusEl.textContent = "Status: error (check console)";
+          console.log("API error:", data);
+          alert(data.error || "API error");
+          return;
+        }
+
+        const url = data.url || data.long_url;
+        statusEl.textContent = "Status: success!";
+        linkEl.innerHTML = `<a href="${url}" target="_blank" rel="noopener">Open Square Checkout</a>
+                            <br/><br/>
+                            <button onclick="location.href='${url}'">Go to Checkout</button>`;
+      } catch (e) {
+        statusEl.textContent = "Status: error";
+        console.error(e);
+        alert(e.message || "Error");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
