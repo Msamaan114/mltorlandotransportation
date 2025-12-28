@@ -8,6 +8,7 @@
     body { font-family: system-ui; padding: 20px; max-width: 520px; margin: auto; }
     input, button { width: 100%; padding: 12px; margin: 10px 0; font-size: 16px; }
     .box { padding: 12px; background: #f5f5f5; border-radius: 10px; }
+    a { word-break: break-all; }
   </style>
 </head>
 <body>
@@ -16,7 +17,7 @@
   <label>Amount (USD)</label>
   <input id="amount" type="number" min="1" step="1" value="10" />
 
-  <button id="payBtn">Create Payment Link</button>
+  <button id="payBtn" type="button">Create Payment Link</button>
 
   <div class="box">
     <div id="status">Status: idle</div>
@@ -24,10 +25,9 @@
   </div>
 
   <script>
-    //const API_URL = "https://mltorlandotransportation-iemohwjvy-mina-samaans-projects.vercel.app/api/create-square-link";
-
-    const API_URL = "https://mltorlandotransportation-ols2xs31z-mina-samaans-projects.vercel.app/api/create-square-link";
-
+    // ✅ MUST be your Vercel API URL (copy from your working browser test)
+    const API_URL =
+      "https://mltorlandotransportation-ols2xs31z-mina-samaans-projects.vercel.app/api/create-square-link";
 
     const statusEl = document.getElementById("status");
     const linkEl = document.getElementById("link");
@@ -47,7 +47,7 @@
           body: JSON.stringify({
             amount,
             currency: "USD",
-            name: "MLT Orlando Transportation",
+            name: "MLT Orlando Transportation (Test)",
             note: "Test payment link"
           }),
         });
@@ -55,21 +55,24 @@
         const data = await r.json();
 
         if (!data.ok) {
-          statusEl.textContent = "Status: error (check console)";
+          statusEl.textContent = "Status: error (open Console)";
           console.log("API error:", data);
-          alert(data.error || "API error");
+          alert(data.error || "API error (see console)");
           return;
         }
 
         const url = data.url || data.long_url;
         statusEl.textContent = "Status: success!";
-        linkEl.innerHTML = `<a href="${url}" target="_blank" rel="noopener">Open Square Checkout</a>
-                            <br/><br/>
-                            <button onclick="location.href='${url}'">Go to Checkout</button>`;
+        linkEl.innerHTML = `
+          <div><b>Checkout link:</b></div>
+          <a href="${url}" target="_blank" rel="noopener">${url}</a>
+          <br/><br/>
+          <button onclick="location.href='${url}'">Go to Checkout</button>
+        `;
       } catch (e) {
-        statusEl.textContent = "Status: error";
-        console.error(e);
-        alert(e.message || "Error");
+        statusEl.textContent = "Status: FAILED TO FETCH";
+        console.error("Fetch failed:", e);
+        alert("Failed to fetch (check Console for CORS / URL / network error)");
       } finally {
         btn.disabled = false;
       }
