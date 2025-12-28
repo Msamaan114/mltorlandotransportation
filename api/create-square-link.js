@@ -1,118 +1,93 @@
+// /api/create-payment-link.js
+// Creates a Square-hosted checkout link (Payment Link) using Square Checkout API.
+// Docs: POST /v2/online-checkout/payment-links :contentReference[oaicite:1]{index=1}
+
 export default async function handler(req, res) {
-  // --- CORS ---
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS, GET");
+  // CORS (tighten origin in production)
+  const allowedOrigin = process.env.ALLOWED_ORIGIN || "https://mltorlandotransportation.com";
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(204).end();
-
-  if (req.method === "GET") {
-    return res.status(200).json({ ok: true, message: "API is working", env: process.env.SQUARE_ENV || "production" });
-  }
-
-  if (req.method !== "POST") {
-    return res.status(405).json({ ok: false, error: "Method not allowed" });
-  }
-
-  // Some Vercel setups don’t always parse JSON automatically in plain /api functions
-  async function readJsonBody(request) {
-    if (request.body && typeof request.body === "object") return request.body;
-
-    const chunks = [];
-    for await (const chunk of request) chunks.push(chunk);
-    const raw = Buffer.concat(chunks).toString("utf8");
-    if (!raw) return {};
-    try { return JSON.parse(raw); } catch { return {}; }
-  }
+  if (req.method !== "POST") return res.status(405).json({ ok: false, error: "Use POST" });
 
   try {
-    const bodyIn = await readJsonBody(req);
-    const { amountCents, route, vehicle, tripType, hours } = bodyIn || {};
+    const { amount, currency = "USD", name = "Transportation Service", note = "" } = req.body || {};
 
-    const amt = Number(amountCents);
-    if (!amt || Number.isNaN(amt) || amt < 50) {
-      return res.status(400).json({ ok: false, error: "amountCents is required (number, >= 50)" });
+    // Validate amount: expect dollars as number/string, convert to cents
+    const dollars = Number(amount);
+    if (!Number.isFinite(dollars) || dollars <= 0) {
+      return res.status(400).json({ ok: false, error: "Invalid amount" });
     }
 
-    // --- REQUIRED ENV VARS in Vercel ---
-    // Use EXACT NAMES below in Vercel
-    const accessToken = process.env.SQUARE_ACCESS_TOKEN || process.env.SQUARE_ACCESS_TOKEN_PROD;
-    const locationId = process.env.SQUARE_LOCATION_ID || process.env.SQUARE_LOCATION_ID_PROD;
+    // Example guardrails (adjust to your business)
+    if (dollars < 1 || dollars > 5000) {
+      return res.status(400).json({ ok: false, error: "Amount out of allowed range" });
+    }
 
-    // Optional (recommended)
-    const redirectUrl =
-      process.env.SQUARE_REDIRECT_URL ||
-      "https://www.mltorlandotransportation.com/booking.html?paid=1";
+    const cents = Math.round(dollars * 100);
+
+    const accessToken = process.env.SQUARE_ACCESS_TOKEN;
+    const locationId = process.env.SQUARE_LOCATION_ID;
+    const env = (process.env.SQUARE_ENV || "production").toLowerCase();
 
     if (!accessToken || !locationId) {
-      return res.status(500).json({
-        ok: false,
-        error: "Missing env vars. Set SQUARE_ACCESS_TOKEN and SQUARE_LOCATION_ID in Vercel.",
-      });
+      return res.status(500).json({ ok: false, error: "Missing Square env vars" });
     }
 
-    // PRODUCTION base URL
-    const baseUrl = "https://connect.squareup.com";
+    // Square base URLs:
+    // Production: https://connect.squareup.com
+    // Sandbox:    https://connect.squareupsandbox.com :contentReference[oaicite:2]{index=2}
+    const baseUrl =
+      env === "sandbox" ? "https://connect.squareupsandbox.com" : "https://connect.squareup.com";
 
-    // Idempotency key
-    const idem = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-
-    const lineItemName = [
-      route ? `Route: ${route}` : null,
-      vehicle ? `Vehicle: ${vehicle}` : null,
-      tripType ? `Trip: ${tripType}` : null,
-      (route === "HOURLY" && tripType === "HOURLY" && hours) ? `Hours: ${hours}` : null,
-    ].filter(Boolean).join(" | ") || "MLT Orlando Transportation";
+    const idempotencyKey =
+      (globalThis.crypto?.randomUUID?.() ||
+        `${Date.now()}-${Math.random().toString(16).slice(2)}`);
 
     const payload = {
-      idempotency_key: idem,
-      order: {
+      idempotency_key: idempotencyKey,
+      quick_pay: {
+        name,
+        price_money: { amount: cents, currency },
         location_id: locationId,
-        line_items: [
-          {
-            name: lineItemName,
-            quantity: "1",
-            base_price_money: {
-              amount: Math.round(amt),
-              currency: "USD",
-            },
-          },
-        ],
       },
-      checkout_options: {
-        redirect_url: redirectUrl,
-      },
+      // Optional: adds a note to the resulting Payment :contentReference[oaicite:3]{index=3}
+      payment_note: note,
+      // You can also add checkout_options.redirect_url, custom fields, tipping, etc.
     };
 
-    const resp = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
+    const squareResp = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        // If you ever see version-related errors, remove this header.
-        "Square-Version": "2024-06-04",
+        // Pinning the Square-Version is recommended; the API reference shows current versions. :contentReference[oaicite:4]{index=4}
+        "Square-Version": "2025-10-16",
       },
       body: JSON.stringify(payload),
     });
 
-    const data = await resp.json().catch(() => ({}));
+    const data = await squareResp.json();
 
-    if (!resp.ok) {
-      // return full Square error so you can see EXACT cause in DevTools
-      return res.status(resp.status).json({
+    if (!squareResp.ok) {
+      return res.status(400).json({
         ok: false,
-        error: "Square API error",
+        error: "Square error",
         details: data,
       });
     }
 
-    const url = data?.payment_link?.url;
-    if (!url) {
-      return res.status(500).json({ ok: false, error: "No payment_link.url returned", details: data });
-    }
-
-    return res.status(200).json({ ok: true, url });
+    // Response includes payment_link.url / long_url :contentReference[oaicite:5]{index=5}
+    return res.status(200).json({
+      ok: true,
+      url: data?.payment_link?.url,
+      long_url: data?.payment_link?.long_url,
+      order_id: data?.payment_link?.order_id,
+      payment_link_id: data?.payment_link?.id,
+    });
   } catch (err) {
-    return res.status(500).json({ ok: false, error: err?.message || String(err) });
+    return res.status(500).json({ ok: false, error: err?.message || "Server error" });
   }
 }
