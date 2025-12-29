@@ -8,916 +8,444 @@
     name="description"
     content="Share your trip details with MLT Orlando Transportation so we can confirm your booking and send the correct Square payment link for your route."
   />
-  <meta property="og:title" content="Booking Details &amp; Contact | MLT Orlando Transportation" />
-  <meta
-    property="og:description"
-    content="Book private transportation in Orlando, Windermere, Lake Buena Vista, Golden Oak, Winter Park, I-Drive, SeaWorld and Port Canaveral."
-  />
-  <meta property="og:image" content="https://www.mltorlandotransportation.com/suv-front-main.jpeg" />
-  <meta property="og:url" content="https://www.mltorlandotransportation.com/booking.html" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { background: #f3f4f6; color: #020617; line-height: 1.55; }
+    a { color: inherit; text-decoration: none; }
+    header { background: #020617; color: #fff; padding: 16px; }
+    .nav { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .brand { font-weight: 800; letter-spacing: .5px; }
+    .links { display: flex; gap: 14px; flex-wrap: wrap; font-size: 14px; opacity: .95; }
+    .links a { padding: 6px 10px; border-radius: 10px; }
+    .links a:hover { background: rgba(255,255,255,.08); }
+
+    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+    @media (min-width: 980px) { .grid { grid-template-columns: 1.2fr .8fr; } }
+
+    .card { background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(2,6,23,.08); overflow: hidden; }
+    .card .head { padding: 16px 16px 12px; border-bottom: 1px solid #e5e7eb; }
+    .card .head h1, .card .head h2 { font-size: 18px; margin-bottom: 6px; }
+    .card .head p { font-size: 13px; color: #475569; }
+
+    form { padding: 16px; }
+    .section { margin-top: 16px; }
+    .section:first-child { margin-top: 0; }
+    .section-title { font-weight: 750; font-size: 14px; margin-bottom: 10px; color: #0f172a; }
+    .row { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 700px) { .row.two { grid-template-columns: 1fr 1fr; } }
+
+    label { font-size: 12px; color: #334155; margin-bottom: 6px; display: block; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.12); }
+    textarea { min-height: 100px; resize: vertical; }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 12px; border-radius: 999px; font-size: 12px;
+      background: #f1f5f9; color: #0f172a;
+    }
+    .pill strong { font-weight: 800; }
+    .muted { color: #64748b; font-size: 12px; }
+    .danger { color: #b91c1c; }
+    .ok { color: #166534; }
+
+    .btns { display: grid; gap: 10px; margin-top: 14px; }
+    @media (min-width: 700px) { .btns { grid-template-columns: 1fr 1fr; } }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 14px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn-submit { background: #0ea5e9; color: #fff; }
+    .btn-submit:hover { filter: brightness(.97); }
+    .btn-pay { background: #111827; color: #fff; }
+    .btn-pay[disabled] { background: #9ca3af; cursor: not-allowed; }
+    .btn-pay:hover { filter: brightness(.97); }
+
+    .note {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 12px;
+      color: #334155;
+    }
+
+    .side { padding: 16px; }
+    .side h3 { font-size: 14px; margin-bottom: 10px; }
+    .side .box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 14px; margin-bottom: 12px; }
+    .side .box p { font-size: 12px; color: #334155; margin: 6px 0; }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+
+    .status { margin-top: 10px; font-size: 12px; }
+    .status a { text-decoration: underline; }
+  </style>
 </head>
+
 <body>
-  <!-- Top contact bar -->
-  <div class="top-bar">
-    <div class="top-bar-inner">
-      <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
-
-      <div class="top-bar-right">
-        <span>
-          Call: <a href="tel:14073690643">407-369-0643</a> ·
-          Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
-        </span>
-
-        <div class="social-top">
-          <a href="https://facebook.com/" target="_blank" rel="noopener">
-            <img src="facebook-icon.jpeg" alt="Facebook" />
-          </a>
-          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-            <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
-          </a>
-          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
-            <img src="instagram-icon.jpeg" alt="Instagram" />
-          </a>
-        </div>
-      </div>
-    </div>
+<header>
+  <div class="nav">
+    <div class="brand">MLT ORLANDO TRANSPORTATION</div>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="owner.html">Owner</a>
+      <a href="private-airport.html">Private Airport</a>
+      <a href="child-seats.html">Child Seats</a>
+      <a href="service-areas.html">Service Areas</a>
+      <a href="rates.html">Rates</a>
+    </nav>
   </div>
+</header>
 
-  <!-- Header / nav -->
-  <header>
-    <div class="nav">
-      <a href="index.html" class="logo" style="text-decoration:none;">MLT Orlando Transportation</a>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="owner.html">Owner</a>
-        <a href="private-airport.html">Private Airport</a>
-        <a href="child-seats.html">Child Seats</a>
-        <a href="service-areas.html">Service Areas</a>
-        <a href="rates.html">Rates</a>
-        <a href="cancellation.html">Cancellation</a>
-        <a href="why-us.html">Why Us</a>
-        <a href="booking.html">Booking</a>
-      </nav>
-    </div>
-  </header>
+<main>
+  <div class="grid">
+    <!-- MAIN FORM -->
+    <div class="card">
+      <div class="head">
+        <h1>Booking Details</h1>
+        <p>Please fill your trip details. If you already selected a route/vehicle from the Rates page, it will auto-fill here.</p>
+      </div>
 
-  <main>
-    <section id="contact">
-      <a
-        href="rates.html"
-        class="btn-primary"
-        style="text-decoration:none; display:inline-block; margin-bottom:1.5rem;"
-      >
-        ← Back to Rates &amp; Booking
-      </a>
+      <!-- ✅ IMPORTANT:
+           Replace the Formspree action URL below with your real endpoint if different. -->
+      <form id="bookingForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <!-- Hidden fields sent to Formspree -->
+        <input type="hidden" id="routeHidden" name="route" />
+        <input type="hidden" id="vehicleHidden" name="vehicle" />
+        <input type="hidden" id="tripHidden" name="trip_type" />
+        <input type="hidden" id="priceHidden" name="price_usd" />
 
-      <h2>Booking Details &amp; Contact</h2>
-      <p class="section-intro">
-        For trips <strong>within 8 hours</strong>, this form sends us a <strong>request</strong> and we must confirm
-        availability before you pay. <br />
-        For trips <strong>more than 8 hours away</strong>, you can submit this form and then pay securely with Square.
-      </p>
-
-      <div class="contact-wrapper">
-        <!-- LEFT -->
-        <div>
-          <form
-            id="booking-form"
-            action="https://formspree.io/f/xovgzajo"
-            method="POST"
-          >
-            <!-- Hidden field to send selected route / vehicle / price / timing info -->
-            <input
-              type="hidden"
-              id="selected-option"
-              name="Selected route / vehicle / price / timing"
-              value=""
-            />
-
-            <!-- Optional: for Formspree readability -->
-            <input type="hidden" id="child-seats-summary" name="Child seats summary" value="" />
-
-            <label for="name">Passenger name</label>
-            <input id="name" name="Passenger name" type="text" placeholder="Full name" required />
-
-            <label for="email">Email (same as payment)</label>
-            <input id="email" name="Email" type="email" placeholder="you@example.com" required />
-
-            <label for="phone">Mobile / WhatsApp number</label>
-            <input id="phone" name="Phone" type="tel" placeholder="+1 407-369-0643" required />
-
-            <label for="pickup-date">Pickup date</label>
-            <input id="pickup-date" name="Pickup date" type="date" required />
-
-            <label for="pickup-time">Pickup time (local)</label>
-            <input id="pickup-time" name="Pickup time" type="time" required />
-
-            <p id="timing-banner" class="hero-note" style="margin-top:0.75rem;">
-              Once you select your pickup date and time, we’ll tell you if this is a short-notice request (&lt; 8 hours) or a standard booking (≥ 8 hours).
-            </p>
-
-            <!-- ROUTE / VEHICLE / TRIP TYPE SELECTION (AFTER TIME) -->
-            <div id="route-vehicle-card" class="card" style="margin:1.25rem 0; display:none;">
-              <h3>Select Your Route &amp; Vehicle</h3>
-
-              <label for="route">Route / Area</label>
-              <select id="route">
-                <option value="">Select a route</option>
-                <option value="MCO_UNIVERSAL">MCO ↔ Universal / I-Drive / SeaWorld / Convention Center</option>
-                <option value="MCO_DISNEY">MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</option>
-                <option value="MCO_WINDERMERE">MCO ↔ Windermere / Winter Park</option>
-                <option value="MCO_PORT">MCO / Orlando ↔ Port Canaveral</option>
-                <option value="SFB_IDRIVE">SFB ↔ I-Drive / Convention Center / Universal / SeaWorld</option>
-                <option value="SFB_DISNEY">SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak</option>
-                <option value="HOURLY">Hourly Charter (within Orlando)</option>
-                <option value="CUSTOM">Other / custom route (we will confirm price by email)</option>
-              </select>
-
-              <label for="vehicle">Vehicle type</label>
-              <select id="vehicle">
-                <option value="">Select a vehicle</option>
-                <option value="SEDAN">Sedan (up to 3) · 🧳 2 large · 1 carry-on</option>
-                <option value="SUV">SUV (up to 5) · 🧳 5 large · 3 carry-on</option>
-                <option value="VAN8">8-passenger van · 🧳 10 large · 5 carry-on</option>
-                <option value="VAN14">14-passenger van · 🧳 14 large · 7 carry-on</option>
-              </select>
-
-              <label for="trip-type">Trip type</label>
-              <select id="trip-type">
-                <option value="">Select trip type</option>
-                <option value="ONEWAY">One-way</option>
-                <option value="ROUND">Round trip</option>
-                <option value="HOURLY">Hourly (3-hour minimum)</option>
-              </select>
-
-              <!-- Charter hours dropdown (3 to 24) -->
-              <div id="charter-hours-wrap" style="display:none; margin-top:0.75rem;">
-                <label for="charter-hours">Charter hours</label>
-                <select id="charter-hours" name="Charter hours"></select>
-                <p class="hero-note" style="margin-top:0.5rem;">
-                  Hourly charters have a 3-hour minimum. Select your total hours (3–24).
-                </p>
-              </div>
-
-              <div class="card" style="margin-top:1rem; background:#f9fafb;">
-                <p id="price-text" class="hero-note" style="margin-bottom:0;">
-                  Select your route, vehicle and trip type to see the price and payment instructions.
-                </p>
-              </div>
+        <div class="section">
+          <div class="section-title">Passenger info</div>
+          <div class="row two">
+            <div>
+              <label for="passengerName">Passenger name</label>
+              <input id="passengerName" name="passenger_name" type="text" placeholder="Full name" required />
             </div>
-
-            <label for="pickup-location">Pickup location (airport, hotel, or address)</label>
-            <input
-              id="pickup-location"
-              name="Pickup location"
-              type="text"
-              placeholder="Example: MCO (Orlando Intl), Hyatt Regency Orlando, 123 Main St, Orlando FL"
-              required
-            />
-
-            <label for="flight">Airline &amp; flight number (if flying)</label>
-            <input
-              id="flight"
-              name="Airline &amp; flight number"
-              type="text"
-              placeholder="Example: Delta 1234"
-            />
-
-            <label for="destination">Destination address / hotel</label>
-            <input
-              id="destination"
-              name="Destination"
-              type="text"
-              placeholder="Hotel name or full address"
-              required
-            />
-
-            <label for="passengers">Number of passengers</label>
-            <input
-              id="passengers"
-              name="Passengers"
-              type="number"
-              min="1"
-              max="14"
-              placeholder="2 adults, 2 children"
-              required
-            />
-
-            <label for="luggage">Luggage details</label>
-            <input
-              id="luggage"
-              name="Luggage"
-              type="text"
-              placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller"
-            />
-
-            <!-- CHILD SEATS REPEATER -->
-            <label>Child seats (add what you need)</label>
-
-            <div id="seat-rows">
-              <div class="seat-row" style="display:grid; grid-template-columns:1fr 90px 40px; gap:0.5rem; align-items:center;">
-                <select class="seat-type" name="Child seat type[]" aria-label="Seat type">
-                  <option value="">Select seat type</option>
-                  <option value="Rear-facing infant seat">Rear-facing infant seat</option>
-                  <option value="Forward-facing car seat">Forward-facing car seat</option>
-                  <option value="Booster seat">Booster seat</option>
-                </select>
-
-                <select class="seat-qty" name="Child seat quantity[]" aria-label="Quantity">
-                  <option value="">#</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-
-                <button type="button" class="seat-remove btn-secondary" aria-label="Remove seat selection" style="display:none; padding:0.4rem 0.6rem;">
-                  ×
-                </button>
-              </div>
+            <div>
+              <label for="email">Email (same as payment)</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" required />
             </div>
-
-            <button type="button" id="add-seat-row" class="btn-secondary" style="margin-top:0.6rem;">
-              + Add another seat type
-            </button>
-
-            <p class="hero-note" style="margin-top:0.6rem;">
-              Example: add “Rear-facing infant seat = 1”, then press + to add “Booster seat = 2”.
-            </p>
-
-            <!-- RETURN DETAILS (only when ROUND) -->
-            <div id="return-details-card" class="card" style="margin-top:1.25rem; display:none;">
-              <h3 style="margin-top:0;">Return trip details</h3>
-              <p class="hero-note" style="margin-top:-0.25rem;">
-                Fill this out only if you selected <strong>Round trip</strong>.
-              </p>
-
-              <label for="return-from">Return pickup (from where?)</label>
-              <input id="return-from" name="Return pickup location" type="text" placeholder="e.g. Hotel / address" />
-
-              <label for="return-to">Return destination (to where?)</label>
-              <input id="return-to" name="Return destination" type="text" placeholder="e.g. MCO / SFB / address" />
-
-              <label for="return-date">Return date</label>
-              <input id="return-date" name="Return date" type="date" />
-
-              <label for="return-time">Return pickup time (local)</label>
-              <input id="return-time" name="Return pickup time" type="time" />
-
-              <label for="return-notes">Return trip comments</label>
-              <textarea
-                id="return-notes"
-                name="Return trip comments"
-                placeholder="Anything we should know for the return (airline/flight, meeting point, special requests...)"
-              ></textarea>
+          </div>
+          <div class="row two" style="margin-top:10px;">
+            <div>
+              <label for="phone">Mobile / WhatsApp number</label>
+              <input id="phone" name="phone" type="tel" placeholder="(407) 000-0000" required />
             </div>
-
-            <label for="notes">Additional notes</label>
-            <textarea
-              id="notes"
-              name="Notes"
-              placeholder="Child ages and approximate weights, flight info, gate meeting instructions, gate code, private jet tail number, special requests..."
-            ></textarea>
-
-            <!-- TWO SEPARATE BUTTONS -->
-            <button id="submit-btn" type="submit" class="btn-primary">Submit booking request</button>
-
-            <button
-              id="pay-btn"
-              type="button"
-              class="btn-secondary"
-              disabled
-              style="margin-top:0.6rem; width:100%;"
-            >
-              Pay with Square
-            </button>
-
-            <div id="form-status" class="hero-note" style="margin-top:0.75rem; display:none;"></div>
-            <div id="pay-status" class="hero-note" style="margin-top:0.5rem; display:none;"></div>
-
-            <p class="hero-note" style="margin-top:0.75rem;">
-              If your trip is <strong>within 8 hours</strong>, this will be treated as a
-              <strong>short-notice request</strong> and we will confirm availability before you pay. <br />
-              If your trip is <strong>more than 8 hours away</strong>, after you submit, you can complete payment with the <strong>Pay with Square</strong> button.
-            </p>
-          </form>
+            <div>
+              <label for="passengers">Number of passengers</label>
+              <input id="passengers" name="passengers" type="text" placeholder="e.g. 2 adults, 2 children" />
+            </div>
+          </div>
         </div>
 
-        <!-- RIGHT -->
-        <div class="contact-details">
-          <p class="contact-label">Need help before booking?</p>
-          <p>Phone: <a href="tel:14073690643"><strong>407-369-0643</strong></a></p>
-          <p>Email: <a href="mailto:mltorlando@yahoo.com"><strong>mltorlando@yahoo.com</strong></a></p>
-          <p>
-            WhatsApp:
-            <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-              <strong>Message on WhatsApp</strong>
-            </a>
-          </p>
+        <div class="section">
+          <div class="section-title">Pickup date &amp; time</div>
+          <div class="row two">
+            <div>
+              <label for="pickupDate">Pickup date</label>
+              <input id="pickupDate" name="pickup_date" type="date" required />
+            </div>
+            <div>
+              <label for="pickupTime">Pickup time (local)</label>
+              <input id="pickupTime" name="pickup_time" type="time" required />
+            </div>
+          </div>
+          <div class="note" id="urgencyNote" style="display:none;"></div>
+        </div>
 
-          <p class="contact-label" style="margin-top:1rem;">Typical hours</p>
-          <p>Transportation: 24/7 by reservation</p>
-          <p>Messages &amp; quotes: Every day, 8:00 – 20:00 (local time)</p>
+        <div class="section">
+          <div class="section-title">Select your route &amp; vehicle</div>
 
-          <p class="contact-label" style="margin-top:1rem;">Base location</p>
-          <p>
-            MLT Orlando Transportation<br />
-            Orlando, FL<br />
-            United States
-          </p>
+          <div class="row two">
+            <div>
+              <label for="routeDisplay">Route</label>
+              <input id="routeDisplay" name="route_display" type="text" placeholder="Select from Rates page" readonly />
+            </div>
+            <div>
+              <label for="vehicleDisplay">Vehicle</label>
+              <input id="vehicleDisplay" name="vehicle_display" type="text" placeholder="Select from Rates page" readonly />
+            </div>
+          </div>
 
-          <p class="hero-note" style="margin-top:1rem;">
-            If your exact route isn’t listed in the dropdown, choose
-            <strong>Other / custom route</strong> and describe your trip in the notes section. We’ll confirm the
-            price and send the correct Square payment link.
-          </p>
+          <div class="row two" style="margin-top:10px;">
+            <div>
+              <label for="tripTypeDisplay">Trip type</label>
+              <input id="tripTypeDisplay" name="trip_display" type="text" placeholder="oneway / roundtrip / charter" readonly />
+            </div>
+            <div>
+              <label for="totalPrice">Total price (USD)</label>
+              <input id="totalPrice" name="total_price" type="text" placeholder="Auto-filled from Rates page" readonly />
+            </div>
+          </div>
+
+          <div class="note">
+            <div class="pill">
+              <strong>Tip:</strong>
+              If route/vehicle/price are empty, go to <a href="rates.html" style="text-decoration: underline;">Rates</a> and pick a route to auto-fill this page.
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Locations &amp; trip details</div>
+          <div class="row">
+            <div>
+              <label for="pickupLocation">Pickup location (airport, hotel, or address)</label>
+              <input id="pickupLocation" name="pickup_location" type="text" placeholder="Example: MCO (Orlando Intl), Hyatt Regency Orlando, 123 Main St..." required />
+            </div>
+          </div>
+
+          <div class="row two" style="margin-top:10px;">
+            <div>
+              <label for="flight">Airline &amp; flight number (if flying)</label>
+              <input id="flight" name="flight" type="text" placeholder="Example: Delta 1234" />
+            </div>
+            <div>
+              <label for="destination">Destination address / hotel</label>
+              <input id="destination" name="destination" type="text" placeholder="Hotel name or full address" required />
+            </div>
+          </div>
+
+          <div class="row two" style="margin-top:10px;">
+            <div>
+              <label for="luggage">Luggage details</label>
+              <input id="luggage" name="luggage" type="text" placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller" />
+            </div>
+            <div>
+              <label for="childSeats">Child seats (add what you need)</label>
+              <input id="childSeats" name="child_seats" type="text" placeholder="e.g. 1 rear-facing, 1 booster" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:10px;">
+            <div>
+              <label for="notes">Additional notes</label>
+              <textarea id="notes" name="notes" placeholder="Child ages, gate info, private jet tail number, special requests..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="btn-submit" id="submitBtn" type="submit">Submit booking request</button>
+          <button class="btn-pay" id="payBtn" type="button" disabled>Pay with Square</button>
+        </div>
+
+        <div class="status" id="paymentMsg"></div>
+
+        <div class="note">
+          <p><strong>If your trip is within 8 hours</strong>, this will be treated as a short-notice request and we will confirm availability before you pay.</p>
+          <p><strong>If your trip is more than 8 hours away</strong>, after you submit, you can complete payment with the <strong>Pay with Square</strong> button.</p>
+        </div>
+      </form>
+    </div>
+
+    <!-- SIDE PANEL -->
+    <aside class="card">
+      <div class="head">
+        <h2>Need help before booking?</h2>
+        <p>Contact us any time.</p>
+      </div>
+      <div class="side">
+        <div class="box">
+          <h3>Contact</h3>
+          <p><strong>Phone:</strong> <a href="tel:14073690643" style="text-decoration: underline;">407-369-0643</a></p>
+          <p><strong>Email:</strong> <a href="mailto:mltorlando@yahoo.com" style="text-decoration: underline;">mltorlando@yahoo.com</a></p>
+        </div>
+
+        <div class="box">
+          <h3>How payment works</h3>
+          <p>We generate a Square-hosted checkout link and redirect you to secure payment.</p>
+          <p class="muted">If you do not see route/vehicle/price, start from the <strong>Rates</strong> page first.</p>
+        </div>
+
+        <div class="box">
+          <h3>Debug (optional)</h3>
+          <p class="muted">If something fails, open DevTools &rarr; Console/Network.</p>
+          <p class="muted">API endpoint used: <span class="kbd">/api/create-square-link</span></p>
         </div>
       </div>
-    </section>
-  </main>
+    </aside>
+  </div>
+</main>
 
-  <footer>
-    <div class="social-links">
-      <a href="https://facebook.com/" target="_blank" rel="noopener">
-        <img src="facebook-icon.jpeg" alt="Facebook" />
-      </a>
-      <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
-        <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
-      </a>
-      <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
-        <img src="instagram-icon.jpeg" alt="Instagram" />
-      </a>
-    </div>
+<script>
+  // -------------------------
+  // Helpers
+  // -------------------------
+  function qs(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
 
-    © <span id="year"></span> MLT Orlando Transportation. All rights reserved.
-  </footer>
+  function setText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.value = val ?? "";
+  }
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+  function setHidden(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.value = val ?? "";
+  }
 
-    // --- Prices only (Square links are generated by /api/create-square-link) ---
-    const OPTIONS = {
-      MCO_UNIVERSAL: {
-        SEDAN: { ONEWAY: { price: 110 }, ROUND: { price: 210 } },
-        SUV:   { ONEWAY: { price: 120 }, ROUND: { price: 230 } },
-        VAN8:  { ONEWAY: { price: 140 }, ROUND: { price: 260 } },
-        VAN14: { ONEWAY: { price: 170 }, ROUND: { price: 310 } },
-      },
-      MCO_DISNEY: {
-        SEDAN: { ONEWAY: { price: 120 }, ROUND: { price: 220 } },
-        SUV:   { ONEWAY: { price: 130 }, ROUND: { price: 240 } },
-        VAN8:  { ONEWAY: { price: 150 }, ROUND: { price: 280 } },
-        VAN14: { ONEWAY: { price: 180 }, ROUND: { price: 330 } },
-      },
-      MCO_WINDERMERE: {
-        SEDAN: { ONEWAY: { price: 130 }, ROUND: { price: 240 } },
-        SUV:   { ONEWAY: { price: 140 }, ROUND: { price: 260 } },
-        VAN8:  { ONEWAY: { price: 160 }, ROUND: { price: 300 } },
-        VAN14: { ONEWAY: { price: 190 }, ROUND: { price: 340 } },
-      },
-      MCO_PORT: {
-        SEDAN: { ONEWAY: { price: 210 }, ROUND: { price: 400 } },
-        SUV:   { ONEWAY: { price: 230 }, ROUND: { price: 440 } },
-        VAN8:  { ONEWAY: { price: 260 }, ROUND: { price: 500 } },
-        VAN14: { ONEWAY: { price: 290 }, ROUND: { price: 560 } },
-      },
-      SFB_IDRIVE: {
-        SEDAN: { ONEWAY: { price: 160 }, ROUND: { price: 300 } },
-        SUV:   { ONEWAY: { price: 175 }, ROUND: { price: 330 } },
-        VAN8:  { ONEWAY: { price: 200 }, ROUND: { price: 380 } },
-        VAN14: { ONEWAY: { price: 225 }, ROUND: { price: 420 } },
-      },
-      SFB_DISNEY: {
-        SEDAN: { ONEWAY: { price: 175 }, ROUND: { price: 330 } },
-        SUV:   { ONEWAY: { price: 190 }, ROUND: { price: 360 } },
-        VAN8:  { ONEWAY: { price: 220 }, ROUND: { price: 420 } },
-        VAN14: { ONEWAY: { price: 245 }, ROUND: { price: 470 } },
-      },
-      HOURLY: {
-        SEDAN: { HOURLY: { price: 70 } },
-        SUV:   { HOURLY: { price: 85 } },
-        VAN8:  { HOURLY: { price: 95 } },
-        VAN14: { HOURLY: { price: 120 } },
-      },
-    };
+  function isFinitePositiveNumber(x) {
+    const n = Number(x);
+    return Number.isFinite(n) && n > 0;
+  }
 
-    const routeSelect = document.getElementById("route");
-    const vehicleSelect = document.getElementById("vehicle");
-    const tripTypeSelect = document.getElementById("trip-type");
-    const pickupDateInput = document.getElementById("pickup-date");
-    const pickupTimeInput = document.getElementById("pickup-time");
-    const priceText = document.getElementById("price-text");
-    const timingBanner = document.getElementById("timing-banner");
-    const selectedOptionInput = document.getElementById("selected-option");
-    const bookingForm = document.getElementById("booking-form");
-    const routeVehicleCard = document.getElementById("route-vehicle-card");
-    const submitBtn = document.getElementById("submit-btn");
-    const formStatus = document.getElementById("form-status");
+  function getPickupDateTimeLocal() {
+    const d = document.getElementById("pickupDate")?.value;
+    const t = document.getElementById("pickupTime")?.value;
+    if (!d || !t) return null;
+    // local time
+    const dt = new Date(d + "T" + t);
+    return isNaN(dt.getTime()) ? null : dt;
+  }
 
-    const payBtn = document.getElementById("pay-btn");
-    const payStatus = document.getElementById("pay-status");
+  function hoursUntil(dt) {
+    const now = new Date();
+    return (dt.getTime() - now.getTime()) / (1000 * 60 * 60);
+  }
 
-    const charterWrap = document.getElementById("charter-hours-wrap");
-    const charterHoursSelect = document.getElementById("charter-hours");
+  // -------------------------
+  // Prefill from URL params
+  // Expected URL params:
+  // route=... & vehicle=... & trip=oneway|roundtrip|charter & price=110
+  // -------------------------
+  const route = qs("route") || qs("Route") || "";
+  const vehicle = qs("vehicle") || qs("Vehicle") || "";
+  const trip = qs("trip") || qs("Trip") || qs("trip_type") || "";
+  const price = qs("price") || qs("Price") || "";
 
-    const returnCard = document.getElementById("return-details-card");
-    const returnFrom = document.getElementById("return-from");
-    const returnTo = document.getElementById("return-to");
-    const returnDate = document.getElementById("return-date");
-    const returnTime = document.getElementById("return-time");
+  // Display fields (read-only)
+  setText("routeDisplay", route);
+  setText("vehicleDisplay", vehicle);
+  setText("tripTypeDisplay", trip);
+  setText("totalPrice", price ? `$${Number(price).toFixed(2)}` : "");
 
-    // Current pay state
-    let currentAmountCents = 0;
-    let currentCanPayNow = false;
+  // Hidden fields (sent to Formspree)
+  setHidden("routeHidden", route);
+  setHidden("vehicleHidden", vehicle);
+  setHidden("tripHidden", trip);
+  setHidden("priceHidden", price);
 
-    // Build charter-hours options: 3 to 24
-    (function buildHoursOptions() {
-      if (!charterHoursSelect) return;
-      charterHoursSelect.innerHTML = "";
-      for (let h = 3; h <= 24; h++) {
-        const opt = document.createElement("option");
-        opt.value = String(h);
-        opt.textContent = `${h} hours`;
-        charterHoursSelect.appendChild(opt);
+  const payBtn = document.getElementById("payBtn");
+  const paymentMsg = document.getElementById("paymentMsg");
+  const urgencyNote = document.getElementById("urgencyNote");
+  const form = document.getElementById("bookingForm");
+
+  // Enable Pay button only if we have a valid price
+  function refreshPayState() {
+    const dt = getPickupDateTimeLocal();
+    const within8 = dt ? hoursUntil(dt) <= 8 : false;
+
+    // Short notice note
+    if (dt && within8) {
+      urgencyNote.style.display = "block";
+      urgencyNote.innerHTML = `<span class="danger"><strong>Short notice:</strong> Your pickup is within 8 hours. Please submit your request first. We will confirm availability before payment.</span>`;
+    } else {
+      urgencyNote.style.display = "none";
+      urgencyNote.innerHTML = "";
+    }
+
+    // Price must be a positive number
+    const rawPrice = qs("price");
+    const canPayByPrice = isFinitePositiveNumber(rawPrice);
+
+    // If within 8 hours, we disable pay (policy)
+    payBtn.disabled = !canPayByPrice || within8;
+  }
+
+  // Run once, and when date/time changes
+  refreshPayState();
+  document.getElementById("pickupDate")?.addEventListener("change", refreshPayState);
+  document.getElementById("pickupTime")?.addEventListener("change", refreshPayState);
+
+  // -------------------------
+  // Booking submit UX (Formspree)
+  // -------------------------
+  form.addEventListener("submit", () => {
+    // Let Formspree submit normally.
+    // Keep the Pay button logic as-is (it may still be disabled if within 8 hours).
+    paymentMsg.innerHTML = `<span class="muted">Booking request submitted. If your pickup is more than 8 hours away, you can pay using the Square button.</span>`;
+  });
+
+  // -------------------------
+  // Square payment link
+  // Uses SAME-ORIGIN endpoint to avoid CORS issues:
+  // POST /api/create-square-link
+  // -------------------------
+  payBtn.addEventListener("click", async () => {
+    paymentMsg.innerHTML = "";
+    payBtn.disabled = true;
+    payBtn.textContent = "Creating payment link...";
+
+    try {
+      const rawPrice = qs("price");
+      const amount = Number(rawPrice);
+
+      if (!Number.isFinite(amount) || amount <= 0) {
+        paymentMsg.innerHTML = `<span class="danger">Payment error: missing price. Please select your route again from the Rates page.</span>`;
+        payBtn.textContent = "Pay with Square";
+        refreshPayState();
+        return;
       }
-      charterHoursSelect.value = "3";
-    })();
 
-    function syncReturnTripUI() {
-      const isRound = (tripTypeSelect?.value === "ROUND");
-      if (returnCard) returnCard.style.display = isRound ? "block" : "none";
+      const email = document.getElementById("email")?.value || "";
+      const passengerName = document.getElementById("passengerName")?.value || "";
+      const pickupDate = document.getElementById("pickupDate")?.value || "";
+      const pickupTime = document.getElementById("pickupTime")?.value || "";
 
-      if (returnFrom) returnFrom.required = isRound;
-      if (returnTo) returnTo.required = isRound;
-      if (returnDate) returnDate.required = isRound;
-      if (returnTime) returnTime.required = isRound;
+      const r = await fetch("/api/create-square-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          // Your API expects "amount" in dollars
+          amount,
+          currency: "USD",
+          name: "MLT Orlando Transportation",
+          note: `Booking: ${passengerName} | ${route} | ${vehicle} | ${trip} | ${pickupDate} ${pickupTime} | ${email}`
+        }),
+      });
 
-      if (!isRound) {
-        if (returnFrom) returnFrom.value = "";
-        if (returnTo) returnTo.value = "";
-        if (returnDate) returnDate.value = "";
-        if (returnTime) returnTime.value = "";
-        const rn = document.getElementById("return-notes");
-        if (rn) rn.value = "";
+      const data = await r.json();
+
+      if (!data.ok) {
+        console.log("Square link error:", data);
+        paymentMsg.innerHTML = `<span class="danger">Payment link error. Please try again or contact us.</span>`;
+        payBtn.textContent = "Pay with Square";
+        refreshPayState();
+        return;
       }
-    }
 
-    function syncTripTypeOptions() {
-      const route = routeSelect.value;
-      const hourlyOption = tripTypeSelect.querySelector('option[value="HOURLY"]');
-      const onewayOption = tripTypeSelect.querySelector('option[value="ONEWAY"]');
-      const roundOption  = tripTypeSelect.querySelector('option[value="ROUND"]');
+      const url = data.url || data.long_url;
+      paymentMsg.innerHTML = `<span class="ok"><strong>Success:</strong> Redirecting to secure payment...</span>`;
+      window.location.href = url;
 
-      if (route === "HOURLY") {
-        if (hourlyOption) hourlyOption.disabled = false;
-        if (onewayOption) onewayOption.disabled = true;
-        if (roundOption)  roundOption.disabled = true;
-        if (tripTypeSelect.value !== "HOURLY") tripTypeSelect.value = "HOURLY";
-      } else {
-        if (hourlyOption) hourlyOption.disabled = true;
-        if (onewayOption) onewayOption.disabled = false;
-        if (roundOption)  roundOption.disabled = false;
-        if (tripTypeSelect.value === "HOURLY") tripTypeSelect.value = "";
-      }
-    }
-
-    function syncHourlyHoursUI() {
-      const isHourly = (routeSelect.value === "HOURLY" && tripTypeSelect.value === "HOURLY");
-      if (charterWrap) charterWrap.style.display = isHourly ? "block" : "none";
-      if (charterHoursSelect) charterHoursSelect.required = isHourly;
-
-      if (!isHourly && charterHoursSelect) charterHoursSelect.value = "3";
-    }
-
-    // --- Child seats repeater ---
-    const seatRows = document.getElementById("seat-rows");
-    const addSeatRowBtn = document.getElementById("add-seat-row");
-    const childSeatsSummary = document.getElementById("child-seats-summary");
-
-    function updateSeatsSummary() {
-      if (!seatRows || !childSeatsSummary) return;
-      const rows = seatRows.querySelectorAll(".seat-row");
-      const parts = [];
-      rows.forEach((row) => {
-        const type = row.querySelector(".seat-type")?.value || "";
-        const qty = row.querySelector(".seat-qty")?.value || "";
-        if (type && qty) parts.push(`${qty} × ${type}`);
-      });
-      childSeatsSummary.value = parts.length ? parts.join("; ") : "None selected";
-    }
-
-    function toggleSeatRemoveButtons() {
-      if (!seatRows) return;
-      const rows = seatRows.querySelectorAll(".seat-row");
-      rows.forEach((row) => {
-        const btn = row.querySelector(".seat-remove");
-        if (btn) btn.style.display = rows.length > 1 ? "inline-block" : "none";
-      });
-    }
-
-    function makeSeatRow() {
-      const row = document.createElement("div");
-      row.className = "seat-row";
-      row.style.display = "grid";
-      row.style.gridTemplateColumns = "1fr 90px 40px";
-      row.style.gap = "0.5rem";
-      row.style.alignItems = "center";
-      row.style.marginTop = "0.5rem";
-
-      row.innerHTML = `
-        <select class="seat-type" name="Child seat type[]" aria-label="Seat type">
-          <option value="">Select seat type</option>
-          <option value="Rear-facing infant seat">Rear-facing infant seat</option>
-          <option value="Forward-facing car seat">Forward-facing car seat</option>
-          <option value="Booster seat">Booster seat</option>
-        </select>
-
-        <select class="seat-qty" name="Child seat quantity[]" aria-label="Quantity">
-          <option value="">#</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-
-        <button type="button" class="seat-remove btn-secondary" aria-label="Remove seat selection" style="padding:0.4rem 0.6rem;">
-          ×
-        </button>
-      `;
-
-      const typeEl = row.querySelector(".seat-type");
-      const qtyEl = row.querySelector(".seat-qty");
-      const removeBtn = row.querySelector(".seat-remove");
-
-      typeEl.addEventListener("change", updateSeatsSummary);
-      qtyEl.addEventListener("change", updateSeatsSummary);
-
-      removeBtn.addEventListener("click", () => {
-        row.remove();
-        toggleSeatRemoveButtons();
-        updateSeatsSummary();
-      });
-
-      return row;
-    }
-
-    if (addSeatRowBtn && seatRows) {
-      seatRows.querySelectorAll(".seat-type, .seat-qty").forEach((el) => {
-        el.addEventListener("change", updateSeatsSummary);
-      });
-
-      addSeatRowBtn.addEventListener("click", () => {
-        seatRows.appendChild(makeSeatRow());
-        toggleSeatRemoveButtons();
-        updateSeatsSummary();
-      });
-
-      toggleSeatRemoveButtons();
-      updateSeatsSummary();
-    }
-
-    function getPickupDateTime() {
-      const dateValue = pickupDateInput.value;
-      const timeValue = pickupTimeInput.value;
-      if (!dateValue || !timeValue) return null;
-      const dt = new Date(dateValue + "T" + timeValue);
-      if (isNaN(dt.getTime())) return null;
-      return dt;
-    }
-
-    function setPayUI() {
-      if (!payBtn) return;
-      const enable = !!(currentCanPayNow && currentAmountCents > 0);
-      payBtn.disabled = !enable;
+    } catch (e) {
+      console.error(e);
+      paymentMsg.innerHTML = `<span class="danger">Failed to create payment link. Please try again.</span>`;
       payBtn.textContent = "Pay with Square";
-      payBtn.title = enable
-        ? ""
-        : (!getPickupDateTime()
-            ? "Select pickup date/time first"
-            : (!currentCanPayNow
-              ? "Trips within 8 hours must be confirmed first"
-              : "Select route/vehicle/trip to enable payment"));
+      refreshPayState();
     }
+  });
+</script>
 
-    function updatePriceAndUI() {
-      syncTripTypeOptions();
-      syncHourlyHoursUI();
-      syncReturnTripUI();
-
-      const route = routeSelect.value;
-      const vehicle = vehicleSelect.value;
-      const tripType = tripTypeSelect.value;
-      const pickupDateTime = getPickupDateTime();
-
-      if (routeVehicleCard) routeVehicleCard.style.display = pickupDateTime ? "block" : "none";
-
-      // timing
-      let timingLabel = "Pickup time not selected yet";
-      let timingNote = "";
-      let canPayNow = false;
-
-      if (pickupDateTime) {
-        const now = new Date();
-        const diffHours = (pickupDateTime - now) / (1000 * 60 * 60);
-
-        if (diffHours < 8) {
-          timingLabel = "Short notice (< 8 hours)";
-          timingNote =
-            " This trip is within the next 8 hours. Please submit this form as a request only and wait for our confirmation before making any payment.";
-          canPayNow = false;
-        } else {
-          timingLabel = "Standard (≥ 8 hours)";
-          timingNote =
-            " This trip is more than 8 hours away. You can submit your request and pay securely with Square.";
-          canPayNow = true;
-        }
-
-        timingBanner.textContent =
-          "Pickup time check: " + timingLabel + ". " +
-          (diffHours > 0
-            ? "Approx. " + diffHours.toFixed(1) + " hours from now."
-            : "Pickup time appears to be in the past or very soon. We will review it.");
-      } else {
-        timingBanner.textContent =
-          "Once you select your pickup date and time, we’ll tell you if this is a short-notice request (< 8 hours) or a standard booking (≥ 8 hours).";
-      }
-
-      // defaults
-      currentAmountCents = 0;
-      currentCanPayNow = false;
-
-      if (route === "CUSTOM") {
-        priceText.textContent =
-          "Custom route selected." +
-          (timingNote ? timingNote + " We will review your details and confirm the price." : " We will review your details and confirm the price.");
-
-        selectedOptionInput.value =
-          "Custom route – price to be confirmed by MLT. Timing: " + timingLabel;
-
-        setPayUI();
-        return;
-      }
-
-      if (!route || !vehicle || !tripType) {
-        priceText.textContent =
-          "Please select a route, vehicle and trip type to see the price and payment instructions." +
-          (timingNote || "");
-        selectedOptionInput.value = "";
-        setPayUI();
-        return;
-      }
-
-      const routeData = OPTIONS[route];
-      if (!routeData || !routeData[vehicle] || !routeData[vehicle][tripType]) {
-        priceText.textContent =
-          "We don't have a fixed price for that exact combination. Please describe your trip in the notes and we will confirm the price." +
-          (timingNote || "");
-
-        selectedOptionInput.value =
-          "No fixed price: route=" + route + ", vehicle=" + vehicle +
-          ", tripType=" + tripType + ". Timing: " + timingLabel;
-
-        setPayUI();
-        return;
-      }
-
-      const option = routeData[vehicle][tripType];
-
-      let tripLabel = "";
-      if (tripType === "ONEWAY") tripLabel = "One-way";
-      else if (tripType === "ROUND") tripLabel = "Round trip";
-      else if (tripType === "HOURLY") tripLabel = "Hourly (3-hour minimum)";
-
-      // hourly totals
-      if (route === "HOURLY" && tripType === "HOURLY") {
-        const hours = parseInt(charterHoursSelect?.value || "3", 10);
-        const safeHours = isNaN(hours) ? 3 : hours;
-        const total = option.price * safeHours;
-
-        priceText.textContent =
-          `Selected: Hourly Charter within Orlando – ${vehicle} at $${option.price}/hr × ${safeHours} hours = $${total}.` +
-          timingNote;
-
-        currentAmountCents = Math.round(total * 100);
-        currentCanPayNow = !!(canPayNow && currentAmountCents > 0);
-
-        selectedOptionInput.value =
-          `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, ` +
-          `Rate: $${option.price}/hr, Hours: ${safeHours}, Total: $${total}, ` +
-          `Timing: ${timingLabel}`;
-
-        setPayUI();
-        return;
-      }
-
-      // non-hourly
-      priceText.textContent =
-        `Selected: ${tripLabel} ${vehicle} for ${route} – $${option.price}.` +
-        timingNote;
-
-      currentAmountCents = Math.round(option.price * 100);
-      currentCanPayNow = !!(canPayNow && currentAmountCents > 0);
-
-      selectedOptionInput.value =
-        `Route: ${route}, Vehicle: ${vehicle}, Trip type: ${tripLabel}, Price: $${option.price}, ` +
-        `Timing: ${timingLabel}`;
-
-      setPayUI();
-    }
-
-    // Prefill from query params (from rates buttons)
-    function prefillFromQueryString() {
-      const params = new URLSearchParams(window.location.search);
-      if (!params || [...params.keys()].length === 0) return;
-
-      const rawRoute = params.get("route") || "";
-      const rawVehicle = params.get("vehicle") || "";
-      const rawTrip = params.get("trip") || "";
-
-      const routeMap = {
-        "MCO-Universal-Idrive-Seaworld-Convention": "MCO_UNIVERSAL",
-        "MCO-Disney-LBV-BayLake-GoldenOak": "MCO_DISNEY",
-        "MCO-Windermere-WinterPark": "MCO_WINDERMERE",
-        "MCO-Port-Canaveral": "MCO_PORT",
-        "SFB-Universal-Idrive-Seaworld-Convention": "SFB_IDRIVE",
-        "SFB-Disney-LBV-BayLake-GoldenOak": "SFB_DISNEY",
-        "Hourly-Orlando": "HOURLY",
-      };
-
-      const vehicleMap = {
-        "Sedan": "SEDAN",
-        "SUV": "SUV",
-        "Van8": "VAN8",
-        "Van14": "VAN14",
-      };
-
-      const tripMap = {
-        "oneway": "ONEWAY",
-        "round": "ROUND",
-        "hourly": "HOURLY",
-      };
-
-      const mappedRoute = routeMap[rawRoute] || "";
-      const mappedVehicle = vehicleMap[rawVehicle] || "";
-      const mappedTrip = tripMap[(rawTrip || "").toLowerCase()] || "";
-
-      if (mappedRoute) routeSelect.value = mappedRoute;
-      if (mappedVehicle) vehicleSelect.value = mappedVehicle;
-      if (mappedTrip) tripTypeSelect.value = mappedTrip;
-
-      const hoursParam = parseInt(params.get("hours") || "", 10);
-      if (!isNaN(hoursParam) && hoursParam >= 3 && hoursParam <= 24 && charterHoursSelect) {
-        charterHoursSelect.value = String(hoursParam);
-      }
-    }
-
-    routeSelect.addEventListener("change", updatePriceAndUI);
-    vehicleSelect.addEventListener("change", updatePriceAndUI);
-    tripTypeSelect.addEventListener("change", updatePriceAndUI);
-    pickupDateInput.addEventListener("change", updatePriceAndUI);
-    pickupTimeInput.addEventListener("change", updatePriceAndUI);
-    if (charterHoursSelect) charterHoursSelect.addEventListener("change", updatePriceAndUI);
-
-    // Submit booking request to Formspree (AJAX)
-    bookingForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      updateSeatsSummary();
-      updatePriceAndUI();
-
-      if (formStatus) {
-        formStatus.style.display = "none";
-        formStatus.textContent = "";
-      }
-
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending...";
-      }
-
-      try {
-        const formData = new FormData(bookingForm);
-
-        const res = await fetch(bookingForm.action, {
-          method: "POST",
-          body: formData,
-          headers: { "Accept": "application/json" }
-        });
-
-        if (!res.ok) {
-          let msg = "Sorry—there was a problem sending your request. Please try again, or call/text us.";
-          try {
-            const data = await res.json();
-            if (data && data.errors && data.errors.length) {
-              msg = data.errors.map(e => e.message).join(" ");
-            }
-          } catch (_) {}
-
-          if (formStatus) {
-            formStatus.style.display = "block";
-            formStatus.textContent = msg;
-          }
-        } else {
-          if (formStatus) {
-            formStatus.style.display = "block";
-            formStatus.textContent = "Request sent! You can pay with Square if your pickup time is ≥ 8 hours away.";
-          }
-        }
-      } catch (err) {
-        if (formStatus) {
-          formStatus.style.display = "block";
-          formStatus.textContent =
-            "Network error—please check your connection and try again, or call/text us.";
-        }
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Submit booking request";
-        }
-        updatePriceAndUI();
-      }
-    });
-
-    // Pay with Square (creates a payment link via /api/create-square-link)
-    if (payBtn) {
-      payBtn.addEventListener("click", async () => {
-        updatePriceAndUI();
-
-        if (payStatus) {
-          payStatus.style.display = "none";
-          payStatus.textContent = "";
-        }
-
-        if (payBtn.disabled) {
-          if (payStatus) {
-            payStatus.style.display = "block";
-            payStatus.textContent = "Payment is not available yet. Please select pickup time and a valid option (and trips must be ≥ 8 hours away).";
-          }
-          return;
-        }
-
-        const route = routeSelect.value;
-        const vehicle = vehicleSelect.value;
-        const tripType = tripTypeSelect.value;
-
-        let hours = null;
-        if (route === "HOURLY" && tripType === "HOURLY") {
-          hours = parseInt(charterHoursSelect?.value || "3", 10);
-          if (isNaN(hours)) hours = 3;
-        }
-
-        payBtn.disabled = true;
-        const oldText = payBtn.textContent;
-        payBtn.textContent = "Creating payment link...";
-
-        try {
-          const resp = await fetch("/api/create-square-link", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              amountCents: currentAmountCents,
-              route,
-              vehicle,
-              tripType,
-              hours
-            })
-          });
-
-          const data = await resp.json().catch(() => ({}));
-
-          if (!resp.ok || !data?.ok || !data?.url) {
-            console.error("Square link error:", data);
-            if (payStatus) {
-              payStatus.style.display = "block";
-              payStatus.textContent = "Payment link error. Please try again or contact us.";
-            }
-            return;
-          }
-
-          window.location.href = data.url;
-        } catch (err) {
-          console.error(err);
-          if (payStatus) {
-            payStatus.style.display = "block";
-            payStatus.textContent = "Network error creating payment link. Please try again.";
-          }
-        } finally {
-          payBtn.disabled = false;
-          payBtn.textContent = oldText;
-          updatePriceAndUI();
-        }
-      });
-    }
-
-    // Initialize
-    prefillFromQueryString();
-    updatePriceAndUI();
-    updateSeatsSummary();
-  </script>
 </body>
 </html>
