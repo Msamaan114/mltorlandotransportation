@@ -12,71 +12,89 @@
     .ok{color:#166534}
     .danger{color:#b91c1c}
     pre{background:#0b1120;color:#e5e7eb;padding:12px;border-radius:12px;overflow:auto}
-    a{color:inherit}
+    a{text-decoration:underline;color:inherit}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <h1>Confirming your booking…</h1>
+      <h1 id="h">Finalizing your booking…</h1>
       <p class="muted" id="sub">Please wait.</p>
       <div id="out"></div>
+
+      <p class="muted" style="margin-top:12px;">
+        Need help? Call <a href="tel:14073690643">407-369-0643</a>
+      </p>
     </div>
   </div>
 
   <script>
-    const qs = new URLSearchParams(location.search);
-    const cid = qs.get("cid") || "";         // our internal booking id
-    const orderId = qs.get("orderId") || ""; // appended by Square in production
-    const transactionId = qs.get("transactionId") || "";
-
-    // If your API is on a different domain, set this:
-    // const API_BASE = "https://YOUR-VERCEL-PROJECT.vercel.app";
+    // If your site is not hosted on the same Vercel project, set this:
     const API_BASE = "";
 
-    const out = document.getElementById("out");
-    const sub = document.getElementById("sub");
+    const qs = new URLSearchParams(location.search);
+    const cid = qs.get("cid") || "";
 
-    // Load the booking data we saved before redirecting to Square
+    // Square usually appends these in production redirects (but not always in sandbox)
+    const orderId = qs.get("orderId") || qs.get("order_id") || "";
+    const transactionId = qs.get("transactionId") || qs.get("transaction_id") || "";
+
+    const h = document.getElementById("h");
+    const sub = document.getElementById("sub");
+    const out = document.getElementById("out");
+
     const saved = cid ? localStorage.getItem("mltBooking:" + cid) : null;
-    const bookingData = saved ? JSON.parse(saved) : null;
+    const booking = saved ? JSON.parse(saved) : null;
 
     async function run() {
-      if (!orderId) {
-        sub.innerHTML = `<span class="danger">Missing orderId.</span> If you paid and don’t see confirmation, please contact us.`;
+      if (!cid || !booking) {
+        h.textContent = "We couldn’t find your booking details on this device.";
+        sub.innerHTML = `<span class="danger">If you paid, please contact us and share your name + payment time.</span>`;
         out.innerHTML = `<pre>${JSON.stringify({ cid, orderId, transactionId }, null, 2)}</pre>`;
         return;
       }
 
-      sub.textContent = "Verifying payment with Square…";
+      if (!orderId) {
+        h.textContent = "Payment received, but missing Square order ID.";
+        sub.innerHTML = `<span class="danger">This can happen in sandbox/testing. In production it usually includes orderId.</span>`;
+        out.innerHTML = `<pre>${JSON.stringify({ cid, orderId, transactionId }, null, 2)}</pre>`;
+        return;
+      }
 
-      const r = await fetch(API_BASE + "/api/confirm-booking", {
+      h.textContent = "Confirming payment…";
+      sub.textContent = "Verifying payment and sending confirmation…";
+
+      const r = await fetch((API_BASE || "") + "/api/confirm-booking", {
         method: "POST",
         headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ cid, orderId, transactionId, bookingData })
+        body: JSON.stringify({ cid, orderId, transactionId, booking })
       });
 
       const data = await r.json().catch(() => ({}));
 
       if (!data.ok) {
-        sub.innerHTML = `<span class="danger"><strong>Not confirmed yet.</strong></span> You can refresh in 10 seconds.`;
+        h.textContent = "Not confirmed yet";
+        sub.innerHTML = `<span class="danger">${data.error || "Please refresh in 10 seconds or contact us."}</span>`;
         out.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
         return;
       }
 
-      sub.innerHTML = `<span class="ok"><strong>Confirmed!</strong></span> We emailed your booking confirmation.`;
+      h.textContent = "Booking Confirmed ✅";
+      sub.innerHTML = `<span class="ok"><strong>Success!</strong></span>`;
+
       out.innerHTML = `
-        <p><strong>Confirmation #:</strong> ${data.confirmationId || cid || "(n/a)"}</p>
-        <p class="muted">Thank you for choosing MLT Orlando Transportation.</p>
+        <p><strong>Confirmation #:</strong> ${cid}</p>
+        <p class="muted">We sent your reservation to our team${data.customerEmailSent ? " and emailed you a confirmation." : "."}</p>
         <p><a href="index.html">Back to Home</a></p>
       `;
 
-      // prevent duplicate emails if user refreshes
-      if (cid) localStorage.setItem("mltBookingConfirmed:" + cid, "1");
+      // avoid duplicates from refresh (browser-level)
+      localStorage.setItem("mltBookingConfirmed:" + cid, "1");
     }
 
     run().catch(err => {
-      sub.innerHTML = `<span class="danger">Error confirming booking.</span>`;
+      h.textContent = "Error";
+      sub.innerHTML = `<span class="danger">Could not finalize booking.</span>`;
       out.innerHTML = `<pre>${String(err)}</pre>`;
     });
   </script>
