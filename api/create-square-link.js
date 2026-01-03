@@ -1,12 +1,13 @@
 // api/create-square-link.js
 export default async function handler(req, res) {
-  const allowedOrigins = new Set([
-    "https://mltorlandotransportation.com",
-    "https://www.mltorlandotransportation.com",
-  ]);
+  // CORS: allow your site + www + any *.vercel.app preview
+  const origin = req.headers.origin || "";
+  const allow =
+    origin === "https://mltorlandotransportation.com" ||
+    origin === "https://www.mltorlandotransportation.com" ||
+    origin.endsWith(".vercel.app");
 
-  const origin = req.headers.origin;
-  if (origin && allowedOrigins.has(origin)) res.setHeader("Access-Control-Allow-Origin", origin);
+  if (origin && allow) res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -18,15 +19,10 @@ export default async function handler(req, res) {
     const {
       amount,
       currency = "USD",
-      // show on Square checkout
       lineItemName = "Transportation Service",
-      // show in Square dashboard order note
       note = "",
-      // your internal booking id (keep <= 40 chars)
       referenceId = "",
-      // where Square should send them back
       redirectUrl = "",
-      // optional prefill
       buyerEmail = "",
       buyerPhone = "",
     } = req.body || {};
@@ -49,7 +45,11 @@ export default async function handler(req, res) {
       return res.status(500).json({
         ok: false,
         error: "Missing Square env vars",
-        missing: { SQUARE_ACCESS_TOKEN: !accessToken, SQUARE_LOCATION_ID: !locationId },
+        details: {
+          SQUARE_ACCESS_TOKEN: !!accessToken,
+          SQUARE_LOCATION_ID: !!locationId,
+          SQUARE_ENV: env,
+        },
       });
     }
 
@@ -59,7 +59,6 @@ export default async function handler(req, res) {
     const idempotencyKey =
       globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-    // Use an ORDER so you can set reference_id + redirect_url
     const payload = {
       idempotency_key: idempotencyKey,
       order: {
@@ -74,11 +73,7 @@ export default async function handler(req, res) {
           },
         ],
       },
-      checkout_options: redirectUrl
-        ? {
-            redirect_url: redirectUrl,
-          }
-        : undefined,
+      checkout_options: redirectUrl ? { redirect_url: redirectUrl } : undefined,
       pre_populated_data:
         buyerEmail || buyerPhone
           ? {
@@ -88,7 +83,7 @@ export default async function handler(req, res) {
           : undefined,
     };
 
-    // Clean undefined keys (Square can be picky)
+    // Remove undefined values
     const clean = JSON.parse(JSON.stringify(payload));
 
     const resp = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
@@ -96,7 +91,6 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        // Current Checkout API versions are date-based; this is valid and commonly used.
         "Square-Version": "2025-10-16",
       },
       body: JSON.stringify(clean),
