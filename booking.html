@@ -5,295 +5,393 @@
   <title>Book in 3 Steps | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    body{background:#f3f4f6;color:#020617;line-height:1.55}
-    a{color:inherit;text-decoration:none}
-    header{background:#020617;color:#fff;padding:16px}
-    .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .brand{font-weight:800;letter-spacing:.5px}
-    .links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;opacity:.95}
-    .links a{padding:6px 10px;border-radius:10px}
-    .links a:hover{background:rgba(255,255,255,.08)}
-    main{max-width:1100px;margin:24px auto;padding:0 16px}
-    .grid{display:grid;grid-template-columns:1fr;gap:18px}
-    @media(min-width:980px){.grid{grid-template-columns:1.2fr .8fr}}
-    .card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.08);overflow:hidden}
-    .head{padding:16px 16px 12px;border-bottom:1px solid #e5e7eb}
-    .head h1,.head h2{font-size:18px;margin-bottom:6px}
-    .head p{font-size:13px;color:#475569}
-    .body{padding:16px}
-    .stepper{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-    .step{border:1px solid #e5e7eb;background:#f8fafc;border-radius:14px;padding:10px 12px;font-size:12px;color:#334155;display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .step.active{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(59,130,246,.10)}
-    .badge{background:#0ea5e9;color:#fff;font-weight:800;border-radius:999px;padding:4px 10px;font-size:12px}
-    .muted{color:#64748b;font-size:12px}
-    .danger{color:#b91c1c}
-    .ok{color:#166534}
+  <!-- Match index.html -->
+  <link rel="stylesheet" href="styles.css" />
 
-    .section{margin-top:16px}
-    .section:first-child{margin-top:0}
-    .section-title{font-weight:750;font-size:14px;margin-bottom:10px;color:#0f172a}
-    .row{display:grid;grid-template-columns:1fr;gap:10px}
-    @media(min-width:700px){.row.two{grid-template-columns:1fr 1fr}}
-    label{font-size:12px;color:#334155;margin-bottom:6px;display:block}
-    input,select,textarea{width:100%;padding:12px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;font-size:14px;outline:none}
-    input:focus,select:focus,textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(59,130,246,.12)}
-    textarea{min-height:100px;resize:vertical}
-    .note{margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:14px;font-size:12px;color:#334155}
-    .btnrow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-    button{border:0;border-radius:999px;padding:12px 14px;font-weight:800;cursor:pointer;font-size:14px;flex:1;min-width:160px}
-    .btn-primary{background:#0ea5e9;color:#fff}
-    .btn-secondary{background:#111827;color:#fff}
-    .btn-ghost{background:#e2e8f0;color:#0f172a}
-    .btn-secondary[disabled]{background:#9ca3af;cursor:not-allowed}
-    .panel{display:none}
-    .panel.active{display:block}
-    .summary{border:1px solid #e5e7eb;border-radius:14px;padding:12px;background:#fff}
-    .summary .line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
-    .summary .line:last-child{border-bottom:0}
-    .summary .k{color:#64748b}
-    .summary .v{font-weight:700;text-align:right}
-    .side{padding:16px}
-    .side .box{background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:14px;margin-bottom:12px}
-    .side .box p{font-size:12px;color:#334155;margin:6px 0}
-    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:12px}
+  <style>
+    /* Booking-only look (namespaced) */
+    body.booking-page { background:#f3f4f6; color:#020617; line-height:1.55; }
+
+    .booking-wrap{ max-width:1100px; margin:24px auto; padding:0 16px; }
+    .booking-grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+    @media(min-width:980px){ .booking-grid{ grid-template-columns:1.2fr .8fr; } }
+
+    .booking-card{
+      background:#fff; border-radius:16px; box-shadow:0 10px 30px rgba(2,6,23,.08);
+      overflow:hidden;
+    }
+    .booking-head{ padding:16px 16px 12px; border-bottom:1px solid #e5e7eb; }
+    .booking-head h1, .booking-head h2{ font-size:18px; margin-bottom:6px; }
+    .booking-head p{ font-size:13px; color:#475569; }
+    .booking-body{ padding:16px; }
+
+    .booking-stepper{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+    .booking-step{
+      border:1px solid #e5e7eb; background:#f8fafc; border-radius:14px;
+      padding:10px 12px; font-size:12px; color:#334155;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .booking-step.active{ border-color:#93c5fd; box-shadow:0 0 0 4px rgba(59,130,246,.10); }
+    .step-badge{ background:#0ea5e9; color:#fff; font-weight:800; border-radius:999px; padding:4px 10px; font-size:12px; }
+
+    .muted{ color:#64748b; font-size:12px; }
+    .danger{ color:#b91c1c; }
+    .ok{ color:#166534; }
+
+    .booking-section{ margin-top:16px; }
+    .booking-section:first-child{ margin-top:0; }
+    .booking-section-title{ font-weight:750; font-size:14px; margin-bottom:10px; color:#0f172a; }
+
+    .booking-row{ display:grid; grid-template-columns:1fr; gap:10px; }
+    @media(min-width:700px){ .booking-row.two{ grid-template-columns:1fr 1fr; } }
+
+    .booking-page label{ font-size:12px; color:#334155; margin-bottom:6px; display:block; }
+    .booking-page input,
+    .booking-page select,
+    .booking-page textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      background:#fff;
+      font-size:14px;
+      outline:none;
+    }
+    .booking-page input:focus,
+    .booking-page select:focus,
+    .booking-page textarea:focus{
+      border-color:#93c5fd;
+      box-shadow:0 0 0 4px rgba(59,130,246,.12);
+    }
+    .booking-page textarea{ min-height:100px; resize:vertical; }
+
+    .booking-note{
+      margin-top:10px;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      padding:12px;
+      border-radius:14px;
+      font-size:12px;
+      color:#334155;
+    }
+
+    .booking-btnrow{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    .booking-page button{
+      border:0;
+      border-radius:999px;
+      padding:12px 14px;
+      font-weight:800;
+      cursor:pointer;
+      font-size:14px;
+      flex:1;
+      min-width:160px;
+    }
+    .booking-btn-primary{ background:#0ea5e9; color:#fff; }
+    .booking-btn-secondary{ background:#111827; color:#fff; }
+    .booking-btn-ghost{ background:#e2e8f0; color:#0f172a; }
+    .booking-btn-secondary[disabled]{ background:#9ca3af; cursor:not-allowed; }
+
+    .booking-panel{ display:none; }
+    .booking-panel.active{ display:block; }
+
+    .booking-summary{ border:1px solid #e5e7eb; border-radius:14px; padding:12px; background:#fff; }
+    .booking-summary .line{
+      display:flex; justify-content:space-between; gap:12px;
+      padding:8px 0; border-bottom:1px solid #f1f5f9; font-size:13px;
+    }
+    .booking-summary .line:last-child{ border-bottom:0; }
+    .booking-summary .k{ color:#64748b; }
+    .booking-summary .v{ font-weight:700; text-align:right; }
+
+    .booking-side{ padding:16px; }
+    .booking-side .box{
+      background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:14px;
+      margin-bottom:12px;
+    }
+    .booking-side .box p{ font-size:12px; color:#334155; margin:6px 0; }
+
+    /* ✅ Overrides for your global styles.css (prevents double-form styling & extra margins) */
+    .booking-page form{
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+    .booking-page input,
+    .booking-page select,
+    .booking-page textarea{
+      margin-bottom: 0; /* cancel global form field margin */
+    }
   </style>
 </head>
 
-<body>
-<header>
-  <div class="nav">
-    <div class="brand">MLT ORLANDO TRANSPORTATION</div>
-    <nav class="links">
-      <a href="index.html">Home</a>
-      <a href="services.html">Services</a>
-      <a href="owner.html">Owner</a>
-      <a href="private-airport.html">Private Airport</a>
-      <a href="child-seats.html">Child Seats</a>
-      <a href="service-areas.html">Service Areas</a>
-      <a href="rates.html">Rates</a>
-    </nav>
-  </div>
-</header>
+<body class="booking-page">
 
-<main>
-  <div class="grid">
-    <div class="card">
-      <div class="head">
-        <h1>Book in 3 Steps</h1>
-        <p>Step 1: Details → Step 2: Review → Step 3: Pay &amp; Confirm</p>
-      </div>
+  <!-- Top contact bar (same as index.html) -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <span>Private Orlando transportation from MCO &amp; SFB to Disney, Universal &amp; Cape Canaveral.</span>
 
-      <div class="body">
-        <div class="stepper">
-          <div class="step active" id="s1"><span><strong>Step 1</strong><br><span class="muted">Trip details</span></span><span class="badge">1</span></div>
-          <div class="step" id="s2"><span><strong>Step 2</strong><br><span class="muted">Review</span></span><span class="badge" id="b2" style="opacity:.35;">2</span></div>
-          <div class="step" id="s3"><span><strong>Step 3</strong><br><span class="muted">Payment</span></span><span class="badge" id="b3" style="opacity:.35;">3</span></div>
+      <div class="top-bar-right">
+        <span>
+          Call: <a href="tel:14073690643">407-369-0643</a> ·
+          Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
+        </span>
+
+        <div class="social-top">
+          <a href="https://facebook.com/" target="_blank" rel="noopener">
+            <img src="facebook-icon.jpeg" alt="Facebook" />
+          </a>
+          <a href="https://wa.me/14073690643" target="_blank" rel="noopener">
+            <img src="whatsapp-icon.jpeg" alt="WhatsApp" />
+          </a>
+          <a href="https://www.instagram.com/mltorlando?igsh=ODV0Y2pocXJ0bjk4" target="_blank" rel="noopener">
+            <img src="instagram-icon.jpeg" alt="Instagram" />
+          </a>
         </div>
-
-        <form id="bookingForm" novalidate>
-          <!-- STEP 1 -->
-          <section class="panel active" id="p1">
-            <div class="section">
-              <div class="section-title">Passenger info</div>
-              <div class="row two">
-                <div>
-                  <label for="passengerName">Passenger name</label>
-                  <input id="passengerName" type="text" required />
-                </div>
-                <div>
-                  <label for="email">Email (same as payment)</label>
-                  <input id="email" type="email" required />
-                </div>
-              </div>
-              <div class="row two" style="margin-top:10px;">
-                <div>
-                  <label for="phone">Mobile / WhatsApp number</label>
-                  <input id="phone" type="tel" required />
-                </div>
-                <div>
-                  <label for="passengers">Number of passengers</label>
-                  <input id="passengers" type="text" placeholder="e.g. 2 adults, 2 children" />
-                </div>
-              </div>
-            </div>
-
-            <div class="section">
-              <div class="section-title">Pickup date &amp; time</div>
-              <div class="row two">
-                <div>
-                  <label for="pickupDate">Pickup date</label>
-                  <input id="pickupDate" type="date" required />
-                </div>
-                <div>
-                  <label for="pickupTime">Pickup time (local)</label>
-                  <input id="pickupTime" type="time" required />
-                </div>
-              </div>
-              <div class="note" id="urgencyNote" style="display:none;"></div>
-            </div>
-
-            <div class="section">
-              <div class="section-title">Route &amp; price (from Rates)</div>
-
-              <div class="row two">
-                <div>
-                  <label>Route</label>
-                  <input id="routeDisplay" readonly />
-                </div>
-                <div>
-                  <label>Vehicle</label>
-                  <input id="vehicleDisplay" readonly />
-                </div>
-              </div>
-
-              <div class="row two" style="margin-top:10px;">
-                <div>
-                  <label>Trip type</label>
-                  <input id="tripDisplay" readonly />
-                </div>
-                <div>
-                  <label id="priceLabel">Total price (USD)</label>
-                  <input id="priceDisplay" readonly />
-                </div>
-              </div>
-
-              <!-- Hourly only -->
-              <div class="row two" style="margin-top:10px; display:none;" id="hourlyRow">
-                <div>
-                  <label for="hours">Hours (3–24)</label>
-                  <select id="hours"></select>
-                </div>
-                <div>
-                  <label>Hourly rate</label>
-                  <input id="hourlyRateDisplay" readonly />
-                </div>
-              </div>
-
-              <div class="note">
-                If route/vehicle/price are empty, go to <a href="rates.html" style="text-decoration:underline;"><strong>Rates</strong></a> and select a route first.
-              </div>
-            </div>
-
-            <div class="section">
-              <div class="section-title">Locations &amp; trip details</div>
-              <div class="row">
-                <div>
-                  <label for="pickupLocation">Pickup location</label>
-                  <input id="pickupLocation" type="text" required />
-                </div>
-              </div>
-
-              <div class="row two" style="margin-top:10px;">
-                <div>
-                  <label for="flight">Airline &amp; flight number (optional)</label>
-                  <input id="flight" type="text" />
-                </div>
-                <div>
-                  <label for="destination">Destination</label>
-                  <input id="destination" type="text" required />
-                </div>
-              </div>
-
-              <div class="row two" style="margin-top:10px;">
-                <div>
-                  <label for="luggage">Luggage details (optional)</label>
-                  <input id="luggage" type="text" />
-                </div>
-                <div>
-                  <label for="childSeats">Child seats (optional)</label>
-                  <input id="childSeats" type="text" />
-                </div>
-              </div>
-
-              <div class="row" style="margin-top:10px;">
-                <div>
-                  <label for="notes">Additional notes (optional)</label>
-                  <textarea id="notes"></textarea>
-                </div>
-              </div>
-            </div>
-
-            <div class="btnrow">
-              <button class="btn-primary" type="button" id="to2">Continue to Review</button>
-            </div>
-          </section>
-
-          <!-- STEP 2 -->
-          <section class="panel" id="p2">
-            <div class="section-title">Review your booking</div>
-            <div class="summary" id="summary"></div>
-
-            <div class="btnrow">
-              <button class="btn-ghost" type="button" id="back1">Back</button>
-              <button class="btn-secondary" type="button" id="to3">Confirm &amp; Continue to Payment</button>
-            </div>
-
-            <div class="note">
-              After you pay, Square will redirect you back to our confirmation page.
-            </div>
-          </section>
-
-          <!-- STEP 3 -->
-          <section class="panel" id="p3">
-            <div class="section-title">Payment</div>
-            <div class="note" id="payNote"></div>
-
-            <div class="btnrow">
-              <button class="btn-ghost" type="button" id="back2">Back</button>
-              <button class="btn-secondary" type="button" id="payBtn">Pay with Square</button>
-            </div>
-
-            <div class="note" id="paymentMsg"></div>
-          </section>
-        </form>
       </div>
     </div>
-
-    <aside class="card">
-      <div class="head">
-        <h2>Need help?</h2>
-        <p>Contact us any time.</p>
-      </div>
-      <div class="side">
-        <div class="box">
-          <p><strong>Phone:</strong> <a href="tel:14073690643" style="text-decoration:underline;">407-369-0643</a></p>
-          <p><strong>Email:</strong> <a href="mailto:mltorlando@yahoo.com" style="text-decoration:underline;">mltorlando@yahoo.com</a></p>
-        </div>
-
-        <div class="box">
-          <p class="muted"><strong>API endpoint:</strong> <span class="kbd" id="api1"></span></p>
-          <p class="muted"><strong>Confirmation endpoint:</strong> <span class="kbd" id="api2"></span></p>
-        </div>
-      </div>
-    </aside>
   </div>
-</main>
+
+  <!-- Header/nav (same as index.html) -->
+  <header>
+    <div class="nav">
+      <div class="logo">MLT Orlando Transportation</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="owner.html">Owner</a>
+        <a href="private-airport.html">Private Airport</a>
+        <a href="child-seats.html">Child Seats</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="rates.html">Rates</a>
+        <a href="cancellation.html">Cancellation</a>
+        <a href="why-us.html">Why Us</a>
+        <a href="booking.html">Booking</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="booking-wrap">
+    <div class="booking-grid">
+      <div class="booking-card">
+        <div class="booking-head">
+          <h1>Book in 3 Steps</h1>
+          <p>Step 1: Details → Step 2: Review → Step 3: Pay &amp; Confirm</p>
+        </div>
+
+        <div class="booking-body">
+          <div class="booking-stepper">
+            <div class="booking-step active" id="s1">
+              <span><strong>Step 1</strong><br><span class="muted">Trip details</span></span>
+              <span class="step-badge">1</span>
+            </div>
+            <div class="booking-step" id="s2">
+              <span><strong>Step 2</strong><br><span class="muted">Review</span></span>
+              <span class="step-badge" id="b2" style="opacity:.35;">2</span>
+            </div>
+            <div class="booking-step" id="s3">
+              <span><strong>Step 3</strong><br><span class="muted">Payment</span></span>
+              <span class="step-badge" id="b3" style="opacity:.35;">3</span>
+            </div>
+          </div>
+
+          <form id="bookingForm" novalidate>
+            <!-- STEP 1 -->
+            <section class="booking-panel active" id="p1">
+              <div class="booking-section">
+                <div class="booking-section-title">Passenger info</div>
+                <div class="booking-row two">
+                  <div>
+                    <label for="passengerName">Passenger name</label>
+                    <input id="passengerName" type="text" required />
+                  </div>
+                  <div>
+                    <label for="email">Email (same as payment)</label>
+                    <input id="email" type="email" required />
+                  </div>
+                </div>
+                <div class="booking-row two" style="margin-top:10px;">
+                  <div>
+                    <label for="phone">Mobile / WhatsApp number</label>
+                    <input id="phone" type="tel" required />
+                  </div>
+                  <div>
+                    <label for="passengers">Number of passengers</label>
+                    <input id="passengers" type="text" placeholder="e.g. 2 adults, 2 children" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="booking-section">
+                <div class="booking-section-title">Pickup date &amp; time</div>
+                <div class="booking-row two">
+                  <div>
+                    <label for="pickupDate">Pickup date</label>
+                    <input id="pickupDate" type="date" required />
+                  </div>
+                  <div>
+                    <label for="pickupTime">Pickup time (local)</label>
+                    <input id="pickupTime" type="time" required />
+                  </div>
+                </div>
+                <div class="booking-note" id="urgencyNote" style="display:none;"></div>
+              </div>
+
+              <div class="booking-section">
+                <div class="booking-section-title">Route &amp; price (from Rates)</div>
+
+                <div class="booking-row two">
+                  <div>
+                    <label>Route</label>
+                    <input id="routeDisplay" readonly />
+                  </div>
+                  <div>
+                    <label>Vehicle</label>
+                    <input id="vehicleDisplay" readonly />
+                  </div>
+                </div>
+
+                <div class="booking-row two" style="margin-top:10px;">
+                  <div>
+                    <label>Trip type</label>
+                    <input id="tripDisplay" readonly />
+                  </div>
+                  <div>
+                    <label id="priceLabel">Total price (USD)</label>
+                    <input id="priceDisplay" readonly />
+                  </div>
+                </div>
+
+                <!-- Hourly only -->
+                <div class="booking-row two" style="margin-top:10px; display:none;" id="hourlyRow">
+                  <div>
+                    <label for="hours">Hours (3–24)</label>
+                    <select id="hours"></select>
+                  </div>
+                  <div>
+                    <label>Hourly rate</label>
+                    <input id="hourlyRateDisplay" readonly />
+                  </div>
+                </div>
+
+                <div class="booking-note">
+                  If route/vehicle/price are empty, go to
+                  <a href="rates.html" style="text-decoration:underline;"><strong>Rates</strong></a>
+                  and select a route first.
+                </div>
+              </div>
+
+              <div class="booking-section">
+                <div class="booking-section-title">Locations &amp; trip details</div>
+                <div class="booking-row">
+                  <div>
+                    <label for="pickupLocation">Pickup location</label>
+                    <input id="pickupLocation" type="text" required />
+                  </div>
+                </div>
+
+                <div class="booking-row two" style="margin-top:10px;">
+                  <div>
+                    <label for="flight">Airline &amp; flight number (optional)</label>
+                    <input id="flight" type="text" />
+                  </div>
+                  <div>
+                    <label for="destination">Destination</label>
+                    <input id="destination" type="text" required />
+                  </div>
+                </div>
+
+                <div class="booking-row two" style="margin-top:10px;">
+                  <div>
+                    <label for="luggage">Luggage details (optional)</label>
+                    <input id="luggage" type="text" />
+                  </div>
+                  <div>
+                    <label for="childSeats">Child seats (optional)</label>
+                    <input id="childSeats" type="text" />
+                  </div>
+                </div>
+
+                <div class="booking-row" style="margin-top:10px;">
+                  <div>
+                    <label for="notes">Additional notes (optional)</label>
+                    <textarea id="notes"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="booking-btnrow">
+                <button class="booking-btn-primary" type="button" id="to2">Continue to Review</button>
+              </div>
+            </section>
+
+            <!-- STEP 2 -->
+            <section class="booking-panel" id="p2">
+              <div class="booking-section-title">Review your booking</div>
+              <div class="booking-summary" id="summary"></div>
+
+              <div class="booking-btnrow">
+                <button class="booking-btn-ghost" type="button" id="back1">Back</button>
+                <button class="booking-btn-secondary" type="button" id="to3">Confirm &amp; Continue to Payment</button>
+              </div>
+
+              <div class="booking-note">
+                After you pay, Square will redirect you back to our confirmation page.
+              </div>
+            </section>
+
+            <!-- STEP 3 -->
+            <section class="booking-panel" id="p3">
+              <div class="booking-section-title">Payment</div>
+              <div class="booking-note" id="payNote"></div>
+
+              <div class="booking-btnrow">
+                <button class="booking-btn-ghost" type="button" id="back2">Back</button>
+                <button class="booking-btn-secondary" type="button" id="payBtn">Pay with Square</button>
+              </div>
+
+              <div class="booking-note" id="paymentMsg"></div>
+            </section>
+          </form>
+        </div>
+      </div>
+
+      <aside class="booking-card">
+        <div class="booking-head">
+          <h2>Need help?</h2>
+          <p>Contact us any time.</p>
+        </div>
+        <div class="booking-side">
+          <div class="box">
+            <p><strong>Phone:</strong> <a href="tel:14073690643" style="text-decoration:underline;">407-369-0643</a></p>
+            <p><strong>Email:</strong> <a href="mailto:mltorlando@yahoo.com" style="text-decoration:underline;">mltorlando@yahoo.com</a></p>
+          </div>
+          <!-- ✅ API endpoint box removed -->
+        </div>
+      </aside>
+    </div>
+  </main>
 
 <script>
   // =========================
-  // SET THIS IF YOUR SITE IS NOT HOSTED ON THE SAME VERCEL PROJECT
+  // IMPORTANT (MOST COMMON ISSUE):
+  // If your website is NOT hosted on the same Vercel project as the API,
+  // set API_BASE to your Vercel domain:
+  //   const API_BASE = "https://YOUR-PROJECT.vercel.app";
   // =========================
-  // If booking.html is on Vercel: leave as ""
-  // If booking.html is on GitHub Pages: set to "https://YOUR-VERCEL-PROJECT.vercel.app"
   const API_BASE = "";
 
-  document.getElementById("api1").textContent = (API_BASE || location.origin) + "/api/create-square-link";
-  document.getElementById("api2").textContent = (API_BASE || location.origin) + "/api/confirm-booking";
-
-  // URL params from Rates
   const params = new URLSearchParams(location.search);
   const route = params.get("route") || "";
   const vehicle = params.get("vehicle") || "";
   const trip = params.get("trip") || "";
-  const priceParam = params.get("price") || ""; // on hourly this is HOURLY rate
+  const priceParam = params.get("price") || "";
 
   document.getElementById("routeDisplay").value = route;
   document.getElementById("vehicleDisplay").value = vehicle;
   document.getElementById("tripDisplay").value = trip;
 
-  // Hourly hours dropdown
   const hourlyRow = document.getElementById("hourlyRow");
   const hoursSel = document.getElementById("hours");
   for (let h = 3; h <= 24; h++) {
@@ -336,11 +434,7 @@
   function getAmountDollars() {
     if (!isFinitePositive(priceParam)) return 0;
     const base = Number(priceParam);
-
-    if (trip === "hourly") {
-      const hrs = Number(hoursSel.value || 3);
-      return base * hrs;
-    }
+    if (trip === "hourly") return base * Number(hoursSel.value || 3);
     return base;
   }
 
@@ -350,7 +444,6 @@
       hourlyRow.style.display = "none";
       return;
     }
-
     if (trip === "hourly") {
       hourlyRow.style.display = "grid";
       document.getElementById("hourlyRateDisplay").value = `$${Number(priceParam).toFixed(2)} / hr`;
@@ -461,7 +554,6 @@
     const v = validateStep1();
     if (!v.ok) return alert(v.msg);
 
-    // create cid now
     const cid = "MLT-" + Date.now() + "-" + Math.random().toString(16).slice(2,8).toUpperCase();
     const data = buildBookingData(cid);
     localStorage.setItem("mltBooking:" + cid, JSON.stringify(data));
@@ -506,10 +598,9 @@
       const amount = Number(booking.amount_usd);
       if (!Number.isFinite(amount) || amount <= 0) throw new Error("Invalid amount. Please select a route from Rates.");
 
-      // redirect back to confirm.html (include cid)
       const redirectUrl = `${location.origin}/confirm.html?cid=${encodeURIComponent(cid)}`;
 
-      const lineItemName =
+      const name =
         `MLT Transportation - ${route} - ${vehicle} (${trip}${trip==="hourly" ? ` ${booking.hourly_hours}h` : ""})`;
 
       const note =
@@ -522,22 +613,19 @@
         body: JSON.stringify({
           amount,
           currency: "USD",
-          lineItemName,
+          name,
           note,
-          referenceId: cid,
           redirectUrl,
           buyerEmail: booking.email,
-          buyerPhone: booking.phone,
         }),
       });
 
       const data = await r.json().catch(() => ({}));
 
       if (!data.ok) {
-        // Show real error so you can fix it fast
         paymentMsg.innerHTML =
           `<span class="danger"><strong>Error:</strong> ${data.error || "Could not create payment link."}</span>` +
-          `<div class="note"><pre style="white-space:pre-wrap">${JSON.stringify(data.details || data, null, 2)}</pre></div>`;
+          `<div class="booking-note"><pre style="white-space:pre-wrap">${JSON.stringify(data.details || data, null, 2)}</pre></div>`;
         payBtn.disabled = false;
         payBtn.textContent = "Pay with Square";
         return;
@@ -552,5 +640,6 @@
     }
   });
 </script>
+
 </body>
 </html>
