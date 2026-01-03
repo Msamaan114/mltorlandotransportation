@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking Confirmation | MLT Orlando Transportation</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f3f4f6;margin:0;color:#0f172a}
+    .wrap{max-width:800px;margin:32px auto;padding:0 16px}
+    .card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.08);padding:18px}
+    .muted{color:#64748b}
+    .ok{color:#166534}
+    .danger{color:#b91c1c}
+    pre{background:#0b1120;color:#e5e7eb;padding:12px;border-radius:12px;overflow:auto}
+    a{color:inherit}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Confirming your booking…</h1>
+      <p class="muted" id="sub">Please wait.</p>
+      <div id="out"></div>
+    </div>
+  </div>
+
+  <script>
+    const qs = new URLSearchParams(location.search);
+    const cid = qs.get("cid") || "";         // our internal booking id
+    const orderId = qs.get("orderId") || ""; // appended by Square in production
+    const transactionId = qs.get("transactionId") || "";
+
+    // If your API is on a different domain, set this:
+    // const API_BASE = "https://YOUR-VERCEL-PROJECT.vercel.app";
+    const API_BASE = "";
+
+    const out = document.getElementById("out");
+    const sub = document.getElementById("sub");
+
+    // Load the booking data we saved before redirecting to Square
+    const saved = cid ? localStorage.getItem("mltBooking:" + cid) : null;
+    const bookingData = saved ? JSON.parse(saved) : null;
+
+    async function run() {
+      if (!orderId) {
+        sub.innerHTML = `<span class="danger">Missing orderId.</span> If you paid and don’t see confirmation, please contact us.`;
+        out.innerHTML = `<pre>${JSON.stringify({ cid, orderId, transactionId }, null, 2)}</pre>`;
+        return;
+      }
+
+      sub.textContent = "Verifying payment with Square…";
+
+      const r = await fetch(API_BASE + "/api/confirm-booking", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ cid, orderId, transactionId, bookingData })
+      });
+
+      const data = await r.json().catch(() => ({}));
+
+      if (!data.ok) {
+        sub.innerHTML = `<span class="danger"><strong>Not confirmed yet.</strong></span> You can refresh in 10 seconds.`;
+        out.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        return;
+      }
+
+      sub.innerHTML = `<span class="ok"><strong>Confirmed!</strong></span> We emailed your booking confirmation.`;
+      out.innerHTML = `
+        <p><strong>Confirmation #:</strong> ${data.confirmationId || cid || "(n/a)"}</p>
+        <p class="muted">Thank you for choosing MLT Orlando Transportation.</p>
+        <p><a href="index.html">Back to Home</a></p>
+      `;
+
+      // prevent duplicate emails if user refreshes
+      if (cid) localStorage.setItem("mltBookingConfirmed:" + cid, "1");
+    }
+
+    run().catch(err => {
+      sub.innerHTML = `<span class="danger">Error confirming booking.</span>`;
+      out.innerHTML = `<pre>${String(err)}</pre>`;
+    });
+  </script>
+</body>
+</html>
