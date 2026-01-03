@@ -1,105 +1,134 @@
-// api/create-square-link.js
-// Creates a Square-hosted checkout link (Payment Link) using Square Checkout API.
+// /api/create-square-link.js
+const { Client, Environment } = require("square");
+const crypto = require("crypto");
 
-export default async function handler(req, res) {
-  // CORS (allow your site + www)
-  const allowedOrigins = new Set([
-    "https://mltorlandotransportation.com",
-    "https://www.mltorlandotransportation.com",
-  ]);
+function mustString(x) { return typeof x === "string" ? x.trim() : ""; }
 
-  const origin = req.headers.origin;
-  if (origin && allowedOrigins.has(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.setHeader("Vary", "Origin");
+module.exports = async function handler(req, res) {
+  // CORS (adjust if needed)
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") return res.status(204).end();
-  if (req.method !== "POST") return res.status(405).json({ ok: false, error: "Use POST" });
+  if (req.method !== "POST") return res.status(405).json({ ok: false, error: "Method not allowed" });
 
   try {
-    const { amount, currency = "USD", name = "Transportation Service", note = "" } = req.body || {};
+    const env = (process.env.SQUARE_ENV || "production").toLowerCase();
+    const squareEnv = env === "sandbox" ? Environment.Sandbox : Environment.Production;
 
-    const dollars = Number(amount);
-    if (!Number.isFinite(dollars) || dollars <= 0) {
+    const client = new Client({
+      accessToken: process.env.SQUARE_ACCESS_TOKEN,
+      environment: squareEnv,
+    });
+
+    const body = req.body || {};
+    const bookingId = mustString(body.bookingId) || crypto.randomUUID();
+
+    const amount = Number(body.amount);
+    if (!Number.isFinite(amount) || amount <= 0) {
       return res.status(400).json({ ok: false, error: "Invalid amount" });
     }
 
-    // Guardrails (optional)
-    if (dollars < 1 || dollars > 5000) {
-      return res.status(400).json({ ok: false, error: "Amount out of allowed range" });
-    }
-
-    const cents = Math.round(dollars * 100);
-
-    const accessToken = process.env.SQUARE_ACCESS_TOKEN;
     const locationId = process.env.SQUARE_LOCATION_ID;
-    const env = (process.env.SQUARE_ENV || "production").toLowerCase();
-
-    if (!accessToken || !locationId) {
-      return res.status(500).json({
-        ok: false,
-        error: "Missing Square env vars",
-        missing: {
-          SQUARE_ACCESS_TOKEN: !accessToken,
-          SQUARE_LOCATION_ID: !locationId,
-        },
-      });
+    if (!locationId) {
+      return res.status(500).json({ ok: false, error: "Missing SQUARE_LOCATION_ID" });
     }
 
-    const baseUrl =
-      env === "sandbox" ? "https://connect.squareupsandbox.com" : "https://connect.squareup.com";
+    // IMPORTANT: Use your real public domain here (must be HTTPS)
+    // Square will append &orderId=...&transactionId=... in production. :contentReference[oaicite:3]{index=3}
+    const redirectUrl = `${process.env.PUBLIC_BASE_URL || "https://www.mltorlandotransportation.com"}/confirmation.html?bookingId=${encodeURIComponent(bookingId)}`;
 
-    const idempotencyKey =
-      (globalThis.crypto?.randomUUID?.() ||
-        `${Date.now()}-${Math.random().toString(16).slice(2)}`);
+    const route = mustString(body.route);
+    const vehicle = mustString(body.vehicle);
+    const trip = mustString(body.trip);
 
-    // IMPORTANT: include location_id in quick_pay
-    const payload = {
-      idempotency_key: idempotencyKey,
-      quick_pay: {
-        name,
-        location_id: locationId,
-        price_money: { amount: cents, currency },
+    const passengerName = mustString(body.passengerName);
+    const email = mustString(body.email);
+    const pickupDate = mustString(body.pickupDate);
+    const pickupTime = mustString(body.pickupTime);
+
+    const note = [
+      `BookingId: ${bookingId}`,
+      `Name: ${passengerName}`,
+      `Email: ${email}`,
+      `Phone: ${mustString(body.phone)}`,
+      `Route: ${route}`,
+      `Vehicle: ${vehicle}`,
+      `Trip: ${trip}`,
+      `Pickup: ${pickupDate} ${pickupTime}`,
+      `Pickup location: ${mustString(body.pickupLocation)}`,
+      `Destination: ${mustString(body.destination)}`,
+      `Flight: ${mustString(body.flight)}`,
+      `Passengers: ${mustString(body.passengers)}`,
+      `Luggage: ${mustString(body.luggage)}`,
+      `Child seats: ${mustString(body.childSeats)}`,
+      `Notes: ${mustString(body.notes)}`
+    ].join(" | ");
+
+    const cents = Math.round(amount * 100);
+
+    const createBody = {
+      idempotencyKey: crypto.randomUUID(),
+      order: {
+        locationId,
+        referenceId: bookingId, // useful to match later
+        lineItems: [
+          {
+            name: "Transportation Booking",
+            quantity: "1",
+            basePriceMoney: { amount: cents, currency: "USD" }
+          }
+        ],
+        note
       },
-      // Optional: show note on receipt / order (not required)
-      // pre_populated_data: { buyer_note: note },
+      checkoutOptions: {
+        redirectUrl
+      }
     };
 
-    const resp = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        "Square-Version": "2025-01-23",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await resp.json().catch(() => ({}));
-
-    if (!resp.ok) {
-      // Return Square’s details so you can see the real reason in DevTools
-      return res.status(resp.status).json({
-        ok: false,
-        error: "Square error",
-        details: data,
-      });
+    // Some SDK versions expect snake_case ("checkout_options"). To be resilient, try camelCase first, then fallback.
+    let result;
+    try {
+      const resp = await client.checkoutApi.createPaymentLink(createBody);
+      result = resp.result || resp;
+    } catch (e) {
+      const fallbackBody = {
+        idempotency_key: createBody.idempotencyKey,
+        order: {
+          location_id: locationId,
+          reference_id: bookingId,
+          line_items: [
+            {
+              name: "Transportation Booking",
+              quantity: "1",
+              base_price_money: { amount: cents, currency: "USD" }
+            }
+          ],
+          note
+        },
+        checkout_options: { redirect_url: redirectUrl }
+      };
+      const resp2 = await client.checkoutApi.createPaymentLink(fallbackBody);
+      result = resp2.result || resp2;
     }
 
-    const url = data?.payment_link?.url;
+    const pl =
+      result.paymentLink ||
+      result.payment_link ||
+      result.paymentlink ||
+      null;
+
+    const url = (pl && (pl.url || pl.longUrl || pl.long_url)) || result.url || result.long_url;
+
     if (!url) {
-      return res.status(500).json({ ok: false, error: "No URL returned", details: data });
+      return res.status(500).json({ ok: false, error: "No payment link URL returned" });
     }
 
-    return res.status(200).json({ ok: true, url });
+    return res.status(200).json({ ok: true, url, bookingId });
+
   } catch (err) {
-    return res.status(500).json({
-      ok: false,
-      error: "Server error",
-      message: err?.message || String(err),
-    });
+    console.error(err);
+    return res.status(500).json({ ok: false, error: "Square error" });
   }
-}
+};
