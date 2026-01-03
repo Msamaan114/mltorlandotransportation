@@ -5,113 +5,113 @@
   <title>Booking Confirmation | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { background: #f3f4f6; color: #0f172a; }
-    main { max-width: 760px; margin: 28px auto; padding: 0 16px; }
-    .card { background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(2,6,23,.08); overflow: hidden; }
-    .head { padding: 16px; border-bottom: 1px solid #e5e7eb; }
-    .head h1 { font-size: 18px; margin-bottom: 6px; }
-    .head p { font-size: 13px; color: #475569; }
-    .body { padding: 16px; }
-    .pill { display:inline-flex; padding:10px 12px; border-radius:999px; background:#f1f5f9; font-size:12px; }
-    .ok { color: #166534; }
-    .danger { color: #b91c1c; }
-    .muted { color:#64748b; font-size:12px; }
-    .box { margin-top: 12px; border: 1px solid #e2e8f0; background:#f8fafc; border-radius: 14px; padding: 12px; }
-    .btn { display:inline-block; margin-top:12px; padding: 10px 14px; border-radius: 999px; background:#0ea5e9; color:#fff; text-decoration:none; font-weight:800; font-size:13px; }
-    .btn2 { background:#111827; }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{background:#f3f4f6;color:#020617;line-height:1.55}
+    main{max-width:900px;margin:28px auto;padding:0 16px}
+    .card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.08);overflow:hidden}
+    .head{padding:16px;border-bottom:1px solid #e5e7eb}
+    .head h1{font-size:18px;margin-bottom:6px}
+    .head p{font-size:13px;color:#475569}
+    .body{padding:16px}
+    .note{margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:14px;font-size:12px;color:#334155}
+    .ok{color:#166534}
+    .danger{color:#b91c1c}
+    .muted{color:#64748b}
+    a{text-decoration:underline;color:inherit}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
   </style>
 </head>
 <body>
 <main>
   <div class="card">
     <div class="head">
-      <h1>Booking confirmation</h1>
-      <p>We’re verifying your payment and sending confirmation emails.</p>
+      <h1>Booking Confirmation</h1>
+      <p id="subtitle" class="muted">Finalizing your booking...</p>
     </div>
     <div class="body">
-      <div class="pill" id="statusPill">Verifying payment…</div>
-
-      <div class="box" id="detailsBox" style="display:none;"></div>
-
-      <div class="box" id="helpBox" style="display:none;">
-        <p class="muted">
-          If you were charged but this page can’t verify the payment, please contact us and we’ll confirm manually.
-        </p>
-        <p class="muted" style="margin-top:6px;">
-          Phone: <a href="tel:14073690643">407-369-0643</a> · Email: <a href="mailto:mltorlando@yahoo.com">mltorlando@yahoo.com</a>
-        </p>
+      <div class="note" id="statusBox">
+        Please wait…
       </div>
-
-      <a class="btn" href="rates.html">Book another ride</a>
-      <a class="btn btn2" href="index.html" style="margin-left:8px;">Home</a>
+      <div class="note">
+        If you need immediate help, call <a href="tel:14073690643">407-369-0643</a>.
+      </div>
+      <div class="note muted">
+        Debug: orderId=<span class="kbd" id="oid">-</span> • referenceId=<span class="kbd" id="rid">-</span> • transactionId=<span class="kbd" id="tid">-</span>
+      </div>
     </div>
   </div>
 </main>
 
 <script>
-  function qs(name) { return new URLSearchParams(window.location.search).get(name); }
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get("orderId") || params.get("order_id") || "";
+  const referenceId = params.get("referenceId") || params.get("reference_id") || "";
+  const transactionId = params.get("transactionId") || params.get("transaction_id") || "";
 
-  const bookingId = qs("bookingId") || "";
-  const orderId = qs("orderId") || "";
-  const transactionId = qs("transactionId") || "";
-  const referenceId = qs("referenceId") || "";
-  const checkoutId = qs("checkoutId") || "";
+  document.getElementById("oid").textContent = orderId || "-";
+  document.getElementById("rid").textContent = referenceId || "-";
+  document.getElementById("tid").textContent = transactionId || "-";
 
-  const statusPill = document.getElementById("statusPill");
-  const detailsBox = document.getElementById("detailsBox");
-  const helpBox = document.getElementById("helpBox");
+  const statusBox = document.getElementById("statusBox");
+  const subtitle = document.getElementById("subtitle");
 
-  function showError(msg) {
-    statusPill.className = "pill danger";
-    statusPill.textContent = msg;
-    helpBox.style.display = "block";
+  async function run() {
+    // Load pending booking from localStorage
+    const saved = JSON.parse(localStorage.getItem("mlt_pending_booking") || "{}");
+    const booking = saved?.booking;
+
+    if (!booking) {
+      subtitle.textContent = "We couldn’t find your booking details on this device.";
+      statusBox.innerHTML = `<span class="danger"><strong>Missing booking data.</strong></span><br>
+        If you completed payment, please contact us and share your name/email and the time of payment.`;
+      return;
+    }
+
+    // If sandbox doesn't append IDs reliably, orderId may be missing :contentReference[oaicite:8]{index=8}
+    if (!orderId) {
+      subtitle.textContent = "Payment completed, but missing Square order ID.";
+      statusBox.innerHTML = `<span class="danger"><strong>Missing orderId.</strong></span><br>
+        This can happen in sandbox testing. In production, Square typically appends orderId/transactionId/referenceId to the redirect URL.`;
+      return;
+    }
+
+    subtitle.textContent = "Verifying payment and sending your reservation...";
+    statusBox.textContent = "Verifying payment…";
+
+    const r = await fetch("/api/confirm-booking", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        orderId,
+        booking: {
+          ...booking,
+          square_reference_id: referenceId || booking.booking_id || "",
+          square_transaction_id: transactionId || "",
+        }
+      }),
+    });
+
+    const data = await r.json().catch(() => ({}));
+    if (!data.ok) {
+      subtitle.textContent = "We couldn’t finalize automatically.";
+      statusBox.innerHTML = `<span class="danger"><strong>Error:</strong> ${data.error || "Please contact us."}</span>`;
+      return;
+    }
+
+    subtitle.textContent = "Confirmed!";
+    statusBox.innerHTML = `<span class="ok"><strong>Success:</strong> Your booking is confirmed.</span><br>
+      Confirmation #: <strong>${booking.booking_id || referenceId || "MLT"}</strong><br>
+      A copy was sent to our team.`;
+    
+    // Clean up
+    localStorage.removeItem("mlt_pending_booking");
   }
 
-  (async () => {
-    try {
-      // Pull saved booking draft from localStorage
-      let booking = null;
-      if (bookingId) {
-        const raw = localStorage.getItem("mlt_booking_" + bookingId);
-        if (raw) booking = JSON.parse(raw);
-      }
-
-      const r = await fetch("/api/confirm-booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookingId, orderId, transactionId, referenceId, checkoutId, booking }),
-      });
-
-      const data = await r.json();
-
-      if (!r.ok || !data.ok) {
-        console.log("Confirm error:", data);
-        showError("We couldn’t verify payment automatically.");
-        return;
-      }
-
-      // Success
-      statusPill.className = "pill ok";
-      statusPill.textContent = "Payment verified — confirmation sent!";
-
-      detailsBox.style.display = "block";
-      detailsBox.innerHTML = `
-        <div class="muted">Confirmation number</div>
-        <div style="font-weight:900; font-size:18px; margin-top:4px;">${(data.confirmationNumber || "").replaceAll("<","&lt;")}</div>
-        <div class="muted" style="margin-top:10px;">
-          A confirmation email was sent to <strong>${(data.customerEmail || "").replaceAll("<","&lt;")}</strong>.
-        </div>
-      `;
-
-      // Cleanup saved draft (optional)
-      if (bookingId) localStorage.removeItem("mlt_booking_" + bookingId);
-
-    } catch (e) {
-      console.error(e);
-      showError("Verification failed due to a network error.");
-    }
-  })();
+  run().catch((e) => {
+    console.error(e);
+    subtitle.textContent = "Something went wrong.";
+    statusBox.innerHTML = `<span class="danger"><strong>Error:</strong> ${e.message || "Please contact us."}</span>`;
+  });
 </script>
 </body>
 </html>
