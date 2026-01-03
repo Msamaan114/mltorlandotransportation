@@ -4,109 +4,60 @@
   <meta charset="UTF-8" />
   <title>Book in 3 Steps | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Book your ride in 3 steps: details, review, payment, confirmation." />
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { background: #f3f4f6; color: #020617; line-height: 1.55; }
-    a { color: inherit; text-decoration: none; }
-    header { background: #020617; color: #fff; padding: 16px; }
-    .nav { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-    .brand { font-weight: 800; letter-spacing: .5px; }
-    .links { display: flex; gap: 14px; flex-wrap: wrap; font-size: 14px; opacity: .95; }
-    .links a { padding: 6px 10px; border-radius: 10px; }
-    .links a:hover { background: rgba(255,255,255,.08); }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    body{background:#f3f4f6;color:#020617;line-height:1.55}
+    a{color:inherit;text-decoration:none}
+    header{background:#020617;color:#fff;padding:16px}
+    .nav{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .brand{font-weight:800;letter-spacing:.5px}
+    .links{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;opacity:.95}
+    .links a{padding:6px 10px;border-radius:10px}
+    .links a:hover{background:rgba(255,255,255,.08)}
+    main{max-width:1100px;margin:24px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:980px){.grid{grid-template-columns:1.2fr .8fr}}
+    .card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(2,6,23,.08);overflow:hidden}
+    .head{padding:16px 16px 12px;border-bottom:1px solid #e5e7eb}
+    .head h1,.head h2{font-size:18px;margin-bottom:6px}
+    .head p{font-size:13px;color:#475569}
+    .body{padding:16px}
+    .stepper{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+    .step{border:1px solid #e5e7eb;background:#f8fafc;border-radius:14px;padding:10px 12px;font-size:12px;color:#334155;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .step.active{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(59,130,246,.10)}
+    .badge{background:#0ea5e9;color:#fff;font-weight:800;border-radius:999px;padding:4px 10px;font-size:12px}
+    .muted{color:#64748b;font-size:12px}
+    .danger{color:#b91c1c}
+    .ok{color:#166534}
 
-    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
-    .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
-    @media (min-width: 980px) { .grid { grid-template-columns: 1.2fr .8fr; } }
-
-    .card { background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(2,6,23,.08); overflow: hidden; }
-    .card .head { padding: 16px 16px 12px; border-bottom: 1px solid #e5e7eb; }
-    .card .head h1, .card .head h2 { font-size: 18px; margin-bottom: 6px; }
-    .card .head p { font-size: 13px; color: #475569; }
-
-    .body { padding: 16px; }
-
-    .stepper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
-    .step {
-      border: 1px solid #e5e7eb;
-      background: #f8fafc;
-      border-radius: 14px;
-      padding: 10px 12px;
-      font-size: 12px;
-      color: #334155;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    }
-    .step.active { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.10); }
-    .badge { background: #0ea5e9; color:#fff; font-weight:800; border-radius:999px; padding: 4px 10px; font-size: 12px; }
-    .muted { color: #64748b; font-size: 12px; }
-    .danger { color: #b91c1c; }
-    .ok { color: #166534; }
-
-    form { padding: 0; }
-    .section { margin-top: 16px; }
-    .section:first-child { margin-top: 0; }
-    .section-title { font-weight: 750; font-size: 14px; margin-bottom: 10px; color: #0f172a; }
-    .row { display: grid; grid-template-columns: 1fr; gap: 10px; }
-    @media (min-width: 700px) { .row.two { grid-template-columns: 1fr 1fr; } }
-
-    label { font-size: 12px; color: #334155; margin-bottom: 6px; display: block; }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px 12px;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      background: #fff;
-      font-size: 14px;
-      outline: none;
-    }
-    input:focus, select:focus, textarea:focus { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.12); }
-    textarea { min-height: 100px; resize: vertical; }
-
-    .note {
-      margin-top: 10px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      padding: 12px;
-      border-radius: 14px;
-      font-size: 12px;
-      color: #334155;
-    }
-
-    .btnrow { display:flex; gap:10px; margin-top: 14px; flex-wrap: wrap; }
-    button {
-      border: 0;
-      border-radius: 999px;
-      padding: 12px 14px;
-      font-weight: 800;
-      cursor: pointer;
-      font-size: 14px;
-      flex: 1;
-      min-width: 160px;
-    }
-    .btn-primary { background: #0ea5e9; color: #fff; }
-    .btn-primary:hover { filter: brightness(.97); }
-    .btn-secondary { background: #111827; color: #fff; }
-    .btn-secondary:hover { filter: brightness(.97); }
-    .btn-ghost { background: #e2e8f0; color: #0f172a; }
-    .btn-ghost:hover { filter: brightness(.98); }
-    .btn-secondary[disabled] { background:#9ca3af; cursor:not-allowed; }
-
-    .panel { display:none; }
-    .panel.active { display:block; }
-
-    .summary { border: 1px solid #e5e7eb; border-radius: 14px; padding: 12px; background:#fff; }
-    .summary .line { display:flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
-    .summary .line:last-child { border-bottom: 0; }
-    .summary .k { color:#64748b; }
-    .summary .v { font-weight: 700; text-align: right; }
-
-    .side { padding: 16px; }
-    .side h3 { font-size: 14px; margin-bottom: 10px; }
-    .side .box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 14px; margin-bottom: 12px; }
-    .side .box p { font-size: 12px; color: #334155; margin: 6px 0; }
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+    .section{margin-top:16px}
+    .section:first-child{margin-top:0}
+    .section-title{font-weight:750;font-size:14px;margin-bottom:10px;color:#0f172a}
+    .row{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:700px){.row.two{grid-template-columns:1fr 1fr}}
+    label{font-size:12px;color:#334155;margin-bottom:6px;display:block}
+    input,select,textarea{width:100%;padding:12px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;font-size:14px;outline:none}
+    input:focus,select:focus,textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 4px rgba(59,130,246,.12)}
+    textarea{min-height:100px;resize:vertical}
+    .note{margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:14px;font-size:12px;color:#334155}
+    .btnrow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+    button{border:0;border-radius:999px;padding:12px 14px;font-weight:800;cursor:pointer;font-size:14px;flex:1;min-width:160px}
+    .btn-primary{background:#0ea5e9;color:#fff}
+    .btn-secondary{background:#111827;color:#fff}
+    .btn-ghost{background:#e2e8f0;color:#0f172a}
+    .btn-secondary[disabled]{background:#9ca3af;cursor:not-allowed}
+    .panel{display:none}
+    .panel.active{display:block}
+    .summary{border:1px solid #e5e7eb;border-radius:14px;padding:12px;background:#fff}
+    .summary .line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
+    .summary .line:last-child{border-bottom:0}
+    .summary .k{color:#64748b}
+    .summary .v{font-weight:700;text-align:right}
+    .side{padding:16px}
+    .side .box{background:#f8fafc;border:1px solid #e2e8f0;padding:12px;border-radius:14px;margin-bottom:12px}
+    .side .box p{font-size:12px;color:#334155;margin:6px 0}
+    .kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:12px}
   </style>
 </head>
 
@@ -136,34 +87,34 @@
 
       <div class="body">
         <div class="stepper">
-          <div class="step" id="s1"><span><strong>Step 1</strong><br><span class="muted">Trip details</span></span><span class="badge" id="b1">1</span></div>
+          <div class="step active" id="s1"><span><strong>Step 1</strong><br><span class="muted">Trip details</span></span><span class="badge">1</span></div>
           <div class="step" id="s2"><span><strong>Step 2</strong><br><span class="muted">Review</span></span><span class="badge" id="b2" style="opacity:.35;">2</span></div>
           <div class="step" id="s3"><span><strong>Step 3</strong><br><span class="muted">Payment</span></span><span class="badge" id="b3" style="opacity:.35;">3</span></div>
         </div>
 
         <form id="bookingForm" novalidate>
-          <!-- Panel 1 -->
-          <section class="panel active" id="panel1">
+          <!-- STEP 1 -->
+          <section class="panel active" id="p1">
             <div class="section">
               <div class="section-title">Passenger info</div>
               <div class="row two">
                 <div>
                   <label for="passengerName">Passenger name</label>
-                  <input id="passengerName" name="passenger_name" type="text" placeholder="Full name" required />
+                  <input id="passengerName" type="text" required />
                 </div>
                 <div>
                   <label for="email">Email (same as payment)</label>
-                  <input id="email" name="email" type="email" placeholder="name@example.com" required />
+                  <input id="email" type="email" required />
                 </div>
               </div>
               <div class="row two" style="margin-top:10px;">
                 <div>
                   <label for="phone">Mobile / WhatsApp number</label>
-                  <input id="phone" name="phone" type="tel" placeholder="(407) 000-0000" required />
+                  <input id="phone" type="tel" required />
                 </div>
                 <div>
                   <label for="passengers">Number of passengers</label>
-                  <input id="passengers" name="passengers" type="text" placeholder="e.g. 2 adults, 2 children" />
+                  <input id="passengers" type="text" placeholder="e.g. 2 adults, 2 children" />
                 </div>
               </div>
             </div>
@@ -173,43 +124,55 @@
               <div class="row two">
                 <div>
                   <label for="pickupDate">Pickup date</label>
-                  <input id="pickupDate" name="pickup_date" type="date" required />
+                  <input id="pickupDate" type="date" required />
                 </div>
                 <div>
                   <label for="pickupTime">Pickup time (local)</label>
-                  <input id="pickupTime" name="pickup_time" type="time" required />
+                  <input id="pickupTime" type="time" required />
                 </div>
               </div>
               <div class="note" id="urgencyNote" style="display:none;"></div>
             </div>
 
             <div class="section">
-              <div class="section-title">Route &amp; price (auto-filled from Rates)</div>
+              <div class="section-title">Route &amp; price (from Rates)</div>
 
               <div class="row two">
                 <div>
-                  <label for="routeDisplay">Route</label>
-                  <input id="routeDisplay" type="text" readonly />
+                  <label>Route</label>
+                  <input id="routeDisplay" readonly />
                 </div>
                 <div>
-                  <label for="vehicleDisplay">Vehicle</label>
-                  <input id="vehicleDisplay" type="text" readonly />
+                  <label>Vehicle</label>
+                  <input id="vehicleDisplay" readonly />
                 </div>
               </div>
 
               <div class="row two" style="margin-top:10px;">
                 <div>
-                  <label for="tripTypeDisplay">Trip type</label>
-                  <input id="tripTypeDisplay" type="text" readonly />
+                  <label>Trip type</label>
+                  <input id="tripDisplay" readonly />
                 </div>
                 <div>
-                  <label for="totalPrice">Total price (USD)</label>
-                  <input id="totalPrice" type="text" readonly />
+                  <label id="priceLabel">Total price (USD)</label>
+                  <input id="priceDisplay" readonly />
+                </div>
+              </div>
+
+              <!-- Hourly only -->
+              <div class="row two" style="margin-top:10px; display:none;" id="hourlyRow">
+                <div>
+                  <label for="hours">Hours (3–24)</label>
+                  <select id="hours"></select>
+                </div>
+                <div>
+                  <label>Hourly rate</label>
+                  <input id="hourlyRateDisplay" readonly />
                 </div>
               </div>
 
               <div class="note">
-                If these are empty, go to <a href="rates.html" style="text-decoration: underline;"><strong>Rates</strong></a> and select a route to auto-fill.
+                If route/vehicle/price are empty, go to <a href="rates.html" style="text-decoration:underline;"><strong>Rates</strong></a> and select a route first.
               </div>
             </div>
 
@@ -217,78 +180,73 @@
               <div class="section-title">Locations &amp; trip details</div>
               <div class="row">
                 <div>
-                  <label for="pickupLocation">Pickup location (airport, hotel, or address)</label>
-                  <input id="pickupLocation" name="pickup_location" type="text" required />
+                  <label for="pickupLocation">Pickup location</label>
+                  <input id="pickupLocation" type="text" required />
                 </div>
               </div>
 
               <div class="row two" style="margin-top:10px;">
                 <div>
-                  <label for="flight">Airline &amp; flight number (if flying)</label>
-                  <input id="flight" name="flight" type="text" />
+                  <label for="flight">Airline &amp; flight number (optional)</label>
+                  <input id="flight" type="text" />
                 </div>
                 <div>
-                  <label for="destination">Destination address / hotel</label>
-                  <input id="destination" name="destination" type="text" required />
+                  <label for="destination">Destination</label>
+                  <input id="destination" type="text" required />
                 </div>
               </div>
 
               <div class="row two" style="margin-top:10px;">
                 <div>
-                  <label for="luggage">Luggage details</label>
-                  <input id="luggage" name="luggage" type="text" />
+                  <label for="luggage">Luggage details (optional)</label>
+                  <input id="luggage" type="text" />
                 </div>
                 <div>
-                  <label for="childSeats">Child seats</label>
-                  <input id="childSeats" name="child_seats" type="text" />
+                  <label for="childSeats">Child seats (optional)</label>
+                  <input id="childSeats" type="text" />
                 </div>
               </div>
 
               <div class="row" style="margin-top:10px;">
                 <div>
-                  <label for="notes">Additional notes</label>
-                  <textarea id="notes" name="notes"></textarea>
+                  <label for="notes">Additional notes (optional)</label>
+                  <textarea id="notes"></textarea>
                 </div>
               </div>
             </div>
 
             <div class="btnrow">
-              <button class="btn-primary" type="button" id="toStep2">Continue to Review</button>
-            </div>
-
-            <div class="note">
-              <p><strong>Short notice policy:</strong> if pickup is within 8 hours, we must confirm availability before payment.</p>
+              <button class="btn-primary" type="button" id="to2">Continue to Review</button>
             </div>
           </section>
 
-          <!-- Panel 2 -->
-          <section class="panel" id="panel2">
+          <!-- STEP 2 -->
+          <section class="panel" id="p2">
             <div class="section-title">Review your booking</div>
-            <div class="summary" id="summaryBox"></div>
+            <div class="summary" id="summary"></div>
 
             <div class="btnrow">
-              <button class="btn-ghost" type="button" id="backTo1">Back</button>
-              <button class="btn-secondary" type="button" id="toStep3">Confirm &amp; Continue to Payment</button>
+              <button class="btn-ghost" type="button" id="back1">Back</button>
+              <button class="btn-secondary" type="button" id="to3">Confirm &amp; Continue to Payment</button>
             </div>
 
             <div class="note">
-              When you pay, you’ll be redirected to a confirmation page and we’ll receive your reservation email.
+              After you pay, Square will redirect you back to our confirmation page.
             </div>
           </section>
 
-          <!-- Panel 3 -->
-          <section class="panel" id="panel3">
+          <!-- STEP 3 -->
+          <section class="panel" id="p3">
             <div class="section-title">Payment</div>
-            <div class="note" id="payRules"></div>
+            <div class="note" id="payNote"></div>
 
             <div class="btnrow">
-              <button class="btn-ghost" type="button" id="backTo2">Back</button>
+              <button class="btn-ghost" type="button" id="back2">Back</button>
               <button class="btn-secondary" type="button" id="payBtn">Pay with Square</button>
             </div>
 
             <div class="note" id="paymentMsg"></div>
           </section>
-
         </form>
       </div>
     </div>
@@ -300,14 +258,13 @@
       </div>
       <div class="side">
         <div class="box">
-          <h3>Contact</h3>
-          <p><strong>Phone:</strong> <a href="tel:14073690643" style="text-decoration: underline;">407-369-0643</a></p>
-          <p><strong>Email:</strong> <a href="mailto:mltorlando@yahoo.com" style="text-decoration: underline;">mltorlando@yahoo.com</a></p>
+          <p><strong>Phone:</strong> <a href="tel:14073690643" style="text-decoration:underline;">407-369-0643</a></p>
+          <p><strong>Email:</strong> <a href="mailto:mltorlando@yahoo.com" style="text-decoration:underline;">mltorlando@yahoo.com</a></p>
         </div>
+
         <div class="box">
-          <h3>Note</h3>
-          <p class="muted">API endpoint: <span class="kbd">/api/create-square-link</span></p>
-          <p class="muted">Confirmation endpoint: <span class="kbd">/api/confirm-booking</span></p>
+          <p class="muted"><strong>API endpoint:</strong> <span class="kbd" id="api1"></span></p>
+          <p class="muted"><strong>Confirmation endpoint:</strong> <span class="kbd" id="api2"></span></p>
         </div>
       </div>
     </aside>
@@ -315,21 +272,39 @@
 </main>
 
 <script>
-  // --- URL param helper
-  function qs(name) { return new URLSearchParams(window.location.search).get(name); }
+  // =========================
+  // SET THIS IF YOUR SITE IS NOT HOSTED ON THE SAME VERCEL PROJECT
+  // =========================
+  // If booking.html is on Vercel: leave as ""
+  // If booking.html is on GitHub Pages: set to "https://YOUR-VERCEL-PROJECT.vercel.app"
+  const API_BASE = "";
 
-  // Prefill from Rates page params
-  const route = qs("route") || qs("Route") || "";
-  const vehicle = qs("vehicle") || qs("Vehicle") || "";
-  const trip = qs("trip") || qs("Trip") || qs("trip_type") || "";
-  const price = qs("price") || qs("Price") || "";
+  document.getElementById("api1").textContent = (API_BASE || location.origin) + "/api/create-square-link";
+  document.getElementById("api2").textContent = (API_BASE || location.origin) + "/api/confirm-booking";
+
+  // URL params from Rates
+  const params = new URLSearchParams(location.search);
+  const route = params.get("route") || "";
+  const vehicle = params.get("vehicle") || "";
+  const trip = params.get("trip") || "";
+  const priceParam = params.get("price") || ""; // on hourly this is HOURLY rate
 
   document.getElementById("routeDisplay").value = route;
   document.getElementById("vehicleDisplay").value = vehicle;
-  document.getElementById("tripTypeDisplay").value = trip;
-  document.getElementById("totalPrice").value = price ? `$${Number(price).toFixed(2)}` : "";
+  document.getElementById("tripDisplay").value = trip;
 
-  // --- Time policy
+  // Hourly hours dropdown
+  const hourlyRow = document.getElementById("hourlyRow");
+  const hoursSel = document.getElementById("hours");
+  for (let h = 3; h <= 24; h++) {
+    const opt = document.createElement("option");
+    opt.value = String(h);
+    opt.textContent = String(h);
+    hoursSel.appendChild(opt);
+  }
+
+  function isFinitePositive(n){ const x = Number(n); return Number.isFinite(x) && x > 0; }
+
   function getPickupDateTimeLocal() {
     const d = document.getElementById("pickupDate").value;
     const t = document.getElementById("pickupTime").value;
@@ -358,137 +333,161 @@
   document.getElementById("pickupTime").addEventListener("change", refreshUrgency);
   refreshUrgency();
 
-  function isFinitePositiveNumber(x) {
-    const n = Number(x);
-    return Number.isFinite(n) && n > 0;
+  function getAmountDollars() {
+    if (!isFinitePositive(priceParam)) return 0;
+    const base = Number(priceParam);
+
+    if (trip === "hourly") {
+      const hrs = Number(hoursSel.value || 3);
+      return base * hrs;
+    }
+    return base;
   }
 
-  // --- Step handling
-  const p1 = document.getElementById("panel1");
-  const p2 = document.getElementById("panel2");
-  const p3 = document.getElementById("panel3");
+  function refreshPriceUI() {
+    if (!isFinitePositive(priceParam)) {
+      document.getElementById("priceDisplay").value = "";
+      hourlyRow.style.display = "none";
+      return;
+    }
+
+    if (trip === "hourly") {
+      hourlyRow.style.display = "grid";
+      document.getElementById("hourlyRateDisplay").value = `$${Number(priceParam).toFixed(2)} / hr`;
+      document.getElementById("priceLabel").textContent = "Total (USD)";
+      document.getElementById("priceDisplay").value = `$${getAmountDollars().toFixed(2)}`;
+    } else {
+      hourlyRow.style.display = "none";
+      document.getElementById("priceLabel").textContent = "Total price (USD)";
+      document.getElementById("priceDisplay").value = `$${getAmountDollars().toFixed(2)}`;
+    }
+  }
+  hoursSel.addEventListener("change", refreshPriceUI);
+  refreshPriceUI();
+
+  // Step UI
+  const p1 = document.getElementById("p1");
+  const p2 = document.getElementById("p2");
+  const p3 = document.getElementById("p3");
   const s1 = document.getElementById("s1");
   const s2 = document.getElementById("s2");
   const s3 = document.getElementById("s3");
   const b2 = document.getElementById("b2");
   const b3 = document.getElementById("b3");
 
-  function setStep(n) {
-    p1.classList.toggle("active", n === 1);
-    p2.classList.toggle("active", n === 2);
-    p3.classList.toggle("active", n === 3);
-
-    s1.classList.toggle("active", n === 1);
-    s2.classList.toggle("active", n === 2);
-    s3.classList.toggle("active", n === 3);
-
-    b2.style.opacity = n >= 2 ? "1" : ".35";
-    b3.style.opacity = n >= 3 ? "1" : ".35";
+  function setStep(n){
+    p1.classList.toggle("active", n===1);
+    p2.classList.toggle("active", n===2);
+    p3.classList.toggle("active", n===3);
+    s1.classList.toggle("active", n===1);
+    s2.classList.toggle("active", n===2);
+    s3.classList.toggle("active", n===3);
+    b2.style.opacity = n>=2 ? "1" : ".35";
+    b3.style.opacity = n>=3 ? "1" : ".35";
   }
 
-  function readForm() {
-    const get = (id) => document.getElementById(id)?.value?.trim() || "";
-    return {
-      booking_id: get("bookingIdHidden") || "",
-      passenger_name: get("passengerName"),
-      email: get("email"),
-      phone: get("phone"),
-      passengers: get("passengers"),
-      pickup_date: get("pickupDate"),
-      pickup_time: get("pickupTime"),
-      route,
-      vehicle,
-      trip_type: trip,
-      price_usd: price,
-      pickup_location: get("pickupLocation"),
-      destination: get("destination"),
-      flight: get("flight"),
-      luggage: get("luggage"),
-      child_seats: get("childSeats"),
-      notes: get("notes"),
-    };
-  }
+  function getVal(id){ return (document.getElementById(id).value || "").trim(); }
 
-  function validateStep1() {
-    const requiredIds = ["passengerName","email","phone","pickupDate","pickupTime","pickupLocation","destination"];
-    for (const id of requiredIds) {
+  function validateStep1(){
+    const required = ["passengerName","email","phone","pickupDate","pickupTime","pickupLocation","destination"];
+    for (const id of required) {
       const el = document.getElementById(id);
-      if (!el || !el.value.trim()) {
-        el?.focus();
-        return { ok: false, msg: "Please complete all required fields." };
-      }
+      if (!el.value.trim()) { el.focus(); return {ok:false, msg:"Please complete all required fields."}; }
     }
-    if (!isFinitePositiveNumber(price)) {
-      return { ok: false, msg: "Please select your route/vehicle from the Rates page so the price is filled in." };
+    if (!route || !vehicle || !trip || !isFinitePositive(priceParam)) {
+      return {ok:false, msg:"Please start from the Rates page so route/vehicle/price are filled in."};
     }
     const dt = getPickupDateTimeLocal();
     const within8 = dt ? hoursUntil(dt) <= 8 : false;
-    if (within8) {
-      return { ok: false, msg: "Your pickup is within 8 hours. Please contact us to confirm availability before paying." };
+    if (within8) return {ok:false, msg:"Pickup is within 8 hours. Please contact us before payment."};
+
+    if (trip === "hourly") {
+      const hrs = Number(hoursSel.value || 0);
+      if (!Number.isFinite(hrs) || hrs < 3) return {ok:false, msg:"Hourly charter requires 3 hours minimum."};
     }
-    return { ok: true };
+    return {ok:true};
   }
 
-  function renderSummary() {
-    const d = readForm();
-    const lines = [
-      ["Booking name", d.passenger_name],
-      ["Email", d.email],
-      ["Phone", d.phone],
-      ["Passengers", d.passengers || "-"],
-      ["Pickup", `${d.pickup_date} ${d.pickup_time}`],
-      ["Route", d.route || "-"],
-      ["Vehicle", d.vehicle || "-"],
-      ["Trip type", d.trip_type || "-"],
-      ["Total price", d.price_usd ? `$${Number(d.price_usd).toFixed(2)}` : "-"],
-      ["Pickup location", d.pickup_location],
-      ["Destination", d.destination],
-      ["Flight", d.flight || "-"],
-      ["Luggage", d.luggage || "-"],
-      ["Child seats", d.child_seats || "-"],
-      ["Notes", d.notes || "-"],
-    ];
+  function buildBookingData(cid){
+    return {
+      confirmation_id: cid,
+      passenger_name: getVal("passengerName"),
+      email: getVal("email"),
+      phone: getVal("phone"),
+      passengers: getVal("passengers"),
+      pickup_date: getVal("pickupDate"),
+      pickup_time: getVal("pickupTime"),
+      pickup_location: getVal("pickupLocation"),
+      destination: getVal("destination"),
+      flight: getVal("flight"),
+      luggage: getVal("luggage"),
+      child_seats: getVal("childSeats"),
+      notes: getVal("notes"),
+      route,
+      vehicle,
+      trip_type: trip,
+      hourly_hours: trip === "hourly" ? Number(hoursSel.value || 3) : "",
+      amount_usd: getAmountDollars().toFixed(2),
+    };
+  }
 
-    const box = document.getElementById("summaryBox");
-    box.innerHTML = lines.map(([k,v]) => `
+  function renderSummary(data){
+    const lines = [
+      ["Confirmation #", data.confirmation_id],
+      ["Name", data.passenger_name],
+      ["Email", data.email],
+      ["Phone", data.phone],
+      ["Passengers", data.passengers || "-"],
+      ["Pickup", `${data.pickup_date} ${data.pickup_time}`],
+      ["Route", data.route],
+      ["Vehicle", data.vehicle],
+      ["Trip", data.trip_type],
+    ];
+    if (trip === "hourly") lines.push(["Hours", String(data.hourly_hours)]);
+    lines.push(["Total", `$${data.amount_usd}`]);
+    lines.push(["Pickup location", data.pickup_location]);
+    lines.push(["Destination", data.destination]);
+    lines.push(["Flight", data.flight || "-"]);
+    lines.push(["Luggage", data.luggage || "-"]);
+    lines.push(["Child seats", data.child_seats || "-"]);
+    lines.push(["Notes", data.notes || "-"]);
+
+    document.getElementById("summary").innerHTML = lines.map(([k,v]) => `
       <div class="line"><div class="k">${k}</div><div class="v">${String(v).replaceAll("<","&lt;")}</div></div>
     `).join("");
   }
 
-  document.getElementById("toStep2").addEventListener("click", () => {
+  document.getElementById("to2").addEventListener("click", () => {
     const v = validateStep1();
-    if (!v.ok) {
-      alert(v.msg);
-      return;
-    }
-    renderSummary();
+    if (!v.ok) return alert(v.msg);
+
+    // create cid now
+    const cid = "MLT-" + Date.now() + "-" + Math.random().toString(16).slice(2,8).toUpperCase();
+    const data = buildBookingData(cid);
+    localStorage.setItem("mltBooking:" + cid, JSON.stringify(data));
+    localStorage.setItem("mltLastCid", cid);
+
+    renderSummary(data);
     setStep(2);
   });
 
-  document.getElementById("backTo1").addEventListener("click", () => setStep(1));
+  document.getElementById("back1").addEventListener("click", () => setStep(1));
 
-  document.getElementById("toStep3").addEventListener("click", () => {
-    // Generate and store booking before payment
-    const bookingId = `MLT-${Date.now()}-${Math.random().toString(16).slice(2,8).toUpperCase()}`;
-    const booking = readForm();
-    booking.booking_id = bookingId;
+  document.getElementById("to3").addEventListener("click", () => {
+    const cid = localStorage.getItem("mltLastCid") || "";
+    const saved = cid ? localStorage.getItem("mltBooking:" + cid) : null;
+    const data = saved ? JSON.parse(saved) : null;
+    if (!data) return alert("Missing saved booking data. Please go back and try again.");
 
-    localStorage.setItem("mlt_pending_booking", JSON.stringify({
-      bookingId,
-      booking,
-      createdAt: new Date().toISOString(),
-    }));
-
-    // Payment rules note
-    document.getElementById("payRules").innerHTML =
-      `You will be redirected to Square for secure payment. After payment, you’ll return here for confirmation.<br><span class="muted">Confirmation #: <strong>${bookingId}</strong></span>`;
-
+    document.getElementById("payNote").innerHTML =
+      `You will be redirected to Square for secure payment. After payment, you’ll return for confirmation.<br>
+       <span class="muted">Confirmation #: <strong>${data.confirmation_id}</strong></span>`;
     setStep(3);
   });
 
-  document.getElementById("backTo2").addEventListener("click", () => setStep(2));
+  document.getElementById("back2").addEventListener("click", () => setStep(2));
 
-  // --- Payment link creation + redirect
+  // Pay
   const payBtn = document.getElementById("payBtn");
   const paymentMsg = document.getElementById("paymentMsg");
 
@@ -498,50 +497,60 @@
     payBtn.textContent = "Creating payment link...";
 
     try {
-      const saved = JSON.parse(localStorage.getItem("mlt_pending_booking") || "{}");
-      const bookingId = saved?.bookingId;
-      const booking = saved?.booking;
-      if (!bookingId || !booking) throw new Error("Missing pending booking");
+      const cid = localStorage.getItem("mltLastCid") || "";
+      const saved = cid ? localStorage.getItem("mltBooking:" + cid) : null;
+      const booking = saved ? JSON.parse(saved) : null;
 
-      const amount = Number(price);
-      if (!Number.isFinite(amount) || amount <= 0) throw new Error("Missing/invalid price");
+      if (!booking) throw new Error("Missing booking data. Please go back and try again.");
 
-      const note = `Booking ${bookingId} | ${booking.passenger_name} | ${route} | ${vehicle} | ${trip} | ${booking.pickup_date} ${booking.pickup_time}`;
+      const amount = Number(booking.amount_usd);
+      if (!Number.isFinite(amount) || amount <= 0) throw new Error("Invalid amount. Please select a route from Rates.");
 
-      const r = await fetch("/api/create-square-link", {
+      // redirect back to confirm.html (include cid)
+      const redirectUrl = `${location.origin}/confirm.html?cid=${encodeURIComponent(cid)}`;
+
+      const lineItemName =
+        `MLT Transportation - ${route} - ${vehicle} (${trip}${trip==="hourly" ? ` ${booking.hourly_hours}h` : ""})`;
+
+      const note =
+        `CID:${cid} | ${booking.passenger_name} | ${booking.pickup_date} ${booking.pickup_time} | ` +
+        `${booking.pickup_location} -> ${booking.destination} | ${booking.phone} | ${booking.email}`;
+
+      const r = await fetch((API_BASE || "") + "/api/create-square-link", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           amount,
           currency: "USD",
-          name: "MLT Orlando Transportation",
-          bookingId,
+          lineItemName,
+          note,
+          referenceId: cid,
+          redirectUrl,
           buyerEmail: booking.email,
           buyerPhone: booking.phone,
-          note,
-          redirectPath: "/confirmation.html",
         }),
       });
 
-      const data = await r.json();
+      const data = await r.json().catch(() => ({}));
+
       if (!data.ok) {
-        console.log("Square error:", data);
-        paymentMsg.innerHTML = `<span class="danger"><strong>Error:</strong> Could not create payment link. Please try again or contact us.</span>`;
-        payBtn.textContent = "Pay with Square";
+        // Show real error so you can fix it fast
+        paymentMsg.innerHTML =
+          `<span class="danger"><strong>Error:</strong> ${data.error || "Could not create payment link."}</span>` +
+          `<div class="note"><pre style="white-space:pre-wrap">${JSON.stringify(data.details || data, null, 2)}</pre></div>`;
         payBtn.disabled = false;
+        payBtn.textContent = "Pay with Square";
         return;
       }
 
-      paymentMsg.innerHTML = `<span class="ok"><strong>Success:</strong> Redirecting to secure payment...</span>`;
+      paymentMsg.innerHTML = `<span class="ok"><strong>Success:</strong> Redirecting to Square…</span>`;
       window.location.href = data.url;
     } catch (e) {
-      console.error(e);
-      paymentMsg.innerHTML = `<span class="danger"><strong>Error:</strong> ${e.message || "Payment failed. Please try again."}</span>`;
-      payBtn.textContent = "Pay with Square";
+      paymentMsg.innerHTML = `<span class="danger"><strong>Error:</strong> ${e.message || "Failed. Please try again."}</span>`;
       payBtn.disabled = false;
+      payBtn.textContent = "Pay with Square";
     }
   });
 </script>
-
 </body>
 </html>
