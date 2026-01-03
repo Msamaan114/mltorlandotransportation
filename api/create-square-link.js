@@ -1,13 +1,17 @@
 // api/create-square-link.js
-export default async function handler(req, res) {
-  // CORS: allow your site + www + any *.vercel.app preview
-  const origin = req.headers.origin || "";
-  const allow =
-    origin === "https://mltorlandotransportation.com" ||
-    origin === "https://www.mltorlandotransportation.com" ||
-    origin.endsWith(".vercel.app");
+// Creates a Square-hosted checkout link (Payment Link) using Square Online Checkout API.
 
-  if (origin && allow) res.setHeader("Access-Control-Allow-Origin", origin);
+export default async function handler(req, res) {
+  // CORS (allow your site + www)
+  const allowedOrigins = new Set([
+    "https://mltorlandotransportation.com",
+    "https://www.mltorlandotransportation.com",
+  ]);
+
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.has(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
   res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -19,18 +23,18 @@ export default async function handler(req, res) {
     const {
       amount,
       currency = "USD",
-      lineItemName = "Transportation Service",
+      name = "MLT Orlando Transportation",
       note = "",
-      referenceId = "",
       redirectUrl = "",
       buyerEmail = "",
-      buyerPhone = "",
     } = req.body || {};
 
     const dollars = Number(amount);
     if (!Number.isFinite(dollars) || dollars <= 0) {
       return res.status(400).json({ ok: false, error: "Invalid amount" });
     }
+
+    // Guardrails
     if (dollars < 1 || dollars > 5000) {
       return res.status(400).json({ ok: false, error: "Amount out of allowed range" });
     }
@@ -45,10 +49,9 @@ export default async function handler(req, res) {
       return res.status(500).json({
         ok: false,
         error: "Missing Square env vars",
-        details: {
-          SQUARE_ACCESS_TOKEN: !!accessToken,
-          SQUARE_LOCATION_ID: !!locationId,
-          SQUARE_ENV: env,
+        missing: {
+          SQUARE_ACCESS_TOKEN: !accessToken,
+          SQUARE_LOCATION_ID: !locationId,
         },
       });
     }
@@ -57,56 +60,68 @@ export default async function handler(req, res) {
       env === "sandbox" ? "https://connect.squareupsandbox.com" : "https://connect.squareup.com";
 
     const idempotencyKey =
-      globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      (globalThis.crypto?.randomUUID?.() ||
+        `${Date.now()}-${Math.random().toString(16).slice(2)}`);
 
     const payload = {
       idempotency_key: idempotencyKey,
-      order: {
+      quick_pay: {
+        name,
         location_id: locationId,
-        reference_id: referenceId ? String(referenceId).slice(0, 40) : undefined,
-        note: note ? String(note).slice(0, 2000) : undefined,
-        line_items: [
-          {
-            name: String(lineItemName).slice(0, 512),
-            quantity: "1",
-            base_price_money: { amount: cents, currency },
-          },
-        ],
+        price_money: { amount: cents, currency },
       },
-      checkout_options: redirectUrl ? { redirect_url: redirectUrl } : undefined,
-      pre_populated_data:
-        buyerEmail || buyerPhone
-          ? {
-              buyer_email: buyerEmail || undefined,
-              buyer_phone_number: buyerPhone || undefined,
-            }
-          : undefined,
     };
 
-    // Remove undefined values
-    const clean = JSON.parse(JSON.stringify(payload));
+    // ✅ Redirect back to your site after payment
+    if (redirectUrl && typeof redirectUrl === "string") {
+      payload.checkout_options = {
+        redirect_url: redirectUrl,
+      };
+    }
+
+    // ✅ Prefill buyer email (optional)
+    if (buyerEmail && typeof buyerEmail === "string") {
+      payload.pre_populated_data = {
+        buyer_email: buyerEmail,
+        // buyer_note: note, // optional: if you want Square to show a note box
+      };
+    }
+
+    // NOTE: Square payment link doesn't store arbitrary notes by default.
+    // Best way is to include your CID in "name" or redirect URL (we already do),
+    // or use webhooks later.
 
     const resp = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        "Square-Version": "2025-10-16",
+        "Square-Version": "2025-01-23",
       },
-      body: JSON.stringify(clean),
+      body: JSON.stringify(payload),
     });
 
     const data = await resp.json().catch(() => ({}));
 
     if (!resp.ok) {
-      return res.status(resp.status).json({ ok: false, error: "Square error", details: data });
+      return res.status(resp.status).json({
+        ok: false,
+        error: "Square error",
+        details: data,
+      });
     }
 
     const url = data?.payment_link?.url;
-    if (!url) return res.status(500).json({ ok: false, error: "No URL returned", details: data });
+    if (!url) {
+      return res.status(500).json({ ok: false, error: "No URL returned", details: data });
+    }
 
     return res.status(200).json({ ok: true, url });
   } catch (err) {
-    return res.status(500).json({ ok: false, error: "Server error", message: err?.message || String(err) });
+    return res.status(500).json({
+      ok: false,
+      error: "Server error",
+      message: err?.message || String(err),
+    });
   }
 }
