@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Booking | MLT Orlando Transportation</title>
+  <title>Book in 3 Steps | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Book MLT Orlando Transportation. Step-by-step booking with secure Square payment and confirmation." />
+  <meta name="description" content="Book your ride in 3 steps: details, review, payment, confirmation." />
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
@@ -26,17 +26,28 @@
     .card .head h1, .card .head h2 { font-size: 18px; margin-bottom: 6px; }
     .card .head p { font-size: 13px; color: #475569; }
 
-    .stepper { display: flex; gap: 10px; padding: 14px 16px; border-bottom: 1px solid #e5e7eb; background: #f8fafc; }
-    .stepchip { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 999px; border: 1px solid #e2e8f0; background: #fff; font-size: 12px; color: #334155; }
-    .dot { width: 22px; height: 22px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; border: 1px solid #cbd5e1; }
-    .active .dot { background: #0ea5e9; border-color: #0ea5e9; color: #fff; }
-    .active { border-color: rgba(14,165,233,.35); }
+    .body { padding: 16px; }
 
-    form { padding: 16px; }
+    .stepper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .step {
+      border: 1px solid #e5e7eb;
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: #334155;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .step.active { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.10); }
+    .badge { background: #0ea5e9; color:#fff; font-weight:800; border-radius:999px; padding: 4px 10px; font-size: 12px; }
+    .muted { color: #64748b; font-size: 12px; }
+    .danger { color: #b91c1c; }
+    .ok { color: #166534; }
+
+    form { padding: 0; }
     .section { margin-top: 16px; }
     .section:first-child { margin-top: 0; }
     .section-title { font-weight: 750; font-size: 14px; margin-bottom: 10px; color: #0f172a; }
-
     .row { display: grid; grid-template-columns: 1fr; gap: 10px; }
     @media (min-width: 700px) { .row.two { grid-template-columns: 1fr 1fr; } }
 
@@ -53,16 +64,6 @@
     input:focus, select:focus, textarea:focus { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.12); }
     textarea { min-height: 100px; resize: vertical; }
 
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 12px; border-radius: 999px; font-size: 12px;
-      background: #f1f5f9; color: #0f172a;
-    }
-    .pill strong { font-weight: 800; }
-    .muted { color: #64748b; font-size: 12px; }
-    .danger { color: #b91c1c; }
-    .ok { color: #166534; }
-
     .note {
       margin-top: 10px;
       background: #f8fafc;
@@ -73,43 +74,39 @@
       color: #334155;
     }
 
-    .btnrow { display: grid; gap: 10px; margin-top: 14px; }
-    @media (min-width: 700px) { .btnrow.two { grid-template-columns: 1fr 1fr; } }
-
+    .btnrow { display:flex; gap:10px; margin-top: 14px; flex-wrap: wrap; }
     button {
-      width: 100%;
       border: 0;
       border-radius: 999px;
       padding: 12px 14px;
       font-weight: 800;
       cursor: pointer;
       font-size: 14px;
+      flex: 1;
+      min-width: 160px;
     }
-    .btn-next { background: #0ea5e9; color: #fff; }
-    .btn-next:hover { filter: brightness(.97); }
-    .btn-back { background: #e2e8f0; color: #0f172a; }
-    .btn-back:hover { filter: brightness(.98); }
-    .btn-pay { background: #111827; color: #fff; }
-    .btn-pay[disabled] { background: #9ca3af; cursor: not-allowed; }
-    .btn-pay:hover { filter: brightness(.97); }
+    .btn-primary { background: #0ea5e9; color: #fff; }
+    .btn-primary:hover { filter: brightness(.97); }
+    .btn-secondary { background: #111827; color: #fff; }
+    .btn-secondary:hover { filter: brightness(.97); }
+    .btn-ghost { background: #e2e8f0; color: #0f172a; }
+    .btn-ghost:hover { filter: brightness(.98); }
+    .btn-secondary[disabled] { background:#9ca3af; cursor:not-allowed; }
 
-    .step { display: none; }
-    .step.show { display: block; }
+    .panel { display:none; }
+    .panel.active { display:block; }
 
-    .reviewBox { border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 14px; padding: 12px; }
-    .reviewGrid { display: grid; grid-template-columns: 1fr; gap: 8px; }
-    @media (min-width: 700px) { .reviewGrid { grid-template-columns: 1fr 1fr; } }
-    .reviewItem { font-size: 12px; color: #334155; }
-    .reviewItem strong { color: #0f172a; }
+    .summary { border: 1px solid #e5e7eb; border-radius: 14px; padding: 12px; background:#fff; }
+    .summary .line { display:flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+    .summary .line:last-child { border-bottom: 0; }
+    .summary .k { color:#64748b; }
+    .summary .v { font-weight: 700; text-align: right; }
 
     .side { padding: 16px; }
     .side h3 { font-size: 14px; margin-bottom: 10px; }
     .side .box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 14px; margin-bottom: 12px; }
     .side .box p { font-size: 12px; color: #334155; margin: 6px 0; }
     .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
-
-    .status { margin-top: 10px; font-size: 12px; }
-    .status a { text-decoration: underline; }
   </style>
 </head>
 
@@ -131,180 +128,171 @@
 
 <main>
   <div class="grid">
-    <!-- MAIN -->
     <div class="card">
       <div class="head">
-        <h1>Book your ride</h1>
-        <p>Step-by-step booking. After payment, you and MLT will receive the confirmation email.</p>
+        <h1>Book in 3 Steps</h1>
+        <p>Step 1: Details → Step 2: Review → Step 3: Pay &amp; Confirm</p>
       </div>
 
-      <div class="stepper" id="stepper">
-        <div class="stepchip active" data-stepchip="1"><span class="dot">1</span><span>Trip details</span></div>
-        <div class="stepchip" data-stepchip="2"><span class="dot">2</span><span>Review &amp; pay</span></div>
-        <div class="stepchip" data-stepchip="3"><span class="dot">3</span><span>Confirmation</span></div>
-      </div>
+      <div class="body">
+        <div class="stepper">
+          <div class="step" id="s1"><span><strong>Step 1</strong><br><span class="muted">Trip details</span></span><span class="badge" id="b1">1</span></div>
+          <div class="step" id="s2"><span><strong>Step 2</strong><br><span class="muted">Review</span></span><span class="badge" id="b2" style="opacity:.35;">2</span></div>
+          <div class="step" id="s3"><span><strong>Step 3</strong><br><span class="muted">Payment</span></span><span class="badge" id="b3" style="opacity:.35;">3</span></div>
+        </div>
 
-      <form id="bookingForm" novalidate>
-        <!-- Step 1 -->
-        <div class="step show" id="step1">
-          <div class="section">
-            <div class="section-title">Passenger info</div>
-            <div class="row two">
-              <div>
-                <label for="passengerName">Passenger name</label>
-                <input id="passengerName" name="passenger_name" type="text" placeholder="Full name" required />
+        <form id="bookingForm" novalidate>
+          <!-- Panel 1 -->
+          <section class="panel active" id="panel1">
+            <div class="section">
+              <div class="section-title">Passenger info</div>
+              <div class="row two">
+                <div>
+                  <label for="passengerName">Passenger name</label>
+                  <input id="passengerName" name="passenger_name" type="text" placeholder="Full name" required />
+                </div>
+                <div>
+                  <label for="email">Email (same as payment)</label>
+                  <input id="email" name="email" type="email" placeholder="name@example.com" required />
+                </div>
               </div>
-              <div>
-                <label for="email">Email (same as payment)</label>
-                <input id="email" name="email" type="email" placeholder="name@example.com" required />
-              </div>
-            </div>
-            <div class="row two" style="margin-top:10px;">
-              <div>
-                <label for="phone">Mobile / WhatsApp number</label>
-                <input id="phone" name="phone" type="tel" placeholder="(407) 000-0000" required />
-              </div>
-              <div>
-                <label for="passengers">Number of passengers</label>
-                <input id="passengers" name="passengers" type="text" placeholder="e.g. 2 adults, 2 children" />
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Pickup date &amp; time</div>
-            <div class="row two">
-              <div>
-                <label for="pickupDate">Pickup date</label>
-                <input id="pickupDate" name="pickup_date" type="date" required />
-              </div>
-              <div>
-                <label for="pickupTime">Pickup time (local)</label>
-                <input id="pickupTime" name="pickup_time" type="time" required />
-              </div>
-            </div>
-            <div class="note" id="urgencyNote" style="display:none;"></div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Route &amp; vehicle (auto-filled)</div>
-
-            <div class="row two">
-              <div>
-                <label for="routeDisplay">Route</label>
-                <input id="routeDisplay" type="text" placeholder="Select from Rates page" readonly />
-              </div>
-              <div>
-                <label for="vehicleDisplay">Vehicle</label>
-                <input id="vehicleDisplay" type="text" placeholder="Select from Rates page" readonly />
+              <div class="row two" style="margin-top:10px;">
+                <div>
+                  <label for="phone">Mobile / WhatsApp number</label>
+                  <input id="phone" name="phone" type="tel" placeholder="(407) 000-0000" required />
+                </div>
+                <div>
+                  <label for="passengers">Number of passengers</label>
+                  <input id="passengers" name="passengers" type="text" placeholder="e.g. 2 adults, 2 children" />
+                </div>
               </div>
             </div>
 
-            <div class="row two" style="margin-top:10px;">
-              <div>
-                <label for="tripTypeDisplay">Trip type</label>
-                <input id="tripTypeDisplay" type="text" placeholder="oneway / roundtrip / charter" readonly />
+            <div class="section">
+              <div class="section-title">Pickup date &amp; time</div>
+              <div class="row two">
+                <div>
+                  <label for="pickupDate">Pickup date</label>
+                  <input id="pickupDate" name="pickup_date" type="date" required />
+                </div>
+                <div>
+                  <label for="pickupTime">Pickup time (local)</label>
+                  <input id="pickupTime" name="pickup_time" type="time" required />
+                </div>
               </div>
-              <div>
-                <label for="totalPrice">Total price (USD)</label>
-                <input id="totalPrice" type="text" placeholder="Auto-filled from Rates page" readonly />
+              <div class="note" id="urgencyNote" style="display:none;"></div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">Route &amp; price (auto-filled from Rates)</div>
+
+              <div class="row two">
+                <div>
+                  <label for="routeDisplay">Route</label>
+                  <input id="routeDisplay" type="text" readonly />
+                </div>
+                <div>
+                  <label for="vehicleDisplay">Vehicle</label>
+                  <input id="vehicleDisplay" type="text" readonly />
+                </div>
               </div>
+
+              <div class="row two" style="margin-top:10px;">
+                <div>
+                  <label for="tripTypeDisplay">Trip type</label>
+                  <input id="tripTypeDisplay" type="text" readonly />
+                </div>
+                <div>
+                  <label for="totalPrice">Total price (USD)</label>
+                  <input id="totalPrice" type="text" readonly />
+                </div>
+              </div>
+
+              <div class="note">
+                If these are empty, go to <a href="rates.html" style="text-decoration: underline;"><strong>Rates</strong></a> and select a route to auto-fill.
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-title">Locations &amp; trip details</div>
+              <div class="row">
+                <div>
+                  <label for="pickupLocation">Pickup location (airport, hotel, or address)</label>
+                  <input id="pickupLocation" name="pickup_location" type="text" required />
+                </div>
+              </div>
+
+              <div class="row two" style="margin-top:10px;">
+                <div>
+                  <label for="flight">Airline &amp; flight number (if flying)</label>
+                  <input id="flight" name="flight" type="text" />
+                </div>
+                <div>
+                  <label for="destination">Destination address / hotel</label>
+                  <input id="destination" name="destination" type="text" required />
+                </div>
+              </div>
+
+              <div class="row two" style="margin-top:10px;">
+                <div>
+                  <label for="luggage">Luggage details</label>
+                  <input id="luggage" name="luggage" type="text" />
+                </div>
+                <div>
+                  <label for="childSeats">Child seats</label>
+                  <input id="childSeats" name="child_seats" type="text" />
+                </div>
+              </div>
+
+              <div class="row" style="margin-top:10px;">
+                <div>
+                  <label for="notes">Additional notes</label>
+                  <textarea id="notes" name="notes"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="btnrow">
+              <button class="btn-primary" type="button" id="toStep2">Continue to Review</button>
             </div>
 
             <div class="note">
-              <div class="pill">
-                <strong>Tip:</strong>
-                If route/vehicle/price are empty, go to <a href="rates.html" style="text-decoration: underline;">Rates</a> and pick a route to auto-fill this page.
-              </div>
+              <p><strong>Short notice policy:</strong> if pickup is within 8 hours, we must confirm availability before payment.</p>
             </div>
-          </div>
+          </section>
 
-          <div class="section">
-            <div class="section-title">Locations &amp; trip details</div>
-            <div class="row">
-              <div>
-                <label for="pickupLocation">Pickup location (airport, hotel, or address)</label>
-                <input id="pickupLocation" name="pickup_location" type="text" placeholder="Example: MCO, Hyatt Regency Orlando, 123 Main St..." required />
-              </div>
-            </div>
-
-            <div class="row two" style="margin-top:10px;">
-              <div>
-                <label for="flight">Airline &amp; flight number (if flying)</label>
-                <input id="flight" name="flight" type="text" placeholder="Example: Delta 1234" />
-              </div>
-              <div>
-                <label for="destination">Destination address / hotel</label>
-                <input id="destination" name="destination" type="text" placeholder="Hotel name or full address" required />
-              </div>
-            </div>
-
-            <div class="row two" style="margin-top:10px;">
-              <div>
-                <label for="luggage">Luggage details</label>
-                <input id="luggage" name="luggage" type="text" placeholder="e.g. 3 large suitcases, 2 carry-ons, 1 stroller" />
-              </div>
-              <div>
-                <label for="childSeats">Child seats</label>
-                <input id="childSeats" name="child_seats" type="text" placeholder="e.g. 1 rear-facing, 1 booster" />
-              </div>
-            </div>
-
-            <div class="row" style="margin-top:10px;">
-              <div>
-                <label for="notes">Additional notes</label>
-                <textarea id="notes" name="notes" placeholder="Child ages, gate info, private jet tail number, special requests..."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <div class="btnrow">
-            <button class="btn-next" id="toStep2Btn" type="button">Continue to review</button>
-          </div>
-
-          <div class="status" id="step1Status"></div>
-
-          <div class="note">
-            <p><strong>Short notice:</strong> If your pickup is within 8 hours, payment is disabled and we will confirm availability first.</p>
-          </div>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="step" id="step2">
-          <div class="section">
+          <!-- Panel 2 -->
+          <section class="panel" id="panel2">
             <div class="section-title">Review your booking</div>
-            <div class="reviewBox">
-              <div class="reviewGrid" id="reviewGrid"></div>
+            <div class="summary" id="summaryBox"></div>
+
+            <div class="btnrow">
+              <button class="btn-ghost" type="button" id="backTo1">Back</button>
+              <button class="btn-secondary" type="button" id="toStep3">Confirm &amp; Continue to Payment</button>
             </div>
-          </div>
 
-          <div class="btnrow two">
-            <button class="btn-back" id="backToStep1Btn" type="button">Back</button>
-            <button class="btn-pay" id="payBtn" type="button" disabled>Pay with Square</button>
-          </div>
+            <div class="note">
+              When you pay, you’ll be redirected to a confirmation page and we’ll receive your reservation email.
+            </div>
+          </section>
 
-          <div class="status" id="paymentMsg"></div>
+          <!-- Panel 3 -->
+          <section class="panel" id="panel3">
+            <div class="section-title">Payment</div>
+            <div class="note" id="payRules"></div>
 
-          <div class="note">
-            After payment completes, Square will redirect you to our confirmation page. Then we verify the payment and email:
-            <ul style="margin-top:8px; padding-left: 18px;">
-              <li>You (customer) a booking confirmation</li>
-              <li>MLT the full reservation details</li>
-            </ul>
-          </div>
-        </div>
+            <div class="btnrow">
+              <button class="btn-ghost" type="button" id="backTo2">Back</button>
+              <button class="btn-secondary" type="button" id="payBtn">Pay with Square</button>
+            </div>
 
-        <!-- Step 3 (visual only; actual confirmation happens on confirmation.html) -->
-        <div class="step" id="step3">
-          <div class="section">
-            <div class="section-title">Confirmation</div>
-            <p class="muted">You’ll see confirmation after payment on the confirmation page.</p>
-          </div>
-        </div>
-      </form>
+            <div class="note" id="paymentMsg"></div>
+          </section>
+
+        </form>
+      </div>
     </div>
 
-    <!-- SIDE -->
     <aside class="card">
       <div class="head">
         <h2>Need help?</h2>
@@ -316,17 +304,10 @@
           <p><strong>Phone:</strong> <a href="tel:14073690643" style="text-decoration: underline;">407-369-0643</a></p>
           <p><strong>Email:</strong> <a href="mailto:mltorlando@yahoo.com" style="text-decoration: underline;">mltorlando@yahoo.com</a></p>
         </div>
-
         <div class="box">
-          <h3>How payment works</h3>
-          <p>We create a Square-hosted checkout and redirect you for secure payment.</p>
-          <p class="muted">If you don’t see route/vehicle/price, start from the <strong>Rates</strong> page first.</p>
-        </div>
-
-        <div class="box">
-          <h3>Debug (optional)</h3>
-          <p class="muted">DevTools → Console/Network</p>
-          <p class="muted">API endpoint used: <span class="kbd">/api/create-square-link</span></p>
+          <h3>Note</h3>
+          <p class="muted">API endpoint: <span class="kbd">/api/create-square-link</span></p>
+          <p class="muted">Confirmation endpoint: <span class="kbd">/api/confirm-booking</span></p>
         </div>
       </div>
     </aside>
@@ -334,52 +315,24 @@
 </main>
 
 <script>
-  // -------------------------
-  // URL prefills from rates page
-  // route=...&vehicle=...&trip=...&price=110
-  // -------------------------
+  // --- URL param helper
   function qs(name) { return new URLSearchParams(window.location.search).get(name); }
-  function setText(id, val) { const el = document.getElementById(id); if (el) el.value = val ?? ""; }
-  function isFinitePositiveNumber(x) { const n = Number(x); return Number.isFinite(n) && n > 0; }
 
+  // Prefill from Rates page params
   const route = qs("route") || qs("Route") || "";
   const vehicle = qs("vehicle") || qs("Vehicle") || "";
   const trip = qs("trip") || qs("Trip") || qs("trip_type") || "";
-  const priceRaw = qs("price") || qs("Price") || "";
+  const price = qs("price") || qs("Price") || "";
 
-  setText("routeDisplay", route);
-  setText("vehicleDisplay", vehicle);
-  setText("tripTypeDisplay", trip);
-  setText("totalPrice", priceRaw ? `$${Number(priceRaw).toFixed(2)}` : "");
+  document.getElementById("routeDisplay").value = route;
+  document.getElementById("vehicleDisplay").value = vehicle;
+  document.getElementById("tripTypeDisplay").value = trip;
+  document.getElementById("totalPrice").value = price ? `$${Number(price).toFixed(2)}` : "";
 
-  // -------------------------
-  // Step handling
-  // -------------------------
-  const form = document.getElementById("bookingForm");
-  const step1 = document.getElementById("step1");
-  const step2 = document.getElementById("step2");
-  const step3 = document.getElementById("step3");
-  const stepper = document.getElementById("stepper");
-
-  function showStep(n) {
-    step1.classList.toggle("show", n === 1);
-    step2.classList.toggle("show", n === 2);
-    step3.classList.toggle("show", n === 3);
-    [...stepper.querySelectorAll(".stepchip")].forEach(chip => {
-      chip.classList.toggle("active", chip.getAttribute("data-stepchip") === String(n));
-    });
-  }
-
-  // -------------------------
-  // Timing rules (8 hours)
-  // -------------------------
-  const payBtn = document.getElementById("payBtn");
-  const paymentMsg = document.getElementById("paymentMsg");
-  const urgencyNote = document.getElementById("urgencyNote");
-
+  // --- Time policy
   function getPickupDateTimeLocal() {
-    const d = document.getElementById("pickupDate")?.value;
-    const t = document.getElementById("pickupTime")?.value;
+    const d = document.getElementById("pickupDate").value;
+    const t = document.getElementById("pickupTime").value;
     if (!d || !t) return null;
     const dt = new Date(d + "T" + t);
     return isNaN(dt.getTime()) ? null : dt;
@@ -389,167 +342,203 @@
     return (dt.getTime() - now.getTime()) / (1000 * 60 * 60);
   }
 
-  function refreshPayState() {
+  const urgencyNote = document.getElementById("urgencyNote");
+  function refreshUrgency() {
     const dt = getPickupDateTimeLocal();
     const within8 = dt ? hoursUntil(dt) <= 8 : false;
-
     if (dt && within8) {
       urgencyNote.style.display = "block";
-      urgencyNote.innerHTML = `<span class="danger"><strong>Short notice:</strong> Your pickup is within 8 hours. Please call/text us to confirm availability before payment.</span>`;
+      urgencyNote.innerHTML = `<span class="danger"><strong>Short notice:</strong> pickup is within 8 hours. Please contact us to confirm availability before paying.</span>`;
     } else {
       urgencyNote.style.display = "none";
       urgencyNote.innerHTML = "";
     }
+  }
+  document.getElementById("pickupDate").addEventListener("change", refreshUrgency);
+  document.getElementById("pickupTime").addEventListener("change", refreshUrgency);
+  refreshUrgency();
 
-    const canPayByPrice = isFinitePositiveNumber(priceRaw);
-    payBtn.disabled = !canPayByPrice || within8;
+  function isFinitePositiveNumber(x) {
+    const n = Number(x);
+    return Number.isFinite(n) && n > 0;
   }
 
-  refreshPayState();
-  document.getElementById("pickupDate")?.addEventListener("change", refreshPayState);
-  document.getElementById("pickupTime")?.addEventListener("change", refreshPayState);
+  // --- Step handling
+  const p1 = document.getElementById("panel1");
+  const p2 = document.getElementById("panel2");
+  const p3 = document.getElementById("panel3");
+  const s1 = document.getElementById("s1");
+  const s2 = document.getElementById("s2");
+  const s3 = document.getElementById("s3");
+  const b2 = document.getElementById("b2");
+  const b3 = document.getElementById("b3");
 
-  // -------------------------
-  // Build booking payload + localStorage
-  // -------------------------
-  function newBookingId() {
-    // Prefer crypto.randomUUID
-    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
-    return "mlt_" + Math.random().toString(16).slice(2) + "_" + Date.now();
+  function setStep(n) {
+    p1.classList.toggle("active", n === 1);
+    p2.classList.toggle("active", n === 2);
+    p3.classList.toggle("active", n === 3);
+
+    s1.classList.toggle("active", n === 1);
+    s2.classList.toggle("active", n === 2);
+    s3.classList.toggle("active", n === 3);
+
+    b2.style.opacity = n >= 2 ? "1" : ".35";
+    b3.style.opacity = n >= 3 ? "1" : ".35";
   }
 
-  function getBookingPayload(bookingId) {
-    const payload = {
-      bookingId,
-      route, vehicle, trip,
-      amount: Number(priceRaw),
-      currency: "USD",
-      passengerName: document.getElementById("passengerName")?.value?.trim() || "",
-      email: document.getElementById("email")?.value?.trim() || "",
-      phone: document.getElementById("phone")?.value?.trim() || "",
-      passengers: document.getElementById("passengers")?.value?.trim() || "",
-      pickupDate: document.getElementById("pickupDate")?.value || "",
-      pickupTime: document.getElementById("pickupTime")?.value || "",
-      pickupLocation: document.getElementById("pickupLocation")?.value?.trim() || "",
-      destination: document.getElementById("destination")?.value?.trim() || "",
-      flight: document.getElementById("flight")?.value?.trim() || "",
-      luggage: document.getElementById("luggage")?.value?.trim() || "",
-      childSeats: document.getElementById("childSeats")?.value?.trim() || "",
-      notes: document.getElementById("notes")?.value?.trim() || "",
-      createdAtISO: new Date().toISOString()
+  function readForm() {
+    const get = (id) => document.getElementById(id)?.value?.trim() || "";
+    return {
+      booking_id: get("bookingIdHidden") || "",
+      passenger_name: get("passengerName"),
+      email: get("email"),
+      phone: get("phone"),
+      passengers: get("passengers"),
+      pickup_date: get("pickupDate"),
+      pickup_time: get("pickupTime"),
+      route,
+      vehicle,
+      trip_type: trip,
+      price_usd: price,
+      pickup_location: get("pickupLocation"),
+      destination: get("destination"),
+      flight: get("flight"),
+      luggage: get("luggage"),
+      child_seats: get("childSeats"),
+      notes: get("notes"),
     };
-    return payload;
   }
 
-  function saveDraft(payload) {
-    localStorage.setItem("mlt_booking_" + payload.bookingId, JSON.stringify(payload));
+  function validateStep1() {
+    const requiredIds = ["passengerName","email","phone","pickupDate","pickupTime","pickupLocation","destination"];
+    for (const id of requiredIds) {
+      const el = document.getElementById(id);
+      if (!el || !el.value.trim()) {
+        el?.focus();
+        return { ok: false, msg: "Please complete all required fields." };
+      }
+    }
+    if (!isFinitePositiveNumber(price)) {
+      return { ok: false, msg: "Please select your route/vehicle from the Rates page so the price is filled in." };
+    }
+    const dt = getPickupDateTimeLocal();
+    const within8 = dt ? hoursUntil(dt) <= 8 : false;
+    if (within8) {
+      return { ok: false, msg: "Your pickup is within 8 hours. Please contact us to confirm availability before paying." };
+    }
+    return { ok: true };
   }
 
-  // -------------------------
-  // Review UI
-  // -------------------------
-  function renderReview(payload) {
-    const grid = document.getElementById("reviewGrid");
-    const items = [
-      ["Passenger", payload.passengerName],
-      ["Email", payload.email],
-      ["Phone", payload.phone],
-      ["Passengers", payload.passengers || "-"],
-      ["Pickup", `${payload.pickupDate} ${payload.pickupTime}`],
-      ["Pickup location", payload.pickupLocation],
-      ["Destination", payload.destination],
-      ["Flight", payload.flight || "-"],
-      ["Route", payload.route || "-"],
-      ["Vehicle", payload.vehicle || "-"],
-      ["Trip type", payload.trip || "-"],
-      ["Total", Number.isFinite(payload.amount) ? `$${payload.amount.toFixed(2)}` : "-"],
+  function renderSummary() {
+    const d = readForm();
+    const lines = [
+      ["Booking name", d.passenger_name],
+      ["Email", d.email],
+      ["Phone", d.phone],
+      ["Passengers", d.passengers || "-"],
+      ["Pickup", `${d.pickup_date} ${d.pickup_time}`],
+      ["Route", d.route || "-"],
+      ["Vehicle", d.vehicle || "-"],
+      ["Trip type", d.trip_type || "-"],
+      ["Total price", d.price_usd ? `$${Number(d.price_usd).toFixed(2)}` : "-"],
+      ["Pickup location", d.pickup_location],
+      ["Destination", d.destination],
+      ["Flight", d.flight || "-"],
+      ["Luggage", d.luggage || "-"],
+      ["Child seats", d.child_seats || "-"],
+      ["Notes", d.notes || "-"],
     ];
 
-    grid.innerHTML = items.map(([k,v]) =>
-      `<div class="reviewItem"><strong>${k}:</strong> ${String(v || "-").replaceAll("<","&lt;")}</div>`
-    ).join("");
+    const box = document.getElementById("summaryBox");
+    box.innerHTML = lines.map(([k,v]) => `
+      <div class="line"><div class="k">${k}</div><div class="v">${String(v).replaceAll("<","&lt;")}</div></div>
+    `).join("");
   }
 
-  // -------------------------
-  // Buttons
-  // -------------------------
-  let currentBookingId = null;
-
-  document.getElementById("toStep2Btn").addEventListener("click", () => {
-    paymentMsg.innerHTML = "";
-
-    // Validate form fields in step 1
-    if (!form.checkValidity()) {
-      form.reportValidity();
+  document.getElementById("toStep2").addEventListener("click", () => {
+    const v = validateStep1();
+    if (!v.ok) {
+      alert(v.msg);
       return;
     }
-
-    // Require rates selection
-    if (!isFinitePositiveNumber(priceRaw) || !route || !vehicle) {
-      document.getElementById("step1Status").innerHTML =
-        `<span class="danger">Please select your route/vehicle from the Rates page so price is filled before paying.</span>`;
-      return;
-    }
-
-    currentBookingId = currentBookingId || newBookingId();
-    const payload = getBookingPayload(currentBookingId);
-    saveDraft(payload);
-    renderReview(payload);
-
-    refreshPayState();
-    showStep(2);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderSummary();
+    setStep(2);
   });
 
-  document.getElementById("backToStep1Btn").addEventListener("click", () => {
-    showStep(1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  document.getElementById("backTo1").addEventListener("click", () => setStep(1));
+
+  document.getElementById("toStep3").addEventListener("click", () => {
+    // Generate and store booking before payment
+    const bookingId = `MLT-${Date.now()}-${Math.random().toString(16).slice(2,8).toUpperCase()}`;
+    const booking = readForm();
+    booking.booking_id = bookingId;
+
+    localStorage.setItem("mlt_pending_booking", JSON.stringify({
+      bookingId,
+      booking,
+      createdAt: new Date().toISOString(),
+    }));
+
+    // Payment rules note
+    document.getElementById("payRules").innerHTML =
+      `You will be redirected to Square for secure payment. After payment, you’ll return here for confirmation.<br><span class="muted">Confirmation #: <strong>${bookingId}</strong></span>`;
+
+    setStep(3);
   });
 
-  // -------------------------
-  // Pay: create Square link, set redirect_url to confirmation.html?bookingId=...
-  // -------------------------
+  document.getElementById("backTo2").addEventListener("click", () => setStep(2));
+
+  // --- Payment link creation + redirect
+  const payBtn = document.getElementById("payBtn");
+  const paymentMsg = document.getElementById("paymentMsg");
+
   payBtn.addEventListener("click", async () => {
     paymentMsg.innerHTML = "";
     payBtn.disabled = true;
     payBtn.textContent = "Creating payment link...";
 
     try {
-      if (!currentBookingId) currentBookingId = newBookingId();
-      const payload = getBookingPayload(currentBookingId);
-      saveDraft(payload);
+      const saved = JSON.parse(localStorage.getItem("mlt_pending_booking") || "{}");
+      const bookingId = saved?.bookingId;
+      const booking = saved?.booking;
+      if (!bookingId || !booking) throw new Error("Missing pending booking");
 
-      // Final checks
-      if (!Number.isFinite(payload.amount) || payload.amount <= 0) {
-        paymentMsg.innerHTML = `<span class="danger">Missing price. Please select your route again from the Rates page.</span>`;
-        payBtn.textContent = "Pay with Square";
-        refreshPayState();
-        return;
-      }
+      const amount = Number(price);
+      if (!Number.isFinite(amount) || amount <= 0) throw new Error("Missing/invalid price");
+
+      const note = `Booking ${bookingId} | ${booking.passenger_name} | ${route} | ${vehicle} | ${trip} | ${booking.pickup_date} ${booking.pickup_time}`;
 
       const r = await fetch("/api/create-square-link", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          amount,
+          currency: "USD",
+          name: "MLT Orlando Transportation",
+          bookingId,
+          buyerEmail: booking.email,
+          buyerPhone: booking.phone,
+          note,
+          redirectPath: "/confirmation.html",
+        }),
       });
 
       const data = await r.json();
-      if (!r.ok || !data.ok) {
-        console.log("Create link error:", data);
-        paymentMsg.innerHTML = `<span class="danger">Could not create payment link. Please try again or contact us.</span>`;
+      if (!data.ok) {
+        console.log("Square error:", data);
+        paymentMsg.innerHTML = `<span class="danger"><strong>Error:</strong> Could not create payment link. Please try again or contact us.</span>`;
         payBtn.textContent = "Pay with Square";
-        refreshPayState();
+        payBtn.disabled = false;
         return;
       }
 
       paymentMsg.innerHTML = `<span class="ok"><strong>Success:</strong> Redirecting to secure payment...</span>`;
       window.location.href = data.url;
-
     } catch (e) {
       console.error(e);
-      paymentMsg.innerHTML = `<span class="danger">Failed to create payment link. Please try again.</span>`;
+      paymentMsg.innerHTML = `<span class="danger"><strong>Error:</strong> ${e.message || "Payment failed. Please try again."}</span>`;
       payBtn.textContent = "Pay with Square";
-      refreshPayState();
+      payBtn.disabled = false;
     }
   });
 </script>
