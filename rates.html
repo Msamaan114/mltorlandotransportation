@@ -17,29 +17,36 @@
     .rates-wrap h1 { margin-bottom: 0.5rem; }
     .rates-wrap .page-intro { color:#4b5563; margin-bottom: 1rem; font-size: 0.95rem; }
 
-    /* Logo as a button-link to Home */
+    /* Header logo as clickable button-link (NO circle/outline) */
     .logo-btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding: 0.55rem 0.9rem;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.15);
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 0.35rem 0.2rem;   /* small padding so it feels clickable */
+      border-radius: 0.6rem;     /* subtle, not a pill/circle */
+      background: transparent;
+      border: none;
       color: #f9fafb;
-      font-weight: 800;
-      letter-spacing: 0.03em;
+      font-weight: 700;
+      letter-spacing: 0.05em;
       text-decoration: none;
       line-height: 1;
       white-space: nowrap;
-      transition: background .15s ease, border-color .15s ease, transform .05s ease;
+      transition: color .15s ease, background .15s ease, transform .05s ease;
+      text-transform: uppercase;
+      font-size: 1rem;
     }
     .logo-btn:hover{
-      background: rgba(56, 189, 248, 0.25);
-      border-color: rgba(56, 189, 248, 0.6);
+      color:#38bdf8;
+      background: rgba(56, 189, 248, 0.10);
       transform: translateY(-1px);
     }
     .logo-btn:active{ transform: translateY(0px); }
+    .logo-btn:focus-visible{
+      outline: 2px solid rgba(56,189,248,.65);
+      outline-offset: 3px;
+      border-radius: 0.6rem;
+    }
 
     .promo-banner{
       display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
@@ -144,7 +151,7 @@
     .route-title{ font-size: 1.35rem; margin-bottom: .25rem; }
     .route-subtitle{ color:#4b5563; font-size: .95rem; margin-bottom: 1rem; }
 
-    /* Align headings across all cards consistently */
+    /* Desktop headings line */
     .desktop-headings{
       display:none;
       grid-template-columns: 1.1fr 1.4fr 1.5fr;
@@ -200,12 +207,11 @@
       line-height: 1.1;
       gap: .25rem;
       white-space: normal;
-      text-decoration:none;
+      text-decoration: none;
     }
 
     .btn-book-primary{ background:#38bdf8; color:#020617; }
     .btn-book-secondary{ background:#020617; color:#f9fafb; }
-
     .btn-book-primary:hover,
     .btn-book-secondary:hover{ opacity:.92; }
 
@@ -215,7 +221,7 @@
       letter-spacing: .01em;
     }
 
-    /* Show crossed-out first, discounted on the right */
+    /* Crossed-out first, discounted on the right */
     .btn-price-line{
       display:flex;
       align-items:baseline;
@@ -223,7 +229,6 @@
       gap: .55rem;
       flex-wrap:wrap;
     }
-
     .price-was{
       font-size: .9rem;
       color: rgba(2,6,23,.55);
@@ -272,9 +277,34 @@
       .price-now{ font-size: .98rem; }
     }
 
+    /* Desktop alignment: make rows match headings (Vehicle | Capacity | One-way/Round-trip) */
     @media (min-width: 900px){
       .desktop-headings{ display:grid; }
-      .vehicle-card{ padding: 1rem .2rem; }
+
+      .vehicle-card{
+        display:grid;
+        grid-template-columns: 1.1fr 1.4fr 1.5fr;
+        align-items:center;
+        column-gap: 1rem;
+        padding: 1rem 0.15rem;
+      }
+
+      .vehicle-header{ margin-bottom: 0; }
+      .vehicle-capacity{ margin: 0; }
+
+      .vehicle-header{ grid-column: 1; }
+      .vehicle-capacity{ grid-column: 2; }
+      .vehicle-actions{
+        grid-column: 3;
+        margin-top: 0;
+        justify-content: flex-end;
+      }
+
+      /* make the action buttons look nice aligned in the last column */
+      .btn-book-primary, .btn-book-secondary{
+        flex: 0 0 auto;
+        min-width: 170px;
+      }
     }
   </style>
 </head>
@@ -308,22 +338,22 @@
 
   <header>
     <div class="nav">
-      <!-- CHANGED: Logo text -> button/link to main page -->
+      <!-- CHANGED: clickable "button" to Home, no circle -->
       <a class="logo-btn" href="index.html" aria-label="Go to Home">MLT Orlando Transportation</a>
-      
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="services.html">Services</a>
-          <a href="owner.html">Owner</a>
-          <a href="private-airport.html">Private Airport</a>
-          <a href="child-seats.html">Child Seats</a>
-          <a href="service-areas.html">Service Areas</a>
-          <a href="rates.html">Rates</a>
-          <a href="cancellation.html">Cancellation</a>
-          <a href="why-us.html">Why Us</a>
-          <a href="booking.html">Booking</a>
-        </nav>
-      </div>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="owner.html">Owner</a>
+        <a href="private-airport.html">Private Airport</a>
+        <a href="child-seats.html">Child Seats</a>
+        <a href="service-areas.html">Service Areas</a>
+        <a href="rates.html">Rates</a>
+        <a href="cancellation.html">Cancellation</a>
+        <a href="why-us.html">Why Us</a>
+        <a href="booking.html">Booking</a>
+      </nav>
+    </div>
   </header>
 
   <main class="rates-wrap">
@@ -372,7 +402,7 @@
       </div>
     </section>
 
-    <!-- 1) MCO ↔ Universal / I-Drive / SeaWorld / Convention Center (ADD Grand Lakes) -->
+    <!-- 1) MCO ↔ Universal / I-Drive / SeaWorld / Convention Center / Grand Lakes -->
     <section id="mco-universal-idrive" class="route-section">
       <div class="card-wrapper">
         <h2 class="route-title">MCO ↔ Universal / I-Drive / SeaWorld area / International Drive / Convention Center / Grand Lakes</h2>
@@ -534,7 +564,7 @@
       </div>
     </section>
 
-    <!-- 3) MCO ↔ Windermere / Winter Park (ADD Winter Garden) -->
+    <!-- 3) MCO ↔ Windermere / Winter Park / Winter Garden -->
     <section id="mco-windermere" class="route-section">
       <div class="card-wrapper">
         <h2 class="route-title">MCO ↔ Windermere / Winter Park / Winter Garden</h2>
@@ -776,7 +806,7 @@
       </div>
     </section>
 
-    <!-- 6) SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak (ADD Grand Lakes) -->
+    <!-- 6) SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak / Grand Lakes -->
     <section id="sfb-disney-lake" class="route-section">
       <div class="card-wrapper">
         <h2 class="route-title">SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak / Grand Lakes</h2>
@@ -950,13 +980,15 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Mobile jump dropdown behavior
+    // Mobile jump dropdown behavior (smooth scroll)
     const jump = document.getElementById("jumpSelect");
     if (jump) {
       jump.addEventListener("change", () => {
         const v = jump.value;
         if (!v) return;
-        location.hash = v;
+        const el = document.querySelector(v);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        jump.value = "";
       });
     }
   </script>
