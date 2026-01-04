@@ -17,6 +17,30 @@
     .rates-wrap h1 { margin-bottom: 0.5rem; }
     .rates-wrap .page-intro { color:#4b5563; margin-bottom: 1rem; font-size: 0.95rem; }
 
+    /* Logo as a button-link to Home */
+    .logo-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #f9fafb;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      line-height: 1;
+      white-space: nowrap;
+      transition: background .15s ease, border-color .15s ease, transform .05s ease;
+    }
+    .logo-btn:hover{
+      background: rgba(56, 189, 248, 0.25);
+      border-color: rgba(56, 189, 248, 0.6);
+      transform: translateY(-1px);
+    }
+    .logo-btn:active{ transform: translateY(0px); }
+
     .promo-banner{
       display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
       background:#0b1120; color:#e5e7eb;
@@ -176,6 +200,7 @@
       line-height: 1.1;
       gap: .25rem;
       white-space: normal;
+      text-decoration:none;
     }
 
     .btn-book-primary{ background:#38bdf8; color:#020617; }
@@ -283,7 +308,9 @@
 
   <header>
     <div class="nav">
-      <div class="logo">MLT Orlando Transportation</div>
+      <!-- CHANGED: Logo text -> button/link to main page -->
+      <a class="logo-btn" href="index.html" aria-label="Go to Home">MLT Orlando Transportation</a>
+
       <nav>
         <a href="index.html">Home</a>
         <a href="services.html">Services</a>
