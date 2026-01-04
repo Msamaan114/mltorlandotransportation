@@ -4,140 +4,125 @@
   <meta charset="UTF-8" />
   <title>Book in 3 Steps | MLT Orlando Transportation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Book private transportation in Orlando. Choose route, add details, review, and pay securely with Square." />
 
-  <!-- Match index.html -->
+  <!-- Match your site header styles -->
   <link rel="stylesheet" href="styles.css" />
 
   <style>
-    /* Booking-only look (namespaced) */
-    body.booking-page { background:#f3f4f6; color:#020617; line-height:1.55; }
+    /* Page-only styling (scoped so it won’t mess with your site CSS) */
+    .b-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 5vw 4rem; }
+    .b-grid { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: start; }
+    @media (min-width: 980px) { .b-grid { grid-template-columns: 1.2fr .8fr; } }
 
-    .booking-wrap{ max-width:1100px; margin:24px auto; padding:0 16px; }
-    .booking-grid{ display:grid; grid-template-columns:1fr; gap:18px; }
-    @media(min-width:980px){ .booking-grid{ grid-template-columns:1.2fr .8fr; } }
+    .b-card { background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(2,6,23,.08); overflow: hidden; border: 1px solid #e5e7eb; }
+    .b-head { padding: 16px 16px 12px; border-bottom: 1px solid #e5e7eb; }
+    .b-head h1, .b-head h2 { font-size: 18px; margin: 0 0 6px; }
+    .b-head p { font-size: 13px; color: #475569; margin: 0; }
 
-    .booking-card{
-      background:#fff; border-radius:16px; box-shadow:0 10px 30px rgba(2,6,23,.08);
-      overflow:hidden;
+    .b-body { padding: 16px; }
+
+    .b-stepper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .b-step { border: 1px solid #e5e7eb; background: #f8fafc; border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #334155;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .b-step.active { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.10); }
+    .b-badge { background: #0ea5e9; color: #fff; font-weight: 800; border-radius: 999px; padding: 4px 10px; font-size: 12px; }
+
+    .b-muted { color: #64748b; font-size: 12px; }
+    .b-danger { color: #b91c1c; }
+    .b-ok { color: #166534; }
+
+    .b-section { margin-top: 16px; }
+    .b-section:first-child { margin-top: 0; }
+    .b-section-title { font-weight: 800; font-size: 14px; margin-bottom: 10px; color: #0f172a; }
+
+    .b-row { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 700px) { .b-row.two { grid-template-columns: 1fr 1fr; } }
+
+    .b-row.three { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 900px) { .b-row.three { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .b-label { font-size: 12px; color: #334155; margin-bottom: 6px; display: block; }
+    .b-input, .b-select, .b-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      font-size: 14px;
+      outline: none;
     }
-    .booking-head{ padding:16px 16px 12px; border-bottom:1px solid #e5e7eb; }
-    .booking-head h1, .booking-head h2{ font-size:18px; margin-bottom:6px; }
-    .booking-head p{ font-size:13px; color:#475569; }
-    .booking-body{ padding:16px; }
+    .b-input:focus, .b-select:focus, .b-textarea:focus { border-color: #93c5fd; box-shadow: 0 0 0 4px rgba(59,130,246,.12); }
+    .b-textarea { min-height: 110px; resize: vertical; }
 
-    .booking-stepper{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
-    .booking-step{
-      border:1px solid #e5e7eb; background:#f8fafc; border-radius:14px;
-      padding:10px 12px; font-size:12px; color:#334155;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    .b-note { margin-top: 10px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 14px; font-size: 12px; color: #334155; }
+    .b-note a { text-decoration: underline; }
+
+    .b-btnrow { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .b-btn { border: 0; border-radius: 999px; padding: 12px 14px; font-weight: 900; cursor: pointer; font-size: 14px; flex: 1; min-width: 160px; }
+    .b-btn-primary { background: #0ea5e9; color: #fff; }
+    .b-btn-secondary { background: #111827; color: #fff; }
+    .b-btn-ghost { background: #e2e8f0; color: #0f172a; }
+    .b-btn-secondary[disabled] { background: #9ca3af; cursor: not-allowed; }
+
+    .b-panel { display: none; }
+    .b-panel.active { display: block; }
+
+    .b-summary { border: 1px solid #e5e7eb; border-radius: 14px; padding: 12px; background: #fff; }
+    .b-summary .line { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+    .b-summary .line:last-child { border-bottom: 0; }
+    .b-summary .k { color: #64748b; }
+    .b-summary .v { font-weight: 800; text-align: right; }
+
+    .b-side { padding: 16px; }
+    .b-side .box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 14px; margin-bottom: 12px; }
+    .b-side .box p { font-size: 12px; color: #334155; margin: 6px 0; }
+
+    /* Quick note buttons */
+    .b-quickrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .b-quickbtn {
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer;
+      flex: 0 0 auto;
     }
-    .booking-step.active{ border-color:#93c5fd; box-shadow:0 0 0 4px rgba(59,130,246,.10); }
-    .step-badge{ background:#0ea5e9; color:#fff; font-weight:800; border-radius:999px; padding:4px 10px; font-size:12px; }
+    .b-quickbtn:hover { filter: brightness(.98); }
 
-    .muted{ color:#64748b; font-size:12px; }
-    .danger{ color:#b91c1c; }
-    .ok{ color:#166534; }
-
-    .booking-section{ margin-top:16px; }
-    .booking-section:first-child{ margin-top:0; }
-    .booking-section-title{ font-weight:750; font-size:14px; margin-bottom:10px; color:#0f172a; }
-
-    .booking-row{ display:grid; grid-template-columns:1fr; gap:10px; }
-    @media(min-width:700px){ .booking-row.two{ grid-template-columns:1fr 1fr; } }
-
-    .booking-page label{ font-size:12px; color:#334155; margin-bottom:6px; display:block; }
-    .booking-page input,
-    .booking-page select,
-    .booking-page textarea{
-      width:100%;
-      padding:12px;
-      border:1px solid #e5e7eb;
-      border-radius:12px;
-      background:#fff;
-      font-size:14px;
-      outline:none;
+    /* Modal */
+    .b-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(2,6,23,.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 9999;
     }
-    .booking-page input:focus,
-    .booking-page select:focus,
-    .booking-page textarea:focus{
-      border-color:#93c5fd;
-      box-shadow:0 0 0 4px rgba(59,130,246,.12);
+    .b-modal-overlay.show { display: flex; }
+    .b-modal {
+      width: 100%;
+      max-width: 520px;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 20px 60px rgba(2,6,23,.25);
+      overflow: hidden;
     }
-    .booking-page textarea{ min-height:100px; resize:vertical; }
-
-    .booking-note{
-      margin-top:10px;
-      background:#f8fafc;
-      border:1px solid #e2e8f0;
-      padding:12px;
-      border-radius:14px;
-      font-size:12px;
-      color:#334155;
-    }
-
-    .booking-btnrow{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
-    .booking-page button{
-      border:0;
-      border-radius:999px;
-      padding:12px 14px;
-      font-weight:800;
-      cursor:pointer;
-      font-size:14px;
-      flex:1;
-      min-width:160px;
-    }
-    .booking-btn-primary{ background:#0ea5e9; color:#fff; }
-    .booking-btn-secondary{ background:#111827; color:#fff; }
-    .booking-btn-ghost{ background:#e2e8f0; color:#0f172a; }
-    .booking-btn-secondary[disabled]{ background:#9ca3af; cursor:not-allowed; }
-
-    .booking-panel{ display:none; }
-    .booking-panel.active{ display:block; }
-
-    .booking-summary{ border:1px solid #e5e7eb; border-radius:14px; padding:12px; background:#fff; }
-    .booking-summary .line{
-      display:flex; justify-content:space-between; gap:12px;
-      padding:8px 0; border-bottom:1px solid #f1f5f9; font-size:13px;
-    }
-    .booking-summary .line:last-child{ border-bottom:0; }
-    .booking-summary .k{ color:#64748b; }
-    .booking-summary .v{ font-weight:700; text-align:right; }
-
-    .booking-side{ padding:16px; }
-    .booking-side .box{
-      background:#f8fafc; border:1px solid #e2e8f0; padding:12px; border-radius:14px;
-      margin-bottom:12px;
-    }
-    .booking-side .box p{ font-size:12px; color:#334155; margin:6px 0; }
-
-    /* Phone row: code + number */
-    .phone-row{
-      display:grid;
-      grid-template-columns: 160px 1fr;
-      gap:10px;
-      align-items:end;
-    }
-    @media(max-width:520px){
-      .phone-row{ grid-template-columns: 1fr; }
-    }
-
-    /* ✅ Overrides for your global styles.css (prevents double-form styling & extra margins) */
-    .booking-page form{
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-      padding: 0;
-    }
-    .booking-page input,
-    .booking-page select,
-    .booking-page textarea{
-      margin-bottom: 0; /* cancel global form field margin */
-    }
+    .b-modal-head { padding: 14px 16px; border-bottom: 1px solid #e5e7eb; }
+    .b-modal-head h3 { margin: 0; font-size: 16px; }
+    .b-modal-body { padding: 16px; }
+    .b-modal-actions { padding: 14px 16px; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; }
+    .b-modal-actions .b-btn { min-width: 0; }
+    .b-inline { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media(min-width: 700px){ .b-inline.two { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 
-<body class="booking-page">
-
+<body>
   <!-- Top contact bar (same as index.html) -->
   <div class="top-bar">
     <div class="top-bar-inner">
@@ -164,7 +149,6 @@
     </div>
   </div>
 
-  <!-- Header/nav (same as index.html) -->
   <header>
     <div class="nav">
       <div class="logo">MLT Orlando Transportation</div>
@@ -183,626 +167,471 @@
     </div>
   </header>
 
-  <main class="booking-wrap">
-    <div class="booking-grid">
-      <div class="booking-card">
-        <div class="booking-head">
+  <main class="b-wrap">
+    <div class="b-grid">
+      <!-- MAIN -->
+      <div class="b-card">
+        <div class="b-head">
           <h1>Book in 3 Steps</h1>
           <p>Step 1: Details → Step 2: Review → Step 3: Pay &amp; Confirm</p>
         </div>
 
-        <div class="booking-body">
-          <div class="booking-stepper">
-            <div class="booking-step active" id="s1">
-              <span><strong>Step 1</strong><br><span class="muted">Trip details</span></span>
-              <span class="step-badge">1</span>
+        <div class="b-body">
+          <div class="b-stepper">
+            <div class="b-step active" id="s1">
+              <span><strong>Step 1</strong><br><span class="b-muted">Trip details</span></span>
+              <span class="b-badge">1</span>
             </div>
-            <div class="booking-step" id="s2">
-              <span><strong>Step 2</strong><br><span class="muted">Review</span></span>
-              <span class="step-badge" id="b2" style="opacity:.35;">2</span>
+            <div class="b-step" id="s2">
+              <span><strong>Step 2</strong><br><span class="b-muted">Review</span></span>
+              <span class="b-badge" id="b2" style="opacity:.35;">2</span>
             </div>
-            <div class="booking-step" id="s3">
-              <span><strong>Step 3</strong><br><span class="muted">Payment</span></span>
-              <span class="step-badge" id="b3" style="opacity:.35;">3</span>
+            <div class="b-step" id="s3">
+              <span><strong>Step 3</strong><br><span class="b-muted">Payment</span></span>
+              <span class="b-badge" id="b3" style="opacity:.35;">3</span>
             </div>
           </div>
 
-          <!-- Suggestions lists -->
-          <datalist id="locationSuggestions">
-            <option value="MCO - Orlando International Airport"></option>
-            <option value="SFB - Orlando Sanford International Airport"></option>
-            <option value="Universal Orlando Resort"></option>
-            <option value="International Drive (I-Drive) Hotel"></option>
-            <option value="Orange County Convention Center"></option>
-            <option value="SeaWorld Orlando"></option>
-            <option value="Walt Disney World Resort"></option>
-            <option value="Lake Buena Vista Hotel"></option>
-            <option value="Port Canaveral Cruise Terminal"></option>
-            <option value="Hyatt Regency Orlando"></option>
-            <option value="Walt Disney World Swan and Dolphin"></option>
-          </datalist>
-
           <form id="bookingForm" novalidate>
             <!-- STEP 1 -->
-            <section class="booking-panel active" id="p1">
+            <section class="b-panel active" id="p1">
 
-              <div class="booking-section">
-                <div class="booking-section-title">Passenger info</div>
+              <div class="b-section">
+                <div class="b-section-title">Passenger info</div>
 
-                <div class="booking-row two">
+                <div class="b-row two">
                   <div>
-                    <label for="passengerName">Passenger name</label>
-                    <input id="passengerName" type="text" placeholder="Example: John Smith" required />
+                    <label class="b-label" for="passengerName">Passenger name</label>
+                    <input class="b-input" id="passengerName" type="text" placeholder="Full name" required />
                   </div>
                   <div>
-                    <label for="email">Email (same as payment)</label>
-                    <input id="email" type="email" placeholder="name@example.com" required />
+                    <label class="b-label" for="email">Email (same as payment)</label>
+                    <input class="b-input" id="email" type="email" placeholder="name@example.com" required />
                   </div>
                 </div>
 
-                <div class="booking-row two" style="margin-top:10px;">
+                <div class="b-row two" style="margin-top:10px;">
                   <div>
-                    <label for="phoneNumber">Mobile / WhatsApp number</label>
-                    <div class="phone-row">
+                    <label class="b-label">Mobile / WhatsApp number</label>
+                    <div class="b-row two" style="grid-template-columns: 140px 1fr;">
                       <div>
-                        <label class="muted" for="countryCode">Country code</label>
-                        <select id="countryCode">
-                          <option value="+1" selected>🇺🇸/🇨🇦 +1</option>
+                        <select class="b-select" id="countryCode" aria-label="Country code">
+                          <option value="+1" selected>🇺🇸 +1 (US)</option>
                           <option value="+44">🇬🇧 +44 (UK)</option>
-                          <option value="+61">🇦🇺 +61 (Australia)</option>
+                          <option value="+61">🇦🇺 +61 (AU)</option>
+                          <option value="+20">🇪🇬 +20 (EG)</option>
                           <option value="+971">🇦🇪 +971 (UAE)</option>
-                          <option value="+966">🇸🇦 +966 (Saudi)</option>
-                          <option value="+20">🇪🇬 +20 (Egypt)</option>
-                          <option value="+33">🇫🇷 +33 (France)</option>
-                          <option value="+49">🇩🇪 +49 (Germany)</option>
-                          <option value="+39">🇮🇹 +39 (Italy)</option>
-                          <option value="+34">🇪🇸 +34 (Spain)</option>
-                          <option value="OTHER">Other…</option>
+                          <option value="+966">🇸🇦 +966 (KSA)</option>
+                          <option value="+49">🇩🇪 +49 (DE)</option>
+                          <option value="+33">🇫🇷 +33 (FR)</option>
+                          <option value="+39">🇮🇹 +39 (IT)</option>
+                          <option value="+34">🇪🇸 +34 (ES)</option>
+                          <option value="+91">🇮🇳 +91 (IN)</option>
+                          <option value="+55">🇧🇷 +55 (BR)</option>
+                          <option value="+7">+7</option>
+                          <option value="+81">🇯🇵 +81 (JP)</option>
+                          <option value="+82">🇰🇷 +82 (KR)</option>
                         </select>
                       </div>
-
                       <div>
-                        <label class="muted" for="phoneNumber">Number</label>
-                        <input id="phoneNumber" type="tel" placeholder="Example: 407 555 0123" required />
+                        <input class="b-input" id="phone" type="tel" placeholder="Phone number (no country code)" required />
                       </div>
                     </div>
-
-                    <div id="customCodeWrap" style="display:none; margin-top:10px;">
-                      <label for="customCountryCode">Custom country code</label>
-                      <input id="customCountryCode" type="text" placeholder="Example: +81" />
-                      <div class="muted" style="margin-top:6px;">Tip: include the “+”.</div>
-                    </div>
+                    <div class="b-muted" style="margin-top:6px;">Example: select +44 then enter 7400 123456</div>
                   </div>
 
                   <div>
-                    <label for="passengers">Number of passengers</label>
-                    <input id="passengers" type="text" placeholder="Example: 2 adults, 2 children" />
+                    <label class="b-label" for="passengers">Number of passengers</label>
+                    <input class="b-input" id="passengers" type="text" placeholder="Example: 2 adults, 2 children" />
                   </div>
                 </div>
               </div>
 
-              <div class="booking-section">
-                <div class="booking-section-title">Pickup date &amp; time</div>
-                <div class="booking-row two">
+              <div class="b-section">
+                <div class="b-section-title">Pickup date &amp; time</div>
+                <div class="b-row two">
                   <div>
-                    <label for="pickupDate">Pickup date</label>
-                    <input id="pickupDate" type="date" required />
+                    <label class="b-label" for="pickupDate">Pickup date</label>
+                    <input class="b-input" id="pickupDate" type="date" required />
                   </div>
                   <div>
-                    <label for="pickupTime">Pickup time (local)</label>
-                    <input id="pickupTime" type="time" required />
+                    <label class="b-label" for="pickupTime">Pickup time (local)</label>
+                    <input class="b-input" id="pickupTime" type="time" required />
                   </div>
                 </div>
-                <div class="booking-note" id="urgencyNote" style="display:none;"></div>
+                <div class="b-note" id="urgencyNote" style="display:none;"></div>
               </div>
 
-              <div class="booking-section">
-                <div class="booking-section-title">Route, vehicle &amp; price</div>
+              <div class="b-section">
+                <div class="b-section-title">Route &amp; price</div>
 
-                <div class="booking-row two">
+                <div class="b-row two">
                   <div>
-                    <label for="routeSelect">Route</label>
-                    <select id="routeSelect" required></select>
+                    <label class="b-label" for="routeSelect">Route</label>
+                    <select class="b-select" id="routeSelect" required></select>
                   </div>
                   <div>
-                    <label for="vehicleSelect">Vehicle</label>
-                    <select id="vehicleSelect" required></select>
+                    <label class="b-label" for="vehicleSelect">Vehicle</label>
+                    <select class="b-select" id="vehicleSelect" required></select>
                   </div>
                 </div>
 
-                <div class="booking-row two" style="margin-top:10px;">
+                <div class="b-row two" style="margin-top:10px;">
                   <div>
-                    <label for="tripTypeSelect">Trip type</label>
-                    <select id="tripTypeSelect" required>
+                    <label class="b-label" for="tripType">Trip type</label>
+                    <select class="b-select" id="tripType" required>
                       <option value="oneway">One-way</option>
                       <option value="round">Round trip</option>
                       <option value="hourly">Hourly charter</option>
                     </select>
                   </div>
                   <div>
-                    <label id="priceLabel">Total price (USD)</label>
-                    <input id="priceDisplay" readonly placeholder="$0.00" />
-                    <div class="muted" id="priceBreakdown" style="margin-top:6px;"></div>
+                    <label class="b-label" id="priceLabel" for="priceDisplay">Total (USD)</label>
+                    <input class="b-input" id="priceDisplay" readonly />
                   </div>
                 </div>
 
                 <!-- Hourly only -->
-                <div class="booking-row two" style="margin-top:10px; display:none;" id="hourlyRow">
+                <div class="b-row two" style="margin-top:10px; display:none;" id="hourlyRow">
                   <div>
-                    <label for="hours">Hours (3–24)</label>
-                    <select id="hours"></select>
+                    <label class="b-label" for="hours">Hours (3–24)</label>
+                    <select class="b-select" id="hours"></select>
                   </div>
                   <div>
-                    <label>Hourly rate</label>
-                    <input id="hourlyRateDisplay" readonly />
-                  </div>
-                </div>
-
-                <div class="booking-note">
-                  You can book directly here. (Rates page is optional.)
-                </div>
-              </div>
-
-              <!-- Return info (Round trip only) -->
-              <div class="booking-section" id="returnSection" style="display:none;">
-                <div class="booking-section-title">Return trip information (Round trip)</div>
-
-                <div class="booking-row two">
-                  <div>
-                    <label for="returnDate">Return pickup date</label>
-                    <input id="returnDate" type="date" />
-                  </div>
-                  <div>
-                    <label for="returnTime">Return pickup time (local)</label>
-                    <input id="returnTime" type="time" />
+                    <label class="b-label">Hourly rate</label>
+                    <input class="b-input" id="hourlyRateDisplay" readonly />
                   </div>
                 </div>
 
-                <div class="booking-row two" style="margin-top:10px;">
-                  <div>
-                    <label for="returnPickupLocation">Return pickup location</label>
-                    <input id="returnPickupLocation" type="text" list="locationSuggestions" placeholder="Example: Your hotel / address" />
-                  </div>
-                  <div>
-                    <label for="returnDestination">Return destination</label>
-                    <input id="returnDestination" type="text" list="locationSuggestions" placeholder="Example: MCO Airport" />
-                  </div>
-                </div>
-
-                <div class="booking-row" style="margin-top:10px;">
-                  <div>
-                    <label for="returnFlight">Return flight (optional)</label>
-                    <input id="returnFlight" type="text" placeholder="Example: JetBlue 456" />
-                  </div>
-                </div>
-
-                <div class="booking-note">
-                  If you’re not sure yet, you can still continue — we will confirm return details with you.
+                <div class="b-note b-muted">
+                  You can also book from <a href="rates.html"><strong>Rates</strong></a> — if you come from there, your route will auto-fill.
                 </div>
               </div>
 
-              <div class="booking-section">
-                <div class="booking-section-title">Locations &amp; trip details</div>
+              <div class="b-section">
+                <div class="b-section-title">Locations &amp; trip details</div>
 
-                <div class="booking-row">
+                <div class="b-row">
                   <div>
-                    <label for="pickupLocation">Pickup location</label>
-                    <input id="pickupLocation" type="text" list="locationSuggestions" placeholder="Example: MCO Airport / Hotel / Address" required />
+                    <label class="b-label" for="pickupLocation">Pickup location</label>
+                    <input class="b-input" id="pickupLocation" type="text" list="locationSuggestions"
+                      placeholder="Example: MCO arrivals / Hotel name / Full address" required />
                   </div>
                 </div>
 
-                <div class="booking-row two" style="margin-top:10px;">
-                  <div>
-                    <label for="flight">Airline &amp; flight number (optional)</label>
-                    <input id="flight" type="text" placeholder="Example: Delta 1234" />
-                  </div>
-                  <div>
-                    <label for="destination">Destination</label>
-                    <input id="destination" type="text" list="locationSuggestions" placeholder="Example: Disney resort / Address" required />
-                  </div>
-                </div>
+                <!-- Return info MOVED HERE (Round trip only) -->
+                <div class="b-section" id="returnSection" style="display:none; margin-top:14px;">
+                  <div class="b-section-title">Return trip information (Round trip)</div>
 
-                <div class="booking-row two" style="margin-top:10px;">
-                  <div>
-                    <label for="luggage">Luggage details (optional)</label>
-                    <input id="luggage" type="text" placeholder="Example: 3 large, 2 carry-ons, stroller" />
-                  </div>
-
-                  <div>
-                    <label>Child seats (optional)</label>
-                    <div class="booking-row two">
-                      <div>
-                        <label class="muted" for="rearQty">Rear-facing</label>
-                        <select id="rearQty"></select>
-                      </div>
-                      <div>
-                        <label class="muted" for="forwardQty">Forward-facing</label>
-                        <select id="forwardQty"></select>
-                      </div>
-                    </div>
-                    <div class="booking-row" style="margin-top:10px;">
-                      <div>
-                        <label class="muted" for="boosterQty">Booster</label>
-                        <select id="boosterQty"></select>
-                      </div>
-                    </div>
-                    <div class="muted" style="margin-top:6px;">Child seats are complimentary when requested.</div>
-                  </div>
-                </div>
-
-                <!-- Optional Stop -->
-                <div class="booking-section">
-                  <div class="booking-section-title">Optional stop (on the way)</div>
-
-                  <div class="booking-row">
+                  <div class="b-row two">
                     <div>
-                      <label>
-                        <input type="checkbox" id="addStop" style="width:auto; margin-right:8px;" />
-                        Add a stop (hotel / grocery store on the way)
-                      </label>
-                      <div class="muted">Stop only: $5 • Stop &amp; wait: $20 (30 min)</div>
+                      <label class="b-label" for="returnDate">Return pickup date</label>
+                      <input class="b-input" id="returnDate" type="date" />
+                    </div>
+                    <div>
+                      <label class="b-label" for="returnTime">Return pickup time (local)</label>
+                      <input class="b-input" id="returnTime" type="time" />
                     </div>
                   </div>
 
-                  <div id="stopDetails" style="display:none; margin-top:10px;">
-                    <div class="booking-row two">
+                  <div class="b-row two" style="margin-top:10px;">
+                    <div>
+                      <label class="b-label" for="returnPickupLocation">Return pickup location</label>
+                      <input class="b-input" id="returnPickupLocation" type="text" list="locationSuggestions"
+                        placeholder="Example: Your hotel / address" />
+                    </div>
+                    <div>
+                      <label class="b-label" for="returnDestination">Return destination</label>
+                      <input class="b-input" id="returnDestination" type="text" list="locationSuggestions"
+                        placeholder="Example: MCO Airport" />
+                    </div>
+                  </div>
+
+                  <div class="b-row" style="margin-top:10px;">
+                    <div>
+                      <label class="b-label" for="returnFlight">Return flight (optional)</label>
+                      <input class="b-input" id="returnFlight" type="text" placeholder="Example: JetBlue 456" />
+                    </div>
+                  </div>
+
+                  <div class="b-note b-muted">
+                    If you don’t know return details yet, you can leave blanks — we’ll confirm with you.
+                  </div>
+                </div>
+
+                <div class="b-row two" style="margin-top:10px;">
+                  <div>
+                    <label class="b-label" for="flight">Airline &amp; flight number (optional)</label>
+                    <input class="b-input" id="flight" type="text" placeholder="Example: Delta 1234" />
+                  </div>
+                  <div>
+                    <label class="b-label" for="destination">Destination</label>
+                    <input class="b-input" id="destination" type="text" list="locationSuggestions"
+                      placeholder="Example: Disney resort / Address" required />
+                  </div>
+                </div>
+
+                <div class="b-row two" style="margin-top:10px;">
+                  <div>
+                    <label class="b-label" for="luggage">Luggage details (optional)</label>
+                    <input class="b-input" id="luggage" type="text" placeholder="Example: 3 large, 2 carry-ons, 1 stroller" />
+                  </div>
+
+                  <!-- Child seats (dropdown + quantities) -->
+                  <div>
+                    <label class="b-label">Child seats (optional)</label>
+                    <div class="b-row three">
                       <div>
-                        <label for="stopType">Stop type</label>
-                        <select id="stopType">
-                          <option value="stop">Stop only (+$5)</option>
-                          <option value="wait">Stop &amp; wait 30 min (+$20)</option>
+                        <label class="b-muted" style="display:block; margin-bottom:6px;">Rear-facing</label>
+                        <select class="b-select" id="seatRear">
+                          <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option>
+                          <option value="3">3</option><option value="4">4</option>
                         </select>
                       </div>
                       <div>
-                        <label for="stopLocation">Stop location</label>
-                        <input id="stopLocation" type="text" list="locationSuggestions" placeholder="Example: Publix / Hotel name / Address" />
+                        <label class="b-muted" style="display:block; margin-bottom:6px;">Forward-facing</label>
+                        <select class="b-select" id="seatForward">
+                          <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option>
+                          <option value="3">3</option><option value="4">4</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="b-muted" style="display:block; margin-bottom:6px;">Booster</label>
+                        <select class="b-select" id="seatBooster">
+                          <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option>
+                          <option value="3">3</option><option value="4">4</option>
+                        </select>
                       </div>
                     </div>
+                    <div class="b-muted" style="margin-top:6px;">Tip: You can add ages in Notes.</div>
                   </div>
                 </div>
 
-                <div class="booking-row" style="margin-top:10px;">
+                <!-- Optional stop -->
+                <div class="b-row two" style="margin-top:10px;">
                   <div>
-                    <label for="notes">Additional notes (optional)</label>
-                    <textarea id="notes" placeholder="Child ages, gate info, special requests…"></textarea>
+                    <label class="b-label" for="stopType">Add a stop (optional)</label>
+                    <select class="b-select" id="stopType">
+                      <option value="none" selected>No stop</option>
+                      <option value="stop5">Stop only (+$5)</option>
+                      <option value="wait20">Stop + wait 30 min (+$20)</option>
+                    </select>
+                    <div class="b-muted" style="margin-top:6px;">Stop can be a hotel or grocery store along the way.</div>
+                  </div>
+                  <div>
+                    <label class="b-label" for="stopLocation">Stop location (if any)</label>
+                    <input class="b-input" id="stopLocation" type="text" list="locationSuggestions"
+                      placeholder="Example: Publix / Walmart / Hotel name" />
+                  </div>
+                </div>
+
+                <!-- Notes with modal prompts -->
+                <div class="b-row" style="margin-top:10px;">
+                  <div>
+                    <label class="b-label" for="notes">Additional notes (optional)</label>
+
+                    <div class="b-quickrow">
+                      <button type="button" class="b-quickbtn" id="btnTail">✈️ Private jet tail #</button>
+                      <button type="button" class="b-quickbtn" id="btnPets">🐾 Pets</button>
+                      <button type="button" class="b-quickbtn" id="btnWheel">♿ Wheelchair / Mobility</button>
+                      <button type="button" class="b-quickbtn" id="btnSign">🪧 Sign name</button>
+                      <button type="button" class="b-quickbtn" id="btnAssist">🤝 Assistance</button>
+                    </div>
+
+                    <textarea class="b-textarea" id="notes"
+                      placeholder="Examples: private jet tail number, pets, wheelchair, terminal/gate, special instructions, child ages, etc."></textarea>
+
+                    <div class="b-muted" style="margin-top:6px;">
+                      Quick notes will insert a line here — if you don’t have the info now, it will insert “____” so you can fill it later.
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="booking-btnrow">
-                <button class="booking-btn-primary" type="button" id="to2">Continue to Review</button>
+              <div class="b-btnrow">
+                <button class="b-btn b-btn-primary" type="button" id="to2">Continue to Review</button>
               </div>
             </section>
 
             <!-- STEP 2 -->
-            <section class="booking-panel" id="p2">
-              <div class="booking-section-title">Review your booking</div>
-              <div class="booking-summary" id="summary"></div>
+            <section class="b-panel" id="p2">
+              <div class="b-section-title">Review your booking</div>
+              <div class="b-summary" id="summary"></div>
 
-              <div class="booking-btnrow">
-                <button class="booking-btn-ghost" type="button" id="back1">Back</button>
-                <button class="booking-btn-secondary" type="button" id="to3">Confirm &amp; Continue to Payment</button>
+              <div class="b-btnrow">
+                <button class="b-btn b-btn-ghost" type="button" id="back1">Back</button>
+                <button class="b-btn b-btn-secondary" type="button" id="to3">Confirm &amp; Continue to Payment</button>
               </div>
 
-              <div class="booking-note">
-                After you pay, Square will redirect you back to our confirmation page (if enabled in your API).
+              <div class="b-note b-muted">
+                After you pay, Square will send a payment receipt to your email.
               </div>
             </section>
 
             <!-- STEP 3 -->
-            <section class="booking-panel" id="p3">
-              <div class="booking-section-title">Payment</div>
-              <div class="booking-note" id="payNote"></div>
+            <section class="b-panel" id="p3">
+              <div class="b-section-title">Payment</div>
+              <div class="b-note" id="payNote"></div>
 
-              <div class="booking-btnrow">
-                <button class="booking-btn-ghost" type="button" id="back2">Back</button>
-                <button class="booking-btn-secondary" type="button" id="payBtn">Pay with Square</button>
+              <div class="b-btnrow">
+                <button class="b-btn b-btn-ghost" type="button" id="back2">Back</button>
+                <button class="b-btn b-btn-secondary" type="button" id="payBtn">Pay with Square</button>
               </div>
 
-              <div class="booking-note" id="paymentMsg"></div>
+              <div class="b-note" id="paymentMsg"></div>
             </section>
           </form>
         </div>
       </div>
 
-      <aside class="booking-card">
-        <div class="booking-head">
+      <!-- SIDE -->
+      <aside class="b-card">
+        <div class="b-head">
           <h2>Need help?</h2>
           <p>Contact us any time.</p>
         </div>
-        <div class="booking-side">
+        <div class="b-side">
           <div class="box">
             <p><strong>Phone:</strong> <a href="tel:14073690643" style="text-decoration:underline;">407-369-0643</a></p>
             <p><strong>Email:</strong> <a href="mailto:mltorlando@yahoo.com" style="text-decoration:underline;">mltorlando@yahoo.com</a></p>
           </div>
+          <div class="box">
+            <p class="b-muted"><strong>Tip:</strong> If your pickup is within 8 hours, please contact us to confirm availability before payment.</p>
+          </div>
         </div>
       </aside>
     </div>
+
+    <!-- Suggestions -->
+    <datalist id="locationSuggestions">
+      <option value="MCO - Orlando International Airport"></option>
+      <option value="SFB - Orlando Sanford International Airport"></option>
+      <option value="Walt Disney World Resort"></option>
+      <option value="Universal Orlando Resort"></option>
+      <option value="International Drive (I-Drive)"></option>
+      <option value="SeaWorld Orlando"></option>
+      <option value="Orange County Convention Center"></option>
+      <option value="Port Canaveral"></option>
+      <option value="Lake Buena Vista"></option>
+      <option value="Golden Oak"></option>
+      <option value="Bay Lake"></option>
+      <option value="Windermere"></option>
+      <option value="Winter Park"></option>
+      <option value="Publix"></option>
+      <option value="Walmart"></option>
+      <option value="Target"></option>
+    </datalist>
   </main>
 
-<script>
-  // If your API is NOT on the same domain, set this:
-  // const API_BASE = "https://YOUR-PROJECT.vercel.app";
-  const API_BASE = "";
+  <!-- Modal -->
+  <div class="b-modal-overlay" id="modalOverlay" aria-hidden="true">
+    <div class="b-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="b-modal-head">
+        <h3 id="modalTitle">Add note</h3>
+      </div>
+      <div class="b-modal-body" id="modalBody"></div>
+      <div class="b-modal-actions">
+        <button class="b-btn b-btn-ghost" type="button" id="modalCancel">Cancel</button>
+        <button class="b-btn b-btn-primary" type="button" id="modalAdd">Add</button>
+      </div>
+    </div>
+  </div>
 
-  // -------------------------
-  // Rates table (from your rates.html)
-  // -------------------------
+<script>
+  // =========================
+  // ROUTE PRICING (from your Rates page)
+  // =========================
   const ROUTES = [
     {
       id: "MCO-Universal-Idrive-Seaworld-Convention",
       label: "MCO ↔ Universal / I-Drive / SeaWorld / Convention Center",
-      type: "transfer",
-      prices: {
-        Sedan: { oneway: 110, round: 210 },
-        SUV: { oneway: 120, round: 230 },
-        Van8: { oneway: 140, round: 260 },
-        Van14:{ oneway: 170, round: 310 },
+      kind: "transfer",
+      vehicles: {
+        "Sedan": { oneway: 110, round: 210 },
+        "SUV": { oneway: 120, round: 230 },
+        "8-passenger van": { oneway: 140, round: 260 },
+        "14-passenger van": { oneway: 170, round: 310 },
       }
     },
     {
       id: "MCO-Disney-LBV-BayLake-GoldenOak",
       label: "MCO ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak",
-      type: "transfer",
-      prices: {
-        Sedan: { oneway: 120, round: 220 },
-        SUV: { oneway: 130, round: 240 },
-        Van8: { oneway: 150, round: 280 },
-        Van14:{ oneway: 180, round: 330 },
+      kind: "transfer",
+      vehicles: {
+        "Sedan": { oneway: 120, round: 220 },
+        "SUV": { oneway: 130, round: 240 },
+        "8-passenger van": { oneway: 150, round: 280 },
+        "14-passenger van": { oneway: 180, round: 330 },
       }
     },
     {
       id: "MCO-Windermere-WinterPark",
       label: "MCO ↔ Windermere / Winter Park",
-      type: "transfer",
-      prices: {
-        Sedan: { oneway: 130, round: 240 },
-        SUV: { oneway: 140, round: 260 },
-        Van8: { oneway: 160, round: 300 },
-        Van14:{ oneway: 190, round: 340 },
+      kind: "transfer",
+      vehicles: {
+        "Sedan": { oneway: 130, round: 240 },
+        "SUV": { oneway: 140, round: 260 },
+        "8-passenger van": { oneway: 160, round: 300 },
+        "14-passenger van": { oneway: 190, round: 340 },
       }
     },
     {
       id: "MCO-Port-Canaveral",
       label: "MCO / Orlando ↔ Port Canaveral",
-      type: "transfer",
-      prices: {
-        Sedan: { oneway: 210, round: 400 },
-        SUV: { oneway: 230, round: 440 },
-        Van8: { oneway: 260, round: 500 },
-        Van14:{ oneway: 290, round: 560 },
+      kind: "transfer",
+      vehicles: {
+        "Sedan": { oneway: 210, round: 400 },
+        "SUV": { oneway: 230, round: 440 },
+        "8-passenger van": { oneway: 260, round: 500 },
+        "14-passenger van": { oneway: 290, round: 560 },
       }
     },
     {
       id: "SFB-Universal-Idrive-Seaworld-Convention",
-      label: "SFB ↔ Universal / I-Drive / SeaWorld / Convention Center",
-      type: "transfer",
-      prices: {
-        Sedan: { oneway: 160, round: 300 },
-        SUV: { oneway: 175, round: 330 },
-        Van8: { oneway: 200, round: 380 },
-        Van14:{ oneway: 225, round: 420 },
+      label: "SFB ↔ I-Drive / Convention / Universal / SeaWorld",
+      kind: "transfer",
+      vehicles: {
+        "Sedan": { oneway: 160, round: 300 },
+        "SUV": { oneway: 175, round: 330 },
+        "8-passenger van": { oneway: 200, round: 380 },
+        "14-passenger van": { oneway: 225, round: 420 },
       }
     },
     {
       id: "SFB-Disney-LBV-BayLake-GoldenOak",
       label: "SFB ↔ Disney / Lake Buena Vista / Bay Lake / Golden Oak",
-      type: "transfer",
-      prices: {
-        Sedan: { oneway: 175, round: 330 },
-        SUV: { oneway: 190, round: 360 },
-        Van8: { oneway: 220, round: 420 },
-        Van14:{ oneway: 245, round: 470 },
+      kind: "transfer",
+      vehicles: {
+        "Sedan": { oneway: 175, round: 330 },
+        "SUV": { oneway: 190, round: 360 },
+        "8-passenger van": { oneway: 220, round: 420 },
+        "14-passenger van": { oneway: 245, round: 470 },
       }
     },
     {
       id: "Hourly-Orlando",
-      label: "Hourly Charter (within Orlando)",
-      type: "hourly",
-      hourlyRates: {
-        Sedan: 70,
-        SUV: 85,
-        Van8: 95,
-        Van14: 120,
+      label: "Hourly Charter (within Orlando) — 3 hour minimum",
+      kind: "hourly",
+      vehicles: {
+        "Sedan": { hourly: 70 },
+        "SUV": { hourly: 85 },
+        "8-passenger van": { hourly: 95 },
+        "14-passenger van": { hourly: 120 },
       }
     }
   ];
 
-  const VEHICLES = [
-    { key: "Sedan", label: "Sedan (up to 3)" },
-    { key: "SUV", label: "SUV (up to 5)" },
-    { key: "Van8", label: "8-passenger van (up to 8)" },
-    { key: "Van14", label: "14-passenger van (up to 14)" },
-  ];
+  // =========================
+  // Helpers
+  // =========================
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s || "").replaceAll("<","&lt;").replaceAll(">","&gt;");
 
-  const routeSelect = document.getElementById("routeSelect");
-  const vehicleSelect = document.getElementById("vehicleSelect");
-  const tripTypeSelect = document.getElementById("tripTypeSelect");
-  const priceDisplay = document.getElementById("priceDisplay");
-  const priceLabel = document.getElementById("priceLabel");
-  const priceBreakdown = document.getElementById("priceBreakdown");
+  function isFinitePositive(n){ const x = Number(n); return Number.isFinite(x) && x > 0; }
 
-  const hourlyRow = document.getElementById("hourlyRow");
-  const hoursSel = document.getElementById("hours");
-  const hourlyRateDisplay = document.getElementById("hourlyRateDisplay");
-
-  const returnSection = document.getElementById("returnSection");
-
-  const addStop = document.getElementById("addStop");
-  const stopDetails = document.getElementById("stopDetails");
-  const stopType = document.getElementById("stopType");
-  const stopLocation = document.getElementById("stopLocation");
-
-  const countryCode = document.getElementById("countryCode");
-  const customCodeWrap = document.getElementById("customCodeWrap");
-  const customCountryCode = document.getElementById("customCountryCode");
-
-  // child seats qty selects
-  const rearQty = document.getElementById("rearQty");
-  const forwardQty = document.getElementById("forwardQty");
-  const boosterQty = document.getElementById("boosterQty");
-
-  function fillQty(sel) {
-    for (let i = 0; i <= 6; i++) {
-      const opt = document.createElement("option");
-      opt.value = String(i);
-      opt.textContent = i === 0 ? "0 (none)" : String(i);
-      sel.appendChild(opt);
-    }
-  }
-  fillQty(rearQty); fillQty(forwardQty); fillQty(boosterQty);
-
-  for (let h = 3; h <= 24; h++) {
-    const opt = document.createElement("option");
-    opt.value = String(h);
-    opt.textContent = String(h);
-    hoursSel.appendChild(opt);
-  }
-
-  function getRouteById(id){ return ROUTES.find(r => r.id === id) || null; }
-  function getVehicleKey(){ return vehicleSelect.value; }
-  function getTripType(){ return tripTypeSelect.value; }
-
-  function stopFee() {
-    if (!addStop.checked) return 0;
-    return stopType.value === "wait" ? 20 : 5;
-  }
-
-  function baseFare() {
-    const r = getRouteById(routeSelect.value);
-    const v = getVehicleKey();
-    const t = getTripType();
-
-    if (!r || !v) return 0;
-
-    if (r.type === "hourly") {
-      const rate = Number(r.hourlyRates?.[v] || 0);
-      const hrs = Number(hoursSel.value || 3);
-      return rate * hrs;
-    } else {
-      const p = r.prices?.[v]?.[t] ?? 0;
-      return Number(p) || 0;
-    }
-  }
-
-  function totalFare() {
-    return baseFare() + stopFee();
-  }
-
-  function syncUIForRoute() {
-    const r = getRouteById(routeSelect.value);
-
-    // trip options
-    if (r?.type === "hourly") {
-      tripTypeSelect.value = "hourly";
-      tripTypeSelect.querySelector('option[value="hourly"]').disabled = false;
-      tripTypeSelect.querySelector('option[value="oneway"]').disabled = true;
-      tripTypeSelect.querySelector('option[value="round"]').disabled = true;
-    } else {
-      tripTypeSelect.querySelector('option[value="hourly"]').disabled = true;
-      tripTypeSelect.querySelector('option[value="oneway"]').disabled = false;
-      tripTypeSelect.querySelector('option[value="round"]').disabled = false;
-      if (tripTypeSelect.value === "hourly") tripTypeSelect.value = "oneway";
-    }
-
-    // show/hide hourly row
-    if (r?.type === "hourly") {
-      hourlyRow.style.display = "grid";
-      priceLabel.textContent = "Total (USD)";
-    } else {
-      hourlyRow.style.display = "none";
-      priceLabel.textContent = "Total price (USD)";
-    }
-
-    // show/hide return section
-    const t = getTripType();
-    returnSection.style.display = (t === "round") ? "block" : "none";
-
-    refreshPrice();
-  }
-
-  function refreshPrice() {
-    const r = getRouteById(routeSelect.value);
-    const v = getVehicleKey();
-    const t = getTripType();
-
-    // return section toggle
-    returnSection.style.display = (t === "round") ? "block" : "none";
-
-    // hourly display
-    if (r?.type === "hourly") {
-      const rate = Number(r.hourlyRates?.[v] || 0);
-      hourlyRateDisplay.value = rate ? `$${rate.toFixed(2)} / hr` : "";
-    }
-
-    const base = baseFare();
-    const sf = stopFee();
-    const tot = totalFare();
-
-    priceDisplay.value = tot ? `$${tot.toFixed(2)}` : "$0.00";
-
-    const parts = [];
-    if (base) parts.push(`Base: $${base.toFixed(2)}`);
-    if (sf) parts.push(`Stop fee: $${sf.toFixed(2)}`);
-    priceBreakdown.textContent = parts.length ? parts.join(" • ") : "";
-  }
-
-  // Populate dropdowns
-  function initDropdowns() {
-    routeSelect.innerHTML = ROUTES.map(r => `<option value="${r.id}">${r.label}</option>`).join("");
-    vehicleSelect.innerHTML = VEHICLES.map(v => `<option value="${v.key}">${v.label}</option>`).join("");
-
-    // Defaults
-    routeSelect.value = ROUTES[0].id;
-    vehicleSelect.value = "SUV";
-    tripTypeSelect.value = "oneway";
-  }
-  initDropdowns();
-
-  // Prefill from Rates page URL (optional)
-  const params = new URLSearchParams(location.search);
-  const routeParam = params.get("route");
-  const vehicleParam = params.get("vehicle");
-  const tripParam = params.get("trip");
-
-  if (routeParam && getRouteById(routeParam)) routeSelect.value = routeParam;
-
-  if (vehicleParam) {
-    // rates page uses Sedan/SUV/Van8/Van14 already
-    const allowed = new Set(VEHICLES.map(v => v.key));
-    if (allowed.has(vehicleParam)) vehicleSelect.value = vehicleParam;
-  }
-
-  if (tripParam) {
-    const normalized = tripParam.toLowerCase();
-    if (normalized === "round" || normalized === "roundtrip") tripTypeSelect.value = "round";
-    else if (normalized === "oneway" || normalized === "one-way") tripTypeSelect.value = "oneway";
-    else if (normalized === "hourly") tripTypeSelect.value = "hourly";
-  }
-
-  // Events
-  routeSelect.addEventListener("change", syncUIForRoute);
-  vehicleSelect.addEventListener("change", refreshPrice);
-  tripTypeSelect.addEventListener("change", refreshPrice);
-  hoursSel.addEventListener("change", refreshPrice);
-
-  addStop.addEventListener("change", () => {
-    stopDetails.style.display = addStop.checked ? "block" : "none";
-    refreshPrice();
-  });
-  stopType.addEventListener("change", refreshPrice);
-
-  countryCode.addEventListener("change", () => {
-    customCodeWrap.style.display = (countryCode.value === "OTHER") ? "block" : "none";
-  });
-
-  syncUIForRoute();
-  refreshPrice();
-
-  // Short notice logic
   function getPickupDateTimeLocal() {
-    const d = document.getElementById("pickupDate").value;
-    const t = document.getElementById("pickupTime").value;
+    const d = $("pickupDate").value;
+    const t = $("pickupTime").value;
     if (!d || !t) return null;
     const dt = new Date(d + "T" + t);
     return isNaN(dt.getTime()) ? null : dt;
@@ -811,33 +640,195 @@
     const now = new Date();
     return (dt.getTime() - now.getTime()) / (1000 * 60 * 60);
   }
-  const urgencyNote = document.getElementById("urgencyNote");
+
+  // =========================
+  // Populate Hours dropdown
+  // =========================
+  for (let h = 3; h <= 24; h++) {
+    const opt = document.createElement("option");
+    opt.value = String(h);
+    opt.textContent = String(h);
+    $("hours").appendChild(opt);
+  }
+
+  // =========================
+  // Route / Vehicle / Trip wiring
+  // =========================
+  const routeSelect = $("routeSelect");
+  const vehicleSelect = $("vehicleSelect");
+  const tripType = $("tripType");
+  const hourlyRow = $("hourlyRow");
+  const returnSection = $("returnSection");
+
+  function getRouteObj() {
+    const id = routeSelect.value;
+    return ROUTES.find(r => r.id === id) || null;
+  }
+
+  function fillRoutes() {
+    routeSelect.innerHTML = "";
+    for (const r of ROUTES) {
+      const opt = document.createElement("option");
+      opt.value = r.id;
+      opt.textContent = r.label;
+      routeSelect.appendChild(opt);
+    }
+  }
+
+  function fillVehicles(routeObj) {
+    vehicleSelect.innerHTML = "";
+    const names = Object.keys(routeObj.vehicles);
+    for (const v of names) {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = v;
+      vehicleSelect.appendChild(opt);
+    }
+  }
+
+  function getStopFee() {
+    const t = $("stopType").value;
+    if (t === "stop5") return 5;
+    if (t === "wait20") return 20;
+    return 0;
+  }
+
+  function getBaseAmount() {
+    const r = getRouteObj();
+    if (!r) return 0;
+    const v = vehicleSelect.value;
+    const prices = r.vehicles[v];
+    if (!prices) return 0;
+
+    if (r.kind === "hourly") {
+      const rate = Number(prices.hourly || 0);
+      const hrs = Number($("hours").value || 3);
+      return rate * hrs;
+    }
+
+    const tt = tripType.value;
+    if (tt === "round") return Number(prices.round || 0);
+    if (tt === "oneway") return Number(prices.oneway || 0);
+
+    return 0;
+  }
+
+  function refreshTripUI() {
+    const r = getRouteObj();
+    if (!r) return;
+
+    if (r.kind === "hourly") {
+      tripType.value = "hourly";
+      tripType.disabled = true;
+      hourlyRow.style.display = "grid";
+      returnSection.style.display = "none";
+      $("priceLabel").textContent = "Total (USD)";
+      const rate = r.vehicles[vehicleSelect.value]?.hourly || 0;
+      $("hourlyRateDisplay").value = `$${Number(rate).toFixed(2)} / hr`;
+    } else {
+      tripType.disabled = false;
+      hourlyRow.style.display = "none";
+      $("hourlyRateDisplay").value = "";
+      // Return section only if round
+      returnSection.style.display = (tripType.value === "round") ? "block" : "none";
+    }
+
+    refreshPrice();
+  }
+
+  function refreshPrice() {
+    const base = getBaseAmount();
+    const stopFee = getStopFee();
+    const total = base + stopFee;
+
+    if (!isFinitePositive(base)) {
+      $("priceDisplay").value = "";
+      return;
+    }
+    $("priceDisplay").value = `$${total.toFixed(2)}` + (stopFee ? ` (includes stop +$${stopFee})` : "");
+  }
+
+  // Prefill from URL (if coming from Rates)
+  function prefillFromUrl() {
+    const params = new URLSearchParams(location.search);
+    const route = params.get("route");
+    const vehicle = params.get("vehicle");
+    const trip = params.get("trip");
+    const price = params.get("price"); // may be hourly rate if hourly
+
+    if (route && ROUTES.some(r => r.id === route)) routeSelect.value = route;
+    const r = getRouteObj();
+    if (r) {
+      fillVehicles(r);
+      if (vehicle) {
+        // match vehicle labels
+        const candidates = Array.from(vehicleSelect.options).map(o => o.value);
+        const mapped =
+          (vehicle === "Van8") ? "8-passenger van" :
+          (vehicle === "Van14") ? "14-passenger van" :
+          vehicle;
+        if (candidates.includes(mapped)) vehicleSelect.value = mapped;
+      }
+      // trip mapping
+      if (r.kind === "hourly") {
+        tripType.value = "hourly";
+      } else if (trip === "round" || trip === "roundtrip") {
+        tripType.value = "round";
+      } else {
+        tripType.value = "oneway";
+      }
+    }
+
+    // If hourly and url price is hourly rate, we can trust our table anyway, but keep UI consistent
+    refreshTripUI();
+
+    // If they came with "price", we won't override table (tables are source of truth),
+    // but this keeps your booking stable even if rates change later.
+    // (So we intentionally ignore price param for calculations.)
+    void price;
+  }
+
+  fillRoutes();
+  routeSelect.value = ROUTES[0].id; // default
+  fillVehicles(getRouteObj());
+  prefillFromUrl();
+
+  routeSelect.addEventListener("change", () => {
+    const r = getRouteObj();
+    if (!r) return;
+    fillVehicles(r);
+    refreshTripUI();
+  });
+  vehicleSelect.addEventListener("change", refreshTripUI);
+  tripType.addEventListener("change", refreshTripUI);
+  $("hours").addEventListener("change", refreshPrice);
+  $("stopType").addEventListener("change", refreshPrice);
+
+  // =========================
+  // Short notice note
+  // =========================
+  const urgencyNote = $("urgencyNote");
   function refreshUrgency() {
     const dt = getPickupDateTimeLocal();
     const within8 = dt ? hoursUntil(dt) <= 8 : false;
     if (dt && within8) {
       urgencyNote.style.display = "block";
-      urgencyNote.innerHTML = `<span class="danger"><strong>Short notice:</strong> pickup is within 8 hours. Please contact us to confirm availability before paying.</span>`;
+      urgencyNote.innerHTML = `<span class="b-danger"><strong>Short notice:</strong> pickup is within 8 hours. Please contact us to confirm availability before paying.</span>`;
     } else {
       urgencyNote.style.display = "none";
       urgencyNote.innerHTML = "";
     }
   }
-  document.getElementById("pickupDate").addEventListener("change", refreshUrgency);
-  document.getElementById("pickupTime").addEventListener("change", refreshUrgency);
+  $("pickupDate").addEventListener("change", refreshUrgency);
+  $("pickupTime").addEventListener("change", refreshUrgency);
   refreshUrgency();
 
-  // -------------------------
-  // Steps
-  // -------------------------
-  const p1 = document.getElementById("p1");
-  const p2 = document.getElementById("p2");
-  const p3 = document.getElementById("p3");
-  const s1 = document.getElementById("s1");
-  const s2 = document.getElementById("s2");
-  const s3 = document.getElementById("s3");
-  const b2 = document.getElementById("b2");
-  const b3 = document.getElementById("b3");
+  // =========================
+  // Steps UI
+  // =========================
+  const p1 = $("p1"), p2 = $("p2"), p3 = $("p3");
+  const s1 = $("s1"), s2 = $("s2"), s3 = $("s3");
+  const b2 = $("b2"), b3 = $("b3");
 
   function setStep(n){
     p1.classList.toggle("active", n===1);
@@ -848,131 +839,99 @@
     s3.classList.toggle("active", n===3);
     b2.style.opacity = n>=2 ? "1" : ".35";
     b3.style.opacity = n>=3 ? "1" : ".35";
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function getVal(id){ return (document.getElementById(id).value || "").trim(); }
+  function val(id){ return ($ (id).value || "").trim(); }
 
-  function getFullPhone() {
-    let code = countryCode.value;
-    if (code === "OTHER") {
-      code = (customCountryCode.value || "").trim();
-      if (!code.startsWith("+")) code = "+" + code;
-    }
-    return `${code} ${(document.getElementById("phoneNumber").value || "").trim()}`.trim();
+  function seatSummary() {
+    const rear = Number($("seatRear").value || 0);
+    const fwd  = Number($("seatForward").value || 0);
+    const boo  = Number($("seatBooster").value || 0);
+    if (!rear && !fwd && !boo) return "None";
+    return `Rear-facing: ${rear}, Forward-facing: ${fwd}, Booster: ${boo}`;
+  }
+
+  function fullPhone() {
+    const cc = $("countryCode").value || "";
+    const p = val("phone");
+    return (cc && p) ? `${cc} ${p}` : p;
   }
 
   function validateStep1(){
-    const required = ["passengerName","email","pickupDate","pickupTime","pickupLocation","destination"];
+    const required = ["passengerName","email","phone","pickupDate","pickupTime","pickupLocation","destination"];
     for (const id of required) {
-      const el = document.getElementById(id);
+      const el = $(id);
       if (!el.value.trim()) { el.focus(); return {ok:false, msg:"Please complete all required fields."}; }
     }
 
-    // phone validate
-    const num = (document.getElementById("phoneNumber").value || "").trim();
-    if (!num) return {ok:false, msg:"Please enter your phone number."};
-    if (countryCode.value === "OTHER") {
-      const cc = (customCountryCode.value || "").trim();
-      if (!cc) return {ok:false, msg:"Please enter your custom country code."};
-    }
-
-    // stop validate
-    if (addStop.checked) {
-      if (!stopLocation.value.trim()) return {ok:false, msg:"Please enter the stop location (or uncheck Add a stop)."};
-    }
-
-    // short notice
+    // short notice check (block payment flow)
     const dt = getPickupDateTimeLocal();
     const within8 = dt ? hoursUntil(dt) <= 8 : false;
     if (within8) return {ok:false, msg:"Pickup is within 8 hours. Please contact us before payment."};
 
-    // round trip return info (recommended, but we’ll lightly require date/time + pickup)
-    if (getTripType() === "round") {
-      const rd = getVal("returnDate");
-      const rt = getVal("returnTime");
-      const rpl = getVal("returnPickupLocation");
-      const rdest = getVal("returnDestination");
-      if (!rd || !rt || !rpl || !rdest) {
-        return {ok:false, msg:"Please fill return date/time + return pickup + return destination for round trip."};
-      }
-    }
+    // Route + price must exist
+    const base = getBaseAmount();
+    if (!isFinitePositive(base)) return {ok:false, msg:"Please select a valid route / vehicle / trip type."};
 
-    // hourly min
-    const r = getRouteById(routeSelect.value);
-    if (r?.type === "hourly") {
-      const hrs = Number(hoursSel.value || 0);
-      if (!Number.isFinite(hrs) || hrs < 3) return {ok:false, msg:"Hourly charter requires 3 hours minimum."};
-    }
+    // If stop selected but no stop location, gently require it
+    const stopT = $("stopType").value;
+    if (stopT !== "none" && !val("stopLocation")) return {ok:false, msg:"Please enter the stop location (or choose No stop)."};
 
-    // must have non-zero total
-    if (totalFare() <= 0) return {ok:false, msg:"Please select route, vehicle, and trip type."};
+    // Hourly 3-24 is already enforced by dropdown
 
     return {ok:true};
   }
 
   function buildBookingData(cid){
-    const r = getRouteById(routeSelect.value);
-    const vKey = getVehicleKey();
-    const vLabel = (VEHICLES.find(v => v.key === vKey)?.label) || vKey;
-    const t = getTripType();
+    const rObj = getRouteObj();
+    const stopFee = getStopFee();
+    const base = getBaseAmount();
+    const total = base + stopFee;
 
-    const base = baseFare();
-    const sf = stopFee();
-    const tot = totalFare();
+    const trip = (rObj?.kind === "hourly") ? "hourly" : tripType.value;
 
-    return {
+    // Return info (optional even if round)
+    const returnData = (trip === "round") ? {
+      return_date: val("returnDate"),
+      return_time: val("returnTime"),
+      return_pickup_location: val("returnPickupLocation"),
+      return_destination: val("returnDestination"),
+      return_flight: val("returnFlight"),
+    } : null;
+
+    const booking = {
       confirmation_id: cid,
-      passenger_name: getVal("passengerName"),
-      email: getVal("email"),
-      phone: getFullPhone(),
-      passengers: getVal("passengers"),
+      passenger_name: val("passengerName"),
+      email: val("email"),
+      phone: fullPhone(),
+      passengers: val("passengers"),
+      pickup_date: val("pickupDate"),
+      pickup_time: val("pickupTime"),
+      pickup_location: val("pickupLocation"),
+      destination: val("destination"),
+      flight: val("flight"),
+      luggage: val("luggage"),
+      child_seats: seatSummary(),
+      notes: val("notes"),
 
-      pickup_date: getVal("pickupDate"),
-      pickup_time: getVal("pickupTime"),
-      pickup_location: getVal("pickupLocation"),
-      destination: getVal("destination"),
-      flight: getVal("flight"),
-      luggage: getVal("luggage"),
+      route_id: rObj?.id || "",
+      route_label: rObj?.label || "",
+      vehicle: vehicleSelect.value || "",
+      trip_type: trip,
 
-      // child seats
-      child_rear: Number(rearQty.value || 0),
-      child_forward: Number(forwardQty.value || 0),
-      child_booster: Number(boosterQty.value || 0),
+      hourly_hours: (trip === "hourly") ? Number($("hours").value || 3) : "",
+      stop_type: $("stopType").value,
+      stop_location: val("stopLocation"),
+      stop_fee: stopFee ? stopFee.toFixed(2) : "0.00",
 
-      // trip
-      route_id: r?.id || "",
-      route_label: r?.label || "",
-      vehicle_key: vKey,
-      vehicle_label: vLabel,
-      trip_type: t,
+      base_amount_usd: base.toFixed(2),
+      total_amount_usd: total.toFixed(2),
 
-      // hourly
-      hourly_hours: (r?.type === "hourly") ? Number(hoursSel.value || 3) : "",
-      hourly_rate: (r?.type === "hourly") ? Number(r.hourlyRates?.[vKey] || 0) : "",
-
-      // round trip return
-      return_date: getVal("returnDate"),
-      return_time: getVal("returnTime"),
-      return_pickup_location: getVal("returnPickupLocation"),
-      return_destination: getVal("returnDestination"),
-      return_flight: getVal("returnFlight"),
-
-      // stop
-      add_stop: addStop.checked ? "yes" : "no",
-      stop_type: addStop.checked ? stopType.value : "",
-      stop_location: addStop.checked ? getVal("stopLocation") : "",
-      stop_fee: sf.toFixed(2),
-
-      // pricing
-      base_fare: base.toFixed(2),
-      total_usd: tot.toFixed(2),
-
-      notes: getVal("notes"),
+      ...(returnData ? returnData : {})
     };
-  }
 
-  function esc(s){
-    return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+    return booking;
   }
 
   function renderSummary(data){
@@ -983,55 +942,39 @@
       ["Phone", data.phone],
       ["Passengers", data.passengers || "-"],
       ["Pickup", `${data.pickup_date} ${data.pickup_time}`],
-      ["Route", data.route_label || data.route_id],
-      ["Vehicle", data.vehicle_label],
+      ["Route", data.route_label],
+      ["Vehicle", data.vehicle],
       ["Trip", data.trip_type],
     ];
 
-    if (data.trip_type === "hourly") {
-      lines.push(["Hours", String(data.hourly_hours)]);
-      lines.push(["Hourly rate", `$${Number(data.hourly_rate).toFixed(2)}`]);
-    }
+    if (data.trip_type === "hourly") lines.push(["Hours", String(data.hourly_hours)]);
+    if (data.stop_type !== "none") lines.push(["Stop", `${data.stop_location} (+$${data.stop_fee})`]);
+    lines.push(["Total", `$${data.total_amount_usd}`]);
 
-    // return
-    if (data.trip_type === "round") {
-      lines.push(["Return pickup", `${data.return_date} ${data.return_time}`]);
-      lines.push(["Return pickup location", data.return_pickup_location]);
-      lines.push(["Return destination", data.return_destination]);
-      lines.push(["Return flight", data.return_flight || "-"]);
-    }
-
-    // stop
-    if (data.add_stop === "yes") {
-      lines.push(["Stop", data.stop_type === "wait" ? "Stop & wait (30 min)" : "Stop only"]);
-      lines.push(["Stop location", data.stop_location]);
-      lines.push(["Stop fee", `$${Number(data.stop_fee).toFixed(2)}`]);
-    }
-
-    // seats
-    const seats = [];
-    if (data.child_rear) seats.push(`Rear-facing x${data.child_rear}`);
-    if (data.child_forward) seats.push(`Forward-facing x${data.child_forward}`);
-    if (data.child_booster) seats.push(`Booster x${data.child_booster}`);
-    lines.push(["Child seats", seats.length ? seats.join(", ") : "-"]);
-
-    // details
     lines.push(["Pickup location", data.pickup_location]);
     lines.push(["Destination", data.destination]);
     lines.push(["Flight", data.flight || "-"]);
     lines.push(["Luggage", data.luggage || "-"]);
+    lines.push(["Child seats", data.child_seats || "None"]);
+
+    // Return info if round
+    if (data.trip_type === "round") {
+      const rInfo =
+        (data.return_date || data.return_time || data.return_pickup_location || data.return_destination) ?
+        `${data.return_date || "____"} ${data.return_time || "____"} | ${data.return_pickup_location || "____"} → ${data.return_destination || "____"} | Flight: ${data.return_flight || "—"}` :
+        "Not provided (we will confirm with you)";
+      lines.push(["Return", rInfo]);
+    }
+
     lines.push(["Notes", data.notes || "-"]);
 
-    // pricing
-    lines.push(["Base fare", `$${Number(data.base_fare).toFixed(2)}`]);
-    lines.push(["Total", `$${Number(data.total_usd).toFixed(2)}`]);
-
-    document.getElementById("summary").innerHTML = lines.map(([k,v]) => `
+    $("summary").innerHTML = lines.map(([k,v]) => `
       <div class="line"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>
     `).join("");
   }
 
-  document.getElementById("to2").addEventListener("click", () => {
+  // Step actions
+  $("to2").addEventListener("click", () => {
     const v = validateStep1();
     if (!v.ok) return alert(v.msg);
 
@@ -1045,27 +988,29 @@
     setStep(2);
   });
 
-  document.getElementById("back1").addEventListener("click", () => setStep(1));
+  $("back1").addEventListener("click", () => setStep(1));
 
-  document.getElementById("to3").addEventListener("click", () => {
+  $("to3").addEventListener("click", () => {
     const cid = localStorage.getItem("mltLastCid") || "";
     const saved = cid ? localStorage.getItem("mltBooking:" + cid) : null;
     const data = saved ? JSON.parse(saved) : null;
     if (!data) return alert("Missing saved booking data. Please go back and try again.");
 
-    document.getElementById("payNote").innerHTML =
+    $("payNote").innerHTML =
       `You will be redirected to Square for secure payment.<br>
-       <span class="muted">Confirmation #: <strong>${esc(data.confirmation_id)}</strong></span><br>
-       <span class="muted">Total: <strong>$${esc(data.total_usd)}</strong></span>`;
+       <span class="b-muted">Confirmation #: <strong>${esc(data.confirmation_id)}</strong></span><br>
+       <span class="b-muted">Total: <strong>$${esc(data.total_amount_usd)}</strong></span>`;
 
     setStep(3);
   });
 
-  document.getElementById("back2").addEventListener("click", () => setStep(2));
+  $("back2").addEventListener("click", () => setStep(2));
 
-  // Pay
-  const payBtn = document.getElementById("payBtn");
-  const paymentMsg = document.getElementById("paymentMsg");
+  // =========================
+  // Payment (uses your existing /api/create-square-link)
+  // =========================
+  const payBtn = $("payBtn");
+  const paymentMsg = $("paymentMsg");
 
   payBtn.addEventListener("click", async () => {
     paymentMsg.innerHTML = "";
@@ -1076,31 +1021,25 @@
       const cid = localStorage.getItem("mltLastCid") || "";
       const saved = cid ? localStorage.getItem("mltBooking:" + cid) : null;
       const booking = saved ? JSON.parse(saved) : null;
-
       if (!booking) throw new Error("Missing booking data. Please go back and try again.");
 
-      const amount = Number(booking.total_usd);
-      if (!Number.isFinite(amount) || amount <= 0) throw new Error("Invalid amount.");
+      const amount = Number(booking.total_amount_usd);
+      if (!Number.isFinite(amount) || amount <= 0) throw new Error("Invalid total amount.");
 
-      const redirectUrl = `${location.origin}/confirm.html?cid=${encodeURIComponent(cid)}`;
-
-      const name =
-        `MLT Transportation - ${booking.route_label} - ${booking.vehicle_label} (${booking.trip_type})`;
-
+      // Note shown in Square (and helpful for you)
       const note =
-        `CID:${cid} | ${booking.passenger_name} | ${booking.pickup_date} ${booking.pickup_time} | ` +
-        `${booking.pickup_location} -> ${booking.destination} | ${booking.phone} | ${booking.email}`;
+        `CID:${booking.confirmation_id} | ${booking.passenger_name} | ${booking.route_label} | ${booking.vehicle} | ${booking.trip_type} | ` +
+        `${booking.pickup_date} ${booking.pickup_time} | ${booking.pickup_location} -> ${booking.destination} | ` +
+        `Phone:${booking.phone} | Email:${booking.email}`;
 
-      const r = await fetch((API_BASE || "") + "/api/create-square-link", {
+      const r = await fetch("/api/create-square-link", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           amount,
           currency: "USD",
-          name,
-          note,
-          redirectUrl,
-          buyerEmail: booking.email,
+          name: "MLT Orlando Transportation",
+          note
         }),
       });
 
@@ -1108,22 +1047,227 @@
 
       if (!data.ok) {
         paymentMsg.innerHTML =
-          `<span class="danger"><strong>Error:</strong> ${esc(data.error || "Could not create payment link.")}</span>` +
-          `<div class="booking-note"><pre style="white-space:pre-wrap">${esc(JSON.stringify(data.details || data, null, 2))}</pre></div>`;
+          `<span class="b-danger"><strong>Error:</strong> ${esc(data.error || "Could not create payment link.")}</span>` +
+          (data.details ? `<div class="b-note"><pre style="white-space:pre-wrap">${esc(JSON.stringify(data.details, null, 2))}</pre></div>` : "");
         payBtn.disabled = false;
         payBtn.textContent = "Pay with Square";
         return;
       }
 
-      paymentMsg.innerHTML = `<span class="ok"><strong>Success:</strong> Redirecting to Square…</span>`;
+      paymentMsg.innerHTML = `<span class="b-ok"><strong>Success:</strong> Redirecting to Square…</span>`;
       window.location.href = data.url;
+
     } catch (e) {
-      paymentMsg.innerHTML = `<span class="danger"><strong>Error:</strong> ${esc(e.message || "Failed. Please try again.")}</span>`;
+      paymentMsg.innerHTML = `<span class="b-danger"><strong>Error:</strong> ${esc(e.message || "Failed. Please try again.")}</span>`;
       payBtn.disabled = false;
       payBtn.textContent = "Pay with Square";
     }
   });
-</script>
 
+  // =========================
+  // Modal-driven quick notes
+  // =========================
+  const modalOverlay = $("modalOverlay");
+  const modalTitle = $("modalTitle");
+  const modalBody = $("modalBody");
+  const modalCancel = $("modalCancel");
+  const modalAdd = $("modalAdd");
+
+  let modalState = null;
+
+  function openModal(state) {
+    modalState = state;
+    modalTitle.textContent = state.title;
+
+    // render fields
+    modalBody.innerHTML = state.render();
+
+    modalOverlay.classList.add("show");
+    modalOverlay.setAttribute("aria-hidden", "false");
+
+    // focus first field
+    setTimeout(() => {
+      const first = modalBody.querySelector("input,select,textarea");
+      if (first) first.focus();
+    }, 0);
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove("show");
+    modalOverlay.setAttribute("aria-hidden", "true");
+    modalBody.innerHTML = "";
+    modalState = null;
+  }
+
+  function addNoteLine(line) {
+    const ta = $("notes");
+    const current = (ta.value || "").trim();
+    const cleaned = (line || "").trim();
+    if (!cleaned) return;
+
+    // avoid duplicates (simple)
+    if (current.includes(cleaned)) return;
+
+    ta.value = current ? (current + "\n" + cleaned) : cleaned;
+    ta.focus();
+  }
+
+  modalCancel.addEventListener("click", closeModal);
+  modalOverlay.addEventListener("click", (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  modalAdd.addEventListener("click", () => {
+    if (!modalState) return;
+    const line = modalState.buildLine();
+    addNoteLine(line);
+    closeModal();
+  });
+
+  // Tail number
+  $("btnTail").addEventListener("click", () => {
+    openModal({
+      title: "Private jet tail number",
+      render: () => `
+        <div class="b-inline">
+          <div>
+            <label class="b-label" for="mTail">Tail number (optional)</label>
+            <input class="b-input" id="mTail" placeholder="Example: N123AB" />
+            <div class="b-muted" style="margin-top:6px;">If you don’t have it now, leave blank and we’ll insert “____”.</div>
+          </div>
+        </div>
+      `,
+      buildLine: () => {
+        const v = (document.getElementById("mTail").value || "").trim();
+        return `Private jet tail number: ${v || "____"}`;
+      }
+    });
+  });
+
+  // Pets
+  $("btnPets").addEventListener("click", () => {
+    openModal({
+      title: "Pets traveling with you",
+      render: () => `
+        <div class="b-inline two">
+          <div>
+            <label class="b-label" for="mPets">Pets (optional)</label>
+            <input class="b-input" id="mPets" placeholder="Example: 2 small dogs" />
+            <div class="b-muted" style="margin-top:6px;">Type how many + what kind (or leave blank).</div>
+          </div>
+          <div>
+            <label class="b-label" for="mPetCarrier">Carrier / leash?</label>
+            <select class="b-select" id="mPetCarrier">
+              <option value="">(optional)</option>
+              <option value="Carrier">Carrier</option>
+              <option value="Leash">Leash</option>
+              <option value="Both">Both</option>
+            </select>
+          </div>
+        </div>
+      `,
+      buildLine: () => {
+        const v = (document.getElementById("mPets").value || "").trim();
+        const carrier = (document.getElementById("mPetCarrier").value || "").trim();
+        const base = `Pets: ${v || "____"}`;
+        return carrier ? `${base} | ${carrier}` : base;
+      }
+    });
+  });
+
+  // Wheelchair / mobility
+  $("btnWheel").addEventListener("click", () => {
+    openModal({
+      title: "Wheelchair / mobility aid",
+      render: () => `
+        <div class="b-inline two">
+          <div>
+            <label class="b-label" for="mMobType">Type</label>
+            <select class="b-select" id="mMobType">
+              <option value="Wheelchair (folding)">Wheelchair (folding)</option>
+              <option value="Wheelchair (powered)">Wheelchair (powered)</option>
+              <option value="Walker">Walker</option>
+              <option value="Stroller">Stroller</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="b-label" for="mMobNotes">Details (optional)</label>
+            <input class="b-input" id="mMobNotes" placeholder="Example: needs trunk space / assistance" />
+            <div class="b-muted" style="margin-top:6px;">Leave blank if not sure — we’ll insert “____”.</div>
+          </div>
+        </div>
+      `,
+      buildLine: () => {
+        const type = (document.getElementById("mMobType").value || "").trim();
+        const notes = (document.getElementById("mMobNotes").value || "").trim();
+        return `Mobility aid: ${type}${notes ? ` | ${notes}` : " | ____"}`;
+      }
+    });
+  });
+
+  // Sign name
+  $("btnSign").addEventListener("click", () => {
+    openModal({
+      title: "Meet & greet sign name",
+      render: () => `
+        <div class="b-inline">
+          <div>
+            <label class="b-label" for="mSign">Name for the sign (optional)</label>
+            <input class="b-input" id="mSign" placeholder="Example: JOHN SMITH" />
+            <div class="b-muted" style="margin-top:6px;">Leave blank if you want to decide later.</div>
+          </div>
+        </div>
+      `,
+      buildLine: () => {
+        const v = (document.getElementById("mSign").value || "").trim();
+        return `Meet & greet sign name: ${v || "____"}`;
+      }
+    });
+  });
+
+  // Assistance
+  $("btnAssist").addEventListener("click", () => {
+    openModal({
+      title: "Pickup assistance / extra time",
+      render: () => `
+        <div class="b-inline two">
+          <div>
+            <label class="b-label" for="mAssistType">Assistance type</label>
+            <select class="b-select" id="mAssistType">
+              <option value="Elderly assistance">Elderly assistance</option>
+              <option value="Extra time needed">Extra time needed</option>
+              <option value="Help with luggage">Help with luggage</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="b-label" for="mAssistNotes">Details (optional)</label>
+            <input class="b-input" id="mAssistNotes" placeholder="Example: 10 minutes extra / door pickup" />
+            <div class="b-muted" style="margin-top:6px;">Leave blank if not sure — we’ll insert “____”.</div>
+          </div>
+        </div>
+      `,
+      buildLine: () => {
+        const type = (document.getElementById("mAssistType").value || "").trim();
+        const notes = (document.getElementById("mAssistNotes").value || "").trim();
+        return `Assistance: ${type}${notes ? ` | ${notes}` : " | ____"}`;
+      }
+    });
+  });
+
+  // Show/hide return section when trip changes
+  function syncReturnVisibility() {
+    const r = getRouteObj();
+    const isHourly = r && r.kind === "hourly";
+    if (isHourly) {
+      returnSection.style.display = "none";
+      return;
+    }
+    returnSection.style.display = (tripType.value === "round") ? "block" : "none";
+  }
+  tripType.addEventListener("change", syncReturnVisibility);
+  syncReturnVisibility();
+</script>
 </body>
 </html>
