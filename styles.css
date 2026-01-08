@@ -16,7 +16,7 @@ img {
 body {
   margin: 0;
   min-height: 100vh;
-  background: url("images/hero-bg.jpeg") center / cover no-repeat fixed;
+  background: url("images/hero-bg.jpg") center / cover no-repeat fixed;
   color: #111827;
   line-height: 1.6;
 }
@@ -172,20 +172,17 @@ nav a:hover {
   opacity: 0.9;
 }
 
-/* ===== MAIN CONTENT "MERGED" GLASS PANEL ===== */
+/* ===== LAYOUT (NO BIG BOX BEHIND TEXT) ===== */
 main {
   max-width: 1100px;
-  margin: 2rem auto 4rem;
+  margin: 0 auto;
   padding: 2rem 5vw 4rem;
 
-  /* lighter + see-through to “merge” with background */
-  background: rgba(245, 245, 245, 0.72);
-  border-radius: 1.5rem;
-  backdrop-filter: blur(10px);
-
-  /* clean edge + shadow */
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+  /* remove the big panel */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 /* Hero section */
@@ -200,23 +197,27 @@ main {
 .hero h1 {
   font-size: clamp(2.2rem, 4vw, 3rem);
   margin-bottom: 0.75rem;
+  color: #f9fafb;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .hero-tagline {
   font-size: 1rem;
   font-weight: 600;
-  color: #1f2933;
+  color: #e5e7eb;
   margin-bottom: 1rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .hero p {
-  color: #4b5563;
+  color: #e5e7eb;
   margin-bottom: 1rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .hero-highlight {
   display: inline-block;
-  background: #0f172a;
+  background: rgba(15, 23, 42, 0.9);
   color: #f9fafb;
   padding: 0.25rem 0.8rem;
   border-radius: 999px;
@@ -240,17 +241,21 @@ main {
 .hero-stat strong {
   display: block;
   font-size: 1.2rem;
+  color: #f9fafb;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .hero-stat span {
   font-size: 0.85rem;
-  color: #6b7280;
+  color: #e5e7eb;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .hero-note {
   font-size: 0.85rem;
-  color: #6b7280;
+  color: #e5e7eb;
   margin-top: 0.5rem;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .hero-photo {
@@ -263,7 +268,7 @@ main {
 }
 
 .hero-card {
-  background: #0b1120;
+  background: rgba(11, 17, 32, 0.95);
   color: #e5e7eb;
   border-radius: 1.5rem;
   padding: 1.75rem;
@@ -304,12 +309,15 @@ section {
 section h2 {
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
+  color: #f9fafb;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 section p.section-intro {
-  color: #4b5563;
+  color: #e5e7eb;
   margin-bottom: 1.5rem;
   max-width: 600px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 /* Cards & grids */
@@ -321,11 +329,11 @@ section p.section-intro {
 }
 
 .card {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.96);
   border-radius: 1rem;
   padding: 1.5rem;
-  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
-  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(229, 231, 235, 0.9);
 }
 
 .card h3 {
@@ -374,7 +382,8 @@ section p.section-intro {
 
 .feature-text {
   font-size: 0.95rem;
-  color: #374151;
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .feature-text p {
@@ -391,9 +400,10 @@ section p.section-intro {
 .why-list li {
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
-  color: #374151;
+  color: #ffffff;
   padding-left: 1.1rem;
   position: relative;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .why-list li::before {
@@ -415,11 +425,11 @@ section p.section-intro {
 }
 
 form {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.96);
   border-radius: 1rem;
   padding: 1.5rem;
-  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.04);
-  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(229, 231, 235, 0.9);
 }
 
 label {
@@ -455,7 +465,8 @@ select:focus {
 
 .contact-details {
   font-size: 0.95rem;
-  color: #374151;
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .contact-details p {
@@ -472,6 +483,9 @@ select:focus {
   border-collapse: collapse;
   font-size: 0.9rem;
   margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
 .rates-table th,
@@ -521,12 +535,15 @@ select:focus {
   margin-top: 1.75rem;
   font-size: 1.05rem;
   font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 .rates-note {
   margin-top: 0.75rem;
   font-size: 0.85rem;
-  color: #6b7280;
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 /* Link pills (used as buttons/links) */
@@ -557,6 +574,7 @@ footer {
   text-align: center;
   font-size: 0.85rem;
   color: #e5e7eb;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
 }
 
 footer a {
@@ -611,7 +629,6 @@ footer img {
 
   main {
     padding-top: 1.5rem;
-    margin: 1.25rem auto 3rem;
   }
 
   .top-bar-inner {
