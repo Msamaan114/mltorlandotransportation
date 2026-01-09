@@ -248,8 +248,8 @@ main > div {
 
 /* Optional: line up non-hero sections visually with the hero panel */
 main > section:not(.hero) {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding-left: 2.0rem;
+  padding-right: 2.0rem;
 }
 
 /* spacing between sections */
