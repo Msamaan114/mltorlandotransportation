@@ -1,6 +1,4 @@
-/* =========================================
-   GLOBAL RESET
-========================================= */
+/* Global reset & base */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,70 +6,40 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+/* Prevent images from blowing up */
 img {
   max-width: 100%;
   height: auto;
 }
 
 :root{
-  --textShadow: 0 4px 22px rgba(0,0,0,0.85);
-
-  /* glass panel used across pages */
-  --glassBg: rgba(0, 0, 0, 0.42);
-  --glassBorder: rgba(255, 255, 255, 0.14);
-
-  /* readable light text */
-  --whiteText: #ffffff;
-  --mutedText: #e5e7eb;
-
-  /* ✅ ONE SITE-WIDE WIDTH (hero + all pages match) */
-  --pageMax: 1200px;
+  --textShadow: 0 3px 18px rgba(0,0,0,0.65);
 }
 
-/* =========================================
-   FULL PAGE BACKGROUND + OVERLAY
-========================================= */
+/* ===== FULL PAGE BACKGROUND IMAGE ===== */
 body {
   margin: 0;
   min-height: 100vh;
   background: url("images/hero-bg.jpeg") center / cover no-repeat fixed;
-  color: var(--whiteText);
+  color: #111827;
   line-height: 1.6;
-  font-weight: 700; /* bold base */
 }
 
-/* Dark overlay */
+/* Dark overlay so text is readable */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.68);
+  background: rgba(0, 0, 0, 0.55);
   pointer-events: none;
   z-index: -1;
 }
 
-a { color: inherit; }
-
-/* Make everything generally bolder */
-p, span, a, li, label, input, textarea, select { font-weight: 700; }
-strong { font-weight: 900; }
-h1, h2, h3, h4, h5, h6 { font-weight: 900; }
-
-/* Default readable typography on dark backgrounds */
-h1, h2, h3, h4, h5, h6,
-main p,
-main li,
-main .section-intro,
-main .feature-text,
-main .why-list li,
-main .contact-details {
-  color: var(--whiteText);
-  text-shadow: var(--textShadow);
+a {
+  color: inherit;
 }
 
-/* =========================================
-   TOP CONTACT STRIP
-========================================= */
+/* Top contact strip */
 .top-bar {
   background: #0b1120;
   color: #e5e7eb;
@@ -80,7 +48,7 @@ main .contact-details {
 }
 
 .top-bar-inner {
-  max-width: var(--pageMax);
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -92,10 +60,12 @@ main .contact-details {
 .top-bar a {
   color: #38bdf8;
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 600;
 }
 
-.top-bar a:hover { text-decoration: underline; }
+.top-bar a:hover {
+  text-decoration: underline;
+}
 
 .top-bar-right {
   display: flex;
@@ -124,13 +94,10 @@ main .contact-details {
   object-fit: contain;
 }
 
-/* =========================================
-   HEADER & NAV
-========================================= */
+/* Header & nav */
 header {
   background: rgba(17, 24, 39, 0.95);
   backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   color: #f9fafb;
   padding: 0.75rem 5vw;
   position: sticky;
@@ -139,7 +106,7 @@ header {
 }
 
 .nav {
-  max-width: var(--pageMax);
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -148,7 +115,7 @@ header {
 }
 
 .logo {
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.05em;
   font-size: 1rem;
   text-transform: uppercase;
@@ -165,14 +132,14 @@ nav a {
   color: #e5e7eb;
   text-decoration: none;
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
-nav a:hover { color: #38bdf8; }
+nav a:hover {
+  color: #38bdf8;
+}
 
-/* =========================================
-   BUTTONS
-========================================= */
+/* Buttons */
 .btn-row {
   display: flex;
   flex-wrap: wrap;
@@ -187,7 +154,7 @@ nav a:hover { color: #38bdf8; }
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  font-weight: 900;
+  font-weight: 700;
   text-decoration: none;
   font-size: 0.95rem;
   text-align: center;
@@ -197,13 +164,12 @@ nav a:hover { color: #38bdf8; }
 .btn-primary {
   background: #38bdf8;
   color: #0b1120;
-  text-shadow: none;
 }
 
 .btn-secondary {
-  background: rgba(255,255,255,0.10);
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,0.24);
+  background: rgba(255,255,255,0.08);
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.22);
 }
 
 .btn-primary:hover,
@@ -211,136 +177,49 @@ nav a:hover { color: #38bdf8; }
   opacity: 0.9;
 }
 
-/* =========================================
-   LAYOUT
-========================================= */
+/* ===== LAYOUT (NO BIG BOX BEHIND TEXT ON DESKTOP) ===== */
 main {
-  max-width: var(--pageMax);
+  max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 5vw 4rem;
   background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
-/* Make every block inside main use full width */
-main > section,
-main > div,
-main > article {
-  width: 100%;
-}
-
-/* Fix any custom page wrappers to match site width */
-.wrap, .container, .content, .page, .b-wrap, .c-wrap, .inner, .section-inner {
-  max-width: var(--pageMax);
-  margin: 0 auto;
-}
-
-/* ===== IMPORTANT: Make ALL non-hero sections readable on all pages ===== */
-main > section:not(.hero),
-main > article,
-main > div {
-  background: var(--glassBg);
-  border: 1px solid var(--glassBorder);
-  border-radius: 1.25rem;
-  padding: 1.25rem 1.25rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-/* Optional: line up non-hero sections visually with the hero panel */
-main > section:not(.hero) {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-/* spacing between sections */
-main > section:not(.hero) + section:not(.hero),
-main > div + div,
-main > section + div,
-main > div + section {
-  margin-top: 1.5rem;
-}
-
-/* =========================================
-   HERO (HOME)
-========================================= */
+/* Hero section */
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 2.5rem;
   align-items: center;
   padding: 3rem 0 2rem;
-
-  /* hero should not inherit the general section box */
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-
-  position: relative;
-  z-index: 0;
-}
-
-/* ✅ FULL-WIDTH glass container behind hero so it aligns with rest of page */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--glassBg);
-  border: 1px solid var(--glassBorder);
-  border-radius: 1.25rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: -1;
-}
-
-/* ✅ Make hero text section wider on desktop */
-@media (min-width: 900px) {
-  .hero {
-    grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.85fr);
-    gap: 2.25rem;
-  }
-
-  .hero > :first-child {
-    max-width: none;
-    width: 100%;
-  }
-}
-
-/* Lighter readability panel behind hero text (since hero now has full-width glass) */
-.hero > :first-child {
-  background: rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 1.1rem;
-  padding: 1.1rem 1.1rem;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 
 .hero h1 {
   font-size: clamp(2.35rem, 4.2vw, 3.25rem);
   margin-bottom: 0.75rem;
-  color: #ffffff;
-  font-weight: 900;
+  color: #f9fafb;
+  font-weight: 900;              /* BOLDER for desktop */
   letter-spacing: -0.02em;
   text-shadow: var(--textShadow);
 }
 
 .hero-tagline {
   font-size: 1.05rem;
-  font-weight: 900;
-  color: #ffffff;
+  font-weight: 800;              /* BOLDER */
+  color: #f3f4f6;
   margin-bottom: 1rem;
   text-shadow: var(--textShadow);
 }
 
 .hero p {
-  color: #ffffff;
+  color: #f3f4f6;
   margin-bottom: 1rem;
-  font-weight: 800;
+  font-weight: 600;              /* BOLDER */
   text-shadow: var(--textShadow);
   max-width: 62ch;
-  font-size: 1.02rem;
 }
 
 .hero-highlight {
@@ -350,7 +229,7 @@ main > div + section {
   padding: 0.25rem 0.8rem;
   border-radius: 999px;
   font-size: 0.78rem;
-  font-weight: 900;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 0.75rem;
@@ -359,32 +238,34 @@ main > div + section {
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
-  margin-top: 1.25rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
-.hero-stat { min-width: 120px; }
+.hero-stat {
+  min-width: 120px;
+}
 
 .hero-stat strong {
   display: block;
-  font-size: 1.15rem;
-  color: #ffffff;
+  font-size: 1.2rem;
+  color: #f9fafb;
   font-weight: 900;
   text-shadow: var(--textShadow);
 }
 
 .hero-stat span {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: #e5e7eb;
-  font-weight: 800;
+  font-weight: 700;
   text-shadow: var(--textShadow);
 }
 
 .hero-note {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   color: #e5e7eb;
   margin-top: 0.5rem;
-  font-weight: 800;
+  font-weight: 650;
   text-shadow: var(--textShadow);
 }
 
@@ -409,8 +290,7 @@ main > div + section {
 .hero-card h2 {
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 900;
-  text-shadow: none;
+  font-weight: 800;
 }
 
 .hero-card-row {
@@ -421,8 +301,9 @@ main > div + section {
   gap: 0.75rem;
 }
 
-.hero-card-row span { text-shadow: none; }
-.hero-card-label { color: #9ca3af; }
+.hero-card-label {
+  color: #9ca3af;
+}
 
 .pill {
   display: inline-block;
@@ -431,13 +312,10 @@ main > div + section {
   font-size: 0.7rem;
   background: rgba(56, 189, 248, 0.15);
   color: #bfdbfe;
-  font-weight: 900;
-  text-shadow: none;
+  font-weight: 800;
 }
 
-/* =========================================
-   SECTIONS / HEADINGS
-========================================= */
+/* Generic section styles */
 section {
   padding: 3rem 0 1rem;
 }
@@ -445,17 +323,20 @@ section {
 section h2 {
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
+  color: #f9fafb;
+  font-weight: 900;
+  text-shadow: var(--textShadow);
 }
 
 section p.section-intro {
+  color: #f3f4f6;
   margin-bottom: 1.5rem;
-  max-width: 700px;
-  font-weight: 800;
+  max-width: 600px;
+  font-weight: 650;
+  text-shadow: var(--textShadow);
 }
 
-/* =========================================
-   GRIDS / CARDS
-========================================= */
+/* Cards & grids */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -465,7 +346,6 @@ section p.section-intro {
 
 .card {
   background: rgba(255, 255, 255, 0.96);
-  color: #111827;
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
@@ -475,16 +355,13 @@ section p.section-intro {
 .card h3 {
   font-size: 1.05rem;
   margin-bottom: 0.4rem;
-  font-weight: 900;
-  text-shadow: none;
-  color: #111827;
+  font-weight: 800;
 }
 
 .card p {
   font-size: 0.92rem;
-  color: #111827;
-  font-weight: 700;
-  text-shadow: none;
+  color: #4b5563;
+  font-weight: 600;
 }
 
 .badge {
@@ -493,14 +370,11 @@ section p.section-intro {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 0.4rem;
-  color: #111827;
-  font-weight: 900;
-  text-shadow: none;
+  color: #6b7280;
+  font-weight: 800;
 }
 
-/* =========================================
-   FEATURE SECTIONS
-========================================= */
+/* Feature image sections */
 .feature-section {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
@@ -509,8 +383,13 @@ section p.section-intro {
   margin-top: 1rem;
 }
 
-.feature-section.reverse { direction: rtl; }
-.feature-section.reverse > * { direction: ltr; }
+.feature-section.reverse {
+  direction: rtl;
+}
+
+.feature-section.reverse > * {
+  direction: ltr;
+}
 
 .feature-photo {
   width: 100%;
@@ -522,12 +401,16 @@ section p.section-intro {
 
 .feature-text {
   font-size: 0.98rem;
-  font-weight: 800;
+  color: #ffffff;
+  font-weight: 650;
+  text-shadow: var(--textShadow);
 }
 
-/* =========================================
-   LISTS / WHY US
-========================================= */
+.feature-text p {
+  margin-bottom: 0.75rem;
+}
+
+/* Lists / why-us */
 .why-list {
   list-style: none;
   padding-left: 0;
@@ -537,9 +420,11 @@ section p.section-intro {
 .why-list li {
   margin-bottom: 0.5rem;
   font-size: 0.98rem;
+  color: #ffffff;
   padding-left: 1.1rem;
   position: relative;
-  font-weight: 800;
+  font-weight: 650;
+  text-shadow: var(--textShadow);
 }
 
 .why-list li::before {
@@ -549,12 +434,9 @@ section p.section-intro {
   top: 0;
   color: #16a34a;
   font-size: 0.9rem;
-  text-shadow: none;
 }
 
-/* =========================================
-   CONTACT / FORMS
-========================================= */
+/* Contact / booking form */
 .contact-wrapper {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -565,21 +447,17 @@ section p.section-intro {
 
 form {
   background: rgba(255, 255, 255, 0.96);
-  color: #111827;
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
   border: 1px solid rgba(229, 231, 235, 0.9);
 }
 
-form * { text-shadow: none; }
-
 label {
   display: block;
   font-size: 0.9rem;
   margin-bottom: 0.25rem;
-  font-weight: 900;
-  color: #111827;
+  font-weight: 700;
 }
 
 input,
@@ -591,9 +469,6 @@ select {
   border: 1px solid #d1d5db;
   margin-bottom: 0.8rem;
   font-size: 0.9rem;
-  font-weight: 700;
-  color: #111827;
-  background: #ffffff;
 }
 
 textarea {
@@ -609,12 +484,22 @@ select:focus {
   box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
 }
 
-.contact-details { font-weight: 800; }
-.contact-label { font-weight: 900; }
+.contact-details {
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 650;
+  text-shadow: var(--textShadow);
+}
 
-/* =========================================
-   RATES TABLE
-========================================= */
+.contact-details p {
+  margin-bottom: 0.7rem;
+}
+
+.contact-label {
+  font-weight: 800;
+}
+
+/* Rates table */
 .rates-table {
   width: 100%;
   border-collapse: collapse;
@@ -623,10 +508,7 @@ select:focus {
   background: rgba(255, 255, 255, 0.96);
   border-radius: 0.75rem;
   overflow: hidden;
-  color: #111827;
 }
-
-.rates-table * { text-shadow: none; }
 
 .rates-table th,
 .rates-table td {
@@ -634,23 +516,24 @@ select:focus {
   border-bottom: 1px solid #e5e7eb;
   text-align: left;
   vertical-align: top;
-  font-weight: 700;
-  color: #111827;
 }
 
 .rates-table th {
   background: #f3f4f6;
-  font-weight: 900;
+  font-weight: 800;
 }
 
-.rate-price { font-weight: 900; display: block; }
+.rate-price {
+  font-weight: 800;
+  display: block;
+}
 
 .rate-capacity {
   font-size: 0.8rem;
-  color: #374151;
+  color: #6b7280;
   display: block;
   margin-top: 0.1rem;
-  font-weight: 700;
+  font-weight: 650;
 }
 
 .btn-price {
@@ -663,16 +546,31 @@ select:focus {
   color: #0b1120;
   font-size: 0.78rem;
   text-decoration: none;
-  font-weight: 900;
+  font-weight: 800;
   white-space: nowrap;
-  text-shadow: none;
 }
 
-.btn-price:hover { opacity: 0.9; }
+.btn-price:hover {
+  opacity: 0.9;
+}
 
-/* =========================================
-   LINK PILLS
-========================================= */
+.rates-subheading {
+  margin-top: 1.75rem;
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: var(--textShadow);
+}
+
+.rates-note {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #ffffff;
+  font-weight: 650;
+  text-shadow: var(--textShadow);
+}
+
+/* Link pills */
 .link-row {
   margin-top: 1.2rem;
   display: flex;
@@ -688,25 +586,26 @@ select:focus {
   font-size: 0.9rem;
   text-decoration: none;
   color: #1d4ed8;
-  font-weight: 900;
-  text-shadow: none;
+  font-weight: 800;
 }
 
-.link-pill:hover { background: #dbeafe; }
+.link-pill:hover {
+  background: #dbeafe;
+}
 
-/* =========================================
-   FOOTER + SOCIAL ICONS
-========================================= */
+/* Footer and social icons */
 footer {
   padding: 2rem 5vw 2.5rem;
   text-align: center;
   font-size: 0.9rem;
   color: #e5e7eb;
-  font-weight: 800;
+  font-weight: 650;
   text-shadow: var(--textShadow);
 }
 
-footer a { color: inherit; }
+footer a {
+  color: inherit;
+}
 
 .social-links {
   display: flex;
@@ -729,16 +628,25 @@ footer a { color: inherit; }
   object-fit: contain;
 }
 
-/* =========================================
-   MOBILE FIXES
-========================================= */
+footer img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+/* =========================
+   MOBILE FIXES (PHONE)
+   ========================= */
 @media (max-width: 800px) {
+  /* iPhone/Safari: fixed background can look messy */
   body {
     background-attachment: scroll;
     background-position: center top;
   }
 
-  header { padding: 0.6rem 5vw; }
+  header {
+    padding: 0.6rem 5vw;
+  }
 
   .nav {
     flex-direction: column;
@@ -746,10 +654,17 @@ footer a { color: inherit; }
     gap: 0.5rem;
   }
 
-  nav { gap: 0.55rem; }
-  nav a { font-size: 0.9rem; }
+  nav {
+    gap: 0.55rem;
+  }
 
-  main { padding-top: 1.25rem; }
+  nav a {
+    font-size: 0.9rem;
+  }
+
+  main {
+    padding-top: 1.25rem;
+  }
 
   .hero,
   .contact-wrapper,
@@ -758,13 +673,23 @@ footer a { color: inherit; }
     grid-template-columns: 1fr;
   }
 
+  /* Mobile hero spacing */
   .hero {
     padding: 1.25rem 0 1.25rem;
     gap: 1.25rem;
   }
 
+  /* MOBILE: Put a clean “glass” behind hero text only */
+  .hero > :first-child {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 1.25rem;
+    padding: 1.1rem 1rem;
+  }
+
   .hero h1 {
-    font-size: 2.05rem;
+    font-size: 2.15rem;
     line-height: 1.05;
     margin-bottom: 0.65rem;
   }
@@ -780,7 +705,9 @@ footer a { color: inherit; }
     max-width: 100%;
   }
 
-  .btn-row { gap: 0.6rem; }
+  .btn-row {
+    gap: 0.6rem;
+  }
 
   .btn-primary,
   .btn-secondary {
@@ -793,5 +720,7 @@ footer a { color: inherit; }
     text-align: center;
   }
 
-  .top-bar-right { justify-content: center; }
+  .top-bar-right {
+    justify-content: center;
+  }
 }
