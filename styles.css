@@ -277,7 +277,8 @@ main > div + section {
     gap: 2.25rem;
   }
   .hero > :first-child {
-    max-width: 760px;
+    max-width: none;
+    width: 100%;
   }
 }
 
