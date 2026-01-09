@@ -759,7 +759,7 @@ footer img {
 }
 
 /* Make the left hero text section wider on desktop */
-@media (min-width: 900px) {
+@media (min-width: 1200px) {
   .hero {
     grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.85fr);
     gap: 2.25rem;
