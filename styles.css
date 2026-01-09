@@ -248,8 +248,8 @@ main > div {
 
 /* Optional: line up non-hero sections visually with the hero panel */
 main > section:not(.hero) {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 /* spacing between sections */
@@ -269,11 +269,29 @@ main > div + section {
   gap: 2.5rem;
   align-items: center;
   padding: 3rem 0 2rem;
+
+  /* hero should not inherit the general section box */
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+
+  position: relative;
+  z-index: 0;
+}
+
+/* ✅ FULL-WIDTH glass container behind hero so it aligns with rest of page */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--glassBg);
+  border: 1px solid var(--glassBorder);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: -1;
 }
 
 /* ✅ Make hero text section wider on desktop */
@@ -282,20 +300,21 @@ main > div + section {
     grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.85fr);
     gap: 2.25rem;
   }
+
   .hero > :first-child {
     max-width: none;
     width: 100%;
   }
 }
 
-/* Readability panel behind hero text */
+/* Lighter readability panel behind hero text (since hero now has full-width glass) */
 .hero > :first-child {
-  background: rgba(0, 0, 0, 0.42);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 1.25rem;
-  padding: 1.25rem 1.25rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 1.1rem;
+  padding: 1.1rem 1.1rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .hero h1 {
@@ -714,15 +733,12 @@ footer a { color: inherit; }
    MOBILE FIXES
 ========================================= */
 @media (max-width: 800px) {
-  /* iPhone/Safari: fixed background can look messy */
   body {
     background-attachment: scroll;
     background-position: center top;
   }
 
-  header {
-    padding: 0.6rem 5vw;
-  }
+  header { padding: 0.6rem 5vw; }
 
   .nav {
     flex-direction: column;
@@ -742,7 +758,6 @@ footer a { color: inherit; }
     grid-template-columns: 1fr;
   }
 
-  /* Mobile hero spacing */
   .hero {
     padding: 1.25rem 0 1.25rem;
     gap: 1.25rem;
