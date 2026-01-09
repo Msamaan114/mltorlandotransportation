@@ -12,8 +12,9 @@ img {
   height: auto;
 }
 
+/* Stronger text shadow for readability */
 :root{
-  --textShadow: 0 3px 18px rgba(0,0,0,0.65);
+  --textShadow: 0 4px 22px rgba(0,0,0,0.85);
 }
 
 /* ===== FULL PAGE BACKGROUND IMAGE ===== */
@@ -25,12 +26,12 @@ body {
   line-height: 1.6;
 }
 
-/* Dark overlay so text is readable */
+/* Dark overlay so text is readable (slightly darker now) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.68);
   pointer-events: none;
   z-index: -1;
 }
@@ -67,7 +68,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 900; }
 .top-bar a {
   color: #38bdf8;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .top-bar a:hover {
@@ -122,7 +123,7 @@ header {
 }
 
 .logo {
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.05em;
   font-size: 1rem;
   text-transform: uppercase;
@@ -139,7 +140,7 @@ nav a {
   color: #e5e7eb;
   text-decoration: none;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 nav a:hover {
@@ -161,7 +162,7 @@ nav a:hover {
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 800;
   text-decoration: none;
   font-size: 0.95rem;
   text-align: center;
@@ -174,9 +175,9 @@ nav a:hover {
 }
 
 .btn-secondary {
-  background: rgba(255,255,255,0.08);
-  color: #e5e7eb;
-  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.10);
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.24);
 }
 
 .btn-primary:hover,
@@ -204,29 +205,40 @@ main {
   padding: 3rem 0 2rem;
 }
 
+/* Readability panel behind hero text (desktop + mobile) */
+.hero > :first-child {
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.25rem;
+}
+
 .hero h1 {
   font-size: clamp(2.35rem, 4.2vw, 3.25rem);
   margin-bottom: 0.75rem;
-  color: #f9fafb;
-  font-weight: 900;              /* BOLDER for desktop */
+  color: #ffffff;
+  font-weight: 900;
   letter-spacing: -0.02em;
   text-shadow: var(--textShadow);
 }
 
 .hero-tagline {
   font-size: 1.05rem;
-  font-weight: 800;              /* BOLDER */
-  color: #f3f4f6;
+  font-weight: 900;
+  color: #ffffff;
   margin-bottom: 1rem;
   text-shadow: var(--textShadow);
 }
 
 .hero p {
-  color: #f3f4f6;
+  color: #ffffff;
   margin-bottom: 1rem;
-  font-weight: 600;              /* BOLDER */
+  font-weight: 750;
   text-shadow: var(--textShadow);
   max-width: 62ch;
+  font-size: 1.02rem;
 }
 
 .hero-highlight {
@@ -236,7 +248,7 @@ main {
   padding: 0.25rem 0.8rem;
   border-radius: 999px;
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 0.75rem;
@@ -245,8 +257,8 @@ main {
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
 }
 
 .hero-stat {
@@ -255,24 +267,24 @@ main {
 
 .hero-stat strong {
   display: block;
-  font-size: 1.2rem;
-  color: #f9fafb;
+  font-size: 1.15rem;
+  color: #ffffff;
   font-weight: 900;
   text-shadow: var(--textShadow);
 }
 
 .hero-stat span {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: #e5e7eb;
-  font-weight: 700;
+  font-weight: 800;
   text-shadow: var(--textShadow);
 }
 
 .hero-note {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: #e5e7eb;
   margin-top: 0.5rem;
-  font-weight: 650;
+  font-weight: 800;
   text-shadow: var(--textShadow);
 }
 
@@ -297,7 +309,7 @@ main {
 .hero-card h2 {
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .hero-card-row {
@@ -319,7 +331,7 @@ main {
   font-size: 0.7rem;
   background: rgba(56, 189, 248, 0.15);
   color: #bfdbfe;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 /* Generic section styles */
@@ -330,16 +342,16 @@ section {
 section h2 {
   font-size: 1.6rem;
   margin-bottom: 0.5rem;
-  color: #f9fafb;
+  color: #ffffff;
   font-weight: 900;
   text-shadow: var(--textShadow);
 }
 
 section p.section-intro {
-  color: #f3f4f6;
+  color: #ffffff;
   margin-bottom: 1.5rem;
   max-width: 600px;
-  font-weight: 650;
+  font-weight: 750;
   text-shadow: var(--textShadow);
 }
 
@@ -362,13 +374,13 @@ section p.section-intro {
 .card h3 {
   font-size: 1.05rem;
   margin-bottom: 0.4rem;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .card p {
   font-size: 0.92rem;
-  color: #4b5563;
-  font-weight: 600;
+  color: #111827;
+  font-weight: 700;
 }
 
 .badge {
@@ -377,8 +389,8 @@ section p.section-intro {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 0.4rem;
-  color: #6b7280;
-  font-weight: 800;
+  color: #111827;
+  font-weight: 900;
 }
 
 /* Feature image sections */
@@ -409,7 +421,7 @@ section p.section-intro {
 .feature-text {
   font-size: 0.98rem;
   color: #ffffff;
-  font-weight: 650;
+  font-weight: 750;
   text-shadow: var(--textShadow);
 }
 
@@ -430,7 +442,7 @@ section p.section-intro {
   color: #ffffff;
   padding-left: 1.1rem;
   position: relative;
-  font-weight: 650;
+  font-weight: 750;
   text-shadow: var(--textShadow);
 }
 
@@ -464,7 +476,7 @@ label {
   display: block;
   font-size: 0.9rem;
   margin-bottom: 0.25rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 input,
@@ -476,6 +488,7 @@ select {
   border: 1px solid #d1d5db;
   margin-bottom: 0.8rem;
   font-size: 0.9rem;
+  font-weight: 700;
 }
 
 textarea {
@@ -494,7 +507,7 @@ select:focus {
 .contact-details {
   font-size: 0.95rem;
   color: #ffffff;
-  font-weight: 650;
+  font-weight: 750;
   text-shadow: var(--textShadow);
 }
 
@@ -503,7 +516,7 @@ select:focus {
 }
 
 .contact-label {
-  font-weight: 800;
+  font-weight: 900;
 }
 
 /* Rates table */
@@ -523,24 +536,25 @@ select:focus {
   border-bottom: 1px solid #e5e7eb;
   text-align: left;
   vertical-align: top;
+  font-weight: 700;
 }
 
 .rates-table th {
   background: #f3f4f6;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .rate-price {
-  font-weight: 800;
+  font-weight: 900;
   display: block;
 }
 
 .rate-capacity {
   font-size: 0.8rem;
-  color: #6b7280;
+  color: #111827;
   display: block;
   margin-top: 0.1rem;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 .btn-price {
@@ -553,7 +567,7 @@ select:focus {
   color: #0b1120;
   font-size: 0.78rem;
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 900;
   white-space: nowrap;
 }
 
@@ -573,7 +587,7 @@ select:focus {
   margin-top: 0.75rem;
   font-size: 0.9rem;
   color: #ffffff;
-  font-weight: 650;
+  font-weight: 750;
   text-shadow: var(--textShadow);
 }
 
@@ -593,7 +607,7 @@ select:focus {
   font-size: 0.9rem;
   text-decoration: none;
   color: #1d4ed8;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .link-pill:hover {
@@ -606,7 +620,7 @@ footer {
   text-align: center;
   font-size: 0.9rem;
   color: #e5e7eb;
-  font-weight: 650;
+  font-weight: 750;
   text-shadow: var(--textShadow);
 }
 
@@ -686,17 +700,8 @@ footer img {
     gap: 1.25rem;
   }
 
-  /* MOBILE: Put a clean “glass” behind hero text only */
-  .hero > :first-child {
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 1.25rem;
-    padding: 1.1rem 1rem;
-  }
-
   .hero h1 {
-    font-size: 2.15rem;
+    font-size: 2.05rem;
     line-height: 1.05;
     margin-bottom: 0.65rem;
   }
