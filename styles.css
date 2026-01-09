@@ -757,3 +757,17 @@ footer img {
 
   .top-bar-right { justify-content: center; }
 }
+
+/* Make the left hero text section wider on desktop */
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.85fr);
+    gap: 2.25rem;
+  }
+
+  /* optional: let the panel expand more */
+  .hero > :first-child {
+    max-width: 720px;   /* increase/decrease as you like */
+  }
+}
+
