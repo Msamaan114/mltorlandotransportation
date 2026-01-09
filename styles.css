@@ -246,6 +246,12 @@ main > div {
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* Optional: line up non-hero sections visually with the hero panel */
+main > section:not(.hero) {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 /* spacing between sections */
 main > section:not(.hero) + section:not(.hero),
 main > div + div,
