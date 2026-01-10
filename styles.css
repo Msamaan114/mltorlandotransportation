@@ -269,14 +269,14 @@ main {
   text-shadow: var(--textShadow);
 }
 
-/* UPDATED: Hero photo size + crop position for the new jet/SUV image */
+/* UPDATED: More jet (focus left) */
 .hero-photo {
   width: 100%;
   border-radius: 1.25rem;
   box-shadow: 0 18px 35px rgba(15, 23, 42, 0.55);
   object-fit: cover;
-  object-position: 50% 60%; /* keeps the SUV + jet centered */
-  height: 320px;           /* bigger on desktop */
+  object-position: 30% 55%; /* <-- more jet */
+  height: 320px;
   margin-bottom: 1rem;
   display: block;
 }
@@ -727,9 +727,9 @@ footer img {
     justify-content: center;
   }
 
-  /* UPDATED: Mobile hero image height */
+  /* UPDATED: Mobile hero image (more jet) */
   .hero-photo {
     height: 240px;
-    object-position: 50% 60%;
+    object-position: 30% 55%;
   }
 }
